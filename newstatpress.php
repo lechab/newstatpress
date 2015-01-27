@@ -18,7 +18,7 @@ $newstatpress_dir = WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__));
 //include stylesheet =>  TO NEED to use your function for old version of WP
 //add function to register only on the admin option
 // to need to put on css directory
-wp_enqueue_style('styles', plugins_url('newstatpress-style.css', __FILE__));
+wp_enqueue_style('styles', plugins_url('./css/style.css', __FILE__));
 
 
 
@@ -167,9 +167,9 @@ function iriNewStatPressRemove() {
 
 // add by chab
 function print_option($option_title,$option_var,$var) {
-  echo "<tr><td class='left'>";
-  echo $option_title;
-  echo "</td><td><select name=$option_var>\n";
+
+  echo "<tr>\n<td>$option_title</td>\n";
+  echo "<td><select name=$option_var>\n";
   foreach($var as list($i, $j))
   {
     echo "<option value=$i";
@@ -178,8 +178,7 @@ function print_option($option_title,$option_var,$var) {
     }
     echo ">". $i;
     if ($j !=  '') {
-      echo " ";
-      echo($j);
+      echo " $j";
     }
     echo "</option>\n";
   }
@@ -187,13 +186,17 @@ function print_option($option_title,$option_var,$var) {
 }
 
 // add by chab
-function print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength){
-  echo "<tr><td><label for=$option_var>";
-  echo $option_title;
+function print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength) {
+  echo "<tr><td><label for=$option_var> $option_title";
   echo "</label></td>\n";
   echo "<td><input class='right' type='text' name=$option_var value=";
   echo (get_option($option_var)=='') ? $input_default:get_option($option_var);
   echo " size=$input_size maxlength=$input_maxlength />\n</td></tr>";
+}
+
+// add by chab
+function print_checked($option_title,$option_var) {
+  echo "<tr><td><input type=checkbox name='$option_var' value='checked' ".get_option($option_var)."> $option_title</td></tr>";
 }
 
 /**
@@ -256,72 +259,91 @@ function iriNewStatPressOptions() {
           if ($install_result !='') {
             print "<br /><div class='updated'><p>".__($install_result,'newstatpress')."!</p></div>";
           }
-          _e('To download and to install the IP2nation database, just click on the button','newstatpress');
+          _e('To download and to install the IP2nation database, just click on the button.','newstatpress');
           ?>
+          <br /><br />
           <form method=post>
             <input type=hidden name=page value=newstatpress>
             <input type=hidden name=download value=yes>
             <input type=hidden name=newstatpress_action value=ip2nation>
-            <button type=submit><?php _e('Import','newstatpress'); ?></button>
+            <button class='button button-primary' type=submit><?php _e('Import','newstatpress'); ?></button>
           </form>
         </div>
 
-      <form method=post>
+        <form method=post>
+
+        <!-- General option -->
         <h3><?php _e('General option','newstatpress'); ?></h3>
         <table class='table-option'>
-      <?php
-        print "<tr><td><input type=checkbox name='newstatpress_collectloggeduser' value='checked' ".get_option('newstatpress_collectloggeduser')."> ".__('Collect data about logged users, too.','newstatpress')."</td></tr>";
-        print "<tr><td><input type=checkbox name='newstatpress_donotcollectspider' value='checked' ".get_option('newstatpress_donotcollectspider')."> ".__('Do not collect spiders visits','newstatpress')."</td></tr>";
-        print "<tr><td><input type=checkbox name='newstatpress_cryptip' value='checked' ".get_option('newstatpress_cryptip')."> ".__('Crypt IP addresses','newstatpress')."</td></tr>";
-        print "<tr><td><input type=checkbox name='newstatpress_dashboard' value='checked' ".get_option('newstatpress_dashboard')."> ".__('Show NewStatPress dashboard widget','newstatpress')."</td></tr>";
+          <?php
 
-        $option_title=_e('Elements in Overview (default 10)','newstatpress');
-        $option_var='newstatpress_el_overwiew';
-        $input_default='10';
-        $input_size='3';
-        $input_maxlength='3';
-        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+          $option_title=__('Collect data about logged users, too.','newstatpress');
+          $option_var='newstatpress_collectloggeduser';
+          print_checked($option_title,$option_var);
 
-        $val= array([20,''],[50,''],[100,'']);
-        $option_title=_e('Visitors by Spy: number of IP per page','newstatpress');
-        $option_var='newstatpress_ip_per_page_newspy';
-        print_option($option_title,$option_var,$val);
+          $option_title=__('Do not collect spiders visits','newstatpress');
+          $option_var='newstatpress_donotcollectspider';
+          print_checked($option_title,$option_var);
 
-        $option_title=_e('Visitors by Spy: number of visits for IP','newstatpress');
-        $option_var='newstatpress_visits_per_ip_newspy';
-        print_option($option_title,$option_var,$val);
+          $option_title=__('Crypt IP addresses','newstatpress');
+          $option_var='newstatpress_cryptip';
+          print_checked($option_title,$option_var);
 
-        $option_title=_e('Spy Bot: number of bot per page','newstatpress');
-        $option_var='newstatpress_bot_per_page_spybot';
-        print_option($option_title,$option_var,$val);
+          $option_title=__('Show NewStatPress dashboard widget','newstatpress');
+          $option_var='newstatpress_dashboard';
+          print_checked($option_title,$option_var);
 
-        $option_title=_e('Spy Bot: number of bot for IP','newstatpress');
-        $option_var='newstatpress_visits_per_bot_spybot';
-        print_option($option_title,$option_var,$val);
+          $input_default='10';
+          $input_size='3';
+          $input_maxlength='3';
+          $option_title=__('Elements in Overview (default 10)','newstatpress');
+          $option_var='newstatpress_el_overwiew';
+          print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-        $val= array(['', _e('Never','newstatpress')], [1, _e('month','newstatpress')], [3, _e('months','newstatpress')], [6, _e('months','newstatpress')], [12, _e('months','newstatpress')]);
-        $option_title=_e('Automatically delete visits older than','newstatpress');
-        $option_var='newstatpress_autodelete';
-        print_option($option_title,$option_var,$val);
+          $val= array([20,''],[50,''],[100,'']);
+          $option_title=__('Visitors by Spy: number of IP per page','newstatpress');
+          $option_var='newstatpress_ip_per_page_newspy';
+          print_option($option_title,$option_var,$val);
 
-        $option_title=_e('Automatically delete only spiders visits older than','newstatpress');
-        $option_var='newstatpress_autodelete_spiders';
-        print_option($option_title,$option_var,$val);
+          $option_title=__('Visitors by Spy: number of visits for IP','newstatpress');
+          $option_var='newstatpress_visits_per_ip_newspy';
+          print_option($option_title,$option_var,$val);
 
-        $val= array([7,''],[10,''],[20,''],[30,''],[50,'']);
-        $option_title=_e('Days in Overview graph','newstatpress');
-        $option_var='newstatpress_daysinoverviewgraph';
-        print_option($option_title,$option_var,$val);
+          $option_title=__('Spy Bot: number of bot per page','newstatpress');
+          $option_var='newstatpress_bot_per_page_spybot';
+          print_option($option_title,$option_var,$val);
 
-        ?>
-      <tr><td><?php _e('Minimum capability to view stats','newstatpress'); ?> (<a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank"><?php _e("more info",'newstatpress'); ?></a>)</td>
-      <td><select name="newstatpress_mincap">
-         <?php iri_dropdown_caps(get_option('newstatpress_mincap')); ?>
-        </select>
-      </td></tr>
-      </table>
+          $option_title=__('Spy Bot: number of bot for IP','newstatpress');
+          $option_var='newstatpress_visits_per_bot_spybot';
+          print_option($option_title,$option_var,$val);
 
+          $val= array(['', __('Never','newstatpress')],
+          [1, __('month','newstatpress')],
+          [3, __('months','newstatpress')],
+          [6, __('months','newstatpress')],
+          [12, __('months','newstatpress')]);
+          $option_title=__('Automatically delete visits older than','newstatpress');
+          $option_var='newstatpress_autodelete';
+          print_option($option_title,$option_var,$val);
 
+          $option_title=__('Automatically delete only spiders visits older than','newstatpress');
+          $option_var='newstatpress_autodelete_spiders';
+          print_option($option_title,$option_var,$val);
+
+          $val= array([7,''],[10,''],[20,''],[30,''],[50,'']);
+          $option_title=__('Days in Overview graph','newstatpress');
+          $option_var='newstatpress_daysinoverviewgraph';
+          print_option($option_title,$option_var,$val);
+
+          ?>
+          <tr><td><?php _e('Minimum capability to view stats','newstatpress'); ?> (<a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank"><?php _e("more info",'newstatpress'); ?></a>)</td>
+            <td><select name="newstatpress_mincap">
+              <?php iri_dropdown_caps(get_option('newstatpress_mincap')); ?>
+            </select>
+          </td></tr>
+        </table>
+
+      <!-- Parameters to ignore -->
       <h3><?php _e('Parameters to ignore','newstatpress') ?></h3>
       <table class="option2">
 
@@ -350,6 +372,7 @@ function iriNewStatPressOptions() {
         </td></tr>
       </table>
 
+      <!-- Details Options -->
       <h3><label for="newstatpress_details_options"><?php _e('Details options','newstatpress') ?></label></h3>
       <table>
        <?php
@@ -357,69 +380,69 @@ function iriNewStatPressOptions() {
        $input_size='2';
        $input_maxlength='3';
 
-       $option_title=_e('Elements in Top days (default 5)','newstatpress');
+       $option_title=__('Elements in Top days (default 5)','newstatpress');
        $option_var='newstatpress_el_top_days';
        $input_default='5';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in O.S. (default 10)','newstatpress');
+       $option_title=__('Elements in O.S. (default 10)','newstatpress');
        $option_var='newstatpress_el_os';
        $input_default='10';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Browser (default 10)','newstatpress');
+       $option_title=__('Elements in Browser (default 10)','newstatpress');
        $option_var='newstatpress_el_browser';
        $input_default='10';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Feed (default 5)','newstatpress');
+       $option_title=__('Elements in Feed (default 5)','newstatpress');
        $option_var='newstatpress_el_feed';
        $input_default='5';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Search Engines (default 10)','newstatpress');
+       $option_title=__('Elements in Search Engines (default 10)','newstatpress');
        $option_var='newstatpress_el_searchengine';
        $input_default='10';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Top Search Terms (default 20)','newstatpress');
+       $option_title=__('Elements in Top Search Terms (default 20)','newstatpress');
        $option_var='newstatpress_el_search';
        $input_default='20';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Top Refferer (default 10)','newstatpress');
+       $option_title=__('Elements in Top Refferer (default 10)','newstatpress');
        $option_var='newstatpress_el_referrer';
        $input_default='10';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Countries/Languages (default 20)','newstatpress');
+       $option_title=__('Elements in Countries/Languages (default 20)','newstatpress');
        $option_var='newstatpress_el_languages';
        $input_default='20';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Spiders (default 10)','newstatpress');
+       $option_title=__('Elements in Spiders (default 10)','newstatpress');
        $option_var='newstatpress_el_spiders';
        $input_default='10';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Top Pages (default 5)','newstatpress');
+       $option_title=__('Elements in Top Pages (default 5)','newstatpress');
        $option_var='newstatpress_el_pages';
        $input_default='5';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Top Days - Unique visitors (default 5)','newstatpress');
+       $option_title=__('Elements in Top Days - Unique visitors (default 5)','newstatpress');
        $option_var='newstatpress_el_visitors';
        $input_default='5';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Top Days - Pageviews (default 5)','newstatpress');
+       $option_title=__('Elements in Top Days - Pageviews (default 5)','newstatpress');
        $option_var='newstatpress_el_daypages';
        $input_default='5';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=_e('Elements in Top IPs - Pageviews (default 5)','newstatpress');
        $option_var='newstatpress_el_ippages';
        $input_default='5';
+       $option_title= sprintf(__('Elements in Top IPs - Pageviews (default %d)', 'newstatpress'), $input_default);
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
        ?>
@@ -427,26 +450,26 @@ function iriNewStatPressOptions() {
 
       <h3><?php _e('Database update option','newstatpress'); ?></h3>
       <table>
-        <p> <?php _e("Select the interval of date from today you want to use for updating your database with new definitions. <br />More it is big and more times and resources it require. You can choose to not update some fields if you want.",'newstatpress') ?>
+        <p  class='table-databaseupdate'> <?php _e("Select the interval of date from today you want to use for updating your database with new definitions. More it is big and more times and resources it require. You can choose to not update some fields if you want.",'newstatpress') ?>
        </p>
 
        <?php
-       $val= array (['', _e('All','newstatpress')], 
-                    [1, _e('week','newstatpress')], 
-                    [2, _e('weeks','newstatpress')], 
-                    [3, _e('weeks','newstatpress')], 
-                    [1, _e('month','newstatpress')],
-                    [2, _e('months','newstatpress')],
-                    [3, _e('months','newstatpress')],
-                    [6, _e('months','newstatpress')],
-                    [9, _e('months','newstatpress')],
-                    [12, _e('months','newstatpress')]);
-       $option_title=_e('Update data in the given period','newstatpress');
+       $val= array (['', __('All','newstatpress')],
+                    [1, __('week','newstatpress')],
+                    [2, __('weeks','newstatpress')],
+                    [3, __('weeks','newstatpress')],
+                    [1, __('month','newstatpress')],
+                    [2, __('months','newstatpress')],
+                    [3, __('months','newstatpress')],
+                    [6, __('months','newstatpress')],
+                    [9, __('months','newstatpress')],
+                    [12, __('months','newstatpress')]);
+       $option_title=__('Update data in the given period','newstatpress');
        $option_var='newstatpress_updateint';
        print_option($option_title,$option_var,$val);
        ?>
 
-      <tr><td><br><input type=submit value="<?php _e('Save options','newstatpress'); ?>"></td></tr>
+      <tr><td><br><input class='button button-primary' type=submit value="<?php _e('Save options','newstatpress'); ?>"></td></tr>
       </table>
         <input type=hidden name=saveit value=yes>
         <input type=hidden name=page value=newstatpress><input type=hidden name=newstatpress_action value=options>
@@ -496,12 +519,12 @@ function iriNewStatPressCredits() {
   ];
   echo "<div class='wrap'><h2>"; _e('Credits','newstatpress'); echo "</h2>";
   echo "<br /><table id='credit'>\n";
-  echo "<thead>\n<tr><th>"; _e('Contributor','newstatpress'); echo "</th>\n<th class='cell-header'>"; _e('Description','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
+  echo "<thead>\n<tr><th class='cell-l'>"; _e('Contributor','newstatpress'); echo "</th>\n<th class='cell-r'>"; _e('Description','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
   foreach($contributors as list($name, $contribution))
   {
     echo "<tr>\n";
-    echo "<td class='cell1'>$name</td>\n";
-    echo "<td class='cell'>$contribution</td>\n";
+    echo "<td class='cell-l'>$name</td>\n";
+    echo "<td class='cell-r'>$contribution</td>\n";
     echo "</tr>\n";
   };
   echo "<tbody></table></div>";
@@ -2492,22 +2515,22 @@ function iri_NewStatPress_Vars($body) {
   # look for %alltotalvisits%
   if(strpos(strtolower($body),"%alltotalvisits%") !== FALSE) {
     $qry = $wpdb->get_results(
-      //"SELECT SUM(pageview) AS pageview 
+      //"SELECT SUM(pageview) AS pageview
       // FROM (
-      //   SELECT count(DISTINCT(ip)) AS pageview 
-      //   FROM $table_name AS t1 
-      //   WHERE 
-      //     spider='' AND 
-      //     feed='' AND 
-      //     urlrequested!='' 
+      //   SELECT count(DISTINCT(ip)) AS pageview
+      //   FROM $table_name AS t1
+      //   WHERE
+      //     spider='' AND
+      //     feed='' AND
+      //     urlrequested!=''
       //   GROUP BY urlrequested
       // ) AS t2;
       //");
-      "SELECT count(distinct urlrequested, ip) AS pageview 
+      "SELECT count(distinct urlrequested, ip) AS pageview
        FROM $table_name AS t1
-       WHERE 
-         spider='' AND 
-         feed='' AND 
+       WHERE
+         spider='' AND
+         feed='' AND
          urlrequested!='';
       ");
     $body = str_replace("%alltotalvisits%", $qry[0]->pageview, $body);
