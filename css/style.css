@@ -83,8 +83,9 @@ $spider_color="#83b4d8";
 
 
 
-
+/*----------------------------------*/
 /*Generate HTML for option menu in Wordpress*/
+/*----------------------------------*/
 #settings h3 {
   margin-top: 40px;
 }
@@ -109,27 +110,22 @@ $spider_color="#83b4d8";
   width: 60%;
 }
 
-
+/*----------------------------------*/
 /* crédit  */
+/*----------------------------------*/
 #credit table {
   border-top: 2px solid;
 }
 
 #credit thead {
-  /*border-top: 12px solid red;*/
   text-align: left;
   vertical-align: center;
   background: #dedede;
-  /*padding-top: 3px;*/
 }
 #credit th {
   align: left;
   font-size: 16px;
   padding: 3px 0 3px 0;
-}
-
-#credit .cell-header{
-  padding-left: 15px;
 }
 
 #credit tbody {

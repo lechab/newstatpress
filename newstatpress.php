@@ -151,15 +151,20 @@ function iriNewStatPressRemove() {
     print "<br /><div class='remove'><p>".__('All data removed','newstatpress')."!</p></div>";
   }  else {
       ?>
-      <div class='wrap'><h2><?php _e('Remove','newstatpress'); ?></h2>
-      <form method=post>
-      <?php _e("Warning: pressing the below button will make all your stored data to be erased!","newstatpress")?><br>
-      <?php _e("It is added for the people that did not want to use the plugin anymore and so they want to remove the stored data.","newstatpress")?><br>
-      <?php _e("If you are in doubt about this function, don't use it.","newstatpress")?><br><br>
-      <input type=submit value="<?php _e('Remove','newstatpress'); ?>" onclick="return confirm('<?php _e('Are you sure?','newstatpress'); ?>');" >
-      <input type=hidden name=removeit value=yes>
-      </form>
-      </div>
+        <div class='wrap'><h2><?php _e('Remove','newstatpress'); ?></h2>
+        <form method=post>
+        <?php
+        _e("Warning: pressing the below button will make all your stored data to be erased!","newstatpress");
+        echo "<br />";
+        _e("It is added for the people that did not want to use the plugin anymore and so they want to remove the stored data.","newstatpress");
+        echo "<br />";
+        _e("If you are in doubt about this function, don't use it.","newstatpress");
+        ?>
+        <br /><br />
+        <input class='button button-primary' type=submit value="<?php _e('Remove','newstatpress'); ?>" onclick="return confirm('<?php _e('Are you sure?','newstatpress'); ?>');" >
+        <input type=hidden name=removeit value=yes>
+        </form>
+        </div>
       <?php
   }
 }
@@ -191,12 +196,22 @@ function print_input($option_title,$option_var,$input_default,$input_size,$input
   echo "</label></td>\n";
   echo "<td><input class='right' type='text' name=$option_var value=";
   echo (get_option($option_var)=='') ? $input_default:get_option($option_var);
-  echo " size=$input_size maxlength=$input_maxlength />\n</td></tr>";
+  echo " size=$input_size maxlength=$input_maxlength />\n</td></tr>\n";
 }
 
 // add by chab
 function print_checked($option_title,$option_var) {
-  echo "<tr><td><input type=checkbox name='$option_var' value='checked' ".get_option($option_var)."> $option_title</td></tr>";
+  echo "<tr><td><input type=checkbox name='$option_var' value='checked' ".get_option($option_var)."> $option_title</td></tr>\n";
+}
+
+// add by chab
+function print_textaera($option_title,$option_var,$option_description) {
+  echo "<tr><td>\n<h4><label for=$option_var>$option_title</label></h4>\n";
+  echo "<p>$option_description</p>\n";
+  echo "<p><textarea class='large-text code' cols='40' rows='2' name=$option_var id=$option_var>";
+  echo implode(',', get_option($option_var,array()));
+  echo "</textarea></p>\n";
+  echo "</td></tr>\n";
 }
 
 /**
@@ -346,30 +361,25 @@ function iriNewStatPressOptions() {
       <!-- Parameters to ignore -->
       <h3><?php _e('Parameters to ignore','newstatpress') ?></h3>
       <table class="option2">
+        <?php
 
-      <tr><td>
-        <h4><label for="newstatpress_ignore_users"><?php _e('Logged users to ignore','newstatpress') ?></label></h4>
-        <p><?php _e("Enter a list of users you don't want to track, separated by commas, even if collect data about logged users is on",'newstatpress') ?></p>
-        <p><textarea class="large-text code" cols="40" rows="2" name="newstatpress_ignore_users" id="newstatpress_ignore_users">
-              <?php echo implode(',', get_option('newstatpress_ignore_users',array())) ?>
-            </textarea></p>
-        </td></tr>
+        $option_title=__('Logged users to ignore','newstatpress');
+        $option_var='newstatpress_ignore_users';
+        $option_description=__('Enter a list of users you don\'t want to track, separated by commas, even if collect data about logged users is on','newstatpress');
+        print_textaera ($option_title,$option_var,$option_description);
 
-      <tr><td>
-        <h4><label for="newstatpress_ignore_ip"><?php _e('IP addresses to ignore','newstatpress') ?></label></h4>
-        <p><?php _e("Enter a list of networks you don't want to track, separated by commas. Each network <strong>must</strong> be defined using the CIDR notation (i.e. <em>192.168.1.1/24</em>). <br />If the format is incorrect, NewStatPress may not track pageviews properly.",'newstatpress') ?></p>
-        <p><textarea class="large-text code" cols="40" rows="2"name="newstatpress_ignore_ip" id="newstatpress_ignore_ip">
-              <?php echo implode(',', get_option('newstatpress_ignore_ip',array())) ?>
-            </textarea></p>
-        </td></tr>
 
-      <tr><td>
-        <h4><label for="newstatpress_ignore_permalink"><?php _e('Pages and posts to ignore','newstatpress') ?></label></h4>
-        <p><?php _e("Enter a list of permalinks you don't want to track, separated by commas. You should omit the domain name from these resources: <em>/about, p=1</em>, etc. <br />NewStatPress will ignore all the pageviews whose permalink <strong>contains</strong> at least one of them.",'newstatpress') ?></p>
-        <p><textarea class="large-text code" cols="40" rows="2" name="newstatpress_ignore_permalink" id="newstatpress_ignore_permalink">
-              <?php echo implode(',', get_option('newstatpress_ignore_permalink',array())) ?>
-            </textarea></p>
-        </td></tr>
+        $option_title=__('IP addresses to ignore','newstatpress');
+        $option_var='newstatpress_ignore_ip';
+        $option_description=__('Enter a list of networks you don\'t want to track, separated by commas. Each network <strong>must</strong> be defined using the CIDR notation (i.e. <em>192.168.1.1/24</em>). <br />If the format is incorrect, NewStatPress may not track pageviews properly.','newstatpress');
+        print_textaera ($option_title,$option_var,$option_description);
+
+        $option_title=__('Pages and posts to ignore','newstatpress');
+        $option_var='newstatpress_ignore_permalink';
+        $option_description=__('Enter a list of permalinks you don\'t want to track, separated by commas. You should omit the domain name from these resources: <em>/about, p=1</em>, etc. <br />NewStatPress will ignore all the pageviews whose permalink <strong>contains</strong> at least one of them.','newstatpress');
+        print_textaera ($option_title,$option_var,$option_description);
+
+        ?>
       </table>
 
       <!-- Details Options -->
