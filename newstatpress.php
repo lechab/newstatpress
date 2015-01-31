@@ -499,14 +499,33 @@ function iri_dropdown_caps( $default = false ) {
 
 function iriNewStatPressExport() {
 ?>
+<!--TODO chab, check if the input format is ok  -->
 	<div class='wrap'><h2><?php _e('Export stats to text file','newstatpress'); ?> (csv)</h2>
-	<form method=get><table>
-	<tr><td><?php _e('From','newstatpress'); ?></td><td><input type=text name=from><?php _e('YYYYMMDD','newstatpress');?></td></tr>
-	<tr><td><?php _e('To','newstatpress'); ?></td><td><input type=text name=to><?php _e('YYYYMMDD','newstatpress');?></td></tr>
-	<tr><td><?php _e('Fields delimiter','newstatpress'); ?></td><td><select name=del><option>,</option><option>tab</option><option>;</option><option>|</option></select></tr>
-	<tr><td></td><td><input type=submit value=<?php _e('Export','newstatpress'); ?>></td></tr>
-	<input type=hidden name=page value=newstatpress><input type=hidden name=newstatpress_action value=exportnow>
-	</table></form>
+    <p><?php _e('You should define the stats period you want to export:','newstatpress'); ?><p>
+	<form method=get>
+    <table>
+      <tr>
+        <td><?php _e('From:','newstatpress'); ?> </td>
+        <td><input type=text size=10 maxlength=8 =from placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+      </tr>
+      <tr>
+        <td><?php _e('To:','newstatpress'); ?> </td>
+        <td><input type=text size=10 maxlength=8 name=to placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td><?php _e('You should choose a fields delimiter to separate the data:','newstatpress'); ?> </td>
+        <td><select name=del>
+          <option>,</option>
+          <option>tab</option>
+          <option>;</option>
+          <option>|</option></select>
+      </tr>
+    </table>
+    <input class='button button-primary' type=submit value=<?php _e('Export','newstatpress'); ?>>
+    <input type=hidden name=page value=newstatpress><input type=hidden name=newstatpress_action value=exportnow>
+</form>
 	</div>
 <?php
 }
@@ -571,7 +590,7 @@ function iriNewStatPressMain() {
   $querylimit="LIMIT ".((get_option('newstatpress_el_overwiew')=='') ? 10:get_option('newstatpress_el_overwiew'));
 
   # Tabella Last hits
-  print "<div class='wrap'><h2>". __('Last hits','newstatpress'). "</h2><table class='widefat'><thead><tr><th scope='col'>". __('Date','newstatpress'). "</th><th scope='col'>". __('Time','newstatpress'). "</th><th scope='col'>IP</th><th scope='col'>". __('Country','newstatpress').'/'.__('Language','newstatpress'). "</th><th scope='col'>". __('Page','newstatpress'). "</th><th scope='col'>". __('Feed','newstatpress'). "</th><th></th><th scope='col' style='width:120px;'>". __('OS','newstatpress'). "</th><th></th><th scope='col' style='width:120px;'>". __('Browser','newstatpress'). "</th></tr></thead>";
+  print "<div class='wrap'><h2>". __('Last hits','newstatpress'). "</h2><table class='widefat nsp'><thead><tr><th scope='col'>". __('Date','newstatpress'). "</th><th scope='col'>". __('Time','newstatpress'). "</th><th scope='col'>IP</th><th scope='col'>". __('Country','newstatpress').'/'.__('Language','newstatpress'). "</th><th scope='col'>". __('Page','newstatpress'). "</th><th scope='col'>". __('Feed','newstatpress'). "</th><th></th><th scope='col' style='width:120px;'>". __('OS','newstatpress'). "</th><th></th><th scope='col' style='width:120px;'>". __('Browser','newstatpress'). "</th></tr></thead>";
   print "<tbody id='the-list'>";
 
   $fivesdrafts = $wpdb->get_results("
@@ -588,16 +607,19 @@ function iriNewStatPressMain() {
     print "<td>". $fivesdraft->nation ."</td>";
     print "<td>". iri_NewStatPress_Abbrevia(iri_NewStatPress_Decode($fivesdraft->urlrequested),30) ."</td>";
     print "<td>". $fivesdraft->feed . "</td>";
+
     if($fivesdraft->os != '') {
-      $img=str_replace(" ","_",strtolower($fivesdraft->os)).".png";
-      print "<td><IMG class='imgfix2' SRC='".$_newstatpress_url."/images/os/$img'> </td>";
-    } else {
+      $img=$_newstatpress_url."/images/os/".str_replace(" ","_",strtolower($fivesdraft->os)).".png";
+      print "<td class='browser'><img class='img_browser' SRC='$img'></td>";
+    }
+    else {
         print "<td></td>";
       }
-    print "<td>". $fivesdraft->os . "</td>";
+    print "<td>".$fivesdraft->os . "</td>";
+
     if($fivesdraft->browser != '') {
       $img=str_replace(" ","",strtolower($fivesdraft->browser)).".png";
-      print "<td><IMG class='imgfix2' SRC='".$_newstatpress_url."/images/browsers/$img'></td>";
+      print "<td><IMG class='img_browser' SRC='".$_newstatpress_url."/images/browsers/$img'></td>";
     } else {
        print "<td></td>";
     }
@@ -608,7 +630,7 @@ function iriNewStatPressMain() {
 
 
   # Last Search terms
-  print "<div class='wrap'><h2>" . __('Last search terms','newstatpress') . "</h2><table class='widefat'><thead><tr><th scope='col'>".__('Date','newstatpress')."</th><th scope='col'>".__('Time','newstatpress')."</th><th scope='col'>".__('Terms','newstatpress')."</th><th scope='col'>". __('Engine','newstatpress'). "</th><th scope='col'>". __('Result','newstatpress'). "</th></tr></thead>";
+  print "<div class='wrap'><h2>" . __('Last search terms','newstatpress') . "</h2><table class='widefat nsp'><thead><tr><th scope='col'>".__('Date','newstatpress')."</th><th scope='col'>".__('Time','newstatpress')."</th><th scope='col'>".__('Terms','newstatpress')."</th><th scope='col'>". __('Engine','newstatpress'). "</th><th scope='col'>". __('Result','newstatpress'). "</th></tr></thead>";
   print "<tbody id='the-list'>";
   $qry = $wpdb->get_results("
     SELECT date,time,referrer,urlrequested,search,searchengine
@@ -622,7 +644,7 @@ function iriNewStatPressMain() {
   print "</table></div>";
 
   # Referrer
-  print "<div class='wrap'><h2>".__('Last referrers','newstatpress')."</h2><table class='widefat'><thead><tr><th scope='col'>".__('Date','newstatpress')."</th><th scope='col'>".__('Time','newstatpress')."</th><th scope='col'>".__('URL','newstatpress')."</th><th scope='col'>".__('Result','newstatpress')."</th></tr></thead>";
+  print "<div class='wrap'><h2>".__('Last referrers','newstatpress')."</h2><table class='widefat nsp'><thead><tr><th scope='col'>".__('Date','newstatpress')."</th><th scope='col'>".__('Time','newstatpress')."</th><th scope='col'>".__('URL','newstatpress')."</th><th scope='col'>".__('Result','newstatpress')."</th></tr></thead>";
   print "<tbody id='the-list'>";
   $qry = $wpdb->get_results("
     SELECT date,time,referrer,urlrequested
@@ -640,7 +662,7 @@ function iriNewStatPressMain() {
 
 
   # Last Agents
-  print "<div class='wrap'><h2>".__('Last agents','newstatpress')."</h2><table class='widefat'><thead><tr><th scope='col'>".__('Agent','newstatpress')."</th><th scope='col'></th><th scope='col' style='width:120px;'>". __('OS','newstatpress'). "</th><th scope='col'></th><th scope='col' style='width:120px;'>". __('Browser','newstatpress').'/'. __('Spider','newstatpress'). "</th></tr></thead>";
+  print "<div class='wrap'><h2>".__('Last agents','newstatpress')."</h2><table class='widefat nsp'><thead><tr><th scope='col'>".__('Agent','newstatpress')."</th><th scope='col'></th><th scope='col' style='width:120px;'>". __('OS','newstatpress'). "</th><th scope='col'></th><th scope='col' style='width:120px;'>". __('Browser','newstatpress').'/'. __('Spider','newstatpress'). "</th></tr></thead>";
   print "<tbody id='the-list'>";
   $qry = $wpdb->get_results("
     SELECT agent,os,browser,spider
@@ -652,14 +674,14 @@ function iriNewStatPressMain() {
     print "<tr><td>".$rk->agent."</td>";
     if($rk->os != '') {
       $img=str_replace(" ","_",strtolower($rk->os)).".png";
-      print "<td><IMG class='imgfix2' SRC='".$_newstatpress_url."/images/os/$img'> </td>";
+      print "<td><IMG class='img_browser' SRC='".$_newstatpress_url."/images/os/$img'> </td>";
     } else {
         print "<td></td>";
       }
     print "<td>". $rk->os . "</td>";
     if($rk->browser != '') {
       $img=str_replace(" ","",strtolower($rk->browser)).".png";
-      print "<td><IMG class='imgfix2' SRC='".$_newstatpress_url."/images/browsers/$img'></td>";
+      print "<td><IMG class='img_browser' SRC='".$_newstatpress_url."/images/browsers/$img'></td>";
     } else {
         print "<td></td>";
       }
@@ -669,7 +691,7 @@ function iriNewStatPressMain() {
 
 
   # Last pages
-  print "<div class='wrap'><h2>".__('Last pages','newstatpress')."</h2><table class='widefat'><thead><tr><th scope='col'>".__('Date','newstatpress')."</th><th scope='col'>".__('Time','newstatpress')."</th><th scope='col'>".__('Page','newstatpress')."</th><th scope='col' style='width:17px;'></th><th scope='col' style='width:120px;'>".__('OS','newstatpress')."</th><th style='width:17px;'></th><th scope='col' style='width:120px;'>".__('Browser','newstatpress')."</th></tr></thead>";
+  print "<div class='wrap'><h2>".__('Last pages','newstatpress')."</h2><table class='widefat nsp'><thead><tr><th scope='col'>".__('Date','newstatpress')."</th><th scope='col'>".__('Time','newstatpress')."</th><th scope='col'>".__('Page','newstatpress')."</th><th scope='col' style='width:17px;'></th><th scope='col' style='width:120px;'>".__('OS','newstatpress')."</th><th style='width:17px;'></th><th scope='col' style='width:120px;'>".__('Browser','newstatpress')."</th></tr></thead>";
   print "<tbody id='the-list'>";
   $qry = $wpdb->get_results("
     SELECT date,time,urlrequested,os,browser,spider
@@ -681,14 +703,14 @@ function iriNewStatPressMain() {
     print "<tr><td>".irihdate($rk->date)."</td><td>".$rk->time."</td><td>".iri_NewStatPress_Abbrevia(iri_NewStatPress_Decode($rk->urlrequested),60)."</td>";
     if($rk->os != '') {
       $img=str_replace(" ","_",strtolower($rk->os)).".png";
-      print "<td><IMG class='imgfix2' SRC='".$_newstatpress_url."/images/os/$img'> </td>";
+      print "<td><IMG class='img_browser' SRC='".$_newstatpress_url."/images/os/$img'> </td>";
     } else {
         print "<td></td>";
       }
     print "<td>". $rk->os . "</td>";
     if($rk->browser != '') {
       $img=str_replace(" ","",strtolower($rk->browser)).".png";
-      print "<td><IMG class='imgfix2' SRC='".$_newstatpress_url."/images/browsers/$img'></td>";
+      print "<td><IMG class='img_browser' SRC='".$_newstatpress_url."/images/browsers/$img'></td>";
     } else {
         print "<td></td>";
       }
@@ -698,7 +720,7 @@ function iriNewStatPressMain() {
 
 
   # Last Spiders
-  print "<div class='wrap'><h2>".__('Last spiders','newstatpress')."</h2><table class='widefat'><thead><tr><th scope='col'>".__('Date','newstatpress')."</th><th scope='col'>".__('Time','newstatpress')."</th><th scope='col'></th><th scope='col'>".__('Spider','newstatpress')."</th><th scope='col'>".__('Agent','newstatpress')."</th></tr></thead>";
+  print "<div class='wrap'><h2>".__('Last spiders','newstatpress')."</h2><table class='widefat nsp'><thead><tr><th scope='col'>".__('Date','newstatpress')."</th><th scope='col'>".__('Time','newstatpress')."</th><th scope='col'></th><th scope='col'>".__('Spider','newstatpress')."</th><th scope='col'>".__('Agent','newstatpress')."</th></tr></thead>";
   print "<tbody id='the-list'>";
   $qry = $wpdb->get_results("
     SELECT date,time,agent,os,browser,spider
@@ -710,7 +732,7 @@ function iriNewStatPressMain() {
     print "<tr><td>".irihdate($rk->date)."</td><td>".$rk->time."</td>";
     if($rk->spider != '') {
       $img=str_replace(" ","_",strtolower($rk->spider)).".png";
-      print "<td><IMG class='imgfix' SRC='".$_newstatpress_url."/images/spider/$img'> </td>";
+      print "<td><IMG class='img_os' SRC='".$_newstatpress_url."/images/spider/$img'> </td>";
     } else print "<td></td>";
     print "<td>".$rk->spider."</td><td> ".$rk->agent."</td></tr>\n";
   }
@@ -1040,7 +1062,7 @@ document.getElementById(thediv).style.display="none"
       ///    list($id,$title)=explode("|",$country);
       ///    if($id===strtolower($rk->country)) break;
       ///  }
-      ///  echo "http country <IMG class='imgfix' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(dirname(dirname(__FILE__)))). "'>  ";
+      ///  echo "http country <IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(dirname(dirname(__FILE__)))). "'>  ";
       ///} else
         if($rk->nation <> '') {
           // the nation exist
@@ -1050,7 +1072,7 @@ document.getElementById(thediv).style.display="none"
             list($id,$title)=explode("|",$nation);
             if($id===$rk->nation) break;
           }
-          print "".__('Http domain', 'newstatpress')." <IMG class='imgfix' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(plugin_basename(__FILE__))). "'>  ";
+          print "".__('Http domain', 'newstatpress')." <IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(plugin_basename(__FILE__))). "'>  ";
 
         } else {
             $ch = curl_init('http://api.hostip.info/country.php?ip='.$rk->ip);
@@ -1185,7 +1207,7 @@ document.getElementById(thediv).style.display="none"
         list($title,$id)=explode("|",$spider);
         if($title==$rk->spider) break; // break, the tooltip ($title) is found
       }
-      echo "<IMG class='imgfix' style='align:left;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/spider/'.$img, dirname(plugin_basename(__FILE__))). "'>
+      echo "<IMG class='img_os' style='align:left;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/spider/'.$img, dirname(plugin_basename(__FILE__))). "'>
             <span style='color:#006dca;cursor:pointer;border-bottom:1px dotted #AFD5F9;font-size:8pt;' onClick=ttogle('" . $img . "');>http more info</span>
             <div id='" . $img . "' name='" . $img . "'><br /><small>" . $rk->ip . "</small><br><small>" . $rk->agent . "<br /></small></div>
             <script>document.getElementById('" . $img . "').style.display='none';</script>
@@ -1252,7 +1274,7 @@ document.getElementById(thediv).style.display="none"
         list($id,$title)=explode("|",$nation);
         if($id===$rk->nation) break;
       }
-      echo "<IMG class='imgfix' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(plugin_basename(__FILE__))). "'>  ";
+      echo "<IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(plugin_basename(__FILE__))). "'>  ";
     } else {
         $ch = curl_init('http://api.hostip.info/country.php?ip='.$rk->ip);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -1786,10 +1808,21 @@ function iri_NewStatPress_lastmonth() {
 /**
  * Create or update the table
  */
-function iri_NewStatPress_CreateTable() {
-  global $wpdb;
-  global $wp_db_version;
-  $table_name = $wpdb->prefix . "statpress";
+ function iri_NewStatPress_CreateTable() {
+   global $wpdb;
+   global $wp_db_version;
+   $table_name = $wpdb->prefix . "statpress";
+
+   // Add by chab
+   // If the database is already created then DROP INDEX for update
+   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) { $list_index_to_drop=['spider_nation','agent','ip_date','search','os','browser','referrer','feed_spider_os','date_feed_spider', 'feed_spider_browser'];
+     foreach ($list_index_to_drop as $i)
+     {
+       $sql_createtable = "ALTER TABLE $table_name DROP INDEX $i";
+       $wpdb->query($sql_createtable);
+     }
+   }
+
   $sql_createtable = "
     CREATE TABLE " . $table_name . " (
       id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -1809,9 +1842,9 @@ function iri_NewStatPress_CreateTable() {
       user varchar(16),
       timestamp timestamp DEFAULT 0,
       UNIQUE KEY id (id),
-      index spider_nation (spider, nation),
-      index ip_date (ip, date),
-      index agent (agent),
+      INDEX spider_nation (spider, nation),
+      INDEX ip_date (ip, date),
+      INDEX agent (agent),
       index search (search),
       index referrer (referrer),
       index feed_spider_os (feed, spider, os),
@@ -2063,31 +2096,39 @@ function iriNewStatPressUpdate() {
 
   $wpdb->show_errors();
 
-  print "<div class='wrap'><table class='widefat'><thead><tr><th scope='col'><h2>".__('Updating...','newstatpress')."</h2></th><th scope='col' style='width:400px;'>".__('Size','newstatpress')."</th><th scope='col' style='width:100px;'>".__('Result','newstatpress')."</th><th></th></tr></thead>";
+  //add by chab
+  //$var requesting the absolute path
+  $img_ok = $_newstatpress_url.'images/ok.gif';
+  $ip2nation_db = $newstatpress_dir.'/includes/ip2nation.sql';
+
+  print "<div class='wrap'><h2>".__('Database Update','newstatpress')."</h2><br />";
+
+  print "<table class='widefat nsp'><thead><tr><th scope='col'>".__('Updating...','newstatpress')."</th><th scope='col' style='width:400px;'>".__('Size','newstatpress')."</th><th scope='col' style='width:100px;'>".__('Result','newstatpress')."</th><th></th></tr></thead>";
   print "<tbody id='the-list'>";
 
   # check if ip2nation .sql file exists
-  if(file_exists($newstatpress_dir.'/ip2nation.sql')) {
+  if(file_exists($ip2nation_db)) {
     print "<tr><td>ip2nation.sql</td>";
-    $FP = fopen ($newstatpress_dir.'/ip2nation.sql', 'r' );
-    $READ = fread ( $FP, filesize ($newstatpress_dir.'/ip2nation.sql') );
+    $FP = fopen ($ip2nation_db, 'r' );
+    $READ = fread ( $FP, filesize ($ip2nation_db) );
     $READ = explode ( ";\n", $READ );
     foreach ( $READ as $RED ) {
       if($RES != '') { $wpdb->query($RED); }
     }
     print "<td>".iritablesize("ip2nation")."</td>";
-    print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+    print "<td><img class'update_img' src='$img_ok'></td></tr>";
   }
 
   # update table
-  print "<tr><td>". __('Structure','newstatpress'). " $table_name</td>";
   iri_NewStatPress_CreateTable();
+
+  print "<tr><td>". __('Structure','newstatpress'). " $table_name</td>";
   print "<td>".iritablesize($wpdb->prefix."statpress")."</td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   print "<tr><td>". __('Index','newstatpress'). " $table_name</td>";
   print "<td>".iriindextablesize($wpdb->prefix."statpress")."</td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   # Update Feed
   print "<tr><td>". __('Feeds','newstatpress'). "</td>";
@@ -2185,7 +2226,7 @@ function iriNewStatPressUpdate() {
    );
 
   print "<td></td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   # Update OS
   print "<tr><td>". __('OSes','newstatpress'). "</td>";
@@ -2207,7 +2248,7 @@ function iriNewStatPressUpdate() {
     $wpdb->query($qry);
   }
   print "<td></td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
 
   # Update Browser
@@ -2230,7 +2271,7 @@ function iriNewStatPressUpdate() {
     $wpdb->query($qry);
   }
   print "<td></td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
 
   # Update Spider
@@ -2253,7 +2294,7 @@ function iriNewStatPressUpdate() {
     $wpdb->query($qry);
   }
   print "<td></td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
 
   # Update Search engine
@@ -2281,7 +2322,7 @@ function iriNewStatPressUpdate() {
     }
   }
   print "<td></td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   $end_time = microtime(true);
   $sql_queries=$wpdb->num_queries;
@@ -2289,19 +2330,19 @@ function iriNewStatPressUpdate() {
   # Final statistics
   print "<tr><td>". __('Final Structure','newstatpress'). " $table_name</td>";
   print "<td>".iritablesize($wpdb->prefix."statpress")."</td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   print "<tr><td>". __('Final Index','newstatpress'). " $table_name</td>";
   print "<td>".iriindextablesize($wpdb->prefix."statpress")."</td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   print "<tr><td>". __('Duration of the update','newstatpress'). "</td>";
   print "<td>".round($end_time - $start_time, 2)." sec</td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   print "<tr><td>". __('This update was done in','newstatpress'). "</td>";
-  print "<td>".$sql_queries." " . __('SQL queries','newstatpress'). " </td>";
-  print "<td><IMG style='border:0px;width:20px;height:20px;' SRC='".$_newstatpress_url."/images/ok.gif'></td></tr>";
+  print "<td>".$sql_queries." " . __('SQL queries','newstatpress'). "</td>";
+  print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   print "</tbody></table></div><br>\n";
   $wpdb->hide_errors();
@@ -3134,17 +3175,17 @@ function iriOverview($print = TRUE) {
 
 
   $result = $result. "<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>
-         <table class='widefat'>
+         <table class='widefat center nsp'>
          <thead><tr>
          <th></th>
-         <th>". __('Total since','newstatpress'). "<span class='date'>" . $since ."</span></th>
-         <th scope='col'>". __('Last month','newstatpress'). "<span class='date'>" . $lastmonthH ."</span></th>
-         <th scope='col'>". __('This month','newstatpress'). "<span class='date'>" . $thismonthH ."</span></th>
-         <th scope='col'>". __('Target This month','newstatpress'). "<span class='date'>" . $thismonthH ."</span></th>
-         <th scope='col'>". __('Yesterday','newstatpress'). "<span class='date'>" . $yesterdayH ."</span></th>
-         <th scope='col'>". __('Today','newstatpress'). "<span class='date'>" . $todayH ."</span></th>
+         <th>". __('Total since','newstatpress'). "<span class='date-overview'>" . $since ."</span></th>
+         <th scope='col'>". __('Last month','newstatpress'). "<span class='date-overview'>" . $lastmonthH ."</span></th>
+         <th scope='col'>". __('This month','newstatpress'). "<span class='date-overview'>" . $thismonthH ."</span></th>
+         <th scope='col'>". __('Target This month','newstatpress'). "<span class='date-overview'>" . $thismonthH ."</span></th>
+         <th scope='col'>". __('Yesterday','newstatpress'). "<span class='date-overview'>" . $yesterdayH ."</span></th>
+         <th scope='col'>". __('Today','newstatpress'). "<span class='date-overview'>" . $todayH ."</span></th>
          </tr></thead>
-         <tbody id='the-list'>";
+         <tbody id='the-list-overview'>";
 
   ################################################################################################
   # VISITORS ROW

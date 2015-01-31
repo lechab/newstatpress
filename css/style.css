@@ -6,17 +6,27 @@ $rss_color="#f38f36";
 $spider_color="#83b4d8";
 */
 
-.widefat th {
-  text-align:center;
 
+/* Table NSP style */
+.nsp thead {
+  background-color:#FAFAFA;
 }
-.date {
+
+.date-overview {
   display: block;
   font-size:10px;
 }
 
 
-/* overview */
+/* table overview */
+.center th {
+  text-align:center;
+}
+.nsp #the-list-overview td {
+  text-align:center;
+  /*padding-right:20px;*/
+}
+
 .carre-feeds-row {
   background:#f38f36;
   width:10px;
@@ -44,37 +54,51 @@ $spider_color="#83b4d8";
   color:black;
 }
 
-#the-list td {
-  text-align:center;
-  padding-right:20px;
+.img_os {
+  border: 0px;
+  height: 16px;
 }
 
-#the-list td.test {
+.img_browser {
+  border: 0px;
+  width: 16px;
+  height: 16px;
+}
+
+
+
+
+#the-list-overview td {
+  /*text-align:center;
+  padding-right:20px;*/
+}
+
+#the-list-overview td.test {
   text-align:left;
 }
 
-#the-list td.feeds::before {
+#the-list-overview td.feeds::before {
   content: "\25a9";
   color:#f38f36;
   /*font-size: 10px;*/
   margin-right: 5px;
   }
 
-#the-list td.spiders::before {
+#the-list-overview td.spiders::before {
     content: "\25a9";
     color:#83b4d8;
     /*font-size: 10px;*/
     margin-right: 5px;
   }
 
-  #the-list td.pageviews::before {
+  #the-list-overview td.pageviews::before {
     content: "\25a9";
     color:#3377B6;
     /*font-size: 10px;*/
     margin-right: 5px;
   }
 
-#the-list td.visitors::before {
+#the-list-overview td.visitors::before {
     content: "\25a9";
     color:#114477;
     /*font-size: 10px;*/
@@ -83,8 +107,15 @@ $spider_color="#83b4d8";
 
 
 
+/*update page*/
+.update_img {
+  border: 0px;
+  width: 20px;
+  height: 20px;
+}
+
 /*----------------------------------*/
-/*Generate HTML for option menu in Wordpress*/
+/* option page style                */
 /*----------------------------------*/
 #settings h3 {
   margin-top: 40px;
@@ -102,8 +133,12 @@ $spider_color="#83b4d8";
   text-align: left;
 }
 
-.right{
+.right {
   text-align: right;
+}
+
+.center {
+  text-align: center;
 }
 
 .table-databaseupdate {
@@ -111,7 +146,7 @@ $spider_color="#83b4d8";
 }
 
 /*----------------------------------*/
-/* crédit  */
+/* credit page style                */
 /*----------------------------------*/
 #credit table {
   border-top: 2px solid;
@@ -153,12 +188,3 @@ $spider_color="#83b4d8";
 
 
 /*----------------------------------*/
-
-.imgfix {
-border:0px;height:16px;
-}
-
-.imgfix2 {
-
-  style='border:0px;width:16px;height:16px;'
-}

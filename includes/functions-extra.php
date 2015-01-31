@@ -63,12 +63,13 @@ function iriNewStatPressRemove() {
   }
   else {
       ?>
-        <div class='wrap'><h2><?php _e('Remove','newstatpress'); ?></h2>
+        <div class='wrap'><h2><?php _e('Remove NewStatPress database','newstatpress'); ?></h2>
+          <br />
+          <div class='error'><p>
+        <?php _e('Warning: pressing the below button will make all your stored data to be erased!',"newstatpress"); ?>
+      </p></div>
         <form method=post>
         <?php
-        echo "<strong>";
-        _e("Warning: pressing the below button will make all your stored data to be erased!","newstatpress");
-        echo "</strong><br />";
         _e("It is added for the people that did not want to use the plugin anymore and so they want to remove the stored data.","newstatpress");
         echo "<br />";
         _e("If you are in doubt about this function, don't use it.","newstatpress");
