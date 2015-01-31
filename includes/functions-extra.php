@@ -38,7 +38,7 @@ function iriNewStatPressCredits() {
 
   echo "<br /><div><table>\n";
   echo "<tr>\n<td>"; _e('Plugin homepage','newstatpress'); echo ": <a target='_blank' href='http://newstatpress.altervista.org'>Newstatpress</a></td></tr>";
-  echo "<tr>\n<td>"; _e('RSS news','newstatpress'); echo ": </td></tr>";
+  echo "<tr>\n<td>"; _e('RSS news','newstatpress'); echo ": <a target='_blank' href='http://newstatpress.altervista.org/?feed=rss2'>"; _e('News','newstatpress'); echo "</a></td></tr>";
   echo "<tr><td>Make a donation: </td>";
 
   echo "</tr></table></div>";

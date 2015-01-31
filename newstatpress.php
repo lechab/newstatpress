@@ -190,8 +190,9 @@ function iriNewStatPressOptions() {
 
     # update database too
     iri_NewStatPress_CreateTable();
-    print "<br /><div class='updated'><p>".__('Saved','newstatpress')."!</p></div>";
-  } else {
+    print "<br /><div class='updated'><p>".__('Options saved!','newstatpress')."</p></div>";
+  }
+  // else {
       ?>
       <div id='settings' class='wrap'><h2><?php _e('NewStatPress Settings','newstatpress'); ?></h2>
 
@@ -379,14 +380,14 @@ function iriNewStatPressOptions() {
        $input_default='5';
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Top Days - Pageviews (default 5)','newstatpress');
        $option_var='newstatpress_el_daypages';
        $input_default='5';
+       $option_title=sprintf(__('Elements in Top Days - Pageviews (default %d)','newstatpress'), $input_default);
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
        $option_var='newstatpress_el_ippages';
        $input_default='5';
-       $option_title= sprintf(__('Elements in Top IPs - Pageviews (default %d)', 'newstatpress'), $input_default);
+       $option_title=sprintf(__('Elements in Top IPs - Pageviews (default %d)', 'newstatpress'), $input_default);
        print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
 
        ?>
@@ -420,7 +421,7 @@ function iriNewStatPressOptions() {
       </form>
       </div>
       <?php
-    }
+    // }
 }
 
 
