@@ -20,7 +20,8 @@ $newstatpress_dir = WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__));
 // to need to put on css directory
 wp_enqueue_style('styles', plugins_url('./css/style.css', __FILE__));
 
-
+// add by chab
+require ('includes/functions-extra.php');
 
 
 /**
@@ -57,61 +58,23 @@ function iri_add_pages() {
   }
 
   // ORIG   add_submenu_page('index.php', 'StatPress', 'StatPress', 8, 'statpress', 'iriNewStatPress');
-  add_menu_page('NewStatPress', 'NewStatPress', $mincap, __FILE__, 'iriNewStatPress', plugins_url('newstatpress/images/stat.png',dirname(plugin_basename(__FILE__))));
-  add_submenu_page(__FILE__, __('Overview','newstatpress'), __('Overview','newstatpress'), $mincap, __FILE__, 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Details','newstatpress'), __('Details','newstatpress'), $mincap, __FILE__ . '&newstatpress_action=details', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Last visitors by Spy','newstatpress'), __('Last visitors by Spy','newstatpress'), $mincap, __FILE__ . '&newstatpress_action=spy', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Visitors by Spy','newstatpress'), __('Visitors by Spy','newstatpress'), $mincap, __FILE__ . '&newstatpress_action=newspy', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Spy Bot','newstatpress'), __('Spy Bot','newstatpress'), $mincap, __FILE__ . '&newstatpress_action=spybot', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Search','newstatpress'), __('Search','newstatpress'), $mincap, __FILE__ . '&newstatpress_action=search', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Export','newstatpress'), __('Export','newstatpress'), $mincap, __FILE__ . '&newstatpress_action=export', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Options','newstatpress'), __('Options','newstatpress'), $mincap, __FILE__ . '&newstatpress_action=options', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('NewStatPressUpdate','newstatpress'), __('NewStatPressUpdate','newstatpress'), $mincap, __FILE__ . '&newstatpress_action=up', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('NewStatpress blog','newstatpress'), __('NewStatpress blog','newstatpress'), $mincap,  __FILE__ . '&newstatpress_action=redirect', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Credits','newstatpress'), __('Credits','newstatpress'), $mincap,  __FILE__ . '&newstatpress_action=credits', 'iriNewStatPress');
-  add_submenu_page(__FILE__, __('Remove','newstatpress'), __('Remove','newstatpress'), $mincap,  __FILE__ . '&newstatpress_action=remove', 'iriNewStatPress');
-}
 
-/**
- * General function for calling the action that user had choice
- */
-function iriNewStatPress() {
-  ?>
-  <?php
-    if(isset($_GET['newstatpress_action'])){
-      if ($_GET['newstatpress_action'] == 'export') {
-        iriNewStatPressExport();
-      } elseif ($_GET['newstatpress_action'] == 'up') {
-          iriNewStatPressUpdate();
-      } elseif ($_GET['newstatpress_action'] == 'spy') {
-          iriNewStatPressSpy();
-      } elseif ($_GET['newstatpress_action'] == 'newspy') {
-          iriNewStatPressNewSpy();
-      } elseif ($_GET['newstatpress_action'] == 'spybot') {
-          iriNewStatPressSpyBot();
-      } elseif ($_GET['newstatpress_action'] == 'search') {
-           iriNewStatPressSearch();
-      } elseif ($_GET['newstatpress_action'] == 'details') {
-           iriNewStatPressDetails();
-      } elseif ($_GET['newstatpress_action'] == 'options') {
-           iriNewStatPressOptions();
-      } elseif ($_GET['newstatpress_action'] == 'redirect') {
-           iriNewStatPressRedirect();
-      } elseif ($_GET['newstatpress_action'] == 'credits') {
-           iriNewStatPressCredits();
-      } elseif ($_GET['newstatpress_action'] == 'remove') {
-           iriNewStatPressRemove();
-      }
-   } else iriNewStatPressMain();
-}
+  add_submenu_page('NSP-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $mincap, 'NSP-main', 'iriNewStatPressMain');
+  add_menu_page('NewStatPres', 'NewStatPress', $mincap, 'NSP-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',dirname(plugin_basename(__FILE__))));
 
-/**
- * Redirect the wordpress page to the newstatpress blog
- */
-function iriNewStatPressRedirect() {
-  echo "<script language=javascript>window.location.href= 'http://newstatpress.altervista.org'</script>";
-
+  add_submenu_page('NSP-main', __('Details','newstatpress'), __('Details','newstatpress'), $mincap, 'details-page', 'iriNewStatPressDetails');
+  add_submenu_page('NSP-main', __('Last visitors by Spy','newstatpress'), __('Last visitors by Spy','newstatpress'), $mincap, 'spy-page', 'iriNewStatPressSpy');
+  add_submenu_page('NSP-main', __('Visitors by Spy','newstatpress'), __('Visitors by Spy','newstatpress'), $mincap, 'newspy-page', 'iriNewStatPressNewSpy');
+  add_submenu_page('NSP-main', __('Spy Bot','newstatpress'), __('Spy Bot','newstatpress'), $mincap, 'spybot-page', 'iriNewStatPressSpyBot');
+  add_submenu_page('NSP-main', __('Search','newstatpress'), __('Search','newstatpress'), $mincap, 'search-page', 'iriNewStatPressSearch');
+  add_submenu_page('NSP-main', __('Export','newstatpress'), __('Export','newstatpress'), $mincap, 'export-page', 'iriNewStatPressExport');
+  add_submenu_page('NSP-main', __('Options','newstatpress'), __('Options','newstatpress'), $mincap, 'options-page', 'iriNewStatPressOptions');
+  add_submenu_page('NSP-main', __('NewStatPressUpdate','newstatpress'), __('NewStatPressUpdate','newstatpress'), $mincap, 'update-page', 'iriNewStatPressUpdate');
+  add_submenu_page('NSP-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $mincap, 'credits-page', 'iriNewStatPressCredits');
+  add_submenu_page('NSP-main', __('Remove','newstatpress'), __('Remove','newstatpress'), $mincap,  'remove-page', 'iriNewStatPressRemove');
 }
+add_action('admin_menu', 'iri_add_pages');
+
 
 /**
  * Filter the given value for preventing XSS attacks
@@ -138,35 +101,6 @@ function iriNewStatPress_filter_for_xss($_value){
  */
 function iriNewStatPress_trim_value(&$value) {
   $value = trim($value);
-}
-
-/**
- * Generate HTML for remove menu in Wordpress
- */
-function iriNewStatPressRemove() {
-  if(isset($_POST['removeit']) && $_POST['removeit'] == 'yes') {
-    global $wpdb;
-    $table_name = $wpdb->prefix . "statpress";
-    $results =$wpdb->query( "DELETE FROM " . $table_name);
-    print "<br /><div class='remove'><p>".__('All data removed','newstatpress')."!</p></div>";
-  }  else {
-      ?>
-        <div class='wrap'><h2><?php _e('Remove','newstatpress'); ?></h2>
-        <form method=post>
-        <?php
-        _e("Warning: pressing the below button will make all your stored data to be erased!","newstatpress");
-        echo "<br />";
-        _e("It is added for the people that did not want to use the plugin anymore and so they want to remove the stored data.","newstatpress");
-        echo "<br />";
-        _e("If you are in doubt about this function, don't use it.","newstatpress");
-        ?>
-        <br /><br />
-        <input class='button button-primary' type=submit value="<?php _e('Remove','newstatpress'); ?>" onclick="return confirm('<?php _e('Are you sure?','newstatpress'); ?>');" >
-        <input type=hidden name=removeit value=yes>
-        </form>
-        </div>
-      <?php
-  }
 }
 
 
@@ -500,48 +434,7 @@ function iri_dropdown_caps( $default = false ) {
   }
 }
 
-/**
-* Show credits about this plugin
-*/
-function iriNewStatPressCredits() {
 
-  $contributors = [
-    ['Stefano Tognon', 'NewStatPress develoup'],
-    ['cHab', 'NewStatPress collaborator'],
-    ['Daniele Lippi', 'Original StatPress develoup'],
-    ['Sisko', 'Open link in new tab/window<br>New displays of data for spy function<br>'],
-    ['from wp_slimstat', 'Add option for not track given IPs<br /> Add option for not track given permalinks'],
-    ['Ladislav', 'Let Search function to works again'],
-    ['from statpress-visitors', 'Add new OS (+44), browsers (+52) and spiders (+71)<br /> Add in the option the ability to update in a range of date<br /> New spy and bot'],
-    ['Maurice Cramer','Add dashboard widget<br /> Fix total since in overwiew<br /> Fix missing browser image and IE aligment failure in spy section<br /> Fix nation image display in spy'],
-    ['Ruud van der Veen', 'Add tab delimiter for exporting data'],
-    ['kjmtsh', 'Many fixes about empty query result and obsolete functions'],
-    ['shilom', 'French translation Update'],
-    ['Alphonse PHILIPPE ', 'French translation Update'],
-    ['Vincent G', 'Lithuanian translation Addition'],
-    ['Christopher Meng', 'Add Simplified Chinese translation'],
-    ['godOFslaves', 'Russian translation Update'],
-    ['Branco', 'Add Slovak translation'],
-    ['Peter Bago', 'Add Hungarian translation'],
-    ['Boulis Antoniou', 'Add Greek translation'],
-    ['Michael Yunat', 'Add Ukranian translation'],
-    ['Pawel Dworniak', 'Polish translation Update']
-  ];
-  echo "<div class='wrap'><h2>"; _e('Credits','newstatpress'); echo "</h2>";
-  echo "<br /><table id='credit'>\n";
-  echo "<thead>\n<tr><th class='cell-l'>"; _e('Contributor','newstatpress'); echo "</th>\n<th class='cell-r'>"; _e('Description','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
-  foreach($contributors as list($name, $contribution))
-  {
-    echo "<tr>\n";
-    echo "<td class='cell-l'>$name</td>\n";
-    echo "<td class='cell-r'>$contribution</td>\n";
-    echo "</tr>\n";
-  };
-  echo "<tbody></table></div>";
-
-  ?>
-  <?php
-}
 
   // add by chab
   function iriNewStatPressIP2nationDownload() {
@@ -574,7 +467,7 @@ function iriNewStatPressCredits() {
         $content = wp_remote_retrieve_body($result);
         $zip_size = file_put_contents ($temp_zip_file, $content);
         if (!$zip_size) { // writing error
-          $install_status = 'Failure to save content locally, please try to re-install.';
+          $install_status = _e('Failure to save content locally, please try to re-install.','newstatpress');
         }
       }
       else { // WP_error
@@ -591,10 +484,10 @@ function iriNewStatPressCredits() {
       $archive = new PclZip($temp_zip_file);
       $newstatpress_includes_path = WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes';
       if ($archive->extract(PCLZIP_OPT_PATH, $newstatpress_includes_path , PCLZIP_OPT_REMOVE_ALL_PATH) == 0) {
-        $install_status = 'Failure to unzip archive, please try to re-install';
+        $install_status = _e('Failure to unzip archive, please try to re-install','newstatpress');
       }
       else {
-        $install_status = 'Instalation of IP2nation database was successful';
+        $install_status = _e('Instalation of IP2nation database was successful','newstatpress');
       }
 
       // Remove Zip file
@@ -3735,7 +3628,7 @@ function newstatpress_update() {
   }
 }
 
-add_action('admin_menu', 'iri_add_pages');
+
 add_action('plugins_loaded', 'widget_newstatpress_init');
 add_action('send_headers', 'iriStatAppend');  //add_action('wp_head', 'iriStatAppend');
 add_action('init','iri_checkExport');
