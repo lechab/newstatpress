@@ -10,7 +10,8 @@
 - [x] Ip2nation download function
 - [x] Optimization and Cleanning of Option page
 - [x] Optimization of the credit page
+- [x] Fixed Bug 'selected sub-menu'
 - [ ] CSS style to stylesheet (./css/style.css)
-  - [/] Overview
+  - [ ] Overview
   - [x] credit
 - [ ] bla bla
