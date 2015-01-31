@@ -14,14 +14,14 @@ function iriNewStatPressCredits() {
     ['Ruud van der Veen', 'Add tab delimiter for exporting data'],
     ['kjmtsh', 'Many fixes about empty query result and obsolete functions'],
     ['shilom', 'French translation Update'],
-    ['Alphonse PHILIPPE ', 'French translation Update'],
-    ['Vincent G', 'Lithuanian translation Addition'],
-    ['Christopher Meng', 'Add Simplified Chinese translation'],
+    ['Alphonse PHILIPPE', 'French translation Update'],
+    ['Vincent G.', 'Lithuanian translation Addition'],
+    ['Christopher Meng', 'Simplified Chinese translation Addition'],
     ['godOFslaves', 'Russian translation Update'],
-    ['Branco', 'Add Slovak translation'],
-    ['Peter Bago', 'Add Hungarian translation'],
-    ['Boulis Antoniou', 'Add Greek translation'],
-    ['Michael Yunat', 'Add Ukranian translation'],
+    ['Branco', 'Slovak translation Addition'],
+    ['Peter Bago', 'Hungarian translation Addition'],
+    ['Boulis Antoniou', 'Greek translation Addition'],
+    ['Michael Yunat', 'Ukranian translation Addition'],
     ['Pawel Dworniak', 'Polish translation Update']
   ];
   echo "<div class='wrap'><h2>"; _e('Credits','newstatpress'); echo "</h2>";
@@ -39,9 +39,13 @@ function iriNewStatPressCredits() {
   echo "<br /><div><table>\n";
   echo "<tr>\n<td>"; _e('Plugin homepage','newstatpress'); echo ": <a target='_blank' href='http://newstatpress.altervista.org'>Newstatpress</a></td></tr>";
   echo "<tr>\n<td>"; _e('RSS news','newstatpress'); echo ": <a target='_blank' href='http://newstatpress.altervista.org/?feed=rss2'>"; _e('News','newstatpress'); echo "</a></td></tr>";
-  echo "<tr><td>Make a donation: </td>";
+  echo "</tr></table></div><br />";
+  echo "  <form  method='post' action='https://www.paypal.com/cgi-bin/webscr'>
+      <input type='hidden' value='_s-xclick' name='cmd'></input>
+      <input type='hidden' value='F5S5PF4QBWU7E' name='hosted_button_id'></input>
+      <input class='button button-primary' type=submit value='"; _e('Make a donation','newstatpress');
+echo "'></form>";
 
-  echo "</tr></table></div>";
 
 }
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress v0.8.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-31 16:34+0100\n"
-"PO-Revision-Date: 2015-01-31 16:34+0100\n"
+"POT-Creation-Date: 2015-01-31 16:58+0100\n"
+"PO-Revision-Date: 2015-01-31 17:01+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -49,20 +49,24 @@ msgstr "Fil RSS"
 msgid "News"
 msgstr "News"
 
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:46
+msgid "Make a donation"
+msgstr "Faire un don"
+
 # @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:58
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:62
 msgid "All data removed"
 msgstr "Toutes les données ont été supprimées"
 
 # @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:62
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:73
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:66
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:77
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:74
 msgid "Remove"
 msgstr "Supprimer"
 
 # @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:66
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:70
 msgid ""
 "Warning: pressing the below button will make all your stored data to be "
 "erased!"
@@ -70,7 +74,7 @@ msgstr ""
 "Attention : un appui sur le bouton ci-dessous effacera toutes vos données !"
 
 # @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:68
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:72
 msgid ""
 "It is added for the people that did not want to use the plugin anymore and "
 "so they want to remove the stored data."
@@ -80,12 +84,12 @@ msgstr ""
 "stockées."
 
 # @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:70
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:74
 msgid "If you are in doubt about this function, don't use it."
 msgstr "Si vous avez un doute sur cette fonction, ne l'utilisez pas."
 
 # @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:73
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:77
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
