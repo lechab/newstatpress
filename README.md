@@ -23,6 +23,7 @@ Development:
 - [x] Fixed 'selected sub-menu' bug
 - [x] Fixed 'ALTER INDEX' error warning when user database is updated
 - [x] Fixed wrong path to update IP2nation when database is updated (/includes)
+- [x] Add variables %yvisits% (yesterday visits) %mvisits% (month visits)
 
 
 Translation Update:
