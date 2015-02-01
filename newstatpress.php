@@ -1598,7 +1598,7 @@ function iriValueTable2($fld,$fldtitle,$limit = 0,$param = "", $queryfld = "", $
   if ($queryfld == '') {
     $queryfld = $fld;
   }
-  $text = "<div class='wrap'><table class='widefat'><thead><tr><th scope='col' style='width:80%;'><h2>$fldtitle</h2></th><th scope='col' style='width:20%;text-align:center;'>".__('Visits','newstatpress')."</th><th></th></tr></thead>";
+  $text = "<div class='wrap'><table class='widefat'>\n<thead><tr><th scope='col' class='keytab-head'><h2>$fldtitle</h2></th><th scope='col' style='width:20%;text-align:center;'>".__('Visits','newstatpress')."</th><th></th></tr></thead>\n";
   $rks = $wpdb->get_var("
      SELECT count($param $queryfld) as rks
      FROM $table_name
@@ -1631,35 +1631,26 @@ function iriValueTable2($fld,$fldtitle,$limit = 0,$param = "", $queryfld = "", $
   }
 
   // Draw table body
-  $text = $text."<tbody id='the-list'>";
+  $text .= "<tbody id='the-list'>";
   if($rks > 0) {  // Chart!
-    if($fld == 'nation') {
-      // inser geochart of nation
-      $chart="<iframe ";
-      $chart = $chart." src=\"".plugins_url('newstatpress')."/includes/geocharts.html".iriGetGoogleGeo($data)."\"";
-      $chart = $chart." class=\"framebox\"";
-      $chart = $chart."  style=\"width: 100%; height: 550px;\">";
-      $chart = $chart."  <p>[This section requires a browser that supports iframes.]</p>";
-      $chart = $chart."</iframe>";
 
-    } else {
-      $chart="<iframe ";
-      $chart = $chart." src=\"".plugins_url('newstatpress')."/includes/piecharts.html".iriGetGooglePie($fldtitle, $data)."\"";
-      $chart = $chart." class=\"framebox\"";
-      $chart = $chart."  style=\"width: 100%; height: 550px;\">";
-      $chart = $chart."  <p>[This section requires a browser that supports iframes.]</p>";
-      $chart = $chart."</iframe>";
-
-      }
-    #$text = $text. "<tr><td></td><td></td><td rowspan='".($limit+2)."'>$chart</td></tr>";
-    foreach ($data as $key => $value) {
-      $text = $text."<tr><td style='width:80%;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;'>".$key;
-      $text = $text."</td><td style='width:20%;text-align:center;'>".$value."</td>";
-      $text = $text."</tr>";
+    if($fld == 'nation') { // Nation chart
+      $charts=plugins_url('newstatpress')."/includes/geocharts.html".iriGetGoogleGeo($data);
     }
-    $text = $text. "<tr><td colspan=2 style='width:100%;'>$chart</td></tr>";
+    else { // Pie chart
+      $charts=plugins_url('newstatpress')."/includes/piecharts.html".iriGetGooglePie($fldtitle, $data);
+    }
+
+    foreach ($data as $key => $value) {
+      $text .= "<tr><td class='keytab'>".$key."</td><td class='valuetab'>".$value."</td></tr>";
+    }
+
+    $text .= "<tr><td colspan=2 style='width:50%;'>
+    <iframe src='".$charts."' class='framebox'>
+      <p>[_e('This section requires a browser that supports iframes.]','newstatpress')</p>
+    </iframe></td></tr>";
   }
-  $text = $text."</tbody></table></div><br>\n";
+  $text .= "</tbody></table></div><br>\n";
   if ($print) print $text;
   else return $text;
 }

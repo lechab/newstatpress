@@ -12,11 +12,11 @@ $spider_color="#83b4d8";
   background-color:#FAFAFA;
 }
 
-.date-overview {
-  display: block;
-  font-size:10px;
-}
 
+
+/*----------------------------------*/
+/* overview                         */
+/*----------------------------------*/
 
 /* table overview */
 .center th {
@@ -26,6 +26,12 @@ $spider_color="#83b4d8";
   text-align:center;
   /*padding-right:20px;*/
 }
+
+.date-overview {
+  display: block;
+  font-size:10px;
+}
+
 
 .carre-feeds-row {
   background:#f38f36;
@@ -80,34 +86,31 @@ $spider_color="#83b4d8";
 #the-list-overview td.feeds::before {
   content: "\25a9";
   color:#f38f36;
-  /*font-size: 10px;*/
   margin-right: 5px;
-  }
+}
 
 #the-list-overview td.spiders::before {
-    content: "\25a9";
-    color:#83b4d8;
-    /*font-size: 10px;*/
-    margin-right: 5px;
-  }
+  content: "\25a9";
+  color:#83b4d8;
+  margin-right: 5px;
+}
 
-  #the-list-overview td.pageviews::before {
-    content: "\25a9";
-    color:#3377B6;
-    /*font-size: 10px;*/
-    margin-right: 5px;
-  }
+#the-list-overview td.pageviews::before {
+  content: "\25a9";
+  color:#3377B6;
+  margin-right: 5px;
+}
 
 #the-list-overview td.visitors::before {
-    content: "\25a9";
-    color:#114477;
-    /*font-size: 10px;*/
-    margin-right: 5px;
-  }
+  content: "\25a9";
+  color:#114477;
+  margin-right: 5px;
+}
 
 
-
-/*update page*/
+/*----------------------------------*/
+/* update page style                */
+/*----------------------------------*/
 .update_img {
   border: 0px;
   width: 20px;
@@ -135,10 +138,6 @@ $spider_color="#83b4d8";
 
 .right {
   text-align: right;
-}
-
-.center {
-  text-align: center;
 }
 
 .table-databaseupdate {
@@ -186,5 +185,31 @@ $spider_color="#83b4d8";
   padding-left: 15px;
 }
 
-
 /*----------------------------------*/
+/* details page style               */
+/*----------------------------------*/
+.framebox {
+	width: 100%;
+	height: 550px;
+}
+
+.keytab-head {
+  width:80%;
+}
+
+.valuetab-head {
+  width:20%;
+  text-align:center;
+}
+
+.keytab {
+  width:80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.valuetab {
+	width:20%;
+  text-align:center;
+}
