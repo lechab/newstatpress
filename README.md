@@ -24,6 +24,7 @@ Development:
 - [x] Fixed 'ALTER INDEX' error warning when user database is updated
 - [x] Fixed wrong path to update IP2nation when database is updated (/includes)
 - [x] Add variables %yvisits% (yesterday visits) %mvisits% (month visits)
+- [x] Fix 5 bots, add 13 new bots
 
 
 Translation Update:
