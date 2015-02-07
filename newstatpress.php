@@ -137,8 +137,8 @@ function print_option($option_title,$option_var,$var) {
       print ">$cap</option>";
     }
   } else {
-    foreach($var as list($i,$j))
-    {
+    foreach($var as $option) {
+      list($i,$j) = $option;
       echo "<option value=$i";
       if(get_option($option_var)==$i) {
         echo " selected";
