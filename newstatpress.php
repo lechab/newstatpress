@@ -11,13 +11,32 @@ Author URI: http://newstatpress.altervista.org
 $_NEWSTATPRESS['version']='0.8.9';
 $_NEWSTATPRESS['feedtype']='';
 
-global $newstatpress_dir;
+global $newstatpress_dir, $option_list_info;
+
 $newstatpress_dir = WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__));
 
+$option_list_info=array( // list of option variable name, with default value associated
+  'overview'=>array('name'=>'newstatpress_el_overview','value'=>'10'),
+  'top_days'=>array('name'=>'newstatpress_el_top_days','value'=>'5'),
+  'os'=>array('name'=>'newstatpress_el_os','value'=>'10'),
+  'browser'=>array('name'=>'newstatpress_el_browser','value'=>'10'),
+  'feed'=>array('name'=>'newstatpress_el_feed','value'=>'5'),
+  'searchengine'=>array('name'=>'newstatpress_el_searchengine','value'=>'10'),
+  'search'=>array('name'=>'newstatpress_el_search','value'=>'20'),
+  'referrer'=>array('name'=>'newstatpress_el_referrer','value'=>'10'),
+  'languages'=>array('name'=>'newstatpress_el_languages','value'=>'20'),
+  'spiders'=>array('name'=>'newstatpress_el_spiders','value'=>'10'),
+  'pages'=>array('name'=>'newstatpress_el_pages','value'=>'5'),
+  'visitors'=>array('name'=>'newstatpress_el_visitors','value'=>'5'),
+  'daypages'=>array('name'=>'newstatpress_el_daypages','value'=>'5'),
+  'ippages'=>array('name'=>'newstatpress_el_ippages','value'=>'5')
+);
+
+
 // add by chab
-//include stylesheet =>  TO NEED to use your function for old version of WP
+//include stylesheet
+// TODO : TO NEED to use your function for old version of WP
 //add function to register only on the admin option
-// to need to put on css directory
 wp_enqueue_style('styles', plugins_url('./css/style.css', __FILE__));
 
 // add by chab
@@ -69,7 +88,7 @@ function iri_add_pages() {
   add_submenu_page('NSP-main', __('Search','newstatpress'), __('Search','newstatpress'), $mincap, 'search-page', 'iriNewStatPressSearch');
   add_submenu_page('NSP-main', __('Export','newstatpress'), __('Export','newstatpress'), $mincap, 'export-page', 'iriNewStatPressExport');
   add_submenu_page('NSP-main', __('Options','newstatpress'), __('Options','newstatpress'), $mincap, 'options-page', 'iriNewStatPressOptions');
-  add_submenu_page('NSP-main', __('NewStatPressUpdate','newstatpress'), __('NewStatPressUpdate','newstatpress'), $mincap, 'update-page', 'iriNewStatPressUpdate');
+  // add_submenu_page('NSP-main', __('NewStatPressUpdate','newstatpress'), __('NewStatPressUpdate','newstatpress'), $mincap, 'update-page', 'iriNewStatPressUpdate');
   add_submenu_page('NSP-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $mincap, 'credits-page', 'iriNewStatPressCredits');
   add_submenu_page('NSP-main', __('Remove','newstatpress'), __('Remove','newstatpress'), $mincap,  'remove-page', 'iriNewStatPressRemove');
 }
@@ -104,33 +123,47 @@ function iriNewStatPress_trim_value(&$value) {
 }
 
 
-// add by chab
 function print_option($option_title,$option_var,$var) {
 
   echo "<tr>\n<td>$option_title</td>\n";
   echo "<td><select name=$option_var>\n";
-  foreach($var as list($i, $j))
-  {
-    echo "<option value=$i";
-    if(get_option($option_var)==$i) {
-      echo " selected";
+  if($option_var=='newstatpress_mincap') {
+    $role = get_role('administrator');
+    foreach($role->capabilities as $cap => $grant) {
+      print "<option ";
+      if($var == $cap) {
+        print "selected ";
+      }
+      print ">$cap</option>";
     }
-    echo ">". $i;
-    if ($j !=  '') {
-      echo " $j";
+  } else {
+    foreach($var as list($i,$j))
+    {
+      echo "<option value=$i";
+      if(get_option($option_var)==$i) {
+        echo " selected";
+      }
+      echo ">". $i;
+      if ($j !=  '') {
+        echo " ";
+        _e($j,'newstatpress');
+      }
+      echo "</option>\n";
     }
-    echo "</option>\n";
   }
   echo "</select></td></tr>";
 }
 
 // add by chab
-function print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength) {
-  echo "<tr><td><label for=$option_var> $option_title";
-  echo "</label></td>\n";
-  echo "<td><input class='right' type='text' name=$option_var value=";
-  echo (get_option($option_var)=='') ? $input_default:get_option($option_var);
+function print_row_input($option_title,$option_list_info,$input_size,$input_maxlength) {
+  echo "<tr><td><label for=$option_list_info[name]>$option_title</label></td>\n";
+  echo "<td><input class='right' type='text' name=$option_list_info[name] value=";
+  echo (get_option($option_list_info['name'])=='') ? $option_list_info['value']:get_option($option_list_info['name']);
   echo " size=$input_size maxlength=$input_maxlength />\n</td></tr>\n";
+}
+
+function print_row($option_title) {
+  echo "<tr><td>$option_title</td></tr>\n";
 }
 
 // add by chab
@@ -148,13 +181,38 @@ function print_textaera($option_title,$option_var,$option_description) {
   echo "</td></tr>\n";
 }
 
+
+// function ilc_admin_tabs( $current = 'homepage' ) {
+//     $tabs = array( 'homepage' => 'Newstatpress Settings', 'general' => 'General', 'ip2nation' => 'IP2nation', 'database' => 'Update Database' );
+//     echo '<div id="icon-themes" class="icon32"><br></div>';
+//     echo '<h2 class="nav-tab-wrapper">';
+//     foreach( $tabs as $tab => $name ){
+//         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
+//         echo "<a class='nav-tab $class' href='?page=theme-settings&tab=$tab'>$name</a>";
+//
+//     }
+//     echo '</h2>';
+// }
+
 /**
  * Generate HTML for option menu in Wordpress
  */
 function iriNewStatPressOptions() {
-  if(isset($_POST['saveit']) && $_POST['saveit'] == 'yes') {
-    if (isset($_POST['newstatpress_collectloggeduser'])) update_option('newstatpress_collectloggeduser', $_POST['newstatpress_collectloggeduser']);
-    else update_option('newstatpress_collectloggeduser', null);
+
+  if(isset($_POST['saveit']) && $_POST['saveit'] == 'yes') { //option update request by user
+
+    $i=isset($_POST['newstatpress_collectloggeduser']) ? $_POST['newstatpress_collectloggeduser'] : '';
+    update_option('newstatpress_collectloggeduser', $i);
+
+    $i=isset($_POST['newstatpress_donotcollectspider']) ? $_POST['newstatpress_donotcollectspider'] : '';
+    update_option('newstatpress_donotcollectspider', $i);
+
+    $i=isset($_POST['newstatpress_cryptip']) ? $_POST['newstatpress_cryptip'] : '';
+    update_option('newstatpress_cryptip', $i);
+
+    $i=isset($_POST['newstatpress_dashboard']) ? $_POST['newstatpress_dashboard'] : '';
+    update_option('newstatpress_dashboard', $i);
+
     update_option('newstatpress_ip_per_page_newspy', $_POST['newstatpress_ip_per_page_newspy']);
     update_option('newstatpress_visits_per_ip_newspy', $_POST['newstatpress_visits_per_ip_newspy']);
     update_option('newstatpress_bot_per_page_spybot', $_POST['newstatpress_bot_per_page_spybot']);
@@ -163,16 +221,10 @@ function iriNewStatPressOptions() {
     update_option('newstatpress_autodelete_spiders', $_POST['newstatpress_autodelete_spiders']);
     update_option('newstatpress_daysinoverviewgraph', $_POST['newstatpress_daysinoverviewgraph']);
     update_option('newstatpress_mincap', $_POST['newstatpress_mincap']);
-    if (isset($_POST['newstatpress_donotcollectspider'])) update_option('newstatpress_donotcollectspider', $_POST['newstatpress_donotcollectspider']);
-    else update_option('newstatpress_donotcollectspider', null);
-    if (isset($_POST['newstatpress_cryptip'])) update_option('newstatpress_cryptip', $_POST['newstatpress_cryptip']);
-    else update_option('newstatpress_cryptip', null);
-    if (isset($_POST['newstatpress_dashboard'])) update_option('newstatpress_dashboard', $_POST['newstatpress_dashboard']);
-    else update_option('newstatpress_dashboard', null);
     update_option('newstatpress_ignore_users', iriNewStatPress_filter_for_xss($_POST['newstatpress_ignore_users']));
     update_option('newstatpress_ignore_ip', iriNewStatPress_filter_for_xss($_POST['newstatpress_ignore_ip']));
     update_option('newstatpress_ignore_permalink', iriNewStatPress_filter_for_xss($_POST['newstatpress_ignore_permalink']));
-    update_option('newstatpress_el_overwiew', $_POST['newstatpress_el_overwiew']);
+    update_option('newstatpress_el_overview', $_POST['newstatpress_el_overview']);
     update_option('newstatpress_el_top_days', $_POST['newstatpress_el_top_days']);
     update_option('newstatpress_el_os', $_POST['newstatpress_el_os']);
     update_option('newstatpress_el_browser', $_POST['newstatpress_el_browser']);
@@ -188,227 +240,237 @@ function iriNewStatPressOptions() {
     update_option('newstatpress_el_ippages', $_POST['newstatpress_el_ippages']);
     update_option('newstatpress_updateint', $_POST['newstatpress_updateint']);
 
-    # update database too
+    // update database too and print message confirmation
     iri_NewStatPress_CreateTable();
     print "<br /><div class='updated'><p>".__('Options saved!','newstatpress')."</p></div>";
   }
-  // else {
+  ?>
+  <div id='settings' class='wrap'><h2><?php _e('NewStatPress Settings','newstatpress'); ?></h2>
+
+    <!--IP2nation & update database  -->
+    <?php
+    // Importation if requested by user
+    if (isset($_POST['download']) && $_POST['download'] == 'yes' ) {
+      $install_result=iriNewStatPressIP2nationDownload();
+    }
+
+    // database update if requested by user
+    if (isset($_POST['update']) && $_POST['update'] == 'yes' ) {
+      iriNewStatPressUpdate();
+      die;
+    }
+
+    // TODO chab: To add routine to check if IP2nation is already installed
+    // if YES => to check if it's the last version to avoid the download if not necessary
+    ?>
+    <!-- IP2nation -->
+    <div class='wrap'><h3><?php _e('To import IP2nation database','newstatpress'); ?></h3>
+
+      <?php
+      if ($install_result !='') {
+        print "<br /><div class='updated'><p>".__($install_result,'newstatpress')."</p></div>";
+      }
+
+      $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
+      if (file_exists($file_ip2nation)) {
+        $i=sprintf(__('Last version installed: %s','newstatpress'), date('d/m/Y', filemtime($file_ip2nation)));
+        echo $i.'<br /><br />';
+        _e('To update the IP2nation database, just click on the button bellow.','newstatpress');
+        $button_name='Update';
+      }
+      else {
+        _e('Last version installed: none ','newstatpress');
+        echo '<br /><br />';
+        _e('To download and to install the IP2nation database, just click on the button bellow.','newstatpress');
+        $button_name='Download';
+      }
       ?>
-      <div id='settings' class='wrap'><h2><?php _e('NewStatPress Settings','newstatpress'); ?></h2>
+      <br /><br />
+      <form method=post>
+        <input type=hidden name=page value=newstatpress>
+        <input type=hidden name=download value=yes>
+        <input type=hidden name=newstatpress_action value=ip2nation>
+        <button class='button button-primary' type=submit><?php _e($button_name,'newstatpress'); ?></button>
+      </form>
 
+    </div>
+
+    <div class='wrap'><h3><?php _e('Database update','newstatpress'); ?></h3>
+      <?php
+      _e('To update the newstatpress database, just click on the button bellow.','newstatpress');
+      ?>
+      <br /><br />
+      <form method=post>
+        <input type=hidden name=page value=newstatpress>
+        <input type=hidden name=update value=yes>
+        <input type=hidden name=newstatpress_action value=update>
+        <button class='button button-primary' type=submit><?php _e('Update','newstatpress'); ?></button>
+      </form>
+    </div>
+
+
+    <form method=post>
+
+      <!-- General option -->
+      <h3><?php _e('General option','newstatpress'); ?></h3>
+      <table class='table-option'>
         <?php
-        // Importation if requested by user
-        if (isset($_POST['download']) && $_POST['download'] == 'yes' ) {
-          $install_result=iriNewStatPressIP2nationDownload();
-        }
-        //To add routine to check if IP2nation is already installed
-        // if YES => to check if it's the last version to avoid the download if not necessary
+
+        global $option_list_info;
+
+        // input parameters
+        $input_size='2';
+        $input_maxlength='3';
+
+        // traduction $variable addition for Poedit parsing
+        __('Never','newstatpress');
+        __('All','newstatpress');
+        __('month','newstatpress');
+        __('months','newstatpress');
+        __('week','newstatpress');
+        __('weeks','newstatpress');
+
+        $option_title=__('Collect data about logged users, too.','newstatpress');
+        $option_var='newstatpress_collectloggeduser';
+        print_checked($option_title,$option_var);
+
+        $option_title=__('Do not collect spiders visits','newstatpress');
+        $option_var='newstatpress_donotcollectspider';
+        print_checked($option_title,$option_var);
+
+        $option_title=__('Crypt IP addresses','newstatpress');
+        $option_var='newstatpress_cryptip';
+        print_checked($option_title,$option_var);
+
+        $option_title=__('Show NewStatPress dashboard widget','newstatpress');
+        $option_var='newstatpress_dashboard';
+        print_checked($option_title,$option_var);
+
+        $option_title=sprintf(__('Elements in Overview (default %d)','newstatpress'), $option_list_info['overview']['value']);
+        print_row_input($option_title,$option_list_info['overview'],$input_size,$input_maxlength);
+
+        $val=array(['20',''],['50',''],['100','']);
+        $option_title=__('Visitors by Spy: number of IP per page','newstatpress');
+        $option_var='newstatpress_ip_per_page_newspy';
+        print_option($option_title,$option_var,$val);
+
+        $option_title=__('Visitors by Spy: number of visits for IP','newstatpress');
+        $option_var='newstatpress_visits_per_ip_newspy';
+        print_option($option_title,$option_var,$val);
+
+        $option_title=__('Spy Bot: number of bot per page','newstatpress');
+        $option_var='newstatpress_bot_per_page_spybot';
+        print_option($option_title,$option_var,$val);
+
+        $option_title=__('Spy Bot: number of bot for IP','newstatpress');
+        $option_var='newstatpress_visits_per_bot_spybot';
+        print_option($option_title,$option_var,$val);
+
+        $val=array(['', 'Never'], ['1', 'month'], ['3', 'months'], ['6', 'months'], ['12', 'months']);
+        $option_title=__('Automatically delete visits older than','newstatpress');
+        $option_var='newstatpress_autodelete';
+        print_option($option_title,$option_var,$val);
+
+        $option_title=__('Automatically delete only spiders visits older than','newstatpress');
+        $option_var='newstatpress_autodelete_spiders';
+        print_option($option_title,$option_var,$val);
+
+        $val= array(['7',''],['10',''],['20',''],['30',''],['50','']);
+        $option_title=__('Days number in Overview graph','newstatpress');
+        $option_var='newstatpress_daysinoverviewgraph';
+        print_option($option_title,$option_var,$val);
+
+        $option_title=__('Minimum capability to view stats','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
+        $option_var='newstatpress_mincap';
+        $val=get_option('newstatpress_mincap');
+        print_option($option_title,$option_var,$val);
+
         ?>
-        <div class='wrap'><h3><?php _e('Import IP2nation database','newstatpress'); ?></h3>
-          <?php
-          if ($install_result !='') {
-            print "<br /><div class='updated'><p>".__($install_result,'newstatpress')."!</p></div>";
-          }
-          _e('To download and to install the IP2nation database, just click on the button.','newstatpress');
-          ?>
-          <br /><br />
-          <form method=post>
-            <input type=hidden name=page value=newstatpress>
-            <input type=hidden name=download value=yes>
-            <input type=hidden name=newstatpress_action value=ip2nation>
-            <button class='button button-primary' type=submit><?php _e('Import','newstatpress'); ?></button>
-          </form>
-        </div>
-
-        <form method=post>
-
-        <!-- General option -->
-        <h3><?php _e('General option','newstatpress'); ?></h3>
-        <table class='table-option'>
-          <?php
-
-          $option_title=__('Collect data about logged users, too.','newstatpress');
-          $option_var='newstatpress_collectloggeduser';
-          print_checked($option_title,$option_var);
-
-          $option_title=__('Do not collect spiders visits','newstatpress');
-          $option_var='newstatpress_donotcollectspider';
-          print_checked($option_title,$option_var);
-
-          $option_title=__('Crypt IP addresses','newstatpress');
-          $option_var='newstatpress_cryptip';
-          print_checked($option_title,$option_var);
-
-          $option_title=__('Show NewStatPress dashboard widget','newstatpress');
-          $option_var='newstatpress_dashboard';
-          print_checked($option_title,$option_var);
-
-          $input_default='10';
-          $input_size='3';
-          $input_maxlength='3';
-          $option_title=__('Elements in Overview (default 10)','newstatpress');
-          $option_var='newstatpress_el_overwiew';
-          print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
-
-          $val= array([20,''],[50,''],[100,'']);
-          $option_title=__('Visitors by Spy: number of IP per page','newstatpress');
-          $option_var='newstatpress_ip_per_page_newspy';
-          print_option($option_title,$option_var,$val);
-
-          $option_title=__('Visitors by Spy: number of visits for IP','newstatpress');
-          $option_var='newstatpress_visits_per_ip_newspy';
-          print_option($option_title,$option_var,$val);
-
-          $option_title=__('Spy Bot: number of bot per page','newstatpress');
-          $option_var='newstatpress_bot_per_page_spybot';
-          print_option($option_title,$option_var,$val);
-
-          $option_title=__('Spy Bot: number of bot for IP','newstatpress');
-          $option_var='newstatpress_visits_per_bot_spybot';
-          print_option($option_title,$option_var,$val);
-
-          $val= array(['', __('Never','newstatpress')],
-          [1, __('month','newstatpress')],
-          [3, __('months','newstatpress')],
-          [6, __('months','newstatpress')],
-          [12, __('months','newstatpress')]);
-          $option_title=__('Automatically delete visits older than','newstatpress');
-          $option_var='newstatpress_autodelete';
-          print_option($option_title,$option_var,$val);
-
-          $option_title=__('Automatically delete only spiders visits older than','newstatpress');
-          $option_var='newstatpress_autodelete_spiders';
-          print_option($option_title,$option_var,$val);
-
-          $val= array([7,''],[10,''],[20,''],[30,''],[50,'']);
-          $option_title=__('Days in Overview graph','newstatpress');
-          $option_var='newstatpress_daysinoverviewgraph';
-          print_option($option_title,$option_var,$val);
-
-          ?>
-          <tr><td><?php _e('Minimum capability to view stats','newstatpress'); ?> (<a href="http://codex.wordpress.org/Roles_and_Capabilities" target="_blank"><?php _e("more info",'newstatpress'); ?></a>)</td>
-            <td><select name="newstatpress_mincap">
-              <?php iri_dropdown_caps(get_option('newstatpress_mincap')); ?>
-            </select>
-          </td></tr>
-        </table>
+      </table>
 
       <!-- Parameters to ignore -->
       <h3><?php _e('Parameters to ignore','newstatpress') ?></h3>
-      <table class="option2">
+      <table class='option2'>
         <?php
 
         $option_title=__('Logged users to ignore','newstatpress');
         $option_var='newstatpress_ignore_users';
         $option_description=__('Enter a list of users you don\'t want to track, separated by commas, even if collect data about logged users is on','newstatpress');
-        print_textaera ($option_title,$option_var,$option_description);
+        print_textaera($option_title,$option_var,$option_description);
 
 
         $option_title=__('IP addresses to ignore','newstatpress');
         $option_var='newstatpress_ignore_ip';
         $option_description=__('Enter a list of networks you don\'t want to track, separated by commas. Each network <strong>must</strong> be defined using the CIDR notation (i.e. <em>192.168.1.1/24</em>). <br />If the format is incorrect, NewStatPress may not track pageviews properly.','newstatpress');
-        print_textaera ($option_title,$option_var,$option_description);
+        print_textaera($option_title,$option_var,$option_description);
 
         $option_title=__('Pages and posts to ignore','newstatpress');
         $option_var='newstatpress_ignore_permalink';
         $option_description=__('Enter a list of permalinks you don\'t want to track, separated by commas. You should omit the domain name from these resources: <em>/about, p=1</em>, etc. <br />NewStatPress will ignore all the pageviews whose permalink <strong>contains</strong> at least one of them.','newstatpress');
-        print_textaera ($option_title,$option_var,$option_description);
+        print_textaera($option_title,$option_var,$option_description);
 
         ?>
       </table>
 
-      <!-- Details Options -->
-      <h3><label for="newstatpress_details_options"><?php _e('Details options','newstatpress') ?></label></h3>
+      <!-- Details menu options -->
+      <h3><label for="newstatpress_details_options"><?php _e('Details menu options','newstatpress') ?></label></h3>
       <table>
-       <?php
+        <?php
 
-       $input_size='2';
-       $input_maxlength='3';
+        $option_title=sprintf(__('Elements in Top days (default %d)','newstatpress'), $option_list_info['top_days']['value']);
+        print_row_input($option_title,$option_list_info['top_days'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Top days (default 5)','newstatpress');
-       $option_var='newstatpress_el_top_days';
-       $input_default='5';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in O.S. (default %d)','newstatpress'), $option_list_info['os']['value']);
+        print_row_input($option_title,$option_list_info['os'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in O.S. (default 10)','newstatpress');
-       $option_var='newstatpress_el_os';
-       $input_default='10';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Browser (default %d)','newstatpress'), $option_list_info['browser']['value']);
+        print_row_input($option_title,$option_list_info['browser'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Browser (default 10)','newstatpress');
-       $option_var='newstatpress_el_browser';
-       $input_default='10';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Feed (default %d)','newstatpress'), $option_list_info['feed']['value']);
+        print_row_input($option_title,$option_list_info['feed'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Feed (default 5)','newstatpress');
-       $option_var='newstatpress_el_feed';
-       $input_default='5';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Search Engines (default %d)','newstatpress'), $option_list_info['searchengine']['value']);
+        print_row_input($option_title,$option_list_info['searchengine'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Search Engines (default 10)','newstatpress');
-       $option_var='newstatpress_el_searchengine';
-       $input_default='10';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Top Search Terms (default %d)','newstatpress'), $option_list_info['search']['value']);
+        print_row_input($option_title,$option_list_info['search'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Top Search Terms (default 20)','newstatpress');
-       $option_var='newstatpress_el_search';
-       $input_default='20';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Top Referrer (default %d)','newstatpress'), $option_list_info['referrer']['value']);
+        print_row_input($option_title,$option_list_info['referrer'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Top Refferer (default 10)','newstatpress');
-       $option_var='newstatpress_el_referrer';
-       $input_default='10';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Countries/Languages (default %d)','newstatpress'), $option_list_info['languages']['value']);
+        print_row_input($option_title,$option_list_info['languages'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Countries/Languages (default 20)','newstatpress');
-       $option_var='newstatpress_el_languages';
-       $input_default='20';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Spiders (default %d)','newstatpress'), $option_list_info['spiders']['value']);
+        print_row_input($option_title,$option_list_info['spiders'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Spiders (default 10)','newstatpress');
-       $option_var='newstatpress_el_spiders';
-       $input_default='10';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Top Pages (default %d)','newstatpress'), $option_list_info['pages']['value']);
+        print_row_input($option_title,$option_list_info['pages'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Top Pages (default 5)','newstatpress');
-       $option_var='newstatpress_el_pages';
-       $input_default='5';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Top Days - Unique visitors (default %d)','newstatpress'), $option_list_info['visitors']['value']);
+        print_row_input($option_title,$option_list_info['visitors'],$input_size,$input_maxlength);
 
-       $option_title=__('Elements in Top Days - Unique visitors (default 5)','newstatpress');
-       $option_var='newstatpress_el_visitors';
-       $input_default='5';
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Top Days - Pageviews (default %d)','newstatpress'), $option_list_info['daypages']['value']);
+        print_row_input($option_title,$option_list_info['daypages'],$input_size,$input_maxlength);
 
-       $option_var='newstatpress_el_daypages';
-       $input_default='5';
-       $option_title=sprintf(__('Elements in Top Days - Pageviews (default %d)','newstatpress'), $input_default);
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
+        $option_title=sprintf(__('Elements in Top IPs - Pageviews (default %d)', 'newstatpress'), $option_list_info['ippages']['value']);
+        print_row_input($option_title,$option_list_info['ippages'],$input_size,$input_maxlength);
 
-       $option_var='newstatpress_el_ippages';
-       $input_default='5';
-       $option_title=sprintf(__('Elements in Top IPs - Pageviews (default %d)', 'newstatpress'), $input_default);
-       print_input($option_title,$option_var,$input_default,$input_size,$input_maxlength);
-
-       ?>
+        ?>
       </table>
 
       <h3><?php _e('Database update option','newstatpress'); ?></h3>
       <table>
-        <p  class='table-databaseupdate'> <?php _e("Select the interval of date from today you want to use for updating your database with new definitions. More it is big and more times and resources it require. You can choose to not update some fields if you want.",'newstatpress') ?>
+        <p  class='table-databaseupdate'>
+          <?php
+          _e('Select the interval of date from today you want to use for updating your database with new definitions. ','newstatpress');
+          _e('Be aware, larger is the interval, longer is the update and bigger are the resources required.','newstatpress');
+          // _e('You can choose to not update some fields if you want.','newstatpress')
+          ?>
        </p>
 
        <?php
-       $val= array (['', __('All','newstatpress')],
-                    [1, __('week','newstatpress')],
-                    [2, __('weeks','newstatpress')],
-                    [3, __('weeks','newstatpress')],
-                    [1, __('month','newstatpress')],
-                    [2, __('months','newstatpress')],
-                    [3, __('months','newstatpress')],
-                    [6, __('months','newstatpress')],
-                    [9, __('months','newstatpress')],
-                    [12, __('months','newstatpress')]);
+       $val= array(['', All], [1, week], [2, weeks], [3, weeks], [1, month], [2, months], [3, months], [6, months], [9, months], [12, months]);
        $option_title=__('Update data in the given period','newstatpress');
        $option_var='newstatpress_updateint';
        print_option($option_title,$option_var,$val);
@@ -421,20 +483,7 @@ function iriNewStatPressOptions() {
       </form>
       </div>
       <?php
-    // }
-}
-
-
-function iri_dropdown_caps( $default = false ) {
-  global $wp_roles;
-  $role = get_role('administrator');
-  foreach($role->capabilities as $cap => $grant) {
-    print "<option ";
-    if($default == $cap) { print "selected "; }
-    print ">$cap</option>";
-  }
-}
-
+    }
 
 
   // add by chab
@@ -468,7 +517,7 @@ function iri_dropdown_caps( $default = false ) {
         $content = wp_remote_retrieve_body($result);
         $zip_size = file_put_contents ($temp_zip_file, $content);
         if (!$zip_size) { // writing error
-          $install_status = _e('Failure to save content locally, please try to re-install.','newstatpress');
+          $install_status=__('Failure to save content locally, please try to re-install.','newstatpress');
         }
       }
       else { // WP_error
@@ -485,10 +534,10 @@ function iri_dropdown_caps( $default = false ) {
       $archive = new PclZip($temp_zip_file);
       $newstatpress_includes_path = WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes';
       if ($archive->extract(PCLZIP_OPT_PATH, $newstatpress_includes_path , PCLZIP_OPT_REMOVE_ALL_PATH) == 0) {
-        $install_status = _e('Failure to unzip archive, please try to re-install','newstatpress');
+        $install_status=__('Failure to unzip archive, please try to re-install','newstatpress');
       }
       else {
-        $install_status = _e('Instalation of IP2nation database was successful','newstatpress');
+        $install_status=__('Instalation of IP2nation database was successful','newstatpress');
       }
 
       // Remove Zip file
@@ -587,7 +636,7 @@ function iriNewStatPressMain() {
   if ($permalink_structure=='') $extra="/?";
   else $extra="/";
 
-  $querylimit="LIMIT ".((get_option('newstatpress_el_overwiew')=='') ? 10:get_option('newstatpress_el_overwiew'));
+  $querylimit="LIMIT ".((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
 
   # Tabella Last hits
   print "<div class='wrap'><h2>". __('Last hits','newstatpress'). "</h2><table class='widefat nsp'><thead><tr><th scope='col'>". __('Date','newstatpress'). "</th><th scope='col'>". __('Time','newstatpress'). "</th><th scope='col'>IP</th><th scope='col'>". __('Country','newstatpress').'/'.__('Language','newstatpress'). "</th><th scope='col'>". __('Page','newstatpress'). "</th><th scope='col'>". __('Feed','newstatpress'). "</th><th></th><th scope='col' style='width:120px;'>". __('OS','newstatpress'). "</th><th></th><th scope='col' style='width:120px;'>". __('Browser','newstatpress'). "</th></tr></thead>";
@@ -2046,20 +2095,30 @@ function iriStatAppend() {
  * @return the number of days of -1 for all days
  */
 function iriNewStatPressDays() {
-  $days=-1;     // infinite in the past
 
-  // Get Current page periode from URL
-  $updateint =get_option('newstatpress_updateint');
-
-  if     ($updateint=="1 week") $days=7;
-  elseif ($updateint=="2 weeks") $days=14;
-  elseif ($updateint=="3 weeks") $days=21;
-  elseif ($updateint=="1 month") $days=30;
-  elseif ($updateint=="2 months") $days=60;
-  elseif ($updateint=="3 months") $days=90;
-  elseif ($updateint=="6 months") $days=180;
-  elseif ($updateint=="9 months") $days=270;
-  elseif ($updateint=="1 year") $days=365;
+  // get the number of days for the update
+  switch (get_option('newstatpress_updateint')) {
+	  case '1 week':
+	  	$days=7; break;
+	  case '2 weeks':
+	  	$days=14; break;
+  	  case '3 weeks':
+	    $days=21; break;
+	  case '1 month':
+    	$days=30; break;
+  	case '2 months':
+    	$days=60; break;
+	  case '3 months':
+      $days=90; break;
+    case '6 months':
+      $days=180; break;
+  	case '9 months':
+    	$days=270; break;
+	  case '12 months':
+      	$days=365; break;
+	  default :
+	    $days=-1; // infinite in the past, for all day
+  }
 
   return $days;
 }

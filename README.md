@@ -3,6 +3,8 @@
 **USELESS IDEA**
 - add a page help somewhere (the help for the different %variable%,...)
 - why did you not provide directly a version of ip2nation by default?
+- tab construction for option page
+- tab construction for overview page
 
 ## 0.9
 
@@ -27,5 +29,5 @@ Development:
 
 
 Translation Update:
-- [x] fr_FR
+- [ ] fr_FR
 - [ ] it_IT
