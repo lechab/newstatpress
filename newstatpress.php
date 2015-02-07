@@ -138,15 +138,15 @@ function print_option($option_title,$option_var,$var) {
     }
   } else {
     foreach($var as $option) {
-      list($i,$j) = $option;
-      echo "<option value=$i";
-      if(get_option($option_var)==$i) {
+      // list($i,$j) = $option;
+      echo "<option value=$option[0]";
+      if(get_option($option_var)==$option[0]) {
         echo " selected";
       }
-      echo ">". $i;
-      if ($j !=  '') {
+      echo ">". $option[0];
+      if ($option[1] !=  '') {
         echo " ";
-        _e($j,'newstatpress');
+        _e($option[1],'newstatpress');
       }
       echo "</option>\n";
     }
@@ -349,7 +349,8 @@ function iriNewStatPressOptions() {
         $option_title=sprintf(__('Elements in Overview (default %d)','newstatpress'), $option_list_info['overview']['value']);
         print_row_input($option_title,$option_list_info['overview'],$input_size,$input_maxlength);
 
-        $val=array(['20',''],['50',''],['100','']);
+        // $val=array(['20',''], ['50',''], ['100','']);
+        $val=array(array(20,''),array(50,''),array(100,''));
         $option_title=__('Visitors by Spy: number of IP per page','newstatpress');
         $option_var='newstatpress_ip_per_page_newspy';
         print_option($option_title,$option_var,$val);
@@ -366,7 +367,7 @@ function iriNewStatPressOptions() {
         $option_var='newstatpress_visits_per_bot_spybot';
         print_option($option_title,$option_var,$val);
 
-        $val=array(['', 'Never'], ['1', 'month'], ['3', 'months'], ['6', 'months'], ['12', 'months']);
+        $val=array(array('', 'Never'),array(1, 'month'),array(3, 'months'),array(6, 'months'),array(12, 'months'));
         $option_title=__('Automatically delete visits older than','newstatpress');
         $option_var='newstatpress_autodelete';
         print_option($option_title,$option_var,$val);
@@ -375,7 +376,8 @@ function iriNewStatPressOptions() {
         $option_var='newstatpress_autodelete_spiders';
         print_option($option_title,$option_var,$val);
 
-        $val= array(['7',''],['10',''],['20',''],['30',''],['50','']);
+        // $val= array(['7',''],['10',''],['20',''],['30',''],['50','']);
+        $val=array(array(7,''),array(10,''),array(20,''),array(30,''),array(50,''));
         $option_title=__('Days number in Overview graph','newstatpress');
         $option_var='newstatpress_daysinoverviewgraph';
         print_option($option_title,$option_var,$val);
@@ -470,7 +472,7 @@ function iriNewStatPressOptions() {
        </p>
 
        <?php
-       $val= array(['', All], [1, week], [2, weeks], [3, weeks], [1, month], [2, months], [3, months], [6, months], [9, months], [12, months]);
+       $val= array(array('', 'All'),array(1, 'week'),array(2, 'weeks'),array(3, 'weeks'),array(1, 'month'),array(2, 'months'),array(3, 'months'),array(6, 'months'),array(9, 'months'),array(12, 'months'));
        $option_title=__('Update data in the given period','newstatpress');
        $option_var='newstatpress_updateint';
        print_option($option_title,$option_var,$val);
