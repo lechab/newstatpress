@@ -31,5 +31,5 @@ Development:
 
 
 Translation Update:
-- [ ] fr_FR
+- [x] fr_FR
 - [x] it_IT
