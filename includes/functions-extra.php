@@ -27,11 +27,11 @@ function iriNewStatPressCredits() {
   echo "<div class='wrap'><h2>"; _e('Credits','newstatpress'); echo "</h2>";
   echo "<br /><table id='credit'>\n";
   echo "<thead>\n<tr><th class='cell-l'>";  _e('Contributor','newstatpress'); echo "</th>\n<th class='cell-r'>"; _e('Description','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
-  foreach($contributors as list($name, $contribution))
+  foreach($contributors as $contributors)
   {
     echo "<tr>\n";
-    echo "<td class='cell-l'>$name</td>\n";
-    echo "<td class='cell-r'>$contribution</td>\n";
+    echo "<td class='cell-l'>$contributors[0]</td>\n";
+    echo "<td class='cell-r'>$contributors[1]</td>\n";
     echo "</tr>\n";
   };
   echo "<tbody></table></div>";
