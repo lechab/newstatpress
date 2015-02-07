@@ -4,7 +4,7 @@ Plugin Name: NewStatPress
 Plugin URI: http://newstatpress.altervista.org
 Description: Real time stats for your Wordpress blog
 Version: 0.8.9
-Author: Stefano Tognon (from Daniele Lippi works)
+Author: Stefano Tognon and cHab (from Daniele Lippi works)
 Author URI: http://newstatpress.altervista.org
 */
 
@@ -1855,13 +1855,13 @@ function iri_NewStatPress_lastmonth() {
 
    // Add by chab
    // If the database is already created then DROP INDEX for update
-   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) { $list_index_to_drop=['spider_nation','agent','ip_date','search','os','browser','referrer','feed_spider_os','date_feed_spider', 'feed_spider_browser'];
-     foreach ($list_index_to_drop as $i)
-     {
-       $sql_createtable = "ALTER TABLE $table_name DROP INDEX $i";
-       $wpdb->query($sql_createtable);
-     }
-   }
+///   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) { $list_index_to_drop=['spider_nation','agent','ip_date','search','os','browser','referrer','feed_spider_os','date_feed_spider', 'feed_spider_browser'];
+///     foreach ($list_index_to_drop as $i)
+///     {
+///       $sql_createtable = "ALTER TABLE $table_name DROP INDEX $i";
+///       $wpdb->query($sql_createtable);
+///     }
+///   }
 
   $sql_createtable = "
     CREATE TABLE " . $table_name . " (
@@ -2098,26 +2098,26 @@ function iriNewStatPressDays() {
 
   // get the number of days for the update
   switch (get_option('newstatpress_updateint')) {
-	  case '1 week':
-	  	$days=7; break;
-	  case '2 weeks':
-	  	$days=14; break;
-  	  case '3 weeks':
-	    $days=21; break;
-	  case '1 month':
-    	$days=30; break;
-  	case '2 months':
-    	$days=60; break;
-	  case '3 months':
+    case '1 week':
+      $days=7; break;
+    case '2 weeks':
+      $days=14; break;
+    case '3 weeks':
+      $days=21; break;
+    case '1 month':
+      $days=30; break;
+    case '2 months':
+      $days=60; break;
+    case '3 months':
       $days=90; break;
     case '6 months':
       $days=180; break;
-  	case '9 months':
-    	$days=270; break;
-	  case '12 months':
-      	$days=365; break;
-	  default :
-	    $days=-1; // infinite in the past, for all day
+    case '9 months':
+      $days=270; break;
+    case '12 months':
+      $days=365; break;
+    default :
+      $days=-1; // infinite in the past, for all day
   }
 
   return $days;

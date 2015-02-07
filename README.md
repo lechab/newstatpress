@@ -6,7 +6,9 @@
 - tab construction for option page
 - tab construction for overview page
 
-## 0.9
+## 0.9.0
+
+- [x] Fixed 'ALTER INDEX' error warning when user database is updated
 
 ## 0.8.9
 
@@ -23,7 +25,6 @@ Development:
 - [x] Optimization of the remove page
 - [x] Optimization of the database update page
 - [x] Fixed 'selected sub-menu' bug
-- [x] Fixed 'ALTER INDEX' error warning when user database is updated
 - [x] Fixed wrong path to update IP2nation when database is updated (/includes)
 - [x] Add variables %yvisits% (yesterday visits) %mvisits% (month visits)
 - [x] Fix 5 bots, add 13 new bots
@@ -31,4 +32,4 @@ Development:
 
 Translation Update:
 - [ ] fr_FR
-- [ ] it_IT
+- [x] it_IT

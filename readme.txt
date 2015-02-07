@@ -506,10 +506,22 @@ Check at http://newstatpress.altervista.org
 
 = 0.8.9 =
 
+* Add Ip2nation download function in option page
+* Add plugin homepage link, news feeds link, bouton donation in credit page
+* Add CSS style to stylesheet (./css/style.css), partially done
+*  remove page
+*  update page
+*  credit page
+* Optimization of the option page
+* Optimization of the credit page
+* Optimization of the export page
+* Optimization of the remove page
+* Optimization of the database update page
+* Fixed 'selected sub-menu' bug
+* Fixed wrong path to update IP2nation when database is updated (/includes)
 * Add variables %yvisits% (yesterday visits) %mvisits% (month visits)
-* Add newstatpress-style.css
-* Add ip2nation installation suppport
-* Internal option code restyling
+* Fix 5 bots, add 13 new bots
+* Update locate Italian and French
 
 
 == Upgrade Notice ==
@@ -832,4 +844,4 @@ Check at http://newstatpress.altervista.org
 
 = 0.8.9 =
 
-* released 25/01/2015
+* released 07/02/2015
