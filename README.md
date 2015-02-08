@@ -12,7 +12,7 @@
 
 ## 0.9.1
 
-- [x] Activate changes in version 0.9.1 with PHP fixes
+- [x] Activate changes of 0.8.9 in version 0.9.1 with PHP fixes
 
 ## 0.9.0
 

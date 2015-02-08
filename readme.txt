@@ -523,15 +523,15 @@ Check at http://newstatpress.altervista.org
 * Fix 5 bots, add 13 new bots
 * Update locate Italian and French
 
-NOTE: not install this version if you have not a recent PHP version. Attend the new 0.9.0 instead.
+NOTE: not install this version if you have not a recent PHP version. Attend the new 0.9.1 instead.
 
 = 0.9.0 =
 
-* revert modification to 0.8.0  for fix PHP issue for old versions
+* Revert modification to 0.8.8 to fix PHP issue for old versions
 
 = 0.9.1 =
 
-*
+* Fix PHP to be compatible with a old version (all 0.8.9 chaneges are now activated)
 
 
 == Upgrade Notice ==
