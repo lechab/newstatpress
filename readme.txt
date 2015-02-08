@@ -4,13 +4,13 @@ Donate link: http://newstatpress.altervista.org
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 2.1
 Tested up to: 4.1
-Stable Tag: 0.9.1
+Stable Tag: 0.9.2
 
 NewStatPress is a new version of StatPress (that was the first real-time plugin dedicated to the management of statistics about blog visits).
 
 == Description ==
 
-A real-time plugin dedicated to the management of statistics about blog visits. It collects information about visitors, spiders, search keywords, feeds, browsers etc.  
+A real-time plugin dedicated to the management of statistics about blog visits. It collects information about visitors, spiders, search keywords, feeds, browsers etc.
 
 This project borned for improving the Daniele Lippi's StarPress plugin adding a new history features and make it less db consuming.
 
@@ -44,7 +44,7 @@ Widget is customizable. These are the available variables:
 
 * %thistotalvisits% - this page, total visits
 * %alltotalvisits% - all page, total visits
-* %totalpageviews% - total pages view
+* %totalpageviews% - total pages view 
 * %todaytotalpageviews% -  total pages view today
 * %since% - Date of the first hit
 * %visits% - Today visits
@@ -62,11 +62,11 @@ Widget is customizable. These are the available variables:
 * %topsearch% - The most used search terms
 * %installed% - Give the number of installed plugin (experimental)
 
-The number of installed plugins is obtained by counting the encripted MD5 site domain where the
+The number of installed plugins is obtained by counting the encripted MD5 site domain where the 
 plugin is installed and his version inside a table into newstatpress.altervista.org database.
 As MD5 is used, this means that the site is registered anonymous and so site privacy is mantained.
 Actually the registration is send when you are in admin area, so it not affects a user that visit your site.
-If you put %installed% into one your page, take present that it goes to read a value to
+If you put %installed% into one your page, take present that it goes to read a value to 
 newstatpress.altervista.org database (it is one value, so performance should be fast).
 The used registration scripts are added inside include directory.
 
@@ -78,7 +78,7 @@ New sperimental functions: place this command [NewStatPress: xxx] every were in 
 Available functions are:
  *  [NewStatPress: Overview]
  *  [NewStatPress: Top days]
- *  [NewStatPress: O.S.]
+ *  [NewStatPress: O.S.] 
  *  [NewStatPress: Browser]
  *  [NewStatPress: Feeds]
  *  [NewStatPress: Search Engine]
@@ -183,7 +183,7 @@ Check at http://newstatpress.altervista.org
 = 0.2.2 =
 
 * Add source for Simplified Chinese translation (thanks to Christopher Meng)
-* Fix nb_NO over no_NO locale
+* Fix nb_NO over no_NO locale 
 * Lots of php warnings fixed in source
 
 = 0.2.3 =
@@ -264,7 +264,7 @@ Check at http://newstatpress.altervista.org
 
 = 0.3.9 =
 
-* Add the abilities to not monitoring only a given list of names
+* Add the abilities to not monitoring only a given list of names 
  (so, administrators can still monitoring authenticated users) for users that are logged (tracker id 201)
 * Update Italian locale
 
@@ -322,7 +322,7 @@ Check at http://newstatpress.altervista.org
 
 = 0.5.1 =
 
-* Add Slovak translation  (thanks to Branco - WebHostingGeeks.com http://webhostinggeeks.com/blog/)
+* Add Slovak translation  (thanks to Branco - WebHostingGeeks.com http://webhostinggeeks.com/blog/) 
 * Fix mising msn spider images (thanks to Christian)
 
 = 0.5.2 =
@@ -345,7 +345,7 @@ Check at http://newstatpress.altervista.org
 = 0.5.5 =
 
 * Porting the GeoMap chart to the new Google API: Geochart.
-  Map is rendered into an iframe with SVG or VML.
+  Map is rendered into an iframe with SVG or VML. 
   See http://newstatpress.altervista.org/?p=373 for an example
 
 = 0.5.6 =
@@ -355,7 +355,7 @@ Check at http://newstatpress.altervista.org
 = 0.5.7 =
 
 * Porting the 3D charts to the new Google API: Piechart.
-  Chart is rendered into an iframe with SVG or VML.
+  Chart is rendered into an iframe with SVG or VML. 
   See http://newstatpress.altervista.org/?p=381 for an example
 
 = 0.5.8 =
@@ -415,7 +415,7 @@ Check at http://newstatpress.altervista.org
 = 0.7.0 =
 
 * Make tables compatible with qTransalte plugin
-* Fix bug id 390 (Graph Legend includes + Sign)
+* Fix bug id 390 (Graph Legend includes + Sign) 
 
 = 0.7.1 =
 
@@ -523,15 +523,19 @@ Check at http://newstatpress.altervista.org
 * Fix 5 bots, add 13 new bots
 * Update locate Italian and French
 
-NOTE: not install this version if you have not a recent PHP version. Attend the new 0.9.0 instead.
+NOTE: not install this version if you have not a recent PHP version. Attend the new 0.9.1 instead.
 
 = 0.9.0 =
 
-* revert modification to 0.8.0  for fix PHP issue for old versions
+* Revert modification to 0.8.8 to fix PHP issue for old versions
 
 = 0.9.1 =
 
-*
+* Fix PHP to be compatible with a old version (all 0.8.9 chaneges are now activated)
+
+= 0.9.2 =
+
+* 
 
 
 == Upgrade Notice ==
@@ -863,3 +867,7 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 = 0.9.1 =
 
 * released 08/02/2015
+
+= 0.9.2 =
+
+* released
