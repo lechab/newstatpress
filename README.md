@@ -9,6 +9,7 @@
 ## 0.9.2 
 
 - [x] Fixed 'ALTER INDEX' error warning when user database is updated
+- [ ] Api for variables
 
 ## 0.9.1
 
