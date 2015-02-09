@@ -6,10 +6,11 @@
 - tab construction for option page
 - tab construction for overview page
 
-## 0.9.2 
+## 0.9.2
 
 - [x] Fixed 'ALTER INDEX' error warning when user database is updated
 - [ ] Api for variables
+- [ ] irihdate function in double => to clean
 
 ## 0.9.1
 
