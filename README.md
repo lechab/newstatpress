@@ -8,7 +8,7 @@
 
 ## 0.9.3
 
-- [x] Fixed 'ALTER INDEX' error warning when user database is updated
+- [ ] Fixed 'ALTER INDEX' error warning when user database is updated
 - [ ] Api for variables
 - [ ] irihdate function in double => to clean
 
