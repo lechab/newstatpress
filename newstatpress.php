@@ -33,13 +33,27 @@ $option_list_info=array( // list of option variable name, with default value ass
 );
 
 
-// add by chab
-//include stylesheet
-// TODO : TO NEED to use your function for old version of WP
-//add function to register only on the admin option
-wp_enqueue_style('styles', plugins_url('./css/style.css', __FILE__));
+/**
+ * add by chab
+ *
+ * Add the plugin CSS style only on admin page
+ * TODO :  use your function for old version of WP
+ */
+  function register_plugin_styles() {
 
-// add by chab
+      $style_path=plugins_url('./css/style.css', __FILE__);
+
+      wp_register_style('NewStatPressStyles', $style_path);
+      wp_enqueue_style('NewStatPressStyles');
+  }
+  add_action( 'admin_enqueue_scripts', 'register_plugin_styles' );
+
+/**
+ * add by chab
+ *
+ * iriNewStatPressCredits() — credit menu page
+ * iriNewStatPressRemove() — remove menu page
+ */
 require ('includes/functions-extra.php');
 
 
@@ -63,14 +77,14 @@ function PluginUrl() {
  * Add pages with NewStatPress commands
  */
 function iri_add_pages() {
-  # Create/update table if it not exists
+  // Create/update table if it not exists
   global $wpdb;
   $table_name = $wpdb->prefix . "statpress";
   if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
     iri_NewStatPress_CreateTable();
   }
 
-  # add submenu
+  // check the level fixed
   $mincap=get_option('newstatpress_mincap');
   if($mincap == '') {
     $mincap="level_8";
@@ -88,7 +102,6 @@ function iri_add_pages() {
   add_submenu_page('NSP-main', __('Search','newstatpress'), __('Search','newstatpress'), $mincap, 'search-page', 'iriNewStatPressSearch');
   add_submenu_page('NSP-main', __('Export','newstatpress'), __('Export','newstatpress'), $mincap, 'export-page', 'iriNewStatPressExport');
   add_submenu_page('NSP-main', __('Options','newstatpress'), __('Options','newstatpress'), $mincap, 'options-page', 'iriNewStatPressOptions');
-  // add_submenu_page('NSP-main', __('NewStatPressUpdate','newstatpress'), __('NewStatPressUpdate','newstatpress'), $mincap, 'update-page', 'iriNewStatPressUpdate');
   add_submenu_page('NSP-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $mincap, 'credits-page', 'iriNewStatPressCredits');
   add_submenu_page('NSP-main', __('Remove','newstatpress'), __('Remove','newstatpress'), $mincap,  'remove-page', 'iriNewStatPressRemove');
 }
@@ -3207,34 +3220,35 @@ function iriOverview($print = TRUE) {
 
   $result='';
   # Tabella OVERVIEW
-  $unique_color="#114477";
-  $web_color="#3377B6";
-  $rss_color="#f38f36";
-  $spider_color="#83b4d8";
+  // $unique_color="#114477";
+  // $web_color="#3377B6";
+  // $rss_color="#f38f36";
+  // $spider_color="#83b4d8";
 
   $since = NewStatPress_Print('%since%');
   $lastmonth = iri_NewStatPress_lastmonth();
-  $pastyear = gmdate('Y', current_time('timestamp'))-1;
+  // $pastyear = gmdate('Y', current_time('timestamp'))-1;
   $thismonth = gmdate('Ym', current_time('timestamp'));
-  $thismonthH = gmdate('M, Y', current_time('timestamp'));
   $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
-  $yesterdayH = gmdate('d M', current_time('timestamp')-86400);
   $today = gmdate('Ymd', current_time('timestamp'));
-  $todayH = gmdate('d M', current_time('timestamp'));
   $tlm[0]=substr($lastmonth,0,4); $tlm[1]=substr($lastmonth,4,2);
-  $lastmonthH = gmdate('M, Y',gmmktime(0,0,0,$tlm[1],1,$tlm[0]));
+
+  $lastmonthHeader = gmdate('M, Y',gmmktime(0,0,0,$tlm[1],1,$tlm[0]));
+  $thismonthHeader = gmdate('M, Y', current_time('timestamp'));
+  $yesterdayHeader = gmdate('d M', current_time('timestamp')-86400);
+  $todayHeader = gmdate('d M', current_time('timestamp'));
 
 
   $result.="<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>
             <table class='widefat center nsp'>
             <thead><tr>
             <th></th>
-            <th>". __('Total since','newstatpress'). "<span class='date-overview'>" . $since ."</span></th>
-            <th scope='col'>". __('Last month','newstatpress'). "<span class='date-overview'>" . $lastmonthH ."</span></th>
-            <th scope='col'>". __('This month','newstatpress'). "<span class='date-overview'>" . $thismonthH ."</span></th>
-            <th scope='col'>". __('Target This month','newstatpress'). "<span class='date-overview'>" . $thismonthH ."</span></th>
-            <th scope='col'>". __('Yesterday','newstatpress'). "<span class='date-overview'>" . $yesterdayH ."</span></th>
-            <th scope='col'>". __('Today','newstatpress'). "<span class='date-overview'>" . $todayH ."</span></th>
+            <th>". __('Total since','newstatpress'). "<span class='date-overview'> $since </span></th>
+            <th scope='col'>". __('Last month','newstatpress'). "<span class='date-overview'> $lastmonthHeader </span></th>
+            <th scope='col'>". __('This month','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
+            <th scope='col'>". __('Target This month','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
+            <th scope='col'>". __('Yesterday','newstatpress'). "<span class='date-overview'> $yesterdayHeader </span></th>
+            <th scope='col'>". __('Today','newstatpress'). "<span class='date-overview'> $todayHeader </span></th>
             </tr></thead>
             <tbody id='the-list-overview'>";
 
