@@ -535,7 +535,7 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 
 = 0.9.2 =
 
-* 
+* CSS fix, Overview fix and wp_enqueue_style compatibility fix
 
 
 == Upgrade Notice ==
@@ -870,4 +870,4 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 
 = 0.9.2 =
 
-* released
+* released 09/02/2015
