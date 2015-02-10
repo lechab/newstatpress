@@ -3,12 +3,12 @@
 Plugin Name: NewStatPress
 Plugin URI: http://newstatpress.altervista.org
 Description: Real time stats for your Wordpress blog
-Version: 0.9.2
+Version: 0.9.3
 Author: Stefano Tognon and cHab (from Daniele Lippi works)
 Author URI: http://newstatpress.altervista.org
 */
 
-$_NEWSTATPRESS['version']='0.9.2';
+$_NEWSTATPRESS['version']='0.9.3';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $option_list_info;
@@ -2425,6 +2425,33 @@ function NewStatPress_Print($body='') {
   return iri_NewStatPress_Vars($body);
 }
 
+/**
+ * Generate the Ajax code for the given variable
+ *
+ * @param var variable to get
+ */
+function NewStatPress_generateAjaxVar($var) {
+  global $newstatpress_dir;
+
+  $res = "<span id=\"".$var."\">_</span>
+          <script type=\"text/javascript\">
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange = function() {
+              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById(\"".$var."\").innerHTML=xmlhttp.responseText;
+              }
+            }
+
+            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."\";
+
+            xmlhttp.open(\"GET\", url, true);
+            xmlhttp.send();
+          </script>         
+         ";
+  return $res;
+}
 
 /**
  * Expand vars into the give code
@@ -2438,75 +2465,32 @@ function iri_NewStatPress_Vars($body) {
 
   # look for %visits%
   if(strpos(strtolower($body),"%visits%") !== FALSE) {
-    $qry = $wpdb->get_results(
-      "SELECT count(DISTINCT(ip)) AS pageview
-       FROM $table_name
-       WHERE
-        date = '".gmdate("Ymd",current_time('timestamp'))."' AND
-        spider='' and feed='';
-      ");
-    $body = str_replace("%visits%", $qry[0]->pageview, $body);
+    $body = str_replace("%visits%", NewStatPress_generateAjaxVar("visits"), $body);
   }
 
   # look for %yvisits%
   if(strpos(strtolower($body),"%yvisits%") !== FALSE) {
-    $qry = $wpdb->get_results(
-      "SELECT count(DISTINCT(ip)) AS pageview
-       FROM $table_name
-       WHERE
-        date = '".gmdate("Ymd",current_time('timestamp')-86400)."' AND
-        spider='' and feed='';
-      ");
-    $body = str_replace("%yvisits%", $qry[0]->pageview, $body);
+    $body = str_replace("%yvisits%", NewStatPress_generateAjaxVar("yvisits"), $body);
   }
 
   # look for %mvisits%
   if(strpos(strtolower($body),"%mvisits%") !== FALSE) {
-    $qry = $wpdb->get_results(
-      "SELECT count(DISTINCT(ip)) AS pageview
-       FROM $table_name
-       WHERE
-        date LIKE '".gmdate('Ym', current_time('timestamp'))."%'
-        spider='' and feed='';
-      ");
-    $body = str_replace("%mvisits%", $qry[0]->pageview, $body);
+    $body = str_replace("%mvisits%", NewStatPress_generateAjaxVar("mvisits"), $body);
   }
 
   # look for %totalvisits%
   if(strpos(strtolower($body),"%totalvisits%") !== FALSE) {
-    $qry = $wpdb->get_results(
-      "SELECT count(DISTINCT(ip)) AS pageview
-       FROM $table_name
-       WHERE
-         spider='' AND
-         feed='';
-      ");
-    $body = str_replace("%totalvisits%", $qry[0]->pageview, $body);
+    $body = str_replace("%totalvisits%", NewStatPress_generateAjaxVar("totalvisits"), $body);
   }
 
   # look for %totalpageviews%
   if(strpos(strtolower($body),"%totalpageviews%") !== FALSE) {
-    $qry = $wpdb->get_results(
-      "SELECT count(id) AS pageview
-       FROM $table_name
-       WHERE
-         spider='' AND
-         feed='';
-      ");
-    $body = str_replace("%totalpageviews%", $qry[0]->pageview, $body);
+    $body = str_replace("%totalpageviews%", NewStatPress_generateAjaxVar("totalpageviews"), $body);
   }
 
   # look for %todaytotalpageviews%
   if(strpos(strtolower($body),"%todaytotalpageviews%") !== FALSE) {
-    $qry = $wpdb->get_results(
-      "SELECT count(id) AS pageview
-       FROM $table_name
-       WHERE
-         date = '".gmdate("Ymd",current_time('timestamp'))."' AND
-         spider='' AND
-         feed='';
-      ");
-    $body = str_replace("%todaytotalpageviews%", $qry[0]->pageview, $body);
+    $body = str_replace("%todaytotalpageviews%", NewStatPress_generateAjaxVar("todaytotalpageviews"), $body);
   }
 
   # look for %thistotalvisits%
@@ -2524,26 +2508,7 @@ function iri_NewStatPress_Vars($body) {
 
   # look for %alltotalvisits%
   if(strpos(strtolower($body),"%alltotalvisits%") !== FALSE) {
-    $qry = $wpdb->get_results(
-      //"SELECT SUM(pageview) AS pageview
-      // FROM (
-      //   SELECT count(DISTINCT(ip)) AS pageview
-      //   FROM $table_name AS t1
-      //   WHERE
-      //     spider='' AND
-      //     feed='' AND
-      //     urlrequested!=''
-      //   GROUP BY urlrequested
-      // ) AS t2;
-      //");
-      "SELECT count(distinct urlrequested, ip) AS pageview
-       FROM $table_name AS t1
-       WHERE
-         spider='' AND
-         feed='' AND
-         urlrequested!='';
-      ");
-    $body = str_replace("%alltotalvisits%", $qry[0]->pageview, $body);
+    $body = str_replace("%alltotalvisits%", NewStatPress_generateAjaxVar("alltotalvisits"), $body);
   }
 
   # look for %since%

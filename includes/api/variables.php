@@ -1,6 +1,6 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+#error_reporting(E_ALL);
+#ini_set('display_errors', 1);
 
 if($_SERVER['REQUEST_METHOD'] != "GET") die("API available only from Newstatpress");
 
@@ -88,30 +88,6 @@ if ($var=='alltotalvisits') {
 } 
 
 ?> 
-
-/*
-plugins_url('newstatpress')."/includes/api/variables.html"
-
-Number of users: <span id="alltotalvisits">_</span>
-<script type="text/javascript">
-   var xmlhttp = new XMLHttpRequest();
-
-   xmlhttp.onreadystatechange = function() {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-      document.getElementById("alltotalvisits").innerHTML=xmlhttp.responseText;
-    }
-   }
-
-    var url="http://localhost/blog/wp-content/plugins/newstatpress/includes/api/variables.php?VAR=alltotalvisits"
-
-   xmlhttp.open("GET", url, true);
-   xmlhttp.send();
-</script>
-
-
-
-*/
-
 
 
 
