@@ -1869,14 +1869,28 @@ function iri_NewStatPress_lastmonth() {
    $table_name = $wpdb->prefix . "statpress";
 
    // Add by chab
-   // If the database is already created then DROP INDEX for update
-///   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) { $list_index_to_drop=['spider_nation','agent','ip_date','search','os','browser','referrer','feed_spider_os','date_feed_spider', 'feed_spider_browser'];
-///     foreach ($list_index_to_drop as $i)
-///     {
-///       $sql_createtable = "ALTER TABLE $table_name DROP INDEX $i";
-///       $wpdb->query($sql_createtable);
-///     }
-///   }
+   // IF the table is already created then DROP INDEX for update
+   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
+      $list_index_to_drop=array('spider_nation',
+                                'agent',
+                                'ip_date',
+                                'search',
+                                'os',
+                                'browser',
+                                'referrer',
+                                'feed_spider_os',
+                                'date_feed_spider',
+                                'feed_spider_browser'
+                                );
+     foreach ($list_index_to_drop as $i)
+     {
+       $sql_check_index = "SHOW INDEXES FROM $table_name WHERE Key_name ='$i'";
+       if (!$wpdb->query($sql_check_index)=='') {
+         $sql_createtable = "ALTER TABLE $table_name DROP INDEX $i";
+         $wpdb->query($sql_createtable);
+       }
+     }
+   }
 
   $sql_createtable = "
     CREATE TABLE " . $table_name . " (
@@ -2448,7 +2462,7 @@ function NewStatPress_generateAjaxVar($var) {
 
             xmlhttp.open(\"GET\", url, true);
             xmlhttp.send();
-          </script>         
+          </script>
          ";
   return $res;
 }
