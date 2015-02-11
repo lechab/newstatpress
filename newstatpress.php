@@ -2450,18 +2450,18 @@ function NewStatPress_generateAjaxVar($var) {
   $res = "<span id=\"".$var."\">_</span>
           <script type=\"text/javascript\">
 
-            var xmlhttp = new XMLHttpRequest();
+            var xmlhttp_".$var." = new XMLHttpRequest();
 
-            xmlhttp.onreadystatechange = function() {
-              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById(\"".$var."\").innerHTML=xmlhttp.responseText;
+            xmlhttp_".$var.".onreadystatechange = function() {
+              if (xmlhttp_".$var.".readyState == 4 && xmlhttp_".$var.".status == 200) {
+                document.getElementById(\"".$var."\").innerHTML=xmlhttp_".$var.".responseText;
               }
             }
 
             var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."\";
 
-            xmlhttp.open(\"GET\", url, true);
-            xmlhttp.send();
+            xmlhttp_".$var.".open(\"GET\", url, true);
+            xmlhttp_".$var.".send();
           </script>
          ";
   return $res;
