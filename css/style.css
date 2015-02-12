@@ -164,14 +164,15 @@ $spider_color="#83b4d8";
 /*----------------------------------*/
 /* credit page style                */
 /*----------------------------------*/
-#credit table {
-  border-top: 2px solid;
+ table#credit,  table#credit-footer {
+  margin-top: 20px;
 }
 
 #credit thead {
   text-align: left;
   vertical-align: center;
   background: #dedede;
+  /*border: 2px solid;*/
 }
 #credit th {
   align: left;
@@ -200,6 +201,10 @@ $spider_color="#83b4d8";
 
 #credit .cell-r {
   padding-left: 15px;
+}
+
+#credit .don {
+  /*padding-left: 15px;*/
 }
 
 /*----------------------------------*/
