@@ -37,7 +37,7 @@ $option_list_info=array( // list of option variable name, with default value ass
  * add by chab
  *
  * Add the plugin CSS style only on admin page
- * TODO :  use your function for old version of WP
+ * TODO :  use your function for old version of WP (<2.6)
  */
   function register_plugin_styles() {
 
@@ -76,36 +76,33 @@ function PluginUrl() {
 /**
  * Add pages with NewStatPress commands
  */
-function iri_add_pages() {
-  // Create/update table if it not exists
-  global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
-  if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-    iri_NewStatPress_CreateTable();
-  }
+function nsp_BuildPluginMenu() {
 
-  // check the level fixed
-  $mincap=get_option('newstatpress_mincap');
-  if($mincap == '') {
-    $mincap="level_8";
-  }
+  // Create table if it doesn't exists
+  // global $wpdb;
+  // $table_name = $wpdb->prefix . "statpress";
+  // if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+  //   nsp_BuildPluginTable('create');
+  // }
 
-  // ORIG   add_submenu_page('index.php', 'StatPress', 'StatPress', 8, 'statpress', 'iriNewStatPress');
+  // Fix capability if not defined
+  $capability=get_option('newstatpress_mincap') ;
+  if(!$capability)
+    $capability='switch_themes';
 
-  add_submenu_page('NSP-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $mincap, 'NSP-main', 'iriNewStatPressMain');
-  add_menu_page('NewStatPres', 'NewStatPress', $mincap, 'NSP-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',dirname(plugin_basename(__FILE__))));
-
-  add_submenu_page('NSP-main', __('Details','newstatpress'), __('Details','newstatpress'), $mincap, 'details-page', 'iriNewStatPressDetails');
-  add_submenu_page('NSP-main', __('Last visitors by Spy','newstatpress'), __('Last visitors by Spy','newstatpress'), $mincap, 'spy-page', 'iriNewStatPressSpy');
-  add_submenu_page('NSP-main', __('Visitors by Spy','newstatpress'), __('Visitors by Spy','newstatpress'), $mincap, 'newspy-page', 'iriNewStatPressNewSpy');
-  add_submenu_page('NSP-main', __('Spy Bot','newstatpress'), __('Spy Bot','newstatpress'), $mincap, 'spybot-page', 'iriNewStatPressSpyBot');
-  add_submenu_page('NSP-main', __('Search','newstatpress'), __('Search','newstatpress'), $mincap, 'search-page', 'iriNewStatPressSearch');
-  add_submenu_page('NSP-main', __('Export','newstatpress'), __('Export','newstatpress'), $mincap, 'export-page', 'iriNewStatPressExport');
-  add_submenu_page('NSP-main', __('Options','newstatpress'), __('Options','newstatpress'), $mincap, 'options-page', 'iriNewStatPressOptions');
-  add_submenu_page('NSP-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $mincap, 'credits-page', 'iriNewStatPressCredits');
-  add_submenu_page('NSP-main', __('Remove','newstatpress'), __('Remove','newstatpress'), $mincap,  'remove-page', 'iriNewStatPressRemove');
+  add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',dirname(plugin_basename(__FILE__))));
+  add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $capability, 'nsp-main', 'iriNewStatPressMain');
+  add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $capability, 'details-page', 'iriNewStatPressDetails');
+  add_submenu_page('nsp-main', __('Last visitors by Spy','newstatpress'), __('Last visitors by Spy','newstatpress'), $capability, 'spy-page', 'iriNewStatPressSpy');
+  add_submenu_page('nsp-main', __('Visitors by Spy','newstatpress'), __('Visitors by Spy','newstatpress'), $capability, 'newspy-page', 'iriNewStatPressNewSpy');
+  add_submenu_page('nsp-main', __('Spy Bot','newstatpress'), __('Spy Bot','newstatpress'), $capability, 'spybot-page', 'iriNewStatPressSpyBot');
+  add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $capability, 'search-page', 'iriNewStatPressSearch');
+  add_submenu_page('nsp-main', __('Export','newstatpress'), __('Export','newstatpress'), $capability, 'export-page', 'iriNewStatPressExport');
+  add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $capability, 'options-page', 'iriNewStatPressOptions');
+  add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $capability, 'credits-page', 'nsp_DisplayCreditsPage');
+  add_submenu_page('nsp-main', __('Remove','newstatpress'), __('Remove','newstatpress'), $capability,  'remove-page', 'iriNewStatPressRemove');
 }
-add_action('admin_menu', 'iri_add_pages');
+add_action('admin_menu', 'nsp_BuildPluginMenu');
 
 
 /**
@@ -195,18 +192,6 @@ function print_textaera($option_title,$option_var,$option_description) {
 }
 
 
-// function ilc_admin_tabs( $current = 'homepage' ) {
-//     $tabs = array( 'homepage' => 'Newstatpress Settings', 'general' => 'General', 'ip2nation' => 'IP2nation', 'database' => 'Update Database' );
-//     echo '<div id="icon-themes" class="icon32"><br></div>';
-//     echo '<h2 class="nav-tab-wrapper">';
-//     foreach( $tabs as $tab => $name ){
-//         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
-//         echo "<a class='nav-tab $class' href='?page=theme-settings&tab=$tab'>$name</a>";
-//
-//     }
-//     echo '</h2>';
-// }
-
 /**
  * Generate HTML for option menu in Wordpress
  */
@@ -254,7 +239,7 @@ function iriNewStatPressOptions() {
     update_option('newstatpress_updateint', $_POST['newstatpress_updateint']);
 
     // update database too and print message confirmation
-    iri_NewStatPress_CreateTable();
+    nsp_BuildPluginTable('update');
     print "<br /><div class='updated'><p>".__('Options saved!','newstatpress')."</p></div>";
   }
   ?>
@@ -362,7 +347,6 @@ function iriNewStatPressOptions() {
         $option_title=sprintf(__('Elements in Overview (default %d)','newstatpress'), $option_list_info['overview']['value']);
         print_row_input($option_title,$option_list_info['overview'],$input_size,$input_maxlength);
 
-        // $val=array(['20',''], ['50',''], ['100','']);
         $val=array(array(20,''),array(50,''),array(100,''));
         $option_title=__('Visitors by Spy: number of IP per page','newstatpress');
         $option_var='newstatpress_ip_per_page_newspy';
@@ -389,7 +373,6 @@ function iriNewStatPressOptions() {
         $option_var='newstatpress_autodelete_spiders';
         print_option($option_title,$option_var,$val);
 
-        // $val= array(['7',''],['10',''],['20',''],['30',''],['50','']);
         $val=array(array(7,''),array(10,''),array(20,''),array(30,''),array(50,''));
         $option_title=__('Days number in Overview graph','newstatpress');
         $option_var='newstatpress_daysinoverviewgraph';
@@ -1863,37 +1846,30 @@ function iri_NewStatPress_lastmonth() {
 /**
  * Create or update the table
  */
- function iri_NewStatPress_CreateTable() {
+ function nsp_BuildPluginTable($action) {
+
    global $wpdb;
    global $wp_db_version;
    $table_name = $wpdb->prefix . "statpress";
-
+   $charset_collate = $wpdb->get_charset_collate();
+   $index_list=array(array('Key_name'=>"spider_nation", 'Column_name'=>"(spider, nation)"),
+                     array('Key_name'=>"ip_date", 'Column_name'=>"(ip, date)"),
+                     array('Key_name'=>"agent", 'Column_name'=>"(agent)"),
+                     array('Key_name'=>"search", 'Column_name'=>"(search)"),
+                     array('Key_name'=>"referrer", 'Column_name'=>"(referrer)"),
+                     array('Key_name'=>"feed_spider_os", 'Column_name'=>"(feed, spider, os)"),
+                     array('Key_name'=>"os", 'Column_name'=>"(os)"),
+                     array('Key_name'=>"date_feed_spider", 'Column_name'=>"(date, feed, spider)"),
+                     array('Key_name'=>"feed_spider_browser", 'Column_name'=>"(feed, spider, browser)"),
+                     array('Key_name'=>"browser", 'Column_name'=>"(browser)")
+                     );
    // Add by chab
    // IF the table is already created then DROP INDEX for update
-   if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) {
-      $list_index_to_drop=array('spider_nation',
-                                'agent',
-                                'ip_date',
-                                'search',
-                                'os',
-                                'browser',
-                                'referrer',
-                                'feed_spider_os',
-                                'date_feed_spider',
-                                'feed_spider_browser'
-                                );
-     foreach ($list_index_to_drop as $i)
-     {
-       $sql_check_index = "SHOW INDEXES FROM $table_name WHERE Key_name ='$i'";
-       if (!$wpdb->query($sql_check_index)=='') {
-         $sql_createtable = "ALTER TABLE $table_name DROP INDEX $i";
-         $wpdb->query($sql_createtable);
-       }
-     }
-   }
+   if ($action=='')
+     $action='create';
 
-  $sql_createtable = "
-    CREATE TABLE " . $table_name . " (
+   $sql_createtable = "
+    CREATE TABLE ". $table_name . " (
       id mediumint(9) NOT NULL AUTO_INCREMENT,
       date int(8),
       time time,
@@ -1910,18 +1886,66 @@ function iri_NewStatPress_lastmonth() {
       feed varchar(8),
       user varchar(16),
       timestamp timestamp DEFAULT 0,
-      UNIQUE KEY id (id),
-      INDEX spider_nation (spider, nation),
-      INDEX ip_date (ip, date),
-      INDEX agent (agent),
-      index search (search),
-      index referrer (referrer),
-      index feed_spider_os (feed, spider, os),
-      index os (os),
-      index date_feed_spider (date, feed, spider),
-      index feed_spider_browser (feed, spider, browser),
-      index browser (browser)
-    );";
+      UNIQUE KEY id (id)";
+
+   if ($action=='create') {
+     foreach ($index_list as $index)
+     {
+       $Key_name=$index['Key_name'];
+       $Column_name=$index['Column_name'];
+       $sql_createtable.=", INDEX $Key_name $Column_name";
+     }
+   }
+   elseif ($action=='update') {
+       foreach ($index_list as $index)
+       {
+         $Key_name=$index['Key_name'];
+         $Column_name=$index['Column_name'];
+         if ($wpdb->query("SHOW INDEXES FROM $table_name WHERE Key_name ='$Key_name'")=='') {
+           $sql_createtable.=",\n INDEX $Key_name $Column_name";
+         }
+       }
+   }
+   $sql_createtable.=") $charset_collate;";
+
+
+   echo $sql_createtable;
+   // if ($wpdb->get_var("SHOW TABLES LIKE '$table_name'") == $table_name) { //USEFULL???
+  //}
+
+  // $sql_createtable2 = "
+  //   CREATE TABLE " . $table_name . " (
+  //     id mediumint(9) NOT NULL AUTO_INCREMENT,
+  //     date int(8),
+  //     time time,
+  //     ip varchar(39),
+  //     urlrequested varchar(250),
+  //     agent varchar(250),
+  //     referrer varchar(512),
+  //     search varchar(250),
+  //     nation varchar(2),
+  //     os varchar(30),
+  //     browser varchar(32),
+  //     searchengine varchar(16),
+  //     spider varchar(32),
+  //     feed varchar(8),
+  //     user varchar(16),
+  //     timestamp timestamp DEFAULT 0,
+  //     UNIQUE KEY id (id),
+  //     INDEX spider_nation (spider, nation),
+  //     INDEX ip_date (ip, date),
+  //     INDEX agent (agent),
+  //     INDEX search (search),
+  //     INDEX referrer (referrer),
+  //     INDEX feed_spider_os (feed, spider, os),
+  //     INDEX os (os),
+  //     INDEX date_feed_spider (date, feed, spider),
+  //     INDEX feed_spider_browser (feed, spider, browser),
+  //     INDEX browser (browser)
+  //   );";
+  //   if($sql_createtable2==$sql_createtable)
+  //   echo "<br />YES";
+  //   echo "<br />".$sql_createtable2;
   if($wp_db_version >= 5540) $page = 'wp-admin/includes/upgrade.php';
   else $page = 'wp-admin/upgrade'.'-functions.php';
 
@@ -2074,7 +2098,7 @@ function iriStatAppend() {
     }
 
     if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-      iri_NewStatPress_CreateTable();
+      nsp_BuildPluginTable();
     }
 
     $login = $userdata ? $userdata->user_login : null;
@@ -2199,7 +2223,7 @@ function iriNewStatPressUpdate() {
   }
 
   # update table
-  iri_NewStatPress_CreateTable();
+  nsp_BuildPluginTable('update');
 
   print "<tr><td>". __('Structure','newstatpress'). " $table_name</td>";
   print "<td>".iritablesize($wpdb->prefix."statpress")."</td>";
@@ -2866,7 +2890,7 @@ function iri_dashboard_widget_function() {
   <th scope='col'>". __('This month','newstatpress'). "<br /><font size=1>" . gmdate('M, Y', current_time('timestamp')) ."</font></th>
   <th scope='col'>". __('Target This month','newstatpress'). "<br /><font size=1>" . gmdate('M, Y', current_time('timestamp')) ."</font></th>
   <th scope='col'>". __('Yesterday','newstatpress'). "<br /><font size=1>" . gmdate('d M, Y', current_time('timestamp')-86400) ."</font></th>
-  <th scope='col'>". __('Today','newstatpress'). "<br /><font size=1>" . gmdate('d M, Y', current_time('timestamp')) ."</font></th>
+  <th scope='col'>". __('Today2','newstatpress'). "<br /><font size=1>" . gmdate('d M, Y', current_time('timestamp')) ."</font></th>
   </tr></thead>
   <tbody id='the-list'>";
   ################################################################################################
@@ -3184,7 +3208,7 @@ function iri_dashboard_widget_function() {
   # END OF OVERVIEW
   ####################################################################################################
 
-  print "<div class='wrap'><h4><a href='admin.php?page=newstatpress/newstatpress.php'>". __('More details','newstatpress'). " &raquo;</a></h4>";
+  print "<div class='wrap'><h4><a href='admin.php?page=details-page'>". __('More details','newstatpress'). " &raquo;</a></h4>";
 }
 
 /**
@@ -3718,7 +3742,7 @@ add_action('wp_dashboard_setup', 'iri_add_dashboard_widgets' );
 
 add_filter('the_content', 'content_newstatpress');
 
-register_activation_hook(__FILE__,'iri_NewStatPress_CreateTable');
+register_activation_hook(__FILE__,'nsp_BuildPluginTable');
 register_deactivation_hook( __FILE__, 'new_count_deregister' );
 
 ?>
