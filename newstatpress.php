@@ -2467,25 +2467,27 @@ function NewStatPress_Print($body='') {
  * Generate the Ajax code for the given variable
  *
  * @param var variable to get
+ * @param limit optional limit value for query
+ * @param flag optional flag value for checked
  */
-function NewStatPress_generateAjaxVar($var) {
+function NewStatPress_generateAjaxVar($var, $limit=0, $flag='') {
   global $newstatpress_dir;
 
   $res = "<span id=\"".$var."\">_</span>
           <script type=\"text/javascript\">
 
-            var xmlhttp = new XMLHttpRequest();
+            var xmlhttp_".$var." = new XMLHttpRequest();
 
-            xmlhttp.onreadystatechange = function() {
-              if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById(\"".$var."\").innerHTML=xmlhttp.responseText;
+            xmlhttp_".$var.".onreadystatechange = function() {
+              if (xmlhttp_".$var.".readyState == 4 && xmlhttp_".$var.".status == 200) {
+                document.getElementById(\"".$var."\").innerHTML=xmlhttp_".$var.".responseText;
               }
             }
 
-            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."\";
+            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."&LIMIT=".$limit."&FLAG=".$flag."\";
 
-            xmlhttp.open(\"GET\", url, true);
-            xmlhttp.send();
+            xmlhttp_".$var.".open(\"GET\", url, true);
+            xmlhttp_".$var.".send();
           </script>
          ";
   return $res;
@@ -2681,6 +2683,8 @@ function iri_NewStatPress_Vars($body) {
   return $body;
 }
 
+
+/// note: if working, move the contents into the caller instead of this function
 /**
  * Get top posts
  *
@@ -2689,25 +2693,7 @@ function iri_NewStatPress_Vars($body) {
  * @return result of extraction
  */
 function iri_NewStatPress_TopPosts($limit=5, $showcounts='checked') {
-  global $wpdb;
-  $res="\n<ul>\n";
-  $table_name = $wpdb->prefix . "statpress";
-  $qry = $wpdb->get_results(
-    "SELECT urlrequested,count(*) as totale
-     FROM $table_name
-     WHERE
-       spider='' AND
-       feed='' AND
-       urlrequested LIKE '%p=%'
-     GROUP BY urlrequested
-     ORDER BY totale DESC LIMIT $limit;
-    ");
-
-  foreach ($qry as $rk) {
-    $res.="<li><a href='?".$rk->urlrequested."' target='_blank'>".iri_NewStatPress_Decode($rk->urlrequested)."</a></li>\n";
-    if(strtolower($showcounts) == 'checked') { $res.=" (".$rk->totale.")"; }
-  }
-  return "$res</ul>\n";
+  return NewStatPress_generateAjaxVar("widget_topposts", $limit, $showcounts);  
 }
 
 

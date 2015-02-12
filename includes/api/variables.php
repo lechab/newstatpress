@@ -61,8 +61,8 @@ if ($var=='alltotalvisits') {
          feed='';
       ");
     echo $qry[0]->pageview;
-}  elseif ($var=='totalpageviews') {
-     $qry = $wpdb->get_results(
+} elseif ($var=='totalpageviews') {
+    $qry = $wpdb->get_results(
       "SELECT count(id) AS pageview
        FROM $table_name
        WHERE
@@ -70,7 +70,7 @@ if ($var=='alltotalvisits') {
          feed='';
       ");  
      echo $qry[0]->pageview;
-}  elseif ($var=='todaytotalpageviews') {
+} elseif ($var=='todaytotalpageviews') {
     $qry = $wpdb->get_results(
       "SELECT count(id) AS pageview
        FROM $table_name
@@ -80,12 +80,32 @@ if ($var=='alltotalvisits') {
          feed='';
       ");  
     echo $qry[0]->pageview;
-}  elseif ($var=='thistotalvisits') {
+} elseif ($var=='thistotalvisits') {
 
     /// need to pass the url to use
 
     /// echo $qry[0]->pageview;  
-} 
+} elseif ($var=='widget_topposts') {
+    $limit = intval($_REQUEST["LIMIT"]);
+    $showcounts = $_REQUEST["FLAG"];
+    
+    $res="\n<ul>\n";
+    $qry = $wpdb->get_results(
+      "SELECT urlrequested,count(*) as totale
+       FROM $table_name
+       WHERE
+         spider='' AND
+         feed='' AND
+         urlrequested LIKE '%p=%'
+       GROUP BY urlrequested
+       ORDER BY totale DESC LIMIT $limit;
+      ");
+   foreach ($qry as $rk) {
+     $res.="<li><a href='?".$rk->urlrequested."' target='_blank'>".iri_NewStatPress_Decode($rk->urlrequested)."</a></li>\n";
+     if(strtolower($showcounts) == 'checked') { $res.=" (".$rk->totale.")"; }
+   }
+   echo "$res</ul>\n";
+}
 
 ?> 
 
