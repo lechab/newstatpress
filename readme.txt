@@ -129,7 +129,7 @@ Check at http://newstatpress.altervista.org
 
 = 0.9.1 =
 
-* Fix PHP to be compatible with a old version (all 0.8.9 chaneges are now activated)
+* Fix PHP to be compatible with a old version (all 0.8.9 changes are now activated)
 
 = 0.9.0 =
 
@@ -137,9 +137,10 @@ Check at http://newstatpress.altervista.org
 
 = 0.8.9 =
 
-* Add Ip2nation download function in option page
-* Add plugin homepage link, news feeds link, bouton donation in credit page
-* Add CSS style to stylesheet (./css/style.css), partially done
+* Added Ip2nation download function in option page
+* Added plugin homepage link, news feeds link, bouton donation in credit page
+* Added variables %yvisits% (yesterday visits) %mvisits% (month visits)
+* Added CSS style to stylesheet (./css/style.css), partially done
   *  remove page
   *  update page
   *  credit page
@@ -150,9 +151,8 @@ Check at http://newstatpress.altervista.org
 * Optimization of the database update page
 * Fixed 'selected sub-menu' bug
 * Fixed wrong path to update IP2nation when database is updated (/includes)
-* Add variables %yvisits% (yesterday visits) %mvisits% (month visits)
-* Fix 5 bots, add 13 new bots
-* Update locate Italian and French
+* Fixed 5 bots, add 13 new bots
+* Update locate : Italian and French
 
 NOTE: not install this version if you have not a recent PHP version. Attend the new 0.9.1 instead.
 
@@ -176,13 +176,13 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 = 0.8.5 =
 
 * Add Browser (+10)
-* Increase refferer from 250 to 512 chars
+* Increase referrer from 250 to 512 chars
 
 = 0.8.4 =
 
 * Spy menu reorganziation (thanks to Alphonse PHILIPPE)
-* Update French translaction (thanks to Alphonse PHILIPPE)
-* Update Italian translaction
+* Update French translation (thanks to Alphonse PHILIPPE)
+* Update Italian translation
 
 = 0.8.3 =
 
@@ -190,11 +190,11 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 
 = 0.8.2 =
 
-* Add Ukranian translaction (thanks to Michael Yunat)
+* Add Ukrainian translation (thanks to Michael Yunat)
 
 = 0.8.1 =
 
-* Add Greek translaction (thanks to Boulis Antoniou)
+* Add Greek translation (thanks to Boulis Antoniou)
 
 = 0.8.0 =
 
@@ -204,7 +204,7 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 
 = 0.7.9 =
 
-* Update French translaction (thanks to Alphonse PHILIPPE)
+* Update French translation (thanks to Alphonse PHILIPPE)
 
 = 0.7.8 =
 
