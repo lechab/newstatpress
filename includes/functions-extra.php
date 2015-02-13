@@ -1,12 +1,12 @@
 <?php
 
-function nsp_DisplayTabsNavbarForMenuPage($menu_tabs, $current = 'homepage' ) {
+function nsp_DisplayTabsNavbarForMenuPage($menu_tabs, $current,$ref) {
 
     echo '<div id="icon-themes" class="icon32"><br></div>';
     echo '<h2 class="nav-tab-wrapper">';
     foreach( $menu_tabs as $tab => $name ){
         $class = ( $tab == $current ) ? ' nav-tab-active' : '';
-        echo "<a class='nav-tab$class' href='?page=credits-page&tab=$tab'>$name</a>";
+        echo "<a class='nav-tab$class' href='?page=$ref&tab=$tab'>$name</a>";
     }
     echo '</h2>';
 }
@@ -14,13 +14,13 @@ function nsp_DisplayTabsNavbarForMenuPage($menu_tabs, $current = 'homepage' ) {
 function nsp_DisplayCreditsPage() {
 
    global $pagenow;
-   $support_pluginpage="<a href='https://wordpress.org/support/plugin/newstatpress' target='_blank'>".__('support link','newstatpress')."</a>";
+   $support_pluginpage="<a href='https://wordpress.org/support/plugin/newstatpress' target='_blank'>".__('support page','newstatpress')."</a>";
    $author_linkpage="<a href='http://newstatpress.altervista.org/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
    $CreditsPage_tabs = array( 'development' => __('Development','newstatpress'),
                               'translation' => __('Translation','newstatpress'),
                               'donation' => __('Donation','newstatpress')
                             );
-
+$ref='credits-page';
    $contributors = array(
    array('Stefano Tognon', 'NewStatPress developer'),
    array('cHab', 'NewStatPress collaborator'),
@@ -64,10 +64,10 @@ echo "<form  method='post' target='_blank' action='https://www.paypal.com/cgi-bi
     <input class='button button-primary perso' type=submit value='"; _e('Make a donation','newstatpress');
 echo "'></form></td></tr></table>";
 
-if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($CreditsPage_tabs,$_GET['tab']);
-else nsp_DisplayTabsNavbarForMenuPage($CreditsPage_tabs, 'development');
+if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($CreditsPage_tabs,$_GET['tab'],$ref);
+else nsp_DisplayTabsNavbarForMenuPage($CreditsPage_tabs, 'development',$ref);
 
-if ( $pagenow == 'admin.php' && $_GET['page'] == 'credits-page' ){
+if ( $pagenow == 'admin.php' && $_GET['page'] == $ref ){
 
    if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
    else $tab = 'development';
