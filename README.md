@@ -8,7 +8,11 @@
 
 ## 0.9.3
 
-- [x] Fixed Duplicate INDEX when User database is updated
+- [x] Added 'Donator' in Crédits page
+- [x] Rewrited Overview function
+- [x] Fixed Duplicate INDEX when User database is updated (function rewrited)
+- [x] Fixed Dashboard 'details' dead link
+- [x] Various code fixing
 - [ ] Api for variables
 - [ ] irihdate function in double => to clean
 
