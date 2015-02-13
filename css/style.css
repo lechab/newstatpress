@@ -91,7 +91,7 @@ $spider_color="#83b4d8";
   margin-right: 5px;
 }
 
-#the-list-overview td.pageviews::before {
+#the-list-overview td.pageview::before {
   content: "\25a9";
   color:#3377B6;
   margin-right: 5px;
@@ -147,8 +147,16 @@ $spider_color="#83b4d8";
 
 .table-option {
   border: 0px solid;
+  /*width:100%;*/
 }
 
+.table-option td {
+/*width:auto;*/
+}
+
+table.table-option td:first-child {
+    width: auto;
+}
 .left {
   text-align: left;
 }
