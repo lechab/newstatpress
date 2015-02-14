@@ -2871,10 +2871,17 @@ function nsp_change($month,$lmonth,$row) {
   $month->change = null;
 
   if($lmonth->$row <> 0) {
-    $pc = round( 100 * ($month->$row / $lmonth->$row ) - 100,1);
-    if($pc >= 0) $pc = "+" . $pc;
-    $month->change = "<code> (" . $pc . "%)</code>";
+    $percent_change = round( 100 * ($month->$row / $lmonth->$row ) - 100,1);
+    if($percent_change >= 0) {
+      $percent_change = "+" . $percent_change;
+      $month->change = "<code style='color:green'>($percent_change%)</code>";
+    }
+    else
+    $month->change = "<code style='color:red'>($percent_change%)</code>";
   }
+  // else
+  // $month->change = "<td></td>";
+
   return $month->change;
 }
 
@@ -2898,8 +2905,15 @@ function nsp_added($target,$lmonth,$row) {
 
   if($lmonth->$row <> 0) {
     $pt = round( 100 * ($target / $lmonth->$row ) - 100,1);
-    if($pt >= 0) $pt = "+" . $pt;
-      $added = "<code> (" . $pt . "%)</code>";
+    if($pt >= 0) {
+      $pt = "+" . $pt;
+      $added = "<code style='color:green'>($pt%)</code>";
+
+    }
+    if($pt < 0) {
+
+    $added = "<code style='color:red'>($pt%)</code>";
+  }
     }
 
 return $added;
@@ -2924,21 +2938,33 @@ function nsp_MakeOverview($print ='dashboard') {
   $yesterdayHeader = gmdate('d M', current_time('timestamp')-86400);
   $todayHeader = gmdate('d M', current_time('timestamp'));
 
-  if ($print=='main')
+  if ($print=='main'){
     $overview_table.="<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
-
+    $overview_table.="<table class='widefat center nsp'>
+              <thead><tr>
+              <th></th>
+              <th>". __('Total since','newstatpress'). "<span class='date-overview'> $since </span></th>
+              <th scope='col'>". __('Last month','newstatpress'). "<span class='date-overview'> $lastmonthHeader </span></th>
+              <th scope='col'>". __('This month','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
+              <th scope='col'>". __('Target This month','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
+              <th scope='col'>". __('Yesterday','newstatpress'). "<span class='date-overview'> $yesterdayHeader </span></th>
+              <th scope='col'>". __('Today','newstatpress'). "<span class='date-overview'> $todayHeader </span></th>
+              </tr></thead>
+              <tbody id='the-list-overview'>";
+}
+else{
   $overview_table.="<table class='widefat center nsp'>
             <thead><tr>
             <th></th>
-            <th>". __('Total since','newstatpress'). "<span class='date-overview'> $since </span></th>
-            <th scope='col'>". __('Last month','newstatpress'). "<span class='date-overview'> $lastmonthHeader </span></th>
-            <th scope='col'>". __('This month','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
-            <th scope='col'>". __('Target This month','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
-            <th scope='col'>". __('Yesterday','newstatpress'). "<span class='date-overview'> $yesterdayHeader </span></th>
-            <th scope='col'>". __('Today','newstatpress'). "<span class='date-overview'> $todayHeader </span></th>
+            <th>". __('g','newstatpress'). "<span class='date-overview'> $since </span></th>
+            <th scope='col'>". __('g','newstatpress'). "<span class='date-overview'> $lastmonthHeader </span></th>
+            <th scope='col'>". __('g','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
+            <th scope='col'>". __('h','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
+            <th scope='col'>". __('g','newstatpress'). "<span class='date-overview'> $yesterdayHeader </span></th>
+            <th scope='col'>". __('g','newstatpress'). "<span class='date-overview'> $todayHeader </span></th>
             </tr></thead>
             <tbody id='the-list-overview'>";
-
+}
   // build body overview table
   $overview_rows=array('visitors','pageview','spiders','feeds');
 
@@ -2993,9 +3019,9 @@ function nsp_MakeOverview($print ='dashboard') {
   }
 
   if ($print=='dashboard'){
-    $overview_table.="</tr></table><br />\n";
-    $overview_table.='</tr></table>';
-    $overview_table.='</div>';
+    $overview_table.="</tr></table>";
+    // $overview_table.='</tr></table>';
+
   }
 
   if ($print=='main'){
@@ -3094,7 +3120,19 @@ function nsp_MakeOverview($print ='dashboard') {
 function nsp_BuildDashboardWidget() {
 
   nsp_MakeOverview('dashboard');
-  print "<div class='wrap'><h4><a href='admin.php?page=details-page'>". __('More details','newstatpress'). " &raquo;</a></h4>";
+echo   "<ul style='margin-bottom: 0px;'>
+
+      <li style='display: inline-block; color: #DDD;' class='all'>
+      <a href='admin.php?page=details-page'>". __('Details','newstatpress'). "</a> |
+      </li>
+      <li style='display: inline-block; color: #DDD;' class='moderated'>
+      <a href='admin.php?page=visits-page'>". __('Visits','newstatpress'). "</a> |
+      </li>
+      <li style='display: inline-block;' class='moderated'>
+      <a href='admin.php?page=options-page'>". __('Options','newstatpress'). "
+      </li>
+      </ul>";
+  // print "<div class='wrap'><h4></h4>";
 }
 
 // Create the function use in the action hook
@@ -3104,9 +3142,9 @@ function nsp_BuildDashboardWidget() {
  */
 function iri_add_dashboard_widgets() {
   global $wp_meta_boxes;
-
+  $title=__('NewStatPress Overview','newstatpress');
   if (get_option('newstatpress_dashboard')=='checked') {
-    wp_add_dashboard_widget('iri_dashboard_widget', 'NewStatPress Overview', 'nsp_BuildDashboardWidget');
+    wp_add_dashboard_widget('dashboard_NewsStatPress_overview', $title, 'nsp_BuildDashboardWidget');
   } else unset($wp_meta_boxes['dashboard']['side']['core']['wp_dashboard_setup']);
 }
 
