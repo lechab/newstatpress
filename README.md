@@ -22,6 +22,7 @@
 - [ ] Api for variables
 - [ ] irihdate function in double with newstatpress_hdate => to clean
 - [ ] Fix number of dot of navbar in Visitors page
+- bot rss https://github.com/feedjira/feedjira/tree/master
 
 
 
