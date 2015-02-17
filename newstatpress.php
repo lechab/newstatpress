@@ -2498,9 +2498,8 @@ function NewStatPress_Print($body='') {
  * @param var variable to get
  * @param limit optional limit value for query
  * @param flag optional flag value for checked
- * @param url optional url value for page
  */
-function nsp_GenerateAjaxVar($var, $limit=0, $flag='', $url='') {
+function NewStatPress_generateAjaxVar($var, $limit=0, $flag='') {
   global $newstatpress_dir;
 
   $res = "<span id=\"".$var."\">_</span>
@@ -2514,7 +2513,7 @@ function nsp_GenerateAjaxVar($var, $limit=0, $flag='', $url='') {
               }
             }
 
-            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."&LIMIT=".$limit."&FLAG=".$flag."&URL=".$url."\";
+            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."&LIMIT=".$limit."&FLAG=".$flag."\";
 
             xmlhttp_".$var.".open(\"GET\", url, true);
             xmlhttp_".$var.".send();
@@ -2705,7 +2704,6 @@ function iri_NewStatPress_Vars($body) {
   return $body;
 }
 
-
 /// note: if working, move the contents into the caller instead of this function
 /**
  * Get top posts
@@ -2717,7 +2715,6 @@ function iri_NewStatPress_Vars($body) {
 function iri_NewStatPress_TopPosts($limit=5, $showcounts='checked') {
   return nsp_GenerateAjaxVar("widget_topposts", $limit, $showcounts);
 }
-
 
 function widget_newstatpress_init($args) {
   if ( !function_exists('wp_register_sidebar_widget') || !function_exists('wp_register_widget_control') ) return;
