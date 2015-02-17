@@ -93,15 +93,16 @@ function nsp_BuildPluginMenu() {
   add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',dirname(plugin_basename(__FILE__))));
   add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $capability, 'nsp-main', 'iriNewStatPressMain');
   add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $capability, 'details-page', 'iriNewStatPressDetails');
-  add_submenu_page('nsp-main', __('Last visitors by Spy','newstatpress'), __('Last visitors by Spy','newstatpress'), $capability, 'spy-page', 'iriNewStatPressSpy');
-  add_submenu_page('nsp-main', __('Visitors by Spy','newstatpress'), __('Visitors by Spy','newstatpress'), $capability, 'newspy-page', 'iriNewStatPressNewSpy');
-  add_submenu_page('nsp-main', __('Spy Bot','newstatpress'), __('Spy Bot','newstatpress'), $capability, 'spybot-page', 'iriNewStatPressSpyBot');
+  add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $capability, 'visits-page', 'nsp_DisplayVisitsPage');
+  // add_submenu_page('nsp-main', __('Last visitors by Spy','newstatpress'), __('Last visitors by Spy','newstatpress'), $capability, 'spy-page', 'iriNewStatPressSpy');
+  // add_submenu_page('nsp-main', __('Visitors by Spy','newstatpress'), __('Visitors by Spy','newstatpress'), $capability, 'newspy-page', 'iriNewStatPressNewSpy');
+  // add_submenu_page('nsp-main', __('Spy Bot','newstatpress'), __('Spy Bot','newstatpress'), $capability, 'spybot-page', 'iriNewStatPressSpyBot');
   add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $capability, 'search-page', 'iriNewStatPressSearch');
   add_submenu_page('nsp-main', __('Export','newstatpress'), __('Export','newstatpress'), $capability, 'export-page', 'iriNewStatPressExport');
   add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $capability, 'options-page', 'iriNewStatPressOptions');
   add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $capability, 'credits-page', 'nsp_DisplayCreditsPage');
   add_submenu_page('nsp-main', __('Remove','newstatpress'), __('Remove','newstatpress'), $capability,  'remove-page', 'iriNewStatPressRemove');
-  add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $capability, 'visits-page', 'nsp_DisplayVisitsPage');
+
 
 }
 add_action('admin_menu', 'nsp_BuildPluginMenu');
@@ -942,22 +943,25 @@ function my_substr($str, $x, $y = 0) {
  * @param NP the group of pages
  * @param pp the page to show
  * @param action the action
+ *
+ * TODO change print into return $result
  */
 function newstatpress_print_pp_link($NP,$pp,$action) {
   // For all pages ($NP) Display first 3 pages, 3 pages before current page($pp), 3 pages after current page , each 25 pages and the 3 last pages for($action)
   $GUIL1 = FALSE;
   $GUIL2 = FALSE;// suspension points  not writed  style='border:0px;width:16px;height:16px;   style="border:0px;width:16px;height:16px;"
   if ($NP >1) {
-    print "<font size='1'>".__('period of days','newstatpress')." : </font>";
+    // print "<font size='1'>".__('period of days','newstatpress')." : </font>";
     for ($i = 1; $i <= $NP; $i++) {
       if ($i <= $NP) {
         // $page is not the last page
-        if($i == $pp) echo " [{$i}] "; // $page is current page
+        if($i == $pp) echo " <span class='current'>{$i} </span> "; // $page is current page
         else {
           // Not the current page Hyperlink them
           if (($i <= 3) or (($i >= $pp-3) and ($i <= $pp+3)) or ($i >= $NP-3) or is_int($i/100)) {
-            echo '<a href="?page=newstatpress/newstatpress.php&newstatpress_action='.$action.'&pp=' . $i .'">' . $i . '</a> ';
+            echo '<a href="?page=visits-page&tab=visitors&newstatpress_action='.$action.'&pp=' . $i .'">' . $i . '</a> ';
           } else {
+
               if (($GUIL1 == FALSE) OR ($i==$pp+4)) {
                 echo "...";
                 $GUIL1 = TRUE;
@@ -966,13 +970,13 @@ function newstatpress_print_pp_link($NP,$pp,$action) {
               if (is_int(($i-1)/100)) echo ".";
               if ($i == $NP-4) echo "..";
               // suspension points writed
-            }
+
          }
       }
     }
   }
 }
-
+}
 /**
  * Display links for group of pages
  *
@@ -981,6 +985,8 @@ function newstatpress_print_pp_link($NP,$pp,$action) {
  * @param action the action
  * @param NA group
  * @param pa current page
+ *
+ * TODO change print into return $result
  */
 function newstatpress_print_pp_pa_link($NP,$pp,$action,$NA,$pa) {
   if ($NP<>0) newstatpress_print_pp_link($NP,$pp,$action);
@@ -1091,7 +1097,7 @@ function iriNewStatPressNewSpy() {
 
   $qry = $wpdb->get_results($sql);
 
-  echo "<div class='wrap'><h2>" . __('Visitors', 'newstatpress') . "</h2>";
+  // echo "<div class='wrap'><h2>" . __('Visitors', 'newstatpress') . "</h2>";
 ?>
 <script>
 function ttogle(thediv){
@@ -1103,7 +1109,7 @@ document.getElementById(thediv).style.display="none"
 <?php
   $ip = 0;
   $num_row=0;
-  echo'<div id="paginating" align="center">';
+  echo "<div id='paginating' align='center' class='pagination'>";
   newstatpress_print_pp_link($NP,$pp,$action);
   echo'</div><table id="mainspytab" name="mainspytab" width="99%" border="0" cellspacing="0" cellpadding="4">';
   foreach ($qry as $rk) {
@@ -1177,8 +1183,9 @@ document.getElementById(thediv).style.display="none"
       }
    }
    echo "</div></td></tr>\n</table>";
+   echo "<div id='paginating' align='center' class='pagination'>";
    newstatpress_print_pp_link($NP,$pp,$action);
-   echo "</div>";
+   echo "</div></div>";
 }
 
 /**
@@ -1218,7 +1225,8 @@ function iriNewStatPressSpyBot() {
   ");
   $NA = ceil($Num/$LIMIT);
 
-  echo "<div class='wrap'><h2>" . __('Spy Bot', 'newstatpress') . "</h2>";
+  // echo "<div class='wrap'><h2>" . __('Spy Bot', 'newstatpress') . "</h2>";
+  echo "<br />";
 
   // selection of spider, group by spider, order by most recently visit (last id in the table)
   $sql = "
@@ -1300,7 +1308,8 @@ function iriNewStatPressSpy() {
   # Spy
   $today = gmdate('Ymd', current_time('timestamp'));
   $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
-  print "<div class='wrap'><h2>".__('Last visitors','newstatpress')."</h2>";
+  // print "<div class='wrap'><h2>".__('Last visitors','newstatpress')."</h2>";
+  echo "<br />";
   $sql="
     SELECT ip,nation,os,browser,agent
     FROM $table_name
@@ -1964,7 +1973,7 @@ function iri_NewStatPress_lastmonth() {
    $sql_createtable.=") $charset_collate;";
 
 
-   echo $sql_createtable;
+  //  echo $sql_createtable;
 
   if($wp_db_version >= 5540) $page = 'wp-admin/includes/upgrade.php';
   else $page = 'wp-admin/upgrade'.'-functions.php';
@@ -2860,19 +2869,7 @@ function content_newstatpress($content = '') {
   return $content;
 }
 
-function nsp_change($month,$lmonth,$row) {
-  $month->change = null;
-
-  if($lmonth->$row <> 0) {
-    $pc = round( 100 * ($month->$row / $lmonth->$row ) - 100,1);
-    if($pc >= 0) $pc = "+" . $pc;
-    $month->change = "<code> (" . $pc . "%)</code>";
-  }
-  return $month->change;
-}
-
-
-function nsp_target($month,$row) {
+function nsp_CalculateVariation($month,$lmonth,$row) {
 
   $target = round($month->$row / (
     (date("d", current_time('timestamp')) - 1 +
@@ -2880,22 +2877,38 @@ function nsp_target($month,$row) {
     (date("i", current_time('timestamp')) + 1)/ 60.0) / 24.0)) * date("t", current_time('timestamp'))
   );
 
-// $calculated_result=array($target,$added);
-return $target;
-
-}
-
-function nsp_added($target,$lmonth,$row) {
-
+  $month->change = null;
   $added = null;
 
   if($lmonth->$row <> 0) {
-    $pt = round( 100 * ($target / $lmonth->$row ) - 100,1);
-    if($pt >= 0) $pt = "+" . $pt;
-      $added = "<code> (" . $pt . "%)</code>";
+    $percent_change = round( 100 * ($month->$row / $lmonth->$row ) - 100,1);
+    $percent_target = round( 100 * ($target / $lmonth->$row ) - 100,1);
+
+    if($percent_change >= 0) {
+      $percent_change=sprintf("+%'04.1f", $percent_target);
+      $month->change = "<td class='coll'><code style='color:green'>($percent_change%)</code></td>";
+    }
+    else {
+      $percent_change=sprintf("%'04.1f", $percent_change);
+      $month->change = "<td class='coll'><code style='color:red'>($percent_change%)</code></td>";
     }
 
-return $added;
+    if($percent_target >= 0) {
+      $percent_target=sprintf("+%'04.1f", $percent_target);
+      $added = "<td class='coll'><code style='color:green'>($percent_target%)</code></td>";
+    }
+    else {
+      $percent_target=sprintf("%'04.1f", $percent_target);
+      $added = "<td class='coll'><code style='color:red'>($percent_target%)</code></td>";
+    }
+  }
+  else {
+    $month->change = "<td></td>";
+    $added = "<td class='coll'></td>";
+  }
+
+  $calculated_result=array($month->change,$target,$added);
+  return $calculated_result;
 }
 
 function nsp_MakeOverview($print ='dashboard') {
@@ -2907,31 +2920,91 @@ function nsp_MakeOverview($print ='dashboard') {
 
   $since = NewStatPress_Print('%since%');
   $lastmonth = iri_NewStatPress_lastmonth();
+  $thisyear = gmdate('Y', current_time('timestamp'));
   $thismonth = gmdate('Ym', current_time('timestamp'));
   $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
   $today = gmdate('Ymd', current_time('timestamp'));
   $tlm[0]=substr($lastmonth,0,4); $tlm[1]=substr($lastmonth,4,2);
 
+  $thisyearHeader = gmdate('Y', current_time('timestamp'));
   $lastmonthHeader = gmdate('M, Y',gmmktime(0,0,0,$tlm[1],1,$tlm[0]));
   $thismonthHeader = gmdate('M, Y', current_time('timestamp'));
   $yesterdayHeader = gmdate('d M', current_time('timestamp')-86400);
   $todayHeader = gmdate('d M', current_time('timestamp'));
 
-  if ($print=='main')
+  if ($print=='main'){
     $overview_table.="<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
+    $overview_table.="<table class='widefat center nsp'>
+              <thead>
+              <tr class='sup'>
+                <th></th>
+                <th>". __('Total since','newstatpress'). "</th>
+                <th scope='col'>". __('This year','newstatpress'). "</th>
+                <th scope='col'>". __('Last month','newstatpress'). "</th>
+                <th scope='col' colspan='2'>". __('This month','newstatpress'). "</th>
+                <th scope='col' colspan='2'>". __('Target This month','newstatpress'). "</th>
+                <th scope='col'>". __('Yesterday','newstatpress'). "</th>
+                <th scope='col'>". __('Today','newstatpress'). "</th>
+              </tr>
+              <tr class='inf'>
+                <th></th>
+                <th><span class='date-overview'> $since </span></th>
+                <th><span class='date-overview'> $thisyearHeader </span></th>
+                <th><span class='date-overview'> $lastmonthHeader </span></th>
+                <th colspan='2' class='date-overview'><span class='date-overview'> $thismonthHeader </span></th>
+                <th colspan='2'><span class='date-overview'> $thismonthHeader </span></th>
+                <th class='date-overview'><span class='date-overview'> $yesterdayHeader </span></th>
+                <th><span class='date-overview'> $todayHeader </span></th>
+              </tr></thead>
+              <tbody id='the-list-overview'>";
+}
+else{
 
+//   <tr class='dfgg'>
+//   <th></th>
+//
+//   <th>". __('all','newstatpress'). "</th>
+//   <th scope='col'>". __('M-1','newstatpress'). "</th>
+//   <th scope='col' colspan='2'>". __('M','newstatpress'). "</th>
+//   <th scope='col' colspan='2'>". __('M-t','newstatpress'). "</th>
+//   <th scope='col'>". __('Y','newstatpress'). "</th>
+//   <th scope='col'>". __('T','newstatpress'). "</th>
+//   </tr>
+//   <tr class='dfg'>
+//   <th></th>
+//   <th><span class='date-overview'> $since </span></th>
+//   <th><span class='date-overview'> $lastmonthHeader </span></th>
+//   <th colspan='2' class='date-overview'><span class='date-overview'> $thismonthHeader </span></th>
+//   <th colspan='2'><span class='date-overview'> $thismonthHeader </span></th>
+//   <th class='date-overview'><span class='date-overview'> $yesterdayHeader </span></th>
+//   <th><span class='date-overview'> $todayHeader </span></th>
+// </tr></thead>
+//   <tbody id='the-list-overview'>";
+//
   $overview_table.="<table class='widefat center nsp'>
-            <thead><tr>
-            <th></th>
-            <th>". __('Total since','newstatpress'). "<span class='date-overview'> $since </span></th>
-            <th scope='col'>". __('Last month','newstatpress'). "<span class='date-overview'> $lastmonthHeader </span></th>
-            <th scope='col'>". __('This month','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
-            <th scope='col'>". __('Target This month','newstatpress'). "<span class='date-overview'> $thismonthHeader </span></th>
-            <th scope='col'>". __('Yesterday','newstatpress'). "<span class='date-overview'> $yesterdayHeader </span></th>
-            <th scope='col'>". __('Today','newstatpress'). "<span class='date-overview'> $todayHeader </span></th>
-            </tr></thead>
-            <tbody id='the-list-overview'>";
 
+            <thead>
+
+            <tr class=' sup dfgg'>
+            <th></th>
+            <th>". __('Total since','newstatpress'). "</th>
+                <th scope='col'>". __('Last month','newstatpress'). "</th>
+                <th scope='col' colspan='2'>". __('This month','newstatpress'). "</th>
+                <th scope='col' colspan='2'>". __('Target This month','newstatpress'). "</th>
+                <th scope='col'>". __('Yesterday','newstatpress'). "</th>
+                <th scope='col'>". __('Today','newstatpress'). "</th>
+            </tr>
+            <tr class='inf dfg'>
+            <th></th>
+            <th><span class='date-overview'> $since </span></th>
+            <th><span class='date-overview'> $lastmonthHeader </span></th>
+            <th colspan='2' class='date-overview'><span class='date-overview'> $thismonthHeader </span></th>
+            <th colspan='2'><span class='date-overview'> $thismonthHeader </span></th>
+            <th class='date-overview'><span class='date-overview'> $yesterdayHeader </span></th>
+            <th><span class='date-overview'> $todayHeader </span></th>
+          </tr></thead>
+            <tbody id='the-list-overview'>";
+}
   // build body overview table
   $overview_rows=array('visitors','pageview','spiders','feeds');
 
@@ -2966,39 +3039,38 @@ function nsp_MakeOverview($print ='dashboard') {
 
     // query requests
     $qry_total = $wpdb->get_row($sql_QueryTotal);
+    $qry_tyear = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'");
     $qry_lmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$lastmonth%'");
     $qry_tmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thismonth%'");
     $qry_y = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$yesterday'");
     $qry_t = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$today'");
-    $qry_tmonth->change=nsp_change($qry_tmonth,$qry_lmonth,$row);
-    $qry_tmonth->target=nsp_target($qry_tmonth,$row);
-    $qry_tmonth->added=nsp_added($qry_tmonth->target,$qry_lmonth,$row);
+
+    $calculated_result=nsp_CalculateVariation($qry_tmonth,$qry_lmonth,$row);
 
     // build full current row
     $overview_table.="<tr><td class='test $row'>$row_title</td>";
-    $overview_table.="<td>".$qry_total->$row."</td>\n";
-    $overview_table.="<td>".$qry_lmonth->$row."</td>\n";
-    $overview_table.="<td>".$qry_tmonth->$row. $qry_tmonth->change ."</td>\n";
-    $overview_table.="<td>$qry_tmonth->target $qry_tmonth->added </td>\n";
-    $overview_table.="<td>".$qry_y->$row."</td>\n";
-    $overview_table.="<td>".$qry_t->$row."</td>\n";
+    $overview_table.="<td class='colc'>".$qry_total->$row."</td>\n";
+    if ($print=='main')
+      $overview_table.="<td class='colc'>".$qry_tyear->$row."</td>\n";
+    $overview_table.="<td class='colc'>".$qry_lmonth->$row."</td>\n";
+    $overview_table.="<td class='colr'>".$qry_tmonth->$row. $calculated_result[0] ."</td>\n";
+    $overview_table.="<td class='colr'> $calculated_result[1] $calculated_result[2] </td>\n";
+    $overview_table.="<td class='colc'>".$qry_y->$row."</td>\n";
+    $overview_table.="<td class='colc'>".$qry_t->$row."</td>\n";
     $overview_table.="</tr>";
   }
 
   if ($print=='dashboard'){
-    $overview_table.="</tr></table><br />\n";
-    $overview_table.='</tr></table>';
-    $overview_table.='</div>';
+    $overview_table.="</tr></table>";
   }
 
   if ($print=='main'){
-    $overview_table.= "</tr></table><br />\n";
+    $overview_table.= "</tr></table>\n";
 
     // print graph
     //  last "N" days graph  NEW
     $gdays=get_option('newstatpress_daysinoverviewgraph'); if($gdays == 0) { $gdays=20; }
     $start_of_week = get_option('start_of_week');
-    $overview_graph.='<table width="100%" border="0"><tr>';
     $qry = $wpdb->get_row("
       SELECT count(date) as pageview, date
       FROM $table_name
@@ -3012,67 +3084,46 @@ function nsp_MakeOverview($print ='dashboard') {
     if($maxxday == 0) { $maxxday = 1; }
     # Y
     $gd=(90/$gdays).'%';
+
+    $overview_graph.="<table class='graph'><tr>";
+
     for($gg=$gdays-1;$gg>=0;$gg--) {
-      #TOTAL VISITORS
-      $qry_visitors = $wpdb->get_row("
-        SELECT count(DISTINCT ip) AS total
-        FROM $table_name
-        WHERE
-          feed='' AND
-          spider='' AND
-          date = '".gmdate('Ymd', current_time('timestamp')-86400*$gg)."'
-      ");
-      $px_visitors = round($qry_visitors->total*100/$maxxday);
 
-      #TOTAL PAGEVIEWS (we do not delete the uniques, this is falsing the info.. uniques are not different visitors!)
-      $qry_pageviews = $wpdb->get_row("
-        SELECT count(date) as total
-        FROM $table_name
-        WHERE
-          feed='' AND
-          spider='' AND
-          date = '".gmdate('Ymd', current_time('timestamp')-86400*$gg)."'
-      ");
-      $px_pageviews = round($qry_pageviews->total*100/$maxxday);
+      $scale_factor=2; //2 : 200px in CSS
 
-      #TOTAL SPIDERS
-      $qry_spiders = $wpdb->get_row("
-        SELECT count(ip) AS total
-        FROM $table_name
-        WHERE
-          feed='' AND
-          spider<>'' AND
-          date = '".gmdate('Ymd', current_time('timestamp')-86400*$gg)."'
-        ");
-      $px_spiders = round($qry_spiders->total*100/$maxxday);
+      $date=gmdate('Ymd', current_time('timestamp')-86400*$gg);
 
-      #TOTAL FEEDS
-      $qry_feeds = $wpdb->get_row("
-        SELECT count(ip) AS total
-        FROM $table_name
-        WHERE
-          feed<>'' AND
-          spider='' AND
-          date = '".gmdate('Ymd', current_time('timestamp')-86400*$gg)."'
-      ");
-      $px_feeds = round($qry_feeds->total*100/$maxxday);
+      $qry_visitors = $wpdb->get_row("SELECT count(DISTINCT ip) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
+      $px_visitors = $scale_factor*(round($qry_visitors->total*100/$maxxday));
 
-      $px_white = 100 - $px_feeds - $px_spiders - $px_pageviews - $px_visitors;
+      $qry_pageviews = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
+      $px_pageviews = $scale_factor*(round($qry_pageviews->total*100/$maxxday));
 
-      $overview_graph.='<td width="'.$gd.'" valign="bottom"';
-      if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) {
-        $overview_graph.=' style="border-left:2px dotted gray; padding-left: 0px; padding-right: 0px;"';
-      }  # week-cut
-      $overview_graph.="><div class='testons'>
-         <div style='background:#ffffff;width:100%;height:".$px_white."px;'></div>
-         <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$qry_visitors->total." ".__('Visitors','newstatpress')."'></div>
-         <div class='web_bar' style='height:".$px_pageviews."px;' title='".$qry_pageviews->total." ".__('Pageviews','newstatpress')."'></div>
-         <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$qry_spiders->total." ".__('Spiders','newstatpress')."'></div>
-         <div class='feeds-r' style='height:".$px_feeds."px;' title='".$qry_feeds->total." ".__('Feeds','newstatpress')."'></div>
-         <div style='background:gray;width:100%;height:1px;'></div>
-         <br />".gmdate('d', current_time('timestamp')-86400*$gg) . ' ' . gmdate('M', current_time('timestamp')-86400*$gg) . "</div></td>\n";
+      $qry_spiders = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider<>'' AND date = '$date'");
+      $px_spiders = $scale_factor*(round($qry_spiders->total*100/$maxxday));
+
+      $qry_feeds = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed<>'' AND spider='' AND date = '$date'");
+      $px_feeds = $scale_factor*(round($qry_feeds->total*100/$maxxday));
+
+      $px_white = $scale_factor*100 - $px_feeds - $px_spiders - $px_pageviews - $px_visitors;
+
+      $overview_graph.="<td width='$gd' valign='bottom'>";
+      // if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) {
+        // $overview_graph.=" class='week-cut'";
+
+      // }  # week-cut
+      $overview_graph.="<div class='overview-graph'>
+        <div style='border-left:1px; background:#ffffff;width:100%;height:".$px_white."px;'></div>
+        <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$qry_visitors->total." ".__('Visitors','newstatpress')."'></div>
+        <div class='web_bar' style='height:".$px_pageviews."px;' title='".$qry_pageviews->total." ".__('Pageviews','newstatpress')."'></div>
+        <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$qry_spiders->total." ".__('Spiders','newstatpress')."'></div>
+        <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$qry_feeds->total." ".__('Feeds','newstatpress')."'></div>
+        <div style='background:gray;width:100%;height:1px;'></div>";
+        if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) $overview_graph.="<div class='legend2'>";
+        else $overview_graph.="<div class='legend'>";
+        $overview_graph.=gmdate('d', current_time('timestamp')-86400*$gg) . ' ' . gmdate('M', current_time('timestamp')-86400*$gg) .     "</div></div></td>\n";
     }
-    $overview_graph.='</tr></table></div>';
+    $overview_graph.="</tr></table></div>";
 
     $overview_table=$overview_table.$overview_graph;
   }
@@ -3083,11 +3134,25 @@ function nsp_MakeOverview($print ='dashboard') {
 
 /**
  * Show statistics in dashboard
+ *
  */
 function nsp_BuildDashboardWidget() {
 
   nsp_MakeOverview('dashboard');
-  print "<div class='wrap'><h4><a href='admin.php?page=details-page'>". __('More details','newstatpress'). " &raquo;</a></h4>";
+  ?>
+
+  <ul class='nsp_dashboard'>
+    <li>
+      <a href='admin.php?page=details-page'><?php _e('Details','newstatpress')?></a> |
+    </li>
+    <li>
+      <a href='admin.php?page=visits-page'><?php _e('Visits','newstatpress')?></a> |
+    </li>
+    <li>
+      <a href='admin.php?page=options-page'><?php _e('Options','newstatpress')?>
+      </li>
+  </ul>
+  <?php
 }
 
 // Create the function use in the action hook
@@ -3097,9 +3162,9 @@ function nsp_BuildDashboardWidget() {
  */
 function iri_add_dashboard_widgets() {
   global $wp_meta_boxes;
-
+  $title=__('NewStatPress Overview','newstatpress');
   if (get_option('newstatpress_dashboard')=='checked') {
-    wp_add_dashboard_widget('iri_dashboard_widget', 'NewStatPress Overview', 'nsp_BuildDashboardWidget');
+    wp_add_dashboard_widget('dashboard_NewsStatPress_overview', $title, 'nsp_BuildDashboardWidget');
   } else unset($wp_meta_boxes['dashboard']['side']['core']['wp_dashboard_setup']);
 }
 
@@ -3163,7 +3228,6 @@ function newstatpress_update() {
     new_count_register();
   }
 }
-
 
 add_action('plugins_loaded', 'widget_newstatpress_init');
 add_action('send_headers', 'iriStatAppend');  //add_action('wp_head', 'iriStatAppend');

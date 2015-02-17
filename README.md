@@ -8,13 +8,21 @@
 
 ## 0.9.3
 
-- [x] Added 'Donator' in Crédits page
-- [x] Rewrited Overview function
-- [x] Fixed Duplicate INDEX when User database is updated (function rewrited)
-- [x] Fixed Dashboard 'details' dead link
+- [x] Add Visits page with tab navigation
+- [x] Add tab navigation in Crédits page
+- [x] Add 'Donator' tab in Crédits page
+- [x] Add 'visits' and 'options' links in Dashboard widget
+- [x] Add CSS style to navbar in Visitors page
+- [x] Add colored variation in overview table
+- [x] Re-writed Overview function
+- [x] Fix Duplicate INDEX when User database is updated (function rewrited)
+- [x] Fix dashboard 'details' dead link
+- [x] Fix navbar dead link in visitors page
 - [x] Various code fixing
 - [ ] Api for variables
-- [ ] irihdate function in double => to clean
+- [ ] irihdate function in double with newstatpress_hdate => to clean
+- [ ] Fix number of dot of navbar in Visitors page
+
 
 
 ## 0.9.2
