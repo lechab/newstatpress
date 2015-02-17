@@ -23,8 +23,9 @@ if ($var=='alltotalvisits') {
     feed='' AND
     urlrequested!='';
    ");
-
-   echo $qry[0]->pageview;
+   if ($qry != null) {
+     echo $qry[0]->pageview;
+   }
 } elseif ($var=='visits') {
     $qry = $wpdb->get_results(
       "SELECT count(DISTINCT(ip)) AS pageview
@@ -33,7 +34,9 @@ if ($var=='alltotalvisits') {
         date = '".gmdate("Ymd",current_time('timestamp'))."' AND
         spider='' and feed='';
       ");
-    echo $qry[0]->pageview;  
+   if ($qry != null) {
+     echo $qry[0]->pageview;
+   } 
 } elseif ($var=='yvisits') {
     $qry = $wpdb->get_results(
       "SELECT count(DISTINCT(ip)) AS pageview
@@ -42,7 +45,9 @@ if ($var=='alltotalvisits') {
         date = '".gmdate("Ymd",current_time('timestamp')-86400)."' AND
         spider='' and feed='';
       ");
-    echo $qry[0]->pageview;  
+   if ($qry != null) {
+     echo $qry[0]->pageview;
+   }  
 } elseif ($var=='mvisits') {
     $qry = $wpdb->get_results(
       "SELECT count(DISTINCT(ip)) AS pageview
@@ -51,7 +56,9 @@ if ($var=='alltotalvisits') {
         date LIKE '".gmdate('Ym', current_time('timestamp'))."%'
         spider='' and feed='';
       ");  
-    echo $qry[0]->pageview;
+   if ($qry != null) {
+     echo $qry[0]->pageview;
+   }
 } elseif ($var=='totalvisits') {
     $qry = $wpdb->get_results(
       "SELECT count(DISTINCT(ip)) AS pageview
@@ -60,7 +67,9 @@ if ($var=='alltotalvisits') {
          spider='' AND
          feed='';
       ");
-    echo $qry[0]->pageview;
+   if ($qry != null) {
+     echo $qry[0]->pageview;
+   }
 } elseif ($var=='totalpageviews') {
     $qry = $wpdb->get_results(
       "SELECT count(id) AS pageview
@@ -69,7 +78,9 @@ if ($var=='alltotalvisits') {
          spider='' AND
          feed='';
       ");  
+   if ($qry != null) {
      echo $qry[0]->pageview;
+   }
 } elseif ($var=='todaytotalpageviews') {
     $qry = $wpdb->get_results(
       "SELECT count(id) AS pageview
@@ -79,12 +90,23 @@ if ($var=='alltotalvisits') {
          spider='' AND
          feed='';
       ");  
-    echo $qry[0]->pageview;
+   if ($qry != null) {
+     echo $qry[0]->pageview;
+   }
 } elseif ($var=='thistotalvisits') {
+    $url = esc_sql($_REQUEST["URL"]);
 
-    /// need to pass the url to use
-
-    /// echo $qry[0]->pageview;  
+    $qry = $wpdb->get_results(
+      "SELECT count(DISTINCT(ip)) AS pageview
+       FROM $table_name
+       WHERE
+         spider='' AND
+         feed='' AND
+         urlrequested='".$url."';
+      ");
+   if ($qry != null) {
+     echo $qry[0]->pageview;
+   }  
 } elseif ($var=='widget_topposts') {
     $limit = intval($_REQUEST["LIMIT"]);
     $showcounts = $_REQUEST["FLAG"];

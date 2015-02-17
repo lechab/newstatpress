@@ -51,6 +51,7 @@ $ref='credits-page';
    array('Sergio L.', '08/12/2014 <br /> 29/12/2013 <br /> 14/09/2013 <br /> 01/09/2013 <br />03/08/2013'),
    array('Ottavio F.', '14/10/2013'),
    array('Hubert H.', '01/08/2013'),
+   array('Fleisher D.', '12/02/2015')
    );
 
 echo "<div class='wrap'><h2>"; _e('Credits','newstatpress'); echo "</h2>";

@@ -2489,8 +2489,9 @@ function NewStatPress_Print($body='') {
  * @param var variable to get
  * @param limit optional limit value for query
  * @param flag optional flag value for checked
+ * @param url optional url value for page
  */
-function NewStatPress_generateAjaxVar($var, $limit=0, $flag='') {
+function nsp_GenerateAjaxVar($var, $limit=0, $flag='', $url='') {
   global $newstatpress_dir;
 
   $res = "<span id=\"".$var."\">_</span>
@@ -2504,7 +2505,7 @@ function NewStatPress_generateAjaxVar($var, $limit=0, $flag='') {
               }
             }
 
-            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."&LIMIT=".$limit."&FLAG=".$flag."\";
+            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."&LIMIT=".$limit."&FLAG=".$flag."&URL=".$url."\";
 
             xmlhttp_".$var.".open(\"GET\", url, true);
             xmlhttp_".$var.".send();
@@ -2525,50 +2526,42 @@ function iri_NewStatPress_Vars($body) {
 
   # look for %visits%
   if(strpos(strtolower($body),"%visits%") !== FALSE) {
-    $body = str_replace("%visits%", NewStatPress_generateAjaxVar("visits"), $body);
+    $body = str_replace("%visits%", nsp_GenerateAjaxVar("visits"), $body);
   }
 
   # look for %yvisits%
   if(strpos(strtolower($body),"%yvisits%") !== FALSE) {
-    $body = str_replace("%yvisits%", NewStatPress_generateAjaxVar("yvisits"), $body);
+    $body = str_replace("%yvisits%", nsp_GenerateAjaxVar("yvisits"), $body);
   }
 
   # look for %mvisits%
   if(strpos(strtolower($body),"%mvisits%") !== FALSE) {
-    $body = str_replace("%mvisits%", NewStatPress_generateAjaxVar("mvisits"), $body);
+    $body = str_replace("%mvisits%", nsp_GenerateAjaxVar("mvisits"), $body);
   }
 
   # look for %totalvisits%
   if(strpos(strtolower($body),"%totalvisits%") !== FALSE) {
-    $body = str_replace("%totalvisits%", NewStatPress_generateAjaxVar("totalvisits"), $body);
+    $body = str_replace("%totalvisits%", nsp_GenerateAjaxVar("totalvisits"), $body);
   }
 
   # look for %totalpageviews%
   if(strpos(strtolower($body),"%totalpageviews%") !== FALSE) {
-    $body = str_replace("%totalpageviews%", NewStatPress_generateAjaxVar("totalpageviews"), $body);
+    $body = str_replace("%totalpageviews%", nsp_GenerateAjaxVar("totalpageviews"), $body);
   }
 
   # look for %todaytotalpageviews%
   if(strpos(strtolower($body),"%todaytotalpageviews%") !== FALSE) {
-    $body = str_replace("%todaytotalpageviews%", NewStatPress_generateAjaxVar("todaytotalpageviews"), $body);
+    $body = str_replace("%todaytotalpageviews%", nsp_GenerateAjaxVar("todaytotalpageviews"), $body);
   }
 
   # look for %thistotalvisits%
   if(strpos(strtolower($body),"%thistotalvisits%") !== FALSE) {
-    $qry = $wpdb->get_results(
-      "SELECT count(DISTINCT(ip)) AS pageview
-       FROM $table_name
-       WHERE
-         spider='' AND
-         feed='' AND
-         urlrequested='".iri_NewStatPress_URL()."';
-      ");
-    $body = str_replace("%thistotalvisits%", $qry[0]->pageview, $body);
+    $body = str_replace("%thistotalvisits%", nsp_GenerateAjaxVar("thistotalvisits", 0, '', iri_NewStatPress_URL()), $body);
   }
 
   # look for %alltotalvisits%
   if(strpos(strtolower($body),"%alltotalvisits%") !== FALSE) {
-    $body = str_replace("%alltotalvisits%", NewStatPress_generateAjaxVar("alltotalvisits"), $body);
+    $body = str_replace("%alltotalvisits%", nsp_GenerateAjaxVar("alltotalvisits"), $body);
   }
 
   # look for %since%
@@ -2713,7 +2706,7 @@ function iri_NewStatPress_Vars($body) {
  * @return result of extraction
  */
 function iri_NewStatPress_TopPosts($limit=5, $showcounts='checked') {
-  return NewStatPress_generateAjaxVar("widget_topposts", $limit, $showcounts);
+  return nsp_GenerateAjaxVar("widget_topposts", $limit, $showcounts);
 }
 
 
