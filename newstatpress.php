@@ -2859,7 +2859,7 @@ function nsp_CalculateVariation($month,$lmonth,$row) {
       $month->change = "<td class='coll'><code style='color:green'>($percent_change%)</code></td>";
     }
     else {
-      $percent_change=sprintf("%'04.1f", $percent_change);
+      $percent_change=sprintf("%'05.1f", $percent_change);
       $month->change = "<td class='coll'><code style='color:red'>($percent_change%)</code></td>";
     }
 
@@ -2868,7 +2868,7 @@ function nsp_CalculateVariation($month,$lmonth,$row) {
       $added = "<td class='coll'><code style='color:green'>($percent_target%)</code></td>";
     }
     else {
-      $percent_target=sprintf("%'04.1f", $percent_target);
+      $percent_target=sprintf("%'05.1f", $percent_target);
       $added = "<td class='coll'><code style='color:red'>($percent_target%)</code></td>";
     }
   }
