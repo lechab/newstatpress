@@ -9,6 +9,8 @@
 - [ ] Fix number of dot of navbar in Visitors page
 - [ ] bot rss https://github.com/feedjira/feedjira/tree/master
 
+## 0.9.4
+- [x] Update of Widget 'NewStatPress' (code re-writed, add variable informations)
 
 ## 0.9.3
 
@@ -24,6 +26,7 @@
 - [x] Fix navbar dead link in visitors page
 - [x] Various code fixing
 - [x] Api for variables (10x faster to load page with widget)
+- [x] Changelog sort by last version
 
 ## 0.9.2
 

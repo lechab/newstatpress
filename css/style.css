@@ -309,11 +309,6 @@ table.table-option td:first-child {
 /*----------------------------------*/
 /* Widget style                     */
 /*----------------------------------*/
-.widget_varslist {
-  font-size:9pt;
-  color:gray;
-}
-
 .widget-title {
   width: 100%;
 }
@@ -321,6 +316,35 @@ table.table-option td:first-child {
 .widget-body {
   width: 100%;
   height:100px;
+}
+
+.widget_varslist a {
+  color:gray;
+  font-size:9pt;
+  text-decoration: none;
+
+}
+
+.widget_varslist a:hover,a:focus{
+  /*text-decoration:1px dotted black;*/
+  text-decoration: 2px solid;
+}
+
+.widget_varslist a span{
+  position:absolute;
+  margin-top:23px;
+  margin-left:-35px;
+  color:#fff;
+  background:rgba(0,0,0,.8);
+  padding:5px;
+  border-radius:2px;
+  box-shadow:0 0 2px rgba(0,0,0,.5);
+  transform:scale(0) rotate(-9deg);
+  transition:all .55s;
+}
+
+.widget_varslist a:hover span, .widget_varslist a:focus span {
+  transform:scale(1) rotate(0);
 }
 
 /*----------------------------------*/

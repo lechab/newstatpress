@@ -11,26 +11,44 @@ Author URI: http://newstatpress.altervista.org
 $_NEWSTATPRESS['version']='0.9.3';
 $_NEWSTATPRESS['feedtype']='';
 
-global $newstatpress_dir, $option_list_info;
+global $newstatpress_dir, $option_list_info, $widget_vars;
 
 $newstatpress_dir = WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__));
 
 $option_list_info=array( // list of option variable name, with default value associated
-  'overview'=>array('name'=>'newstatpress_el_overview','value'=>'10'),
-  'top_days'=>array('name'=>'newstatpress_el_top_days','value'=>'5'),
-  'os'=>array('name'=>'newstatpress_el_os','value'=>'10'),
-  'browser'=>array('name'=>'newstatpress_el_browser','value'=>'10'),
-  'feed'=>array('name'=>'newstatpress_el_feed','value'=>'5'),
-  'searchengine'=>array('name'=>'newstatpress_el_searchengine','value'=>'10'),
-  'search'=>array('name'=>'newstatpress_el_search','value'=>'20'),
-  'referrer'=>array('name'=>'newstatpress_el_referrer','value'=>'10'),
-  'languages'=>array('name'=>'newstatpress_el_languages','value'=>'20'),
-  'spiders'=>array('name'=>'newstatpress_el_spiders','value'=>'10'),
-  'pages'=>array('name'=>'newstatpress_el_pages','value'=>'5'),
-  'visitors'=>array('name'=>'newstatpress_el_visitors','value'=>'5'),
-  'daypages'=>array('name'=>'newstatpress_el_daypages','value'=>'5'),
-  'ippages'=>array('name'=>'newstatpress_el_ippages','value'=>'5')
-);
+                        'overview'=>array('name'=>'newstatpress_el_overview','value'=>'10'),
+                        'top_days'=>array('name'=>'newstatpress_el_top_days','value'=>'5'),
+                        'os'=>array('name'=>'newstatpress_el_os','value'=>'10'),
+                        'browser'=>array('name'=>'newstatpress_el_browser','value'=>'10'),
+                        'feed'=>array('name'=>'newstatpress_el_feed','value'=>'5'),
+                        'searchengine'=>array('name'=>'newstatpress_el_searchengine','value'=>'10'),
+                        'search'=>array('name'=>'newstatpress_el_search','value'=>'20'),
+                        'referrer'=>array('name'=>'newstatpress_el_referrer','value'=>'10'),
+                        'languages'=>array('name'=>'newstatpress_el_languages','value'=>'20'),
+                        'spiders'=>array('name'=>'newstatpress_el_spiders','value'=>'10'),
+                        'pages'=>array('name'=>'newstatpress_el_pages','value'=>'5'),
+                        'visitors'=>array('name'=>'newstatpress_el_visitors','value'=>'5'),
+                        'daypages'=>array('name'=>'newstatpress_el_daypages','value'=>'5'),
+                        'ippages'=>array('name'=>'newstatpress_el_ippages','value'=>'5')
+                      );
+
+$widget_vars=array( // list of widget variables name, with description associated
+                   array('visits',__('Today visits', 'newstatpress')),
+                   array('yvisits',__('Yesterday visits', 'newstatpress')),
+                   array('mvisits',__('Month visits', 'newstatpress')),
+                   array('totalvisits',__('Total visits', 'newstatpress')),
+                   array('totalpageviews',__('Total pages view', 'newstatpress')),
+                   array('todaytotalpageviews',__('Total pages view today', 'newstatpress')),
+                   array('thistotalvisits',__('This page, total visits', 'newstatpress')),
+                   array('alltotalvisits',__('All page, total visits', 'newstatpress')),
+                   array('os',__('Visitor Operative System', 'newstatpress')),
+                   array('browser',__('Visitor Browser', 'newstatpress')),
+                   array('ip',__('Visitor IP address', 'newstatpress')),
+                   array('since',__('Date of the first hit', 'newstatpress')),
+                   array('visitorsonline',__('Counts all online visitors', 'newstatpress')),
+                   array('usersonline',__('Counts logged online visitors', 'newstatpress')),
+                   array('toppost',__('The most viewed Post', 'newstatpress'))
+                  );
 
 /**
  * add by chab
@@ -2694,6 +2712,7 @@ function widget_newstatpress_init($args) {
 
   // Multifunctional StatPress pluging
   function widget_newstatpress_control() {
+    global $widget_vars;
     $options = get_option('widget_newstatpress');
     if ( !is_array($options) ) $options = array('title'=>'NewStatPress', 'body'=>'Visits today: %visits%');
     if ( isset($_POST['newstatpress-submit']) && $_POST['newstatpress-submit'] ) {
@@ -2703,37 +2722,20 @@ function widget_newstatpress_init($args) {
     }
     $title = htmlspecialchars($options['title'], ENT_QUOTES);
     $body = htmlspecialchars($options['body'], ENT_QUOTES);
+
      // the form
-
-    $widget_vars=array('visits',
-                       'yvisits',
-                       'mvisits',
-                       'totalvisits',
-                       'totalpageviews',
-                       'todaytotalpageviews',
-                       'thistotalvisits',
-                       'alltotalvisits',
-                       'os',
-                       'browser',
-                       'ip',
-                       'since',
-                       'visitorsonline',
-                       'usersonline',
-                       'toppost'
-                      );
-
     echo "<p><label for='newstatpress-title'>"; _e('Title:', 'newstatpress');
     echo "</label><input class='widget-title' id='newstatpress-title' name='newstatpress-title' type='text' value=$title /></p>";
 
     echo "<p><label for='newstatpress-body'>"; _e('Body:', 'newstatpress');
-    echo "</label><textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea'>$body</textarea></p>";
+    echo "</label><textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea' placeholder='Example: Month visits: %mvisits%...'>$body</textarea></p>";
 
     echo '<input type="hidden" id="newstatpress-submit" name="newstatpress-submit" value="1" />';
 
     echo "<p>"; _e('Stats available: ', 'newstatpress');
     echo "<br/ ><span class='widget_varslist'>";
     foreach($widget_vars as $var) {
-        echo "%$var%  ";
+        echo "<a href='#'>%$var[0]%  <span>"; _e($var[1], 'newstatpress'); echo "</span></a> | ";
       }
     echo "</span>"; echo "</p>";
 
