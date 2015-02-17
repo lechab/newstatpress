@@ -6,20 +6,22 @@ Requires at least: 2.1
 Tested up to: 4.1
 Stable Tag: 0.9.3
 
-NewStatPress is a new version of StatPress (that was the first real-time plugin dedicated to the management of statistics about blog visits).
+NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
 == Description ==
 
-A real-time plugin dedicated to the management of statistics about blog visits. It collects information about visitors, spiders, search keywords, feeds, browsers etc.
+NewStatPress is a new version of StatPress that was the first real-time plugin dedicated to the management of statistics about blog visits.
 
-This project borned for improving the Daniele Lippi's StarPress plugin adding a new history features and make it less db consuming.
+It collects information about visitors, spiders, search keywords, feeds, browsers etc.
 
 Once the plugin NewStatPress has been activated it immediately starts to collect statistics information.
 Using NewStatPress you could spy your visitors while they are surfing your blog or check which are the preferred pages, posts and categories.
 In the Dashboard menu you will find the NewStatPress page where you could look up the statistics (overview or detailed).
 NewStatPress also includes a widget one can possibly add to a sidebar (or easy PHP code if you can't use widgets!).
 
-Note: you must disable the original StatPress plugin when activating this, as it use the same table of StatPress for storing data in DB (copy the data to another table will be very space consuming for your site, so it was better to use the same table)
+Note: you must disable the original StatPress plugin (or other plugins still based onto Statpress) when activating this, as it use the same table of StatPress for storing data in DB (copy the data to another table will be very space consuming for your site, so it was better to use the same table)
+
+With the new ajax/javascript usage for variables in widget, the plugin is faster for a user being visit your site even with 1GB or more of database to use!
 
 = Support =
 
@@ -121,7 +123,20 @@ Check at http://newstatpress.altervista.org
 
 = 0.9.3 =
 
-*
+* Add Visits page with tab navigation
+* Add tab navigation in Crédits page
+* Add 'Donator' tab in Crédits page
+* Add 'visits' and 'options' links in Dashboard widget
+* Add CSS style to navbar in Visitors page
+* Add colored variation in overview table
+* Re-writed Overview function
+* Fix Duplicate INDEX when User database is updated (function rewrited)
+* Fix dashboard 'details' dead link
+* Fix navbar dead link in visitors page
+* Various code fixing
+* Api for variables (10x faster to load page with widget)
+
+Note: refresh your browser cache to take the new CSS settings else if you use javascript in widget where there is a %variable% of newstatpress, please take a look as now it could generate javascript error (neested code).
 
 = 0.9.2 =
 
@@ -879,4 +894,5 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 
 = 0.9.3 =
 
-* released
+* released 17/02/2015
+
