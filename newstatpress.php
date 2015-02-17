@@ -3116,15 +3116,15 @@ elseif ($print=='dashboard'){
   else return $overview_table;
 }
 
-/**
+/***
+ *
  * Show statistics in dashboard
  *
- */
+ *************************************/
 function nsp_BuildDashboardWidget() {
 
   nsp_MakeOverview('dashboard');
   ?>
-
   <ul class='nsp_dashboard'>
     <li>
       <a href='admin.php?page=details-page'><?php _e('Details','newstatpress')?></a> |
@@ -3140,17 +3140,18 @@ function nsp_BuildDashboardWidget() {
 }
 
 // Create the function use in the action hook
+function nsp_AddDashBoardWidget() {
 
-/**
- * Add the dashboard widget if option for that is on
- */
-function iri_add_dashboard_widgets() {
   global $wp_meta_boxes;
   $title=__('NewStatPress Overview','newstatpress');
-  if (get_option('newstatpress_dashboard')=='checked') {
+
+  //Add the dashboard widget if user option is 'yes'
+  if (get_option('newstatpress_dashboard')=='checked')
     wp_add_dashboard_widget('dashboard_NewsStatPress_overview', $title, 'nsp_BuildDashboardWidget');
-  } else unset($wp_meta_boxes['dashboard']['side']['core']['wp_dashboard_setup']);
+  else unset($wp_meta_boxes['dashboard']['side']['core']['wp_dashboard_setup']);
+
 }
+add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
 
 /**
  * Set the header for the page.
@@ -3218,9 +3219,6 @@ add_action('send_headers', 'iriStatAppend');  //add_action('wp_head', 'iriStatAp
 add_action('init','iri_checkExport');
 add_action( 'admin_init', 'newstatpress_update' );
 ###add_action('wp_head', 'iri_page_header');
-
-// Hoook into the 'wp_dashboard_setup' action to register our other functions
-add_action('wp_dashboard_setup', 'iri_add_dashboard_widgets' );
 
 add_filter('the_content', 'content_newstatpress');
 
