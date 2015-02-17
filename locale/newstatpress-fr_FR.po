@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress v0.8.9\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-17 17:15+0100\n"
-"PO-Revision-Date: 2015-02-17 17:15+0100\n"
+"POT-Creation-Date: 2015-02-17 17:20+0100\n"
+"PO-Revision-Date: 2015-02-17 17:20+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -22,6 +22,89 @@ msgstr ""
 "plugins/newstatpress/newstatpress.php\n"
 "X-Poedit-SearchPath-2: /Applications/MAMP/htdocs/wordpress/wp-content/"
 "plugins/newstatpress/includes/functions-extra.php\n"
+"X-Poedit-SearchPath-3: /Applications/MAMP/htdocs/wordpress/wp-content/"
+"plugins/newstatpress/includes/credits.php\n"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:6
+msgid "support page"
+msgstr "page de support"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:7
+msgid "the author"
+msgstr "l'auteur"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:8
+msgid "Development"
+msgstr "Développement"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:9
+msgid "Translation"
+msgstr "Traduction"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:10
+msgid "Donation"
+msgstr "Don"
+
+# @ newstatpress
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:46
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:99
+msgid "Credits"
+msgstr "Crédits"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:48
+#, php-format
+msgid ""
+"If you have found this plugin usefull and you like it, you can support the "
+"development by reporting bugs on the %s or  by adding/updating translation "
+"by contacting directly %s. As this plugin is maintained only on free time, "
+"you can also make a donation by clicking on the button to support the work."
+msgstr ""
+"Si vous avez trouvé ce plugin utile et que vous l'aimez, vous pouvez "
+"soutenir le développement en signalant les bogues sur le %s ou en ajoutant/"
+"mettant à jour la traduction en communiquant directement avec %s. Compte "
+"tenu que ce plugin est maintenu uniquement sur temps libre, vous pouvez "
+"également faire un don en cliquant sur le bouton pour appuyer le travail "
+"fourni."
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:54
+msgid "Make a donation"
+msgstr "Faire un don"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:66
+msgid "Contributor"
+msgstr "Contributeur"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:70
+msgid "Description"
+msgstr "Description"
+
+# @ newstatpress
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:81
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:648
+msgid "Language"
+msgstr "Langue"
+
+# @ newstatpress
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:92
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:648
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:688
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:702
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:749
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:778
+msgid "Date"
+msgstr "Date"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:103
+msgid "Plugin homepage"
+msgstr "Page d'accueil du Plugin"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:105
+msgid "RSS news"
+msgstr "Fil RSS"
+
+#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/credits.php:106
+msgid "News"
+msgstr "News"
 
 # @ newstatpress
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/includes/functions-extra.php:23
@@ -108,11 +191,6 @@ msgstr "Exporter"
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:3134
 msgid "Options"
 msgstr "Options"
-
-# @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:99
-msgid "Credits"
-msgstr "Crédits"
 
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:242
 msgid "Options saved!"
@@ -491,15 +569,6 @@ msgstr "Dernières ressources demandées"
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:702
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:749
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:778
-msgid "Date"
-msgstr "Date"
-
-# @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:648
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:688
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:702
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:749
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:778
 msgid "Time"
 msgstr "Heure"
 
@@ -507,11 +576,6 @@ msgstr "Heure"
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:648
 msgid "Country"
 msgstr "Pays"
-
-# @ newstatpress
-#: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:648
-msgid "Language"
-msgstr "Langue"
 
 # @ newstatpress
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:648
@@ -957,24 +1021,6 @@ msgstr "Aujourd'hui"
 #: /Applications/MAMP/htdocs/wordpress/wp-content/plugins/newstatpress/newstatpress.php:3147
 msgid "NewStatPress Overview"
 msgstr "Sommaire NewStatPress"
-
-#~ msgid "Contributor"
-#~ msgstr "Contributeur"
-
-#~ msgid "Description"
-#~ msgstr "Description"
-
-#~ msgid "Plugin homepage"
-#~ msgstr "Page d'accueil du Plugin"
-
-#~ msgid "RSS news"
-#~ msgstr "Fil RSS"
-
-#~ msgid "News"
-#~ msgstr "News"
-
-#~ msgid "Make a donation"
-#~ msgstr "Faire un don"
 
 # @ newstatpress
 #~ msgid "Last visitors by Spy"
