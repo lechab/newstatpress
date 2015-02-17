@@ -2489,7 +2489,7 @@ function NewStatPress_Widget($w='') {
  * Return the expanded vars into the give code. Wrapper for internal use
  */
 function NewStatPress_Print($body='') {
-  return iri_NewStatPress_Vars($body);
+  return nsp_ExpandVarsInsideCode($body);
 }
 
 /**
@@ -2528,48 +2528,25 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='') {
  * @param boby the code where to look for variables to expand
  * @return the modified code
  */
-function iri_NewStatPress_Vars($body) {
+function nsp_ExpandVarsInsideCode($body) {
   global $wpdb;
   $table_name = $wpdb->prefix . "statpress";
 
-  # look for %visits%
-  if(strpos(strtolower($body),"%visits%") !== FALSE) {
-    $body = str_replace("%visits%", nsp_GenerateAjaxVar("visits"), $body);
-  }
+  $vars_list=array('visits',
+                   'yvisits',
+                   'mvisits',
+                   'totalvisits',
+                   'totalpageviews',
+                   'todaytotalpageviews',
+                   'thistotalvisits',
+                   'alltotalvisits'
+                  );
 
-  # look for %yvisits%
-  if(strpos(strtolower($body),"%yvisits%") !== FALSE) {
-    $body = str_replace("%yvisits%", nsp_GenerateAjaxVar("yvisits"), $body);
-  }
-
-  # look for %mvisits%
-  if(strpos(strtolower($body),"%mvisits%") !== FALSE) {
-    $body = str_replace("%mvisits%", nsp_GenerateAjaxVar("mvisits"), $body);
-  }
-
-  # look for %totalvisits%
-  if(strpos(strtolower($body),"%totalvisits%") !== FALSE) {
-    $body = str_replace("%totalvisits%", nsp_GenerateAjaxVar("totalvisits"), $body);
-  }
-
-  # look for %totalpageviews%
-  if(strpos(strtolower($body),"%totalpageviews%") !== FALSE) {
-    $body = str_replace("%totalpageviews%", nsp_GenerateAjaxVar("totalpageviews"), $body);
-  }
-
-  # look for %todaytotalpageviews%
-  if(strpos(strtolower($body),"%todaytotalpageviews%") !== FALSE) {
-    $body = str_replace("%todaytotalpageviews%", nsp_GenerateAjaxVar("todaytotalpageviews"), $body);
-  }
-
-  # look for %thistotalvisits%
-  if(strpos(strtolower($body),"%thistotalvisits%") !== FALSE) {
-    $body = str_replace("%thistotalvisits%", nsp_GenerateAjaxVar("thistotalvisits", 0, '', iri_NewStatPress_URL()), $body);
-  }
-
-  # look for %alltotalvisits%
-  if(strpos(strtolower($body),"%alltotalvisits%") !== FALSE) {
-    $body = str_replace("%alltotalvisits%", nsp_GenerateAjaxVar("alltotalvisits"), $body);
+  # look for $vars_list
+  foreach($vars_list as $var) {
+    if(strpos(strtolower($body),"%$var%") !== FALSE) {
+      $body = str_replace("%$var%", nsp_GenerateAjaxVar($var), $body);
+    }
   }
 
   # look for %since%
@@ -2742,7 +2719,7 @@ function widget_newstatpress_init($args) {
     $body = $options['body'];
     echo $before_widget;
     print($before_title . $title . $after_title);
-    print iri_NewStatPress_Vars($body);
+    print nsp_ExpandVarsInsideCode($body);
     echo $after_widget;
   }
   wp_register_sidebar_widget('NewStatPress', 'NewStatPress', 'widget_newstatpress');
@@ -2945,44 +2922,30 @@ function nsp_MakeOverview($print ='dashboard') {
               </tr>
               <tr class='inf'>
                 <th></th>
-                <th><span class='date-overview'> $since </span></th>
-                <th><span class='date-overview'> $thisyearHeader </span></th>
-                <th><span class='date-overview'> $lastmonthHeader </span></th>
-                <th colspan='2' class='date-overview'><span class='date-overview'> $thismonthHeader </span></th>
-                <th colspan='2'><span class='date-overview'> $thismonthHeader </span></th>
-                <th class='date-overview'><span class='date-overview'> $yesterdayHeader </span></th>
-                <th><span class='date-overview'> $todayHeader </span></th>
+                <th><span>$since</span></th>
+                <th><span>$thisyearHeader</span></th>
+                <th><span>$lastmonthHeader</span></th>
+                <th colspan='2'><span > $thismonthHeader </span></th>
+                <th colspan='2'><span > $thismonthHeader </span></th>
+                <th><span>$yesterdayHeader</span></th>
+                <th><span>$todayHeader</span></th>
               </tr></thead>
-              <tbody id='the-list-overview'>";
+              <tbody class='overview-list'>";
 }
-else{
+elseif ($print=='dashboard'){
 
-//   <tr class='dfgg'>
-//   <th></th>
-//
 //   <th>". __('all','newstatpress'). "</th>
 //   <th scope='col'>". __('M-1','newstatpress'). "</th>
 //   <th scope='col' colspan='2'>". __('M','newstatpress'). "</th>
 //   <th scope='col' colspan='2'>". __('M-t','newstatpress'). "</th>
 //   <th scope='col'>". __('Y','newstatpress'). "</th>
 //   <th scope='col'>". __('T','newstatpress'). "</th>
-//   </tr>
-//   <tr class='dfg'>
-//   <th></th>
-//   <th><span class='date-overview'> $since </span></th>
-//   <th><span class='date-overview'> $lastmonthHeader </span></th>
-//   <th colspan='2' class='date-overview'><span class='date-overview'> $thismonthHeader </span></th>
-//   <th colspan='2'><span class='date-overview'> $thismonthHeader </span></th>
-//   <th class='date-overview'><span class='date-overview'> $yesterdayHeader </span></th>
-//   <th><span class='date-overview'> $todayHeader </span></th>
-// </tr></thead>
-//   <tbody id='the-list-overview'>";
-//
+
+
   $overview_table.="<table class='widefat center nsp'>
 
             <thead>
-
-            <tr class=' sup dfgg'>
+            <tr class='sup dashboard'>
             <th></th>
             <th>". __('Total since','newstatpress'). "</th>
                 <th scope='col'>". __('Last month','newstatpress'). "</th>
@@ -2991,16 +2954,16 @@ else{
                 <th scope='col'>". __('Yesterday','newstatpress'). "</th>
                 <th scope='col'>". __('Today','newstatpress'). "</th>
             </tr>
-            <tr class='inf dfg'>
+            <tr class='inf dashboard'>
             <th></th>
-            <th><span class='date-overview'> $since </span></th>
-            <th><span class='date-overview'> $lastmonthHeader </span></th>
-            <th colspan='2' class='date-overview'><span class='date-overview'> $thismonthHeader </span></th>
-            <th colspan='2'><span class='date-overview'> $thismonthHeader </span></th>
-            <th class='date-overview'><span class='date-overview'> $yesterdayHeader </span></th>
-            <th><span class='date-overview'> $todayHeader </span></th>
+                <th><span>$since</span></th>
+                <th><span>$lastmonthHeader</span></th>
+                <th colspan='2'><span > $thismonthHeader </span></th>
+                <th colspan='2'><span > $thismonthHeader </span></th>
+                <th><span>$yesterdayHeader</span></th>
+                <th><span>$todayHeader</span></th>
           </tr></thead>
-            <tbody id='the-list-overview'>";
+            <tbody class='overview-list'>";
 }
   // build body overview table
   $overview_rows=array('visitors','pageview','spiders','feeds');
@@ -3045,7 +3008,7 @@ else{
     $calculated_result=nsp_CalculateVariation($qry_tmonth,$qry_lmonth,$row);
 
     // build full current row
-    $overview_table.="<tr><td class='test $row'>$row_title</td>";
+    $overview_table.="<tr><td class='row_title $row'>$row_title</td>";
     $overview_table.="<td class='colc'>".$qry_total->$row."</td>\n";
     if ($print=='main')
       $overview_table.="<td class='colc'>".$qry_tyear->$row."</td>\n";
@@ -3105,10 +3068,7 @@ else{
       $px_white = $scale_factor*100 - $px_feeds - $px_spiders - $px_pageviews - $px_visitors;
 
       $overview_graph.="<td width='$gd' valign='bottom'>";
-      // if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) {
-        // $overview_graph.=" class='week-cut'";
 
-      // }  # week-cut
       $overview_graph.="<div class='overview-graph'>
         <div style='border-left:1px; background:#ffffff;width:100%;height:".$px_white."px;'></div>
         <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$qry_visitors->total." ".__('Visitors','newstatpress')."'></div>
@@ -3116,7 +3076,7 @@ else{
         <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$qry_spiders->total." ".__('Spiders','newstatpress')."'></div>
         <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$qry_feeds->total." ".__('Feeds','newstatpress')."'></div>
         <div style='background:gray;width:100%;height:1px;'></div>";
-        if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) $overview_graph.="<div class='legend2'>";
+        if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) $overview_graph.="<div class='legend-W'>";
         else $overview_graph.="<div class='legend'>";
         $overview_graph.=gmdate('d', current_time('timestamp')-86400*$gg) . ' ' . gmdate('M', current_time('timestamp')-86400*$gg) .     "</div></div></td>\n";
     }

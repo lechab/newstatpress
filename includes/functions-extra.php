@@ -24,7 +24,7 @@ $ref='credits-page';
    $contributors = array(
    array('Stefano Tognon', 'NewStatPress developer'),
    array('cHab', 'NewStatPress collaborator'),
-   array('Daniele Lippi', 'Original StatPress develoup'),
+   array('Daniele Lippi', 'Original StatPress developer'),
    array('Sisko', 'Open link in new tab/window<br>New displays of data for spy function<br>'),
    array('from wp_slimstat', 'Add option for not track given IPs<br /> Add option for not track given permalinks'),
    array('Ladislav', 'Let Search function to works again'),
@@ -73,12 +73,12 @@ if ( $pagenow == 'admin.php' && $_GET['page'] == $ref ){
    if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
    else $tab = 'development';
 
-   echo "<table id='credit'>\n";
+   echo "<table class='credit'>\n";
    echo "<thead>\n<tr><th class='cell-l'>";  _e('Contributor','newstatpress');
-   echo "</th>\n<th class='cell-r'>"; _e('Description','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
    switch ( $tab ) {
 
      case 'development' :
+    echo "</th>\n<th class='cell-r'>"; _e('Description','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
      foreach($contributors as $contributors)
      {
        echo "<tr>\n";
@@ -89,6 +89,7 @@ if ( $pagenow == 'admin.php' && $_GET['page'] == $ref ){
      break;
 
      case 'translation' :
+     echo "</th>\n<th class='cell-r'>"; _e('Language','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
      foreach($translators as $contributors)
      {
        echo "<tr>\n";
@@ -99,6 +100,7 @@ if ( $pagenow == 'admin.php' && $_GET['page'] == $ref ){
      break;
 
      case 'donation' :
+     echo "</th>\n<th class='cell-r'>"; _e('Date','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
      foreach($donators as $contributors)
      {
        echo "<tr>\n";
@@ -109,7 +111,7 @@ if ( $pagenow == 'admin.php' && $_GET['page'] == $ref ){
      break;
    }
    echo "</tbody>";
-   echo "<table id='credit-footer'>\n<tr>\n<td>"; _e('Plugin homepage','newstatpress');
+   echo "<table class='credit-footer'>\n<tr>\n<td>"; _e('Plugin homepage','newstatpress');
    echo ": <a target='_blank' href='http://newstatpress.altervista.org'>Newstatpress</a></td></tr>";
    echo "<tr>\n<td>"; _e('RSS news','newstatpress');
    echo ": <a target='_blank' href='http://newstatpress.altervista.org/?feed=rss2'>"; _e('News','newstatpress'); echo "</a></td></tr>";
