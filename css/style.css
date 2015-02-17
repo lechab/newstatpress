@@ -73,25 +73,25 @@
   text-align:left;
 }
 
-.overview-list .row-title .feeds::before {
+.overview-list .feeds::before {
   content: "\25a9";
   color:#f38f36;
   margin-right: 5px;
 }
 
-.overview-list .row-title .spiders::before {
+.overview-list .spiders::before {
   content: "\25a9";
   color:#83b4d8;
   margin-right: 5px;
 }
 
-.overview-list .row-title .pageview::before {
+.overview-list .pageview::before {
   content: "\25a9";
   color:#3377B6;
   margin-right: 5px;
 }
 
-.overview-list .row-title .visitors::before {
+.overview-list .visitors::before {
   content: "\25a9";
   color:#114477;
   margin-right: 5px;
