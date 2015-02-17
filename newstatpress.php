@@ -2704,9 +2704,39 @@ function widget_newstatpress_init($args) {
     $title = htmlspecialchars($options['title'], ENT_QUOTES);
     $body = htmlspecialchars($options['body'], ENT_QUOTES);
      // the form
-    echo '<p style="text-align:right;"><label for="newstatpress-title">' . __('Title:', 'newstatpress') . ' <input style="width: 250px;" id="newstatpress-title" name="newstatpress-title" type="text" value="'.$title.'" /></label></p>';
-    echo '<p style="text-align:right;"><label for="newstatpress-body"><div>' . __('Body:', 'newstatpress') . '</div><textarea style="width: 288px;height:100px;" id="newstatpress-body" name="newstatpress-body" type="textarea">'.$body.'</textarea></label></p>';
-    echo '<input type="hidden" id="newstatpress-submit" name="newstatpress-submit" value="1" /><div style="font-size:7pt;">%totalvisits% %visits% %thistotalvisits% %os% %browser% %ip% %since% %visitorsonline% %usersonline% %toppost% %topbrowser% %topos%</div>';
+
+    $widget_vars=array('visits',
+                       'yvisits',
+                       'mvisits',
+                       'totalvisits',
+                       'totalpageviews',
+                       'todaytotalpageviews',
+                       'thistotalvisits',
+                       'alltotalvisits',
+                       'os',
+                       'browser',
+                       'ip',
+                       'since',
+                       'visitorsonline',
+                       'usersonline',
+                       'toppost'
+                      );
+
+    echo "<p><label for='newstatpress-title'>"; _e('Title:', 'newstatpress');
+    echo "</label><input class='widget-title' id='newstatpress-title' name='newstatpress-title' type='text' value=$title /></p>";
+
+    echo "<p><label for='newstatpress-body'>"; _e('Body:', 'newstatpress');
+    echo "</label><textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea'>$body</textarea></p>";
+
+    echo '<input type="hidden" id="newstatpress-submit" name="newstatpress-submit" value="1" />';
+
+    echo "<p>"; _e('Stats available: ', 'newstatpress');
+    echo "<br/ ><span class='widget_varslist'>";
+    foreach($widget_vars as $var) {
+        echo "%$var%  ";
+      }
+    echo "</span>"; echo "</p>";
+
   }
   function widget_newstatpress($args) {
     extract($args);

@@ -306,6 +306,22 @@ table.table-option td:first-child {
   color: #DDD;
 }
 
+/*----------------------------------*/
+/* Widget style                     */
+/*----------------------------------*/
+.widget_varslist {
+  font-size:9pt;
+  color:gray;
+}
+
+.widget-title {
+  width: 100%;
+}
+
+.widget-body {
+  width: 100%;
+  height:100px;
+}
 
 /*----------------------------------*/
 /* visitors page style              */
