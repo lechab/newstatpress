@@ -32,7 +32,6 @@ $option_list_info=array( // list of option variable name, with default value ass
   'ippages'=>array('name'=>'newstatpress_el_ippages','value'=>'5')
 );
 
-
 /**
  * add by chab
  *
@@ -51,10 +50,10 @@ $option_list_info=array( // list of option variable name, with default value ass
 /**
  * add by chab
  *
- * iriNewStatPressCredits() — credit menu page
- * iriNewStatPressRemove() — remove menu page
+ * TODO Make include if we are in admin.php
  */
 require ('includes/functions-extra.php');
+require ('includes/credits.php');
 
 
 /**
@@ -94,9 +93,6 @@ function nsp_BuildPluginMenu() {
   add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $capability, 'nsp-main', 'iriNewStatPressMain');
   add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $capability, 'details-page', 'iriNewStatPressDetails');
   add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $capability, 'visits-page', 'nsp_DisplayVisitsPage');
-  // add_submenu_page('nsp-main', __('Last visitors by Spy','newstatpress'), __('Last visitors by Spy','newstatpress'), $capability, 'spy-page', 'iriNewStatPressSpy');
-  // add_submenu_page('nsp-main', __('Visitors by Spy','newstatpress'), __('Visitors by Spy','newstatpress'), $capability, 'newspy-page', 'iriNewStatPressNewSpy');
-  // add_submenu_page('nsp-main', __('Spy Bot','newstatpress'), __('Spy Bot','newstatpress'), $capability, 'spybot-page', 'iriNewStatPressSpyBot');
   add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $capability, 'search-page', 'iriNewStatPressSearch');
   add_submenu_page('nsp-main', __('Export','newstatpress'), __('Export','newstatpress'), $capability, 'export-page', 'iriNewStatPressExport');
   add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $capability, 'options-page', 'iriNewStatPressOptions');
@@ -2940,7 +2936,6 @@ elseif ($print=='dashboard'){
 //   <th scope='col' colspan='2'>". __('M-t','newstatpress'). "</th>
 //   <th scope='col'>". __('Y','newstatpress'). "</th>
 //   <th scope='col'>". __('T','newstatpress'). "</th>
-
 
   $overview_table.="<table class='widefat center nsp'>
 

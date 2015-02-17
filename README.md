@@ -5,6 +5,10 @@
 - why did you not provide directly a version of ip2nation by default?
 - tab construction for option page
 - tab construction for overview page
+- [ ] irihdate function in double with newstatpress_hdate => to clean
+- [ ] Fix number of dot of navbar in Visitors page
+- [ ] bot rss https://github.com/feedjira/feedjira/tree/master
+
 
 ## 0.9.3
 
@@ -19,12 +23,7 @@
 - [x] Fix dashboard 'details' dead link
 - [x] Fix navbar dead link in visitors page
 - [x] Various code fixing
-- [ ] Api for variables
-- [ ] irihdate function in double with newstatpress_hdate => to clean
-- [ ] Fix number of dot of navbar in Visitors page
-- bot rss https://github.com/feedjira/feedjira/tree/master
-
-
+- [x] Api for variables (10x faster to load page with widget)
 
 ## 0.9.2
 
