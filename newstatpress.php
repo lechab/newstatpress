@@ -2499,7 +2499,7 @@ function NewStatPress_Print($body='') {
  * @param limit optional limit value for query
  * @param flag optional flag value for checked
  */
-function NewStatPress_generateAjaxVar($var, $limit=0, $flag='') {
+function nsp_generateAjaxVar($var, $limit=0, $flag='') {
   global $newstatpress_dir;
 
   $res = "<span id=\"".$var."\">_</span>
