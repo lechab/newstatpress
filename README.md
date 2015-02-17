@@ -12,6 +12,7 @@
 
 ## 0.9.4
 - [x] Update of Widget 'NewStatPress' (code re-writed, add variable informations)
+- [x] Fix Overview Table (CSS)
 
 ## 0.9.3
 
