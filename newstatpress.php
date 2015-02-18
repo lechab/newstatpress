@@ -72,7 +72,7 @@ $widget_vars=array( // list of widget variables name, with description associate
  */
 require ('includes/functions-extra.php');
 require ('includes/credits.php');
-require ('includes/toos.php');
+require ('includes/tools.php');
 
 
 
