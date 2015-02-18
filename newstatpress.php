@@ -112,11 +112,12 @@ function nsp_BuildPluginMenu() {
   add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $capability, 'details-page', 'iriNewStatPressDetails');
   add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $capability, 'visits-page', 'nsp_DisplayVisitsPage');
   add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $capability, 'search-page', 'iriNewStatPressSearch');
-  add_submenu_page('nsp-main', __('Export','newstatpress'), __('Export','newstatpress'), $capability, 'export-page', 'iriNewStatPressExport');
+  // add_submenu_page('nsp-main', __('Export','newstatpress'), __('Export','newstatpress'), $capability, 'export-page', 'iriNewStatPressExport');
+  add_submenu_page('nsp-main', __('Tools','newstatpress'), __('Tools','newstatpress'), $capability, 'tools-page', 'nsp_DisplayToolsPage');
   add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $capability, 'options-page', 'iriNewStatPressOptions');
   add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $capability, 'credits-page', 'nsp_DisplayCreditsPage');
-  add_submenu_page('nsp-main', __('Remove','newstatpress'), __('Remove','newstatpress'), $capability,  'remove-page', 'iriNewStatPressRemove');
 
+  // add_submenu_page('nsp-main', __('Remove','newstatpress'), __('Remove','newstatpress'), $capability,  'remove-page', 'iriNewStatPressRemove');
 
 }
 add_action('admin_menu', 'nsp_BuildPluginMenu');
@@ -265,78 +266,70 @@ function iriNewStatPressOptions() {
     <!--IP2nation & update database  -->
     <?php
     // Importation if requested by user
-    if (isset($_POST['download']) && $_POST['download'] == 'yes' ) {
-      $install_result=iriNewStatPressIP2nationDownload();
-    }
+    // if (isset($_POST['download']) && $_POST['download'] == 'yes' ) {
+    //   $install_result=iriNewStatPressIP2nationDownload();
+    // }
 
     // database update if requested by user
-    if (isset($_POST['update']) && $_POST['update'] == 'yes' ) {
-      iriNewStatPressUpdate();
-      die;
-    }
+    // if (isset($_POST['update']) && $_POST['update'] == 'yes' ) {
+    //   iriNewStatPressUpdate();
+    //   die;
+    //}
 
     // TODO chab: To add routine to check if IP2nation is already installed
     // if YES => to check if it's the last version to avoid the download if not necessary
     ?>
     <!-- IP2nation -->
-    <div class='wrap'><h3><?php _e('To import IP2nation database','newstatpress'); ?></h3>
+    <!-- <div class='wrap'><h3><?php //_e('To import IP2nation database','newstatpress'); ?></h3> -->
 
       <?php
-      if ($install_result !='') {
-        print "<br /><div class='updated'><p>".__($install_result,'newstatpress')."</p></div>";
-      }
-
-      $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
-      if (file_exists($file_ip2nation)) {
-        $i=sprintf(__('Last version installed: %s','newstatpress'), date('d/m/Y', filemtime($file_ip2nation)));
-        echo $i.'<br /><br />';
-        _e('To update the IP2nation database, just click on the button bellow.','newstatpress');
-        $button_name='Update';
-      }
-      else {
-        _e('Last version installed: none ','newstatpress');
-        echo '<br /><br />';
-        _e('To download and to install the IP2nation database, just click on the button bellow.','newstatpress');
-        $button_name='Download';
-      }
-      ?>
-      <br /><br />
+      // if ($install_result !='') {
+      //   print "<br /><div class='updated'><p>".__($install_result,'newstatpress')."</p></div>";
+      // }
+      //
+      // $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
+      // if (file_exists($file_ip2nation)) {
+      //   $i=sprintf(__('Last version installed: %s','newstatpress'), date('d/m/Y', filemtime($file_ip2nation)));
+      //   echo $i.'<br /><br />';
+      //   _e('To update the IP2nation database, just click on the button bellow.','newstatpress');
+      //   $button_name='Update';
+      // }
+      // else {
+      //   _e('Last version installed: none ','newstatpress');
+      //   echo '<br /><br />';
+      //   _e('To download and to install the IP2nation database, just click on the button bellow.','newstatpress');
+      //   $button_name='Download';
+      // }
+      // ?>
+      <!-- <br /><br />
       <form method=post>
         <input type=hidden name=page value=newstatpress>
         <input type=hidden name=download value=yes>
         <input type=hidden name=newstatpress_action value=ip2nation>
-        <button class='button button-primary' type=submit><?php _e($button_name,'newstatpress'); ?></button>
+        <button class='button button-primary' type=submit><?php //_e($button_name,'newstatpress'); ?></button>
       </form>
 
     </div>
 
-    <div class='wrap'><h3><?php _e('Database update','newstatpress'); ?></h3>
+    <div class='wrap'><h3><?php //_e('Database update','newstatpress'); ?></h3> -->
       <?php
-      _e('To update the newstatpress database, just click on the button bellow.','newstatpress');
+      // _e('To update the newstatpress database, just click on the button bellow.','newstatpress');
       ?>
-      <br /><br />
+      <!-- <br /><br />
       <form method=post>
         <input type=hidden name=page value=newstatpress>
         <input type=hidden name=update value=yes>
         <input type=hidden name=newstatpress_action value=update>
-        <button class='button button-primary' type=submit><?php _e('Update','newstatpress'); ?></button>
+        <button class='button button-primary' type=submit><?php //_e('Update','newstatpress'); ?></button>
       </form>
     </div>
 
-<br />
+<br /> -->
     <form method=post>
       <h3 class='r'> <?php _e('General option','newstatpress'); ?></h3>
 
       <!-- General option -->
       <table class='table-option'>
-        <!-- <thead>
-
-    <tr>
-        <th colspan="2">
-        </th>
-    </tr>
-
-</thead> -->
 
         <?php
 
@@ -369,7 +362,7 @@ function iriNewStatPressOptions() {
         $option_title=__('Show NewStatPress dashboard widget','newstatpress');
         $option_var='newstatpress_dashboard';
         print_checked($option_title,$option_var);
-echo '<tr><th colspan="2"><hr /><th></tr>';
+        echo '<tr><th colspan="2"><hr /><th></tr>';
         $option_title=sprintf(__('Elements in Overview (default %d)','newstatpress'), $option_list_info['overview']['value']);
         print_row_input($option_title,$option_list_info['overview'],$input_size,$input_maxlength);
 
@@ -1450,6 +1443,103 @@ function nsp_DisplayVisitsPage() {
 
       case 'spybot' :
       iriNewStatPressSpyBot();
+      break;
+    }
+  }
+}
+
+/**
+ * Database Tools Page to finish
+ */
+function nsp_DisplayToolsPage() {
+
+  global $pagenow;
+  $ToolsPage_tabs = array( 'IP2nation' => __('IP2nation','newstatpress'),
+                            'update' => __('Update','newstatpress'),
+                            'export' => __('Export','newstatpress'),
+                            'remove' => __('Remove','newstatpress')
+                          );
+  $ref='tools-page';
+  $default_tab=array_values($ToolsPage_tabs)[0];
+
+  print "<div class='wrap'><h2>".__('Database Tools','newstatpress')."</h2>";
+
+
+  if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($ToolsPage_tabs,$_GET['tab'],$ref);
+  else nsp_DisplayTabsNavbarForMenuPage($ToolsPage_tabs, $default_tab, $ref);
+
+  if ( $pagenow == 'admin.php' && $_GET['page'] == $ref ) {
+
+    if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
+    else $tab = $default_tab;
+
+    switch ($tab) {
+
+      case 'IP2nation' :
+      // Importation if requested by user
+      if (isset($_POST['download']) && $_POST['download'] == 'yes' ) {
+        $install_result=iriNewStatPressIP2nationDownload();
+      }
+      ?>
+      <div class='wrap'><h3><?php _e('To import IP2nation database','newstatpress'); ?></h3>
+
+        <?php
+        if ($install_result !='') {
+          print "<br /><div class='updated'><p>".__($install_result,'newstatpress')."</p></div>";
+        }
+
+        $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
+        if (file_exists($file_ip2nation)) {
+          $i=sprintf(__('Last version installed: %s','newstatpress'), date('d/m/Y', filemtime($file_ip2nation)));
+          echo $i.'<br /><br />';
+          _e('To update the IP2nation database, just click on the button bellow.','newstatpress');
+          $button_name='Update';
+        }
+        else {
+          _e('Last version installed: none ','newstatpress');
+          echo '<br /><br />';
+          _e('To download and to install the IP2nation database, just click on the button bellow.','newstatpress');
+          $button_name='Download';
+        }
+        ?>
+        <br /><br />
+        <form method=post>
+          <input type=hidden name=page value=newstatpress>
+          <input type=hidden name=download value=yes>
+          <input type=hidden name=newstatpress_action value=ip2nation>
+          <button class='button button-primary' type=submit><?php _e($button_name,'newstatpress'); ?></button>
+        </form>
+
+      </div><?php
+      break;
+
+      case 'export' :
+      iriNewStatPressExport();
+      break;
+
+      case 'update' :
+      // database update if requested by user
+      if (isset($_POST['update']) && $_POST['update'] == 'yes' ) {
+        iriNewStatPressUpdate();
+        die;
+      }
+      ?>
+      <div class='wrap'><h3><?php _e('Database update','newstatpress'); ?></h3>
+      <?php
+      _e('To update the newstatpress database, just click on the button bellow.','newstatpress');
+      ?>
+      <br /><br />
+      <form method=post>
+        <input type=hidden name=page value=newstatpress>
+        <input type=hidden name=update value=yes>
+        <input type=hidden name=newstatpress_action value=update>
+        <button class='button button-primary' type=submit><?php _e('Update','newstatpress'); ?></button>
+      </form>
+    </div><?php
+      break;
+
+      case 'remove' :
+      iriNewStatPressRemove();
       break;
     }
   }
