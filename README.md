@@ -9,10 +9,15 @@
 - [ ] Fix number of dot of navbar in Visitors page
 - [ ] bot rss https://github.com/feedjira/feedjira/tree/master
 - [ ] update options use of foreach
+- [ ] changer le nom du widget dashboard
+
+## 0.9.5
 
 ## 0.9.4
 - [x] Update of Widget 'NewStatPress' (code re-writed, add variable informations)
 - [x] Fix Overview Table (CSS)
+- [x] Update: locale fr_FR, it_IT
+
 
 ## 0.9.3
 
