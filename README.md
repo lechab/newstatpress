@@ -13,9 +13,12 @@
 
 ## 0.9.5
 
+- [x] Fix PHP compatibility issue on old versions
+
 ## 0.9.4
 - [x] Update of Widget 'NewStatPress' (code re-writed, add variable informations)
 - [x] Fix Overview Table (CSS)
+- [x] Add Tool page with tab navigation
 - [x] Update: locale fr_FR, it_IT
 
 
