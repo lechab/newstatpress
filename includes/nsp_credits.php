@@ -70,10 +70,7 @@ echo "<form  method='post' target='_blank' action='https://www.paypal.com/cgi-bi
       echo "</th>\n<th class='cell-r'>"; _e('Description','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
       foreach($contributors as $contributors)
       {
-        echo "<tr>\n
-        <td class='cell-l'>$contributors[0]</td>\n
-        <td class='cell-r'>$contributors[1]</td>\n
-        </tr>\n";
+        echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
       };
       break;
 

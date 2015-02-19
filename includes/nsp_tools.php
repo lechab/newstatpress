@@ -4,6 +4,9 @@
  *
  * nsp_DisplayToolsPage()
  * nsp_RemovePluginDatabase()
+ * nsp_IP2nationDownload()
+ * nsp_ExportNow()
+ * nsp_Export()
  *****************************************/
 
 function nsp_DisplayToolsPage() {
@@ -33,7 +36,7 @@ function nsp_DisplayToolsPage() {
       case 'IP2nation' :
       // Importation if requested by user
       if (isset($_POST['download']) && $_POST['download'] == 'yes' ) {
-        $install_result=iriNewStatPressIP2nationDownload();
+        $install_result=nsp_IP2nationDownload();
       }
       ?>
       <div class='wrap'><h3><?php _e('To import IP2nation database','newstatpress'); ?></h3>
@@ -69,9 +72,7 @@ function nsp_DisplayToolsPage() {
       break;
 
       case 'export' :
-      echo "Ya qqun?";
-      // nsp_Export();
-      echo "on dirait";
+      nsp_Export();
       break;
 
       case 'update' :
@@ -102,8 +103,9 @@ function nsp_DisplayToolsPage() {
   }
 }
 
+
 // add by chab
-function iriNewStatPressIP2nationDownload() {
+function nsp_IP2nationDownload() {
 
     //Request to make http request with WP functions
     if( !class_exists( 'WP_Http' ) ) {
@@ -162,11 +164,11 @@ function iriNewStatPressIP2nationDownload() {
 }
 
 
+
 function nsp_Export() {
-  echo "ya un os,";
 ?>
 <!--TODO chab, check if the input format is ok  -->
-	<div class='wrap'><h2><?php _e('Export stats to text file','newstatpress'); ?> (csv)</h2>
+	<div class='wrap'><h3><?php _e('Export stats to text file','newstatpress'); ?> (csv)</h3>
     <p><?php _e('You should define the stats period you want to export:','newstatpress'); ?><p>
 	<form method=get>
     <table>
@@ -223,8 +225,6 @@ function nsp_ExportNow() {
   }
   die();
 }
-
-
 
 /**
  * Generate HTML for remove menu in Wordpress
