@@ -17,9 +17,12 @@
 - [x] Various core fix (global definition, function, plugin page names with nsp_ prefix)
 - [x] Various debug fix (deprecated function, unset variable)
 
+- [x] Fix PHP compatibility issue on old versions
+
 ## 0.9.4
 - [x] Update of Widget 'NewStatPress' (code re-writed, add variable informations)
 - [x] Fix Overview Table (CSS)
+- [x] Add Tool page with tab navigation
 - [x] Update: locale fr_FR, it_IT
 
 ## 0.9.3
