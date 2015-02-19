@@ -203,7 +203,7 @@ function nsp_Export() {
  */
 function nsp_ExportNow() {
   global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
+  $table_name = nsp_TABLENAME;
   $filename=get_bloginfo('title' )."-newstatpress_".$_GET['from']."-".$_GET['to'].".csv";
   header('Content-Description: File Transfer');
   header("Content-Disposition: attachment; filename=$filename");
@@ -233,7 +233,7 @@ function nsp_RemovePluginDatabase() {
 
   if(isset($_POST['removeit']) && $_POST['removeit'] == 'yes') {
     global $wpdb;
-    $table_name = $wpdb->prefix . "statpress";
+    $table_name = nsp_TABLENAME;
     $results =$wpdb->query( "DELETE FROM " . $table_name);
     print "<br /><div class='remove'><p>".__('All data removed','newstatpress')."!</p></div>";
   }
@@ -257,6 +257,281 @@ function nsp_RemovePluginDatabase() {
         </div>
       <?php
   }
+ }
+
+ /**
+  * Performes database update with new definitions
+  */
+ function iriNewStatPressUpdate() {
+   global $wpdb;
+   global $newstatpress_dir;
+
+   $table_name = nsp_TABLENAME;
+
+   $wpdb->flush();     // flush for counting right the queries
+   $start_time = microtime(true);
+
+   $days=iriNewStatPressDays();  // get the number of days for the update
+
+   $to_date  = gmdate("Ymd",current_time('timestamp'));
+
+   if ($days==-1) $from_date= "19990101";   // use a date where this plugin was not present
+   else $from_date = gmdate('Ymd', current_time('timestamp')-86400*$days);
+
+   $_newstatpress_url=PluginUrl();
+
+   $wpdb->show_errors();
+
+   //add by chab
+   //$var requesting the absolute path
+   $img_ok = $_newstatpress_url.'images/ok.gif';
+   $ip2nation_db = $newstatpress_dir.'/includes/ip2nation.sql';
+
+   print "<div class='wrap'><h2>".__('Database Update','newstatpress')."</h2><br />";
+
+   print "<table class='widefat nsp'><thead><tr><th scope='col'>".__('Updating...','newstatpress')."</th><th scope='col' style='width:400px;'>".__('Size','newstatpress')."</th><th scope='col' style='width:100px;'>".__('Result','newstatpress')."</th><th></th></tr></thead>";
+   print "<tbody id='the-list'>";
+
+   # check if ip2nation .sql file exists
+   if(file_exists($ip2nation_db)) {
+     print "<tr><td>ip2nation.sql</td>";
+     $FP = fopen ($ip2nation_db, 'r' );
+     $READ = fread ( $FP, filesize ($ip2nation_db) );
+     $READ = explode ( ";\n", $READ );
+     foreach ( $READ as $RED ) {
+       if($RES != '') { $wpdb->query($RED); }
+     }
+     print "<td>".iritablesize("ip2nation")."</td>";
+     print "<td><img class'update_img' src='$img_ok'></td></tr>";
+   }
+
+   # update table
+   nsp_BuildPluginSQLTable('update');
+
+   print "<tr><td>". __('Structure','newstatpress'). " $table_name</td>";
+   print "<td>".iritablesize($wpdb->prefix."statpress")."</td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+   print "<tr><td>". __('Index','newstatpress'). " $table_name</td>";
+   print "<td>".iriindextablesize($wpdb->prefix."statpress")."</td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+   # Update Feed
+   print "<tr><td>". __('Feeds','newstatpress'). "</td>";
+   $wpdb->query("
+     UPDATE $table_name
+     SET feed=''
+     WHERE date BETWEEN $from_date AND $to_date;"
+   );
+
+   # not standard
+   $wpdb->query("
+     UPDATE $table_name
+     SET feed='RSS2'
+     WHERE
+       urlrequested LIKE '%/feed/%' AND
+       date BETWEEN $from_date AND $to_date;"
+   );
+
+   $wpdb->query("
+     UPDATE $table_name
+     SET feed='RSS2'
+     WHERE
+       urlrequested LIKE '%wp-feed.php%' AND
+       date BETWEEN $from_date AND $to_date;"
+   );
+
+   # standard blog info urls
+   $s=iriNewStatPress_extractfeedreq(get_bloginfo('comments_atom_url'));
+   if($s != '') {
+     $wpdb->query("
+       UPDATE $table_name
+       SET feed='COMMENT'
+       WHERE
+         INSTR(urlrequested,'$s')>0 AND
+         date BETWEEN $from_date AND $to_date;"
+     );
+   }
+   $s=iriNewStatPress_extractfeedreq(get_bloginfo('comments_rss2_url'));
+   if($s != '') {
+     $wpdb->query("
+       UPDATE $table_name
+       SET feed='COMMENT'
+       WHERE
+         INSTR(urlrequested,'$s')>0 AND
+         date BETWEEN $from_date AND $to_date;"
+     );
+   }
+   $s=iriNewStatPress_extractfeedreq(get_bloginfo('atom_url'));
+   if($s != '') {
+     $wpdb->query("
+       UPDATE $table_name
+       SET feed='ATOM'
+       WHERE
+         INSTR(urlrequested,'$s')>0 AND
+         date BETWEEN $from_date AND $to_date;"
+     );
+   }
+   $s=iriNewStatPress_extractfeedreq(get_bloginfo('rdf_url'));
+   if($s != '') {
+     $wpdb->query("
+       UPDATE $table_name
+       SET feed='RDF'
+       WHERE
+         INSTR(urlrequested,'$s')>0 AND
+         date BETWEEN $from_date AND $to_date;"
+     );
+   }
+   $s=iriNewStatPress_extractfeedreq(get_bloginfo('rss_url'));
+   if($s != '') {
+     $wpdb->query("
+       UPDATE $table_name
+       SET feed='RSS'
+       WHERE
+         INSTR(urlrequested,'$s')>0 AND
+         date BETWEEN $from_date AND $to_date;"
+     );
+   }
+   $s=iriNewStatPress_extractfeedreq(get_bloginfo('rss2_url'));
+   if($s != '') {
+     $wpdb->query("
+       UPDATE $table_name
+       SET feed='RSS2'
+       WHERE
+         INSTR(urlrequested,'$s')>0 AND
+         date BETWEEN $from_date AND $to_date;"
+     );
+   }
+
+   $wpdb->query("
+     UPDATE $table_name
+     SET feed = ''
+     WHERE
+       isnull(feed) AND
+       date BETWEEN $from_date AND $to_date;"
+    );
+
+   print "<td></td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+   # Update OS
+   print "<tr><td>". __('OSes','newstatpress'). "</td>";
+   $wpdb->query("
+     UPDATE $table_name
+     SET os = ''
+     WHERE date BETWEEN $from_date AND $to_date;"
+   );
+   $lines = file($newstatpress_dir.'/def/os.dat');
+   foreach($lines as $line_num => $os) {
+     list($nome_os,$id_os)=explode("|",$os);
+     $qry="
+       UPDATE $table_name
+       SET os = '$nome_os'
+       WHERE
+         os='' AND
+         replace(agent,' ','') LIKE '%".$id_os."%' AND
+         date BETWEEN $from_date AND $to_date;";
+     $wpdb->query($qry);
+   }
+   print "<td></td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+
+   # Update Browser
+   print "<tr><td>". __('Browsers','newstatpress'). "</td>";
+   $wpdb->query("
+     UPDATE $table_name
+     SET browser = ''
+     WHERE date BETWEEN $from_date AND $to_date;"
+   );
+   $lines = file($newstatpress_dir.'/def/browser.dat');
+   foreach($lines as $line_num => $browser) {
+     list($nome,$id)=explode("|",$browser);
+     $qry="
+       UPDATE $table_name
+       SET browser = '$nome'
+       WHERE
+         browser='' AND
+         replace(agent,' ','') LIKE '%".$id."%' AND
+         date BETWEEN $from_date AND $to_date;";
+     $wpdb->query($qry);
+   }
+   print "<td></td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+
+   # Update Spider
+   print "<tr><td>". __('Spiders','newstatpress'). "</td>";
+   $wpdb->query("
+     UPDATE $table_name
+     SET spider = ''
+     WHERE date BETWEEN $from_date AND $to_date;"
+   );
+   $lines = file($newstatpress_dir.'/def/spider.dat');
+   foreach($lines as $line_num => $spider) {
+     list($nome,$id)=explode("|",$spider);
+     $qry="
+       UPDATE $table_name
+       SET spider = '$nome',os='',browser=''
+       WHERE
+         spider='' AND
+         replace(agent,' ','') LIKE '%".$id."%' AND
+         date BETWEEN $from_date AND $to_date;";
+     $wpdb->query($qry);
+   }
+   print "<td></td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+
+   # Update Search engine
+   print "<tr><td>". __('Search engines','newstatpress'). " </td>";
+   $wpdb->query("
+     UPDATE $table_name
+     SET searchengine = '', search=''
+     WHERE date BETWEEN $from_date AND $to_date;");
+   $qry = $wpdb->get_results("
+     SELECT id, referrer
+     FROM $table_name
+     WHERE
+       length(referrer)!=0 AND
+       date BETWEEN $from_date AND $to_date");
+   foreach ($qry as $rk) {
+     list($searchengine,$search_phrase)=explode("|",iriGetSE($rk->referrer));
+     if($searchengine <> '') {
+       $q="
+         UPDATE $table_name
+         SET searchengine = '$searchengine', search='".addslashes($search_phrase)."'
+         WHERE
+           id=".$rk->id." AND
+           date BETWEEN $from_date AND $to_date;";
+       $wpdb->query($q);
+     }
+   }
+   print "<td></td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+   $end_time = microtime(true);
+   $sql_queries=$wpdb->num_queries;
+
+   # Final statistics
+   print "<tr><td>". __('Final Structure','newstatpress'). " $table_name</td>";
+   print "<td>".iritablesize($wpdb->prefix."statpress")."</td>"; // todo chab : to clean
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+   print "<tr><td>". __('Final Index','newstatpress'). " $table_name</td>";
+   print "<td>".iriindextablesize($wpdb->prefix."statpress")."</td>"; // todo chab : to clean
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+   print "<tr><td>". __('Duration of the update','newstatpress'). "</td>";
+   print "<td>".round($end_time - $start_time, 2)." sec</td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+   print "<tr><td>". __('This update was done in','newstatpress'). "</td>";
+   print "<td>".$sql_queries." " . __('SQL queries','newstatpress'). "</td>";
+   print "<td><img class'update_img' src='$img_ok'></td></tr>";
+
+   print "</tbody></table></div><br>\n";
+   $wpdb->hide_errors();
  }
 
  ?>

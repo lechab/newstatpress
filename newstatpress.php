@@ -11,9 +11,13 @@ Author URI: http://newstatpress.altervista.org
 $_NEWSTATPRESS['version']='0.9.6';
 $_NEWSTATPRESS['feedtype']='';
 
-global $newstatpress_dir, $nsp_option_vars, $nsp_widget_vars;
+global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
 
-$newstatpress_dir = WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__));
+define("nsp_TABLENAME", $wpdb->prefix . "statpress");
+define("nsp_BASENAME", dirname(plugin_basename(__FILE__)));
+
+
+$newstatpress_dir = WP_PLUGIN_DIR . '/' .nsp_BASENAME;
 
 $nsp_option_vars=array( // list of option variable name, with default value associated
                         'overview'=>array('name'=>'newstatpress_el_overview','value'=>'10'),
@@ -74,20 +78,29 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
 
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
+
  }
  add_action( 'admin_enqueue_scripts', 'nsp_register_plugin_styles' );
 
  function nsp_load_textdomain() {
-   load_plugin_textdomain( 'newstatpress', false, dirname( plugin_basename( __FILE__ ) ) . '/langs' );
+   load_plugin_textdomain( 'newstatpress', false, nsp_BASENAME . '/langs' );
  }
  add_action( 'plugins_loaded', 'nsp_load_textdomain' );
 
- //TODO Make include if we are in admin.php
- require ('includes/nsp_functions-extra.php');
- require ('includes/nsp_credits.php');
- require ('includes/nsp_tools.php');
- require ('includes/nsp_options.php');
+ if (is_admin())
+ {
+   require ('includes/nsp_functions-extra.php');
+   require ('includes/nsp_credits.php');
+   require ('includes/nsp_tools.php');
+   require ('includes/nsp_options.php');
+   require ('includes/nsp_visits.php');
+   require ('includes/nsp_details.php');
+   require ('includes/nsp_search.php');
+   require ('includes/nsp_dashboard.php');
 
+
+   add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
+}
 
 
 /***
@@ -102,7 +115,7 @@ function nsp_BuildPluginMenu() {
   if(!$capability)
     $capability='switch_themes';
 
-  add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',dirname(plugin_basename(__FILE__))));
+  add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',nsp_BASENAME));
   add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $capability, 'nsp-main', 'iriNewStatPressMain');
   add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $capability, 'nsp_details', 'iriNewStatPressDetails');
   add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $capability, 'nsp_visits', 'nsp_DisplayVisitsPage');
@@ -152,7 +165,7 @@ function iri_checkExport(){
  */
 function iriNewStatPressMain() {
   global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
+  $table_name = nsp_TABLENAME;
 
   nsp_MakeOverview('main');
 
@@ -315,9 +328,9 @@ function iriNewStatPressMain() {
   print "</table></div>";
 
   print "<br />";
-  print "&nbsp;<i>StatPress table size: <b>".iritablesize($wpdb->prefix . "statpress")."</b></i><br />";
+  print "&nbsp;<i>StatPress table size: <b>".iritablesize(nsp_TABLENAME)."</b></i><br />";
   print "&nbsp;<i>StatPress current time: <b>".current_time('mysql')."</b></i><br />";
-  print "&nbsp;<i>RSS2 url: <b>".get_bloginfo('rss2_url').' ('.iriNewStatPress_extractfeedreq(get_bloginfo('rss2_url')).")</b></i><br />";
+  print "&nbsp;<i>RSS2 url: <b>".get_bloginfo('rss2_url').' ('.nsp_ExtractFeedFromUrl(get_bloginfo('rss2_url')).")</b></i><br />";
 }
 
 /**
@@ -326,58 +339,14 @@ function iriNewStatPressMain() {
  * @param url the url to parse
  * @return the extracted url
  */
-function iriNewStatPress_extractfeedreq($url) {
+function nsp_ExtractFeedFromUrl($url) {
   list($null,$q)=explode("?",$url);
   if (strpos($q, "&")!== false) list($res,$null)=explode("&",$q);
   else $res=$q;
   return $res;
 }
 
-function iriNewStatPressDetails() {
-  global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
 
-  //$querylimit="LIMIT 10";
-
-  # Top days
-  iriValueTable2("date", __('Top days','newstatpress') ,(get_option('newstatpress_el_top_days')=='') ? 5:get_option('newstatpress_el_top_days'));
-
-  # O.S.
-  iriValueTable2("os",__('OSes','newstatpress') ,(get_option('newstatpress_el_os')=='') ? 10:get_option('newstatpress_el_os'),"","","AND feed='' AND spider='' AND os<>''");
-
-  # Browser
-  iriValueTable2("browser",__('Browsers','newstatpress') ,(get_option('newstatpress_el_browser')=='') ? 10:get_option('newstatpress_el_browser'),"","","AND feed='' AND spider='' AND browser<>''");
-
-  # Feeds
-  iriValueTable2("feed",__('Feeds','newstatpress') ,(get_option('newstatpress_el_feed')=='') ? 5:get_option('newstatpress_el_feed'),"","","AND feed<>''");
-
-  # SE
-  iriValueTable2("searchengine",__('Search engines','newstatpress') ,(get_option('newstatpress_el_searchengine')=='') ? 10:get_option('newstatpress_el_searchengine'),"","","AND searchengine<>''");
-
-  # Search terms
-  iriValueTable2("search",__('Top search terms','newstatpress') ,(get_option('newstatpress_el_search')=='') ? 20:get_option('newstatpress_el_search'),"","","AND search<>''");
-
-  # Top referrer
-  iriValueTable2("referrer",__('Top referrers','newstatpress') ,(get_option('newstatpress_el_referrer')=='') ? 10:get_option('newstatpress_el_referrer'),"","","AND referrer<>'' AND referrer NOT LIKE '%".get_bloginfo('url')."%'");
-
-  # Languages
-  iriValueTable2("nation",__('Countries','newstatpress').'/'.__('Languages','newstatpress') ,(get_option('newstatpress_el_languages')=='') ? 20:get_option('newstatpress_el_languages'),"","","AND nation<>'' AND spider=''");
-
-  # Spider
-  iriValueTable2("spider",__('Spiders','newstatpress') ,(get_option('newstatpress_el_spiders')=='') ? 10:get_option('newstatpress_el_spiders'),"","","AND spider<>''");
-
-  # Top Pages
-  iriValueTable2("urlrequested",__('Top pages','newstatpress') ,(get_option('newstatpress_el_pages')=='') ? 5:get_option('newstatpress_el_pages'),"","urlrequested","AND feed='' and spider=''");
-
-  # Top Days - Unique visitors
-  iriValueTable2("date",__('Top days','newstatpress').' - '.__('Unique visitors','newstatpress') ,(get_option('newstatpress_el_visitors')=='') ? 5:get_option('newstatpress_el_visitors'),"distinct","ip","AND feed='' and spider=''"); /* Maddler 04112007: required patching iriValueTable */
-
-  # Top Days - Pageviews
-  iriValueTable2("date",__('Top days','newstatpress').' - '.__('Pageviews','newstatpress'),(get_option('newstatpress_el_daypages')=='') ? 5:get_option('newstatpress_el_daypages'),"","urlrequested","AND feed='' and spider=''"); /* Maddler 04112007: required patching iriValueTable */
-
-  # Top IPs - Pageviews
-  iriValueTable2("ip",__('Top IPs','newstatpress').' - '.__('Pageviews','newstatpress'),(get_option('newstatpress_el_ippages')=='') ? 5:get_option('newstatpress_el_ippages'),"","urlrequested","AND feed='' and spider=''"); /* Maddler 04112007: required patching iriValueTable */
-}
 
 
 /**
@@ -454,87 +423,7 @@ function my_substr($str, $x, $y = 0) {
  return substr($str, $x, $y);
 }
 
-/**
- * Display links for group of pages
- *
- * @param NP the group of pages
- * @param pp the page to show
- * @param action the action
- *
- * TODO change print into return $result
- */
-function newstatpress_print_pp_link($NP,$pp,$action) {
-  // For all pages ($NP) Display first 3 pages, 3 pages before current page($pp), 3 pages after current page , each 25 pages and the 3 last pages for($action)
-  $GUIL1 = FALSE;
-  $GUIL2 = FALSE;// suspension points  not writed  style='border:0px;width:16px;height:16px;   style="border:0px;width:16px;height:16px;"
-  if ($NP >1) {
-    // print "<font size='1'>".__('period of days','newstatpress')." : </font>";
-    for ($i = 1; $i <= $NP; $i++) {
-      if ($i <= $NP) {
-        // $page is not the last page
-        if($i == $pp) echo " <span class='current'>{$i} </span> "; // $page is current page
-        else {
-          // Not the current page Hyperlink them
-          if (($i <= 3) or (($i >= $pp-3) and ($i <= $pp+3)) or ($i >= $NP-3) or is_int($i/100)) {
-            echo '<a href="?page=nsp_visits&tab=visitors&newstatpress_action='.$action.'&pp=' . $i .'">' . $i . '</a> ';
-          } else {
 
-              if (($GUIL1 == FALSE) OR ($i==$pp+4)) {
-                echo "...";
-                $GUIL1 = TRUE;
-              }
-              if ($i == $pp-4) echo "..";
-              if (is_int(($i-1)/100)) echo ".";
-              if ($i == $NP-4) echo "..";
-              // suspension points writed
-
-         }
-      }
-    }
-  }
-}
-}
-/**
- * Display links for group of pages
- *
- * @param NP the group of pages
- * @param pp the page to show
- * @param action the action
- * @param NA group
- * @param pa current page
- *
- * TODO change print into return $result
- */
-function newstatpress_print_pp_pa_link($NP,$pp,$action,$NA,$pa) {
-  if ($NP<>0) newstatpress_print_pp_link($NP,$pp,$action);
-
-  // For all pages ($NP) display first 5 pages, 3 pages before current page($pa), 3 pages after current page , 3 last pages
-  $GUIL1 = FALSE;// suspension points not writed
-  $GUIL2 = FALSE;
-
-  echo '<table width="100%" border="0"><tr></tr></table>';
-  if ($NA >1 ) {
-    echo "<font size='1'>".__('Pages','newstatpress')." : </font>";
-    for ($j = 1; $j <= $NA; $j++) {
-      if ($j <= $NA) {  // $i is not the last Articles page
-        if($j == $pa)  // $i is current page
-          echo " [{$j}] ";
-        else { // Not the current page Hyperlink them
-          if (($j <= 5) or (( $j>=$pa-2) and ($j <= $pa+2)) or ($j >= $NA-2))
-            echo '<a href="?page=newstatpress/newstatpress.php&newstatpress_action='.$action.'&pp=' . $pp . '&pa='. $j . '">' . $j . '</a> ';
-          else {
-            if ($GUIL1 == FALSE) echo "... "; $GUIL1 = TRUE;
-            if (($j == $pa+4) and ($GUIL2 == FALSE)) {
-              echo " ... ";
-              $GUIL2 = TRUE;
-            }
-            // suspension points writed
-          }
-        }
-      }
-    }
-  }
-}
 
 /**
  * Get page period taken in statpress-visitors
@@ -571,392 +460,11 @@ function newstatpress_page_posts() {
   return $pageA;
 }
 
-/**
- * New spy function taken in statpress-visitors
- */
-function iriNewStatPressNewSpy() {
-  global $wpdb;
-  global $newstatpress_dir;
-  $action="newspy";
-  $table_name = $wpdb->prefix . "statpress";
-
-  // number of IP or bot by page
-  $LIMIT = get_option('newstatpress_ip_per_page_newspy');
-  $LIMIT_PROOF = get_option('newstatpress_visits_per_ip_newspy');
-  if ($LIMIT == 0) $LIMIT = 20;
-  if ($LIMIT_PROOF == 0) $LIMIT_PROOF = 20;
-
-  $pp = newstatpress_page_periode();
-
-  // Number of distinct ip (unique visitors)
-  $NumIP = $wpdb->get_var("
-    SELECT count(distinct ip)
-    FROM $table_name
-    WHERE spider=''"
-  );
-  $NP = ceil($NumIP/$LIMIT);
-  $LimitValue = ($pp * $LIMIT) - $LIMIT;
-
-  $sql = "
-    SELECT *
-    FROM $table_name as T1
-    JOIN
-      (SELECT max(id) as MaxId,min(id) as MinId,ip, nation
-       FROM $table_name
-       WHERE spider=''
-       GROUP BY ip
-       ORDER BY MaxId
-       DESC LIMIT $LimitValue, $LIMIT ) as T2
-    ON T1.ip = T2.ip
-    WHERE id BETWEEN MinId AND MaxId
-    ORDER BY MaxId DESC, id DESC
-  ";
-
-  $qry = $wpdb->get_results($sql);
-
-  // echo "<div class='wrap'><h2>" . __('Visitors', 'newstatpress') . "</h2>";
-?>
-<script>
-function ttogle(thediv){
-if (document.getElementById(thediv).style.display=="inline") {
-document.getElementById(thediv).style.display="none"
-} else {document.getElementById(thediv).style.display="inline"}
-}
-</script>
-<?php
-  $ip = 0;
-  $num_row=0;
-  echo "<div id='paginating' align='center' class='pagination'>";
-  newstatpress_print_pp_link($NP,$pp,$action);
-  echo'</div><table id="mainspytab" name="mainspytab" width="99%" border="0" cellspacing="0" cellpadding="4">';
-  foreach ($qry as $rk) {
-    // Visitors
-    if ($ip <> $rk->ip) {
-      //this is the first time these ip appear, print informations
-      echo "<tr><td colspan='2' bgcolor='#dedede'><div align='left'>";
-      $title='';
-      $id ='';
-      ///if ($rk->country <> '') {
-      ///  $img=strtolower($rk->country).".png";
-      ///  $lines = file(ABSPATH.'wp-content/plugins/'.dirname(dirname(dirname(plugin_basename(__FILE__)))) .'/def/domain.dat');
-      ///  foreach($lines as $line_num => $country) {
-      ///    list($id,$title)=explode("|",$country);
-      ///    if($id===strtolower($rk->country)) break;
-      ///  }
-      ///  echo "http country <IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(dirname(dirname(__FILE__)))). "'>  ";
-      ///} else
-        if($rk->nation <> '') {
-          // the nation exist
-          $img=strtolower($rk->nation).".png";
-          $lines = file($newstatpress_dir.'/def/domain.dat');
-          foreach($lines as $line_num => $nation) {
-            list($id,$title)=explode("|",$nation);
-            if($id===$rk->nation) break;
-          }
-          print "".__('Http domain', 'newstatpress')." <IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(plugin_basename(__FILE__))). "'>  ";
-
-        } else {
-            $ch = curl_init('http://api.hostip.info/country.php?ip='.$rk->ip);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $output = curl_exec($ch);
-            $output .=".png";
-            $output = strtolower($output);
-            curl_close($ch);
-            print "".__('Hostip country','newstatpress'). "<IMG style='border:0px;width:18;height:12px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$output, dirname(plugin_basename(__FILE__))). "'>  ";
-      }
-
-        print "<strong><span><font size='2' color='#7b7b7b'>".$rk->ip."</font></span></strong> ";
-        print "<span style='color:#006dca;cursor:pointer;border-bottom:1px dotted #AFD5F9;font-size:8pt;' onClick=ttogle('".$rk->ip."');>".__('more info','newstatpress')."</span></div>";
-        print "<div id='".$rk->ip."' name='".$rk->ip."'>";
-
-        if(get_option('newstatpress_cryptip')!='checked') {
-          print "<br><iframe style='overflow:hidden;border:0px;width:100%;height:60px;font-family:helvetica;padding:0;' scrolling='no' marginwidth=0 marginheight=0 src=http://api.hostip.info/get_html.php?ip=".$rk->ip."></iframe>";
-        }
-        print "<br><small><span style='font-weight:700;'>OS or device:</span> ".$rk->os."</small>";
-        print "<br><small><span style='font-weight:700;'>DNS Name:</span> ".gethostbyaddr($rk->ip)."</small>";
-        print "<br><small><span style='font-weight:700;'>Browser:</span> ".$rk->browser."</small>";
-        print "<br><small><span style='font-weight:700;'>Browser Detail:</span> ".$rk->agent."</small>";
-        print "<br><br></div>";
-        print "<script>document.getElementById('".$rk->ip."').style.display='none';</script>";
-        print "</td></tr>";
 
 
-        echo "<td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>" . newstatpress_hdate($rk->date) . " " . $rk->time . "</strong></font></div></td>
-              <td>" . newstatpress_Decode($rk->urlrequested) ."";
-        if ($rk->searchengine != '') print "<br><small>".__('arrived from','newstatpress')." <b>" . $rk->searchengine . "</b> ".__('searching','newstatpress')." <a href='" . $rk->referrer . "' target=_blank>" . urldecode($rk->search) . "</a></small>";
-        elseif ($rk->referrer != '' && strpos($rk->referrer, get_option('home')) === false) print "<br><small>".__('arrived from','newstatpress')." <a href='" . $rk->referrer . "' target=_blank>" . $rk->referrer . "</a></small>";
-        echo "</div></td></tr>\n";
-        $ip=$rk->ip;
-        $num_row = 1;
-    } elseif ($num_row < $LIMIT_PROOF) {
-        echo "<tr><td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>" . newstatpress_hdate($rk->date) . " " . $rk->time . "</strong></font></div></td>
-              <td><div>" . newstatpress_Decode($rk->urlrequested) . "";
-        if ($rk->searchengine != '') print "<br><small>".__('arrived from','newstatpress')." <b>" . $rk->searchengine . "</b> ".__('searching','newstatpress')." <a href='" . $rk->referrer . "' target=_blank>" . urldecode($rk->search) . "</a></small>";
-        elseif ($rk->referrer != '' && strpos($rk->referrer, get_option('home')) === false) print "<br><small>".__('arrived from','newstatpress')." <a href='" . $rk->referrer . "' target=_blank>" . $rk->referrer . "</a></small>";
-        $num_row += 1;
-        echo "</div></td></tr>\n";
-      }
-   }
-   echo "</div></td></tr>\n</table>";
-   echo "<div id='paginating' align='center' class='pagination'>";
-   newstatpress_print_pp_link($NP,$pp,$action);
-   echo "</div></div>";
-}
-
-/**
- * New spy bot function taken in statpress-visitors
- */
-function iriNewStatPressSpyBot() {
-  global $wpdb;
-  global $newstatpress_dir;
-
-  $action="spybot";
-  $table_name = $wpdb->prefix . "statpress";
-
-  $LIMIT = get_option('newstatpress_bot_per_page_spybot');
-  $LIMIT_PROOF = get_option('newstatpress_visits_per_bot_spybot');
-
-  if ($LIMIT ==0) $LIMIT = 10;
-  if ($LIMIT_PROOF == 0) $LIMIT_PROOF = 30;
-
-  $pa = newstatpress_page_posts();
-  $LimitValue = ($pa * $LIMIT) - $LIMIT;
-
-  // limit the search 7 days ago
-  $day_ago = gmdate('Ymd', current_time('timestamp') - 7*86400);
-  $MinId = $wpdb->get_var("
-    SELECT min(id) as MinId
-    FROM $table_name
-    WHERE date > $day_ago
-  ");
-
-  // Number of distinct spiders after $day_ago
-  $Num = $wpdb->get_var("
-    SELECT count(distinct spider)
-    FROM $table_name
-    WHERE
-      spider<>'' AND
-      id >$MinId
-  ");
-  $NA = ceil($Num/$LIMIT);
-
-  // echo "<div class='wrap'><h2>" . __('Spy Bot', 'newstatpress') . "</h2>";
-  echo "<br />";
-
-  // selection of spider, group by spider, order by most recently visit (last id in the table)
-  $sql = "
-    SELECT *
-    FROM $table_name as T1
-    JOIN
-    (SELECT spider,max(id) as MaxId
-     FROM $table_name
-     WHERE spider<>''
-     GROUP BY spider
-     ORDER BY MaxId
-     DESC LIMIT $LimitValue, $LIMIT
-    ) as T2
-    ON T1.spider = T2.spider
-    WHERE T1.id > $MinId
-    ORDER BY MaxId DESC, id DESC
-  ";
-  $qry = $wpdb->get_results($sql);
-
-  echo '<div align="center">';
-  newstatpress_print_pp_pa_link (0,0,$action,$NA,$pa);
-  echo '</div><div align="left">';
-?>
-<script>
-function ttogle(thediv){
-if (document.getElementById(thediv).style.display=="inline") {
-document.getElementById(thediv).style.display="none"
-} else {document.getElementById(thediv).style.display="inline"}
-}
-</script>
-<table id="mainspytab" name="mainspytab" width="99%" border="0" cellspacing="0" cellpadding="4"><div align='left'>
-<?php
-  $spider="robot";
-  $num_row=0;
-  foreach ($qry as $rk) {  // Bot Spy
-    if ($robot <> $rk->spider) {
-      echo "<div align='left'>
-            <tr>
-            <td colspan='2' bgcolor='#dedede'>";
-      $img=str_replace(" ","_",strtolower($rk->spider));
-      $img=str_replace('.','',$img).".png";
-      $lines = file($newstatpress_dir.'/def/spider.dat');
-      foreach($lines as $line_num => $spider) { //seeks the tooltip corresponding to the photo
-        list($title,$id)=explode("|",$spider);
-        if($title==$rk->spider) break; // break, the tooltip ($title) is found
-      }
-      echo "<IMG class='img_os' style='align:left;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/spider/'.$img, dirname(plugin_basename(__FILE__))). "'>
-            <span style='color:#006dca;cursor:pointer;border-bottom:1px dotted #AFD5F9;font-size:8pt;' onClick=ttogle('" . $img . "');>http more info</span>
-            <div id='" . $img . "' name='" . $img . "'><br /><small>" . $rk->ip . "</small><br><small>" . $rk->agent . "<br /></small></div>
-            <script>document.getElementById('" . $img . "').style.display='none';</script>
-            </tr>
-            <tr><td valign='top' width='170'><div><font size='1' color='#3B3B3B'><strong>" . newstatpress_hdate($rk->date) . " " . $rk->time . "</strong></font></div></td>
-            <td><div>" . newstatpress_Decode($rk->urlrequested) . "</div></td></tr>";
-      $robot=$rk->spider;
-      $num_row=1;
-    } elseif ($num_row < $LIMIT_PROOF) {
-        echo "<tr>
-              <td valign='top' width='170'><div><font size='1' color='#3B3B3B'><strong>" . newstatpress_hdate($rk->date) . " " . $rk->time . "</strong></font></div></td>
-              <td><div>" . newstatpress_Decode($rk->urlrequested) . "</div></td></tr>";
-        $num_row+=1;
-      }
-      echo "</div></td></tr>\n";
-  }
-  echo "</table>";
-  newstatpress_print_pp_pa_link (0,0,$action,$NA,$pa);
-  echo "</div>";
-}
 
 
-/**
- * Newstatpress spy function
- */
-function iriNewStatPressSpy() {
-  global $wpdb;
-  global $newstatpress_dir;
 
-  $table_name = $wpdb->prefix . "statpress";
-
-  # Spy
-  $today = gmdate('Ymd', current_time('timestamp'));
-  $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
-  // print "<div class='wrap'><h2>".__('Last visitors','newstatpress')."</h2>";
-  echo "<br />";
-  $sql="
-    SELECT ip,nation,os,browser,agent
-    FROM $table_name
-    WHERE
-      spider='' AND
-      feed='' AND
-      date BETWEEN '$yesterday' AND '$today'
-    GROUP BY ip ORDER BY id DESC LIMIT 20";
-  $qry = $wpdb->get_results($sql);
-
-?>
-<script>
-function ttogle(thediv){
-if (document.getElementById(thediv).style.display=="inline") {
-document.getElementById(thediv).style.display="none"
-} else {document.getElementById(thediv).style.display="inline"}
-}
-</script>
-<div>
-<table id="mainspytab" name="mainspytab" width="99%" border="0" cellspacing="0" cellpadding="4">
-<?php
-  foreach ($qry as $rk) {
-    print "<tr><td colspan='2' bgcolor='#dedede'><div align='left'>";
-
-    if($rk->nation <> '') {
-      // the nation exist
-      $img=strtolower($rk->nation).".png";
-      $lines = file($newstatpress_dir.'/def/domain.dat');
-      foreach($lines as $line_num => $nation) {
-        list($id,$title)=explode("|",$nation);
-        if($id===$rk->nation) break;
-      }
-      echo "<IMG style='border:0px;height:16px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, dirname(plugin_basename(__FILE__))). "'>  ";
-    } else {
-        $ch = curl_init('http://api.hostip.info/country.php?ip='.$rk->ip);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);
-        $output .=".png";
-        $output = strtolower($output);
-        curl_close($ch);
-        echo "<IMG style='border:0px;width:18;height:12px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$output, dirname(plugin_basename(__FILE__))). "'>  ";
-      }
-
-
-    print " <strong><span><font size='2' color='#7b7b7b'>".$rk->ip."</font></span></strong> ";
-    print "<span style='color:#006dca;cursor:pointer;border-bottom:1px dotted #AFD5F9;font-size:8pt;' onClick=ttogle('".$rk->ip."');>".__('more info','newstatpress')."</span></div>";
-    print "<div id='".$rk->ip."' name='".$rk->ip."'>";
-    if(get_option('newstatpress_cryptip')!='checked') {
-      print "<br><iframe style='overflow:hidden;border:0px;width:100%;height:60px;font-family:helvetica;padding:0;' scrolling='no' marginwidth=0 marginheight=0 src=http://api.hostip.info/get_html.php?ip=".$rk->ip."></iframe>";
-    }
-    print "<br><small><span style='font-weight:700;'>OS or device:</span> ".$rk->os."</small>";
-    print "<br><small><span style='font-weight:700;'>DNS Name:</span> ".gethostbyaddr($rk->ip)."</small>";
-    print "<br><small><span style='font-weight:700;'>Browser:</span> ".$rk->browser."</small>";
-    print "<br><small><span style='font-weight:700;'>Browser Detail:</span> ".$rk->agent."</small>";
-    print "<br><br></div>";
-    print "<script>document.getElementById('".$rk->ip."').style.display='none';</script>";
-    print "</td></tr>";
-    $qry2=$wpdb->get_results("
-      SELECT *
-      FROM $table_name
-      WHERE
-        ip='".$rk->ip."' AND
-        (date BETWEEN '$yesterday' AND '$today')
-      ORDER BY id
-      LIMIT 10"
-    );
-    foreach ($qry2 as $details) {
-      print "<tr>";
-      print "<td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>".irihdate($details->date)." ".$details->time."</strong></font></div></td>";
-      print "<td><div><a href='".get_bloginfo('url')."/?".$details->urlrequested."' target='_blank'>".iri_NewStatPress_Decode($details->urlrequested)."</a>";
-      if($details->searchengine != '') {
-        print "<br><small>".__('arrived from','newstatpress')." <b>".$details->searchengine."</b> ".__('searching','newstatpress')." <a href='".$details->referrer."' target='_blank'>".$details->search."</a></small>";
-      } elseif($details->referrer != '' && strpos($details->referrer,get_option('home'))===FALSE) {
-          print "<br><small>".__('arrived from','newstatpress')." <a href='".$details->referrer."' target='_blank'>".$details->referrer."</a></small>";
-        }
-      print "</div></td>";
-      print "</tr>\n";
-    }
-  }
-?>
-</table>
-</div>
-<?php
-}
-
-/**
- * Visits Page to finish
- */
-function nsp_DisplayVisitsPage() {
-  // global $wpdb;
-  // global $newstatpress_dir;
-  //
-  // $table_name = $wpdb->prefix . "statpress";
-
-  global $pagenow;
-  $VisitsPage_tabs = array( 'lastvisitors' => __('Last visitors','newstatpress'),
-                            'visitors' => __('Visitors','newstatpress'),
-                            'spybot' => __('Spy Bot','newstatpress')
-                          );
-  $page='nsp_visits';
-
-  print "<div class='wrap'><h2>".__('Visits','newstatpress')."</h2>";
-
-
-  if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($VisitsPage_tabs,$_GET['tab'],$page);
-  else nsp_DisplayTabsNavbarForMenuPage($VisitsPage_tabs, 'lastvisitors',$page);
-
-  if ( $pagenow == 'admin.php' && $_GET['page'] == $page ) {
-
-    if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
-    else $tab = 'lastvisitors';
-
-    switch ($tab) {
-
-      case 'lastvisitors' :
-      iriNewStatPressSpy();
-      break;
-
-      case 'visitors' :
-      iriNewStatPressNewSpy();
-      break;
-
-      case 'spybot' :
-      iriNewStatPressSpyBot();
-      break;
-    }
-  }
-}
 
 
 // USELESS ? comment by chab
@@ -973,151 +481,7 @@ function iri_CheckIP($ip) {
 
 
 
-function nsp_DatabaseSearch($what='') {
-  global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
 
-  $f['urlrequested']=__('URL Requested','newstatpress');
-  $f['agent']=__('Agent','newstatpress');
-  $f['referrer']=__('Referrer','newstatpress');
-  $f['search']=__('Search terms','newstatpress');
-  $f['searchengine']=__('Search engine','newstatpress');
-  $f['os']=__('Operative system','newstatpress');
-  $f['browser']=__('Browser','newstatpress');
-  $f['spider']=__('Spider','newstatpress');
-  $f['ip']=__('IP','newstatpress');
-?>
-  <div class='wrap'><h2><?php _e('Search','newstatpress'); ?></h2>
-  <form method=get><table>
-  <?php
-    for($i=1;$i<=3;$i++) {
-      print "<tr>";
-      print "<td>".__('Field','newstatpress')." <select name=where$i><option value=''></option>";
-      foreach ( array_keys($f) as $k ) {
-        print "<option value='$k'";
-        if($_GET["where$i"] == $k) { print " SELECTED "; }
-        print ">".$f[$k]."</option>";
-      }
-      print "</select></td>";
-      if (isset($_GET["groupby$i"])) print "<td><input type=checkbox name=groupby$i value='checked' ".$_GET["groupby$i"]."> ".__('Group by','newstatpress')."</td>";
-      else print "<td><input type=checkbox name=groupby$i value='checked' "."> ".__('Group by','newstatpress')."</td>";
-
-      if (isset($_GET["sortby$i"])) print "<td><input type=checkbox name=sortby$i value='checked' ".$_GET["sortby$i"]."> ".__('Sort by','newstatpress')."</td>";
-      else print "<td><input type=checkbox name=sortby$i value='checked' "."> ".__('Sort by','newstatpress')."</td>";
-
-      print "<td>, ".__('if contains','newstatpress')." <input type=text name=what$i value='".$_GET["what$i"]."'></td>";
-      print "</tr>";
-    }
-?>
-  </table>
-  <br>
-  <table>
-   <tr>
-     <td>
-       <table>
-         <tr><td><input type=checkbox name=oderbycount value=checked <?php print $_GET['oderbycount'] ?>> <?php _e('sort by count if grouped','newstatpress'); ?></td></tr>
-         <tr><td><input type=checkbox name=spider value=checked <?php print $_GET['spider'] ?>> <?php _e('include spiders/crawlers/bot','newstatpress'); ?></td></tr>
-         <tr><td><input type=checkbox name=feed value=checked <?php print $_GET['feed'] ?>> <?php _e('include feed','newstatpress'); ?></td></tr>
-       </table>
-     </td>
-     <td width=15> </td>
-     <td>
-       <table>
-         <tr>
-           <td><?php _e('Limit results to','newstatpress'); ?>
-             <select name=limitquery><?php if($_GET['limitquery'] >0) { print "<option>".$_GET['limitquery']."</option>";} ?><option>1</option><option>5</option><option>10</option><option>20</option><option>50</option></select>
-           </td>
-         </tr>
-         <tr><td>&nbsp;</td></tr>
-         <tr>
-          <td align=right><input class='button button-primary' type=submit value=<?php _e('Search','newstatpress'); ?> name=searchsubmit></td>
-         </tr>
-       </table>
-     </td>
-    </tr>
-   </table>
-   <input type=hidden name=page value='nsp_search'>
-   <input type=hidden name=newstatpress_action value=search>
-  </form>
-
-  <br>
-<?php
-
- if(isset($_GET['searchsubmit'])) {
-   # query builder
-   $qry="";
-   # FIELDS
-   $fields="";
-   for($i=1;$i<=3;$i++) {
-     if($_GET["where$i"] != '') {
-       $fields.=$_GET["where$i"].",";
-     }
-   }
-   $fields=rtrim($fields,",");
-   # WHERE
-   $where="WHERE 1=1";
-
-   if (!isset($_GET['spider'])) { $where.=" AND spider=''"; }
-   else if($_GET['spider'] != 'checked') { $where.=" AND spider=''"; }
-
-   if (!isset($_GET['feed'])) { $where.=" AND feed=''"; }
-   else if($_GET['feed'] != 'checked') { $where.=" AND feed=''"; }
-
-   for($i=1;$i<=3;$i++) {
-     if(($_GET["what$i"] != '') && ($_GET["where$i"] != '')) {
-       $where.=" AND ".$_GET["where$i"]." LIKE '%".$_GET["what$i"]."%'";
-     }
-   }
-   # ORDER BY
-   $orderby="";
-   for($i=1;$i<=3;$i++) {
-     if (isset($_GET["sortby$i"]) && ($_GET["sortby$i"] == 'checked') && ($_GET["where$i"] != '')) {
-       $orderby.=$_GET["where$i"].',';
-     }
-   }
-
-   # GROUP BY
-   $groupby="";
-   for($i=1;$i<=3;$i++) {
-     if(isset($_GET["groupby$i"]) && ($_GET["groupby$i"] == 'checked') && ($_GET["where$i"] != '')) {
-       $groupby.=$_GET["where$i"].',';
-     }
-   }
-   if($groupby != '') {
-     $groupby="GROUP BY ".rtrim($groupby,',');
-     $fields.=",count(*) as totale";
-     if(isset($_GET["oderbycount"]) && $_GET['oderbycount'] == 'checked') { $orderby="totale DESC,".$orderby; }
-   }
-
-   if($orderby != '') { $orderby="ORDER BY ".rtrim($orderby,','); }
-
-   $limit="LIMIT ".$_GET['limitquery'];
-
-   # Results
-   print "<h2>".__('Results','newstatpress')."</h2>";
-   $sql="SELECT $fields FROM $table_name $where $groupby $orderby $limit;";
-   //print "$sql<br>";
-   print "<table class='widefat'><thead><tr>";
-   for($i=1;$i<=3;$i++) {
-     if($_GET["where$i"] != '') { print "<th scope='col'>".ucfirst($_GET["where$i"])."</th>"; }
-   }
-   if($groupby != '') { print "<th scope='col'>".__('Count','newstatpress')."</th>"; }
-     print "</tr></thead><tbody id='the-list'>";
-     $qry=$wpdb->get_results($sql,ARRAY_N);
-     foreach ($qry as $rk) {
-       print "<tr>";
-       for($i=1;$i<=3;$i++) {
-         print "<td>";
-         if($_GET["where$i"] == 'urlrequested') { print iri_NewStatPress_Decode($rk[$i-1]); }
-         else { if(isset($rk[$i-1])) print $rk[$i-1]; }
-         print "</td>";
-       }
-         print "</tr>";
-     }
-     print "</table>";
-     print "<br /><br /><font size=1 color=gray>sql: $sql</font></div>";
-  }
-}
 
 /**
  * Abbreviate the given string to a fixed length
@@ -1193,103 +557,7 @@ function iriindextablesize($table) {
   return number_format(($index_lenght/1024/1024), 2, ",", " ")." Mb";
 }
 
-/**
- * Get google url query for geo data
- *
- * @param data_array the array of data_array
- * @return the url with data
- */
-function iriGetGoogleGeo($data_array) {
-  if(empty($data_array)) { return ''; }
-  // get hash
-  foreach($data_array as $key => $value ) {
-    $values[] = $value;
-    $labels[] = $key;
-  }
-  return "?cht=Country&chd=".(implode(",",$values))."&chlt=Popularity&chld=".(implode(",",$labels));
-}
 
-/**
- * Get google url query for pie data
- *
- * @param data_array the array of data_array
- * @param title the title to use
- * @return the url with data
- */
-function iriGetGooglePie($title, $data_array) {
-  if(empty($data_array)) { return ''; }
-  // get hash
-  foreach($data_array as $key => $value ) {
-    $values[] = $value;
-    $labels[] = $key;
-  }
-
-  return "?title=".$title."&chd=".(implode(",",$values))."&chl=".urlencode(implode("|",$labels));
-}
-
-function iriValueTable2($fld,$fldtitle,$limit = 0,$param = "", $queryfld = "", $exclude= "", $print = TRUE) {
-  global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
-
-  if ($queryfld == '') {
-    $queryfld = $fld;
-  }
-  $text = "<div class='wrap'><table class='widefat'>\n<thead><tr><th scope='col' class='keytab-head'><h2>$fldtitle</h2></th><th scope='col' style='width:20%;text-align:center;'>".__('Visits','newstatpress')."</th><th></th></tr></thead>\n";
-  $rks = $wpdb->get_var("
-     SELECT count($param $queryfld) as rks
-     FROM $table_name
-     WHERE 1=1 $exclude;
-  ");
-
-  if($rks > 0) {
-    $sql="
-      SELECT count($param $queryfld) as pageview, $fld
-      FROM $table_name
-      WHERE 1=1 $exclude
-      GROUP BY $fld
-      ORDER BY pageview DESC
-    ";
-    if($limit > 0) {
-      $sql=$sql." LIMIT $limit";
-    }
-    $qry = $wpdb->get_results($sql);
-    $tdwidth=450;
-
-    // Collects data
-    $data=array();
-    foreach ($qry as $rk) {
-      $pc=round(($rk->pageview*100/$rks),1);
-      if($fld == 'nation') { $rk->$fld = strtoupper($rk->$fld); }
-      if($fld == 'date') { $rk->$fld = irihdate($rk->$fld); }
-      if($fld == 'urlrequested') { $rk->$fld = iri_NewStatPress_Decode($rk->$fld); }
-      $data[substr($rk->$fld,0,250)]=$rk->pageview;
-    }
-  }
-
-  // Draw table body
-  $text .= "<tbody id='the-list'>";
-  if($rks > 0) {  // Chart!
-
-    if($fld == 'nation') { // Nation chart
-      $charts=plugins_url('newstatpress')."/includes/geocharts.html".iriGetGoogleGeo($data);
-    }
-    else { // Pie chart
-      $charts=plugins_url('newstatpress')."/includes/piecharts.html".iriGetGooglePie($fldtitle, $data);
-    }
-
-    foreach ($data as $key => $value) {
-      $text .= "<tr><td class='keytab'>".$key."</td><td class='valuetab'>".$value."</td></tr>";
-    }
-
-    $text .= "<tr><td colspan=2 style='width:50%;'>
-    <iframe src='".$charts."' class='framebox'>
-      <p>[_e('This section requires a browser that supports iframes.]','newstatpress')</p>
-    </iframe></td></tr>";
-  }
-  $text .= "</tbody></table></div><br>\n";
-  if ($print) print $text;
-  else return $text;
-}
 
 
 function iriGetLanguage($accepted) {
@@ -1438,7 +706,7 @@ function iri_NewStatPress_lastmonth() {
 
    global $wpdb;
    global $wp_db_version;
-   $table_name = $wpdb->prefix . "statpress";
+   $table_name = nsp_TABLENAME;
    $charset_collate = $wpdb->get_charset_collate();
    $index_list=array(array('Key_name'=>"spider_nation", 'Column_name'=>"(spider, nation)"),
                      array('Key_name'=>"ip_date", 'Column_name'=>"(ip, date)"),
@@ -1529,7 +797,7 @@ function iri_NewStatPress_is_feed($url) {
  */
 function iriStatAppend() {
   global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
+  $table_name = nsp_TABLENAME;
   global $userdata;
   global $_STATPRESS;
 
@@ -1729,280 +997,7 @@ function iriNewStatPressDays() {
   return $days;
 }
 
-/**
- * Performes database update with new definitions
- */
-function iriNewStatPressUpdate() {
-  global $wpdb;
-  global $newstatpress_dir;
 
-  $table_name = $wpdb->prefix . "statpress";
-
-  $wpdb->flush();     // flush for counting right the queries
-  $start_time = microtime(true);
-
-  $days=iriNewStatPressDays();  // get the number of days for the update
-
-  $to_date  = gmdate("Ymd",current_time('timestamp'));
-
-  if ($days==-1) $from_date= "19990101";   // use a date where this plugin was not present
-  else $from_date = gmdate('Ymd', current_time('timestamp')-86400*$days);
-
-  $_newstatpress_url=PluginUrl();
-
-  $wpdb->show_errors();
-
-  //add by chab
-  //$var requesting the absolute path
-  $img_ok = $_newstatpress_url.'images/ok.gif';
-  $ip2nation_db = $newstatpress_dir.'/includes/ip2nation.sql';
-
-  print "<div class='wrap'><h2>".__('Database Update','newstatpress')."</h2><br />";
-
-  print "<table class='widefat nsp'><thead><tr><th scope='col'>".__('Updating...','newstatpress')."</th><th scope='col' style='width:400px;'>".__('Size','newstatpress')."</th><th scope='col' style='width:100px;'>".__('Result','newstatpress')."</th><th></th></tr></thead>";
-  print "<tbody id='the-list'>";
-
-  # check if ip2nation .sql file exists
-  if(file_exists($ip2nation_db)) {
-    print "<tr><td>ip2nation.sql</td>";
-    $FP = fopen ($ip2nation_db, 'r' );
-    $READ = fread ( $FP, filesize ($ip2nation_db) );
-    $READ = explode ( ";\n", $READ );
-    foreach ( $READ as $RED ) {
-      if($RES != '') { $wpdb->query($RED); }
-    }
-    print "<td>".iritablesize("ip2nation")."</td>";
-    print "<td><img class'update_img' src='$img_ok'></td></tr>";
-  }
-
-  # update table
-  nsp_BuildPluginSQLTable('update');
-
-  print "<tr><td>". __('Structure','newstatpress'). " $table_name</td>";
-  print "<td>".iritablesize($wpdb->prefix."statpress")."</td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-  print "<tr><td>". __('Index','newstatpress'). " $table_name</td>";
-  print "<td>".iriindextablesize($wpdb->prefix."statpress")."</td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-  # Update Feed
-  print "<tr><td>". __('Feeds','newstatpress'). "</td>";
-  $wpdb->query("
-    UPDATE $table_name
-    SET feed=''
-    WHERE date BETWEEN $from_date AND $to_date;"
-  );
-
-  # not standard
-  $wpdb->query("
-    UPDATE $table_name
-    SET feed='RSS2'
-    WHERE
-      urlrequested LIKE '%/feed/%' AND
-      date BETWEEN $from_date AND $to_date;"
-  );
-
-  $wpdb->query("
-    UPDATE $table_name
-    SET feed='RSS2'
-    WHERE
-      urlrequested LIKE '%wp-feed.php%' AND
-      date BETWEEN $from_date AND $to_date;"
-  );
-
-  # standard blog info urls
-  $s=iriNewStatPress_extractfeedreq(get_bloginfo('comments_atom_url'));
-  if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
-      SET feed='COMMENT'
-      WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
-  }
-  $s=iriNewStatPress_extractfeedreq(get_bloginfo('comments_rss2_url'));
-  if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
-      SET feed='COMMENT'
-      WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
-  }
-  $s=iriNewStatPress_extractfeedreq(get_bloginfo('atom_url'));
-  if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
-      SET feed='ATOM'
-      WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
-  }
-  $s=iriNewStatPress_extractfeedreq(get_bloginfo('rdf_url'));
-  if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
-      SET feed='RDF'
-      WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
-  }
-  $s=iriNewStatPress_extractfeedreq(get_bloginfo('rss_url'));
-  if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
-      SET feed='RSS'
-      WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
-  }
-  $s=iriNewStatPress_extractfeedreq(get_bloginfo('rss2_url'));
-  if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
-      SET feed='RSS2'
-      WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
-  }
-
-  $wpdb->query("
-    UPDATE $table_name
-    SET feed = ''
-    WHERE
-      isnull(feed) AND
-      date BETWEEN $from_date AND $to_date;"
-   );
-
-  print "<td></td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-  # Update OS
-  print "<tr><td>". __('OSes','newstatpress'). "</td>";
-  $wpdb->query("
-    UPDATE $table_name
-    SET os = ''
-    WHERE date BETWEEN $from_date AND $to_date;"
-  );
-  $lines = file($newstatpress_dir.'/def/os.dat');
-  foreach($lines as $line_num => $os) {
-    list($nome_os,$id_os)=explode("|",$os);
-    $qry="
-      UPDATE $table_name
-      SET os = '$nome_os'
-      WHERE
-        os='' AND
-        replace(agent,' ','') LIKE '%".$id_os."%' AND
-        date BETWEEN $from_date AND $to_date;";
-    $wpdb->query($qry);
-  }
-  print "<td></td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-
-  # Update Browser
-  print "<tr><td>". __('Browsers','newstatpress'). "</td>";
-  $wpdb->query("
-    UPDATE $table_name
-    SET browser = ''
-    WHERE date BETWEEN $from_date AND $to_date;"
-  );
-  $lines = file($newstatpress_dir.'/def/browser.dat');
-  foreach($lines as $line_num => $browser) {
-    list($nome,$id)=explode("|",$browser);
-    $qry="
-      UPDATE $table_name
-      SET browser = '$nome'
-      WHERE
-        browser='' AND
-        replace(agent,' ','') LIKE '%".$id."%' AND
-        date BETWEEN $from_date AND $to_date;";
-    $wpdb->query($qry);
-  }
-  print "<td></td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-
-  # Update Spider
-  print "<tr><td>". __('Spiders','newstatpress'). "</td>";
-  $wpdb->query("
-    UPDATE $table_name
-    SET spider = ''
-    WHERE date BETWEEN $from_date AND $to_date;"
-  );
-  $lines = file($newstatpress_dir.'/def/spider.dat');
-  foreach($lines as $line_num => $spider) {
-    list($nome,$id)=explode("|",$spider);
-    $qry="
-      UPDATE $table_name
-      SET spider = '$nome',os='',browser=''
-      WHERE
-        spider='' AND
-        replace(agent,' ','') LIKE '%".$id."%' AND
-        date BETWEEN $from_date AND $to_date;";
-    $wpdb->query($qry);
-  }
-  print "<td></td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-
-  # Update Search engine
-  print "<tr><td>". __('Search engines','newstatpress'). " </td>";
-  $wpdb->query("
-    UPDATE $table_name
-    SET searchengine = '', search=''
-    WHERE date BETWEEN $from_date AND $to_date;");
-  $qry = $wpdb->get_results("
-    SELECT id, referrer
-    FROM $table_name
-    WHERE
-      length(referrer)!=0 AND
-      date BETWEEN $from_date AND $to_date");
-  foreach ($qry as $rk) {
-    list($searchengine,$search_phrase)=explode("|",iriGetSE($rk->referrer));
-    if($searchengine <> '') {
-      $q="
-        UPDATE $table_name
-        SET searchengine = '$searchengine', search='".addslashes($search_phrase)."'
-        WHERE
-          id=".$rk->id." AND
-          date BETWEEN $from_date AND $to_date;";
-      $wpdb->query($q);
-    }
-  }
-  print "<td></td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-  $end_time = microtime(true);
-  $sql_queries=$wpdb->num_queries;
-
-  # Final statistics
-  print "<tr><td>". __('Final Structure','newstatpress'). " $table_name</td>";
-  print "<td>".iritablesize($wpdb->prefix."statpress")."</td>"; // todo chab : to clean
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-  print "<tr><td>". __('Final Index','newstatpress'). " $table_name</td>";
-  print "<td>".iriindextablesize($wpdb->prefix."statpress")."</td>"; // todo chab : to clean
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-  print "<tr><td>". __('Duration of the update','newstatpress'). "</td>";
-  print "<td>".round($end_time - $start_time, 2)." sec</td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-  print "<tr><td>". __('This update was done in','newstatpress'). "</td>";
-  print "<td>".$sql_queries." " . __('SQL queries','newstatpress'). "</td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
-
-  print "</tbody></table></div><br>\n";
-  $wpdb->hide_errors();
-}
 
 
 function NewStatPress_Widget($w='') {
@@ -2054,7 +1049,7 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='') {
  */
 function nsp_ExpandVarsInsideCode($body) {
   global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
+  $table_name = nsp_TABLENAME;
 
   $vars_list=array('visits',
                    'yvisits',
@@ -2426,7 +1421,7 @@ function nsp_CalculateVariation($month,$lmonth,$row) {
 function nsp_MakeOverview($print ='dashboard') {
 
   global $wpdb;
-  $table_name = $wpdb->prefix . "statpress";
+  $table_name = nsp_TABLENAME;
 
   $overview_table='';
 
@@ -2626,52 +1621,16 @@ elseif ($print=='dashboard'){
   else return $overview_table;
 }
 
-/***
- * Show statistics in dashboard
- *************************************/
-function nsp_BuildDashboardWidget() {
-
-  nsp_MakeOverview('dashboard');
-  ?>
-  <ul class='nsp_dashboard'>
-    <li>
-      <a href='admin.php?page=nsp_details'><?php _e('Details','newstatpress')?></a> |
-    </li>
-    <li>
-      <a href='admin.php?page=nsp_visits'><?php _e('Visits','newstatpress')?></a> |
-    </li>
-    <li>
-      <a href='admin.php?page=nsp_options'><?php _e('Options','newstatpress')?>
-      </li>
-  </ul>
-  <?php
-}
-
-// Create the function use in the action hook
-function nsp_AddDashBoardWidget() {
-
-  global $wp_meta_boxes;
-  $title=__('NewStatPress Overview','newstatpress');
-
-  //Add the dashboard widget if user option is 'yes'
-  if (get_option('newstatpress_dashboard')=='checked')
-    wp_add_dashboard_widget('dashboard_NewsStatPress_overview', $title, 'nsp_BuildDashboardWidget');
-  else unset($wp_meta_boxes['dashboard']['side']['core']['wp_dashboard_setup']);
-
-}
-add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
 
 
-
-
-
+// USELESS ? comment by chab
 
 /**
  * Set the header for the page.
  * It loads google api
  */
 
- // USELESS ? comment by chab
+
 // function iri_page_header() {
 //   echo '<script type="text/javascript" src="http://www.google.com/jsapi"></script>';
 //   echo '<script type="text/javascript">';

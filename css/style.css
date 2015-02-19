@@ -207,6 +207,26 @@ table.table-option td:first-child {
 .table-databaseupdate {
   width: 60%;
 }
+.dash-option {
+  line-height: 0;
+}
+
+.form-tableH {
+  padding-top:20px;
+}
+.padd th {
+  padding-top:40px;
+}
+.form-tableH th {
+    vertical-align: top;
+    text-align: left;
+    padding: 10px 10px 20px 0;
+    width: 200px;
+    line-height: 1.3;
+    font-weight: 600;
+    font-size: 14px;
+}
+
 
 /*----------------------------------*/
 /* credit page style                */
@@ -352,6 +372,26 @@ table.table-option td:first-child {
 /*----------------------------------*/
 /* visitors page style              */
 /*----------------------------------*/
+
+.visits-details {
+  color:#006dca;
+  cursor:pointer;
+  border-bottom:1px dotted #AFD5F9;
+  font-size:8pt;
+}
+
+.visit-iframe {
+  overflow:hidden;
+  border:0px;
+  width:100%;
+  height:60px;
+  font-family:helvetica;
+  padding:0;
+}
+
+.visit-iframe span {
+  font-weight:700;
+}
 
 /*navbar Pagination*/
 div.pagination {
