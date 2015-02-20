@@ -13,6 +13,7 @@
 - [ ] Export database > dump sql (bkp)
 
 ## 0.9.6
+- [x] New Option page with tabs navigation (jquery)
 - [x] Fix Search page link
 - [x] Various core fix (global definition, function, plugin page names with nsp_ prefix)
 - [x] Various debug fix (deprecated function, unset variable)
