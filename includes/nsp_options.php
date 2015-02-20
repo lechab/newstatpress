@@ -283,7 +283,7 @@ echo "</table><table class='form-tableH'>";
     echo "<tr><th class='padd' scope='row' colspan='3'></th>";
     echo "</tr>";
 
-    echo "<tr><th class='padd' scope='row' rowspan='2'>Spy bot</th>";
+    echo "<tr><th class='padd' scope='row' rowspan='2'>"; _e('Parameters to ignore','newstatpress'); echo "</th>";
 
     $option_title=__('number of bot per page','newstatpress');
     $option_var='newstatpress_bot_per_page_spybot';
@@ -303,13 +303,7 @@ echo "</table><table class='form-tableH'>";
     echo "<div id='details'>\n<table class='form-tableH'>";
 
 
-              //global $nsp_option_vars;
-
-              // input parameters
-              // $input_size='2';
-              // $input_maxlength='3';
-
-              echo "<tr><th class='padd' scope='row' rowspan='14'>Element numbers in</th>";
+    echo "<tr><th class='padd' scope='row' rowspan='14'>"; _e('Element numbers to display in','newstatpress'); echo "</th>";
 
       $option_title=sprintf(__('Top days (default %d)','newstatpress'), $nsp_option_vars['top_days']['value']);
       print_row_input($option_title,$nsp_option_vars['top_days'],$input_size,$input_maxlength);
