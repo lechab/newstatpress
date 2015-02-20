@@ -11,6 +11,19 @@ function nsp_DisplayTabsNavbarForMenuPage($menu_tabs, $current,$ref) {
     echo '</h2>';
 }
 
+
+
+function nsp_DisplayTabsNavbarForMenuPages($menu_tabs, $current,$ref) {
+
+    echo "<div id='usual1' class='icon32 usual'><br></div>";
+    echo "<h2  class='nav-tab-wrapper'>";
+    foreach( $menu_tabs as $tab => $name ){
+        $class = ( $tab == $current ) ? ' nav-tab-active selected' : '';
+        echo "<a class='nav-tab$class' href='#$tab'>$name</a>";
+    }
+    echo '</h2>';
+}
+
 function iriValueTable2($fld,$fldtitle,$limit = 0,$param = "", $queryfld = "", $exclude= "", $print = TRUE) {
   global $wpdb;
   $table_name = nsp_TABLENAME;

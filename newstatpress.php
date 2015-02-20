@@ -79,8 +79,17 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
 
+   wp_enqueue_script("jquery");
+
+   $style_path2=plugins_url('./js/jquery.idTabs.min.js', __FILE__);
+
+   wp_register_script('NewStatPressJs', $style_path2);
+   wp_enqueue_script('NewStatPressJs');
+
  }
  add_action( 'admin_enqueue_scripts', 'nsp_register_plugin_styles' );
+
+
 
  function nsp_load_textdomain() {
    load_plugin_textdomain( 'newstatpress', false, nsp_BASENAME . '/langs' );
