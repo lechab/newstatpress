@@ -972,39 +972,7 @@ function iriStatAppend() {
 }
 
 
-/**
- * Get the days a user has choice for updating the database
- *
- * @return the number of days of -1 for all days
- */
-function iriNewStatPressDays() {
 
-  // get the number of days for the update
-  switch (get_option('newstatpress_updateint')) {
-    case '1 week':
-      $days=7; break;
-    case '2 weeks':
-      $days=14; break;
-    case '3 weeks':
-      $days=21; break;
-    case '1 month':
-      $days=30; break;
-    case '2 months':
-      $days=60; break;
-    case '3 months':
-      $days=90; break;
-    case '6 months':
-      $days=180; break;
-    case '9 months':
-      $days=270; break;
-    case '12 months':
-      $days=365; break;
-    default :
-      $days=-1; // infinite in the past, for all day
-  }
-
-  return $days;
-}
 
 
 
