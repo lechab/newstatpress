@@ -1047,7 +1047,7 @@ function nsp_ExpandVarsInsideCode($body) {
 
   # look for %thistotalvisits%
   if(strpos(strtolower($body),"%thistotalvisits%") !== FALSE) {
-    $body = str_replace("%thistotalvisits%", nsp_GenerateAjaxVar($var, 0, '', iri_NewStatPress_URL()), $body); 
+    $body = str_replace("%thistotalvisits%", nsp_GenerateAjaxVar("thistotalvisits", 0, '', iri_NewStatPress_URL()), $body); 
   }
 
   # look for %since%
