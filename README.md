@@ -17,6 +17,7 @@
 - [x] Fix Search page link
 - [x] Various core fix (global definition, function, plugin page names with nsp_ prefix)
 - [x] Various debug fix (deprecated function, unset variable)
+- [x] Fix thistotalvisit api call
 
 ## 0.9.5
 - [x] Fix PHP compatibility issue on old versions

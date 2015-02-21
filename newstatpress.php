@@ -994,8 +994,9 @@ function NewStatPress_Print($body='') {
  * @param var variable to get
  * @param limit optional limit value for query
  * @param flag optional flag value for checked
+ * @param url optional url address
  */
-function nsp_generateAjaxVar($var, $limit=0, $flag='') {
+function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
   global $newstatpress_dir;
 
   $res = "<span id=\"".$var."\">_</span>
@@ -1009,7 +1010,7 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='') {
               }
             }
 
-            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."&LIMIT=".$limit."&FLAG=".$flag."\";
+            var url=\"".plugins_url('newstatpress')."/includes/api/variables.php?VAR=".$var."&LIMIT=".$limit."&FLAG=".$flag."&URL=".$url."\";
 
             xmlhttp_".$var.".open(\"GET\", url, true);
             xmlhttp_".$var.".send();
@@ -1034,7 +1035,6 @@ function nsp_ExpandVarsInsideCode($body) {
                    'totalvisits',
                    'totalpageviews',
                    'todaytotalpageviews',
-                   'thistotalvisits',
                    'alltotalvisits'
                   );
 
@@ -1043,6 +1043,11 @@ function nsp_ExpandVarsInsideCode($body) {
     if(strpos(strtolower($body),"%$var%") !== FALSE) {
       $body = str_replace("%$var%", nsp_GenerateAjaxVar($var), $body);
     }
+  }
+
+  # look for %thistotalvisits%
+  if(strpos(strtolower($body),"%thistotalvisits%") !== FALSE) {
+    $body = str_replace("%thistotalvisits%", nsp_GenerateAjaxVar($var, 0, '', iri_NewStatPress_URL()), $body); 
   }
 
   # look for %since%
