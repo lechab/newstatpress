@@ -19,7 +19,7 @@ function nsp_DisplayToolsPage() {
                             'remove' => __('Remove','newstatpress')
                           );
 
-  $default_tab=array_values($ToolsPage_tabs)[0];
+  $default_tab='IP2nation';
 
   print "<div class='wrap'><h2>".__('Database Tools','newstatpress')."</h2>";
 
