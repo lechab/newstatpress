@@ -2,7 +2,6 @@
 
 **USELESS IDEA**
 - add a page help somewhere (the help for the different %variable%,...)
-- [ ] tab construction for option page
 - [ ] tab construction for overview page
 - [ ] irihdate function in double with newstatpress_hdate => to clean
 - [ ] Fix number of dot of navbar in Visitors page
@@ -11,22 +10,47 @@
 - [ ] changer le nom du widget dashboard
 - [ ] Big problem on search function
 - [ ] Export database > dump sql (bkp)
+- [ ] add Select definitions to update
+- add number on the websit in the overview page
+- add jquery for credit page
+
+
+
+## 0.9.7
+
+User interface changes:
+* [ ] Added New option : overview stats calculation method (global distinct ip OR sum of each day)
+* [ ] Added New information 'Visitors RSS Feeds' in Overview page
 
 ## 0.9.6
-- [x] New Option page with tabs navigation (jquery)
-- [x] Fix Search page link
-- [x] Various core fix (global definition, function, plugin page names with nsp_ prefix)
-- [x] Various debug fix (deprecated function, unset variable)
-- [x] Fix thistotalvisit api call
+Released date: 2015-02-21
+
+User interface changes:
+* Added Option page with tab navigation (use jQuery and idTabs)
+* Fixed Search page link
+* Updated Locale fr_FR, it_IT
+
+Core changes:
+* Various fixes (global definition, function, plugin page names with nsp_ prefix, code spliting)
+* Various debug fixes (deprecated function, unset variable)
+* Fixed %thistotalvisit% in API call
+
 
 ## 0.9.5
-- [x] Fix PHP compatibility issue on old versions
+
+* Fixed PHP compatibility issue on old versions (tools page)
 
 ## 0.9.4
-- [x] Update of Widget 'NewStatPress' (code re-writed, add variable informations)
-- [x] Fix Overview Table (CSS)
-- [x] Add Tool page with tab navigation
-- [x] Update: locale fr_FR, it_IT
+
+User interface changes:
+* Added Tool page with tab navigation
+* Added variable informations in Widget 'NewStatPress'
+* Fix Overview Table (CSS)
+* Updated Locale fr_FR, it_IT
+
+Core changes:
+- [x] Update of Widget 'NewStatPress' : code re-writed
+
 
 ## 0.9.3
 

@@ -176,6 +176,56 @@ function iriNewStatPressOptions() {
 
   echo "<tr>";
 
+  echo "<th scope='row' rowspan='2'>"; _e('Visits calculation method','newstatpress'); echo "</th>";
+  echo "</tr>";
+  echo "<tr>";
+// $name=$nsp_option_vars['calculation']['name'];
+// $value=$nsp_option_vars['calculation']['value'];
+
+  echo "<td>
+
+      <fieldset>
+          <legend class='screen-reader-text'></legend>
+          <p>
+            <label>
+              <input class='tog' type='radio' value=";
+
+
+              if (get_option($nsp_option_vars['calculation']['name'])=='') {
+                echo $nsp_option_vars['calculation']['value'];
+                echo " checked";
+              }
+              else {
+                echo 'classic';
+                if (get_option($nsp_option_vars['calculation']['name'])=='classic') {
+                  echo " checked";
+                }
+              }
+              echo " name='$name'></input>
+                  		return Distinct IP (Classic method)
+              </label>
+          </p>
+          <p>
+              <label>
+              <input class='tog' type='radio' value=";
+
+                echo 'sum';
+                  if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
+                    echo " checked";
+                  }
+
+            echo " name='$name'></input>
+
+                  return sum of Distinct IP of each day
+
+                        </label>
+                    </p>
+      </fieldset>
+      </td>";
+  echo "</tr>";
+  echo "<tr>";
+
+
   echo "<th scope='row' rowspan='2'>"; _e('Graph','newstatpress'); echo "</th>";
   echo "</tr>";
   echo "<tr>";

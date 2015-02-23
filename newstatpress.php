@@ -45,7 +45,8 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'ignore_users'=>array('name'=>'newstatpress_ignore_users','value'=>''),
                         'ignore_ip'=>array('name'=>'newstatpress_ignore_ip','value'=>''),
                         'ignore_permalink'=>array('name'=>'newstatpress_ignore_permalink','value'=>''),
-                        'updateint'=>array('name'=>'newstatpress_updateint','value'=>'')
+                        'updateint'=>array('name'=>'newstatpress_updateint','value'=>''),
+                        'calculation'=>array('name'=>'newstatpress_calculation_method','value'=>'classic')
                       );
                       // ''=>array('name'=>'','value'=>''),
 
@@ -1047,7 +1048,7 @@ function nsp_ExpandVarsInsideCode($body) {
 
   # look for %thistotalvisits%
   if(strpos(strtolower($body),"%thistotalvisits%") !== FALSE) {
-    $body = str_replace("%thistotalvisits%", nsp_GenerateAjaxVar("thistotalvisits", 0, '', iri_NewStatPress_URL()), $body); 
+    $body = str_replace("%thistotalvisits%", nsp_GenerateAjaxVar("thistotalvisits", 0, '', iri_NewStatPress_URL()), $body);
   }
 
   # look for %since%
@@ -1402,7 +1403,7 @@ function nsp_CalculateVariation($month,$lmonth,$row) {
 
 function nsp_MakeOverview($print ='dashboard') {
 
-  global $wpdb;
+  global $wpdb, $nsp_option_vars;
   $table_name = nsp_TABLENAME;
 
   $overview_table='';
@@ -1481,6 +1482,7 @@ elseif ($print=='dashboard'){
 }
   // build body overview table
   $overview_rows=array('visitors','pageview','spiders','feeds');
+  // echo "current month: ";
 
   foreach ($overview_rows as $row) {
 
@@ -1515,7 +1517,29 @@ elseif ($print=='dashboard'){
     $qry_total = $wpdb->get_row($sql_QueryTotal);
     $qry_tyear = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'");
     $qry_lmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$lastmonth%'");
-    $qry_tmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thismonth%'");
+
+    if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
+
+    // alternative calculation by mouth: sum of unique visitors of each day
+    $tot=0;
+    $t = getdate(current_time('timestamp'));
+    $year = $t['year'];
+    $month = sprintf('%02d', $t['mon']);
+    $day= $t['mday'];
+    for($i=0;$i<$day;$i++)
+    {
+      $qry_day=$wpdb->get_row($sql_QueryTotal. " AND date LIKE '$year$month$i%'");
+      $tot+=$qry_day->$row;
+    }
+    // echo $tot." ,";
+    $qry_tmonth->$row=$tot;
+}
+else { // classic
+  $qry_tmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thismonth%'");
+}
+
+
+
     $qry_y = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$yesterday'");
     $qry_t = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$today'");
 
