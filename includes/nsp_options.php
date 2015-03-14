@@ -29,10 +29,10 @@ function iriNewStatPress_trim_value(&$value) {
 
 function print_option($option_title,$option_var,$var) {
 
-  if($option_var!='newstatpress_mincap' AND $option_var!='newstatpress_menudetails_cap' AND $option_var!='newstatpress_menuvisits_cap')
+  if($option_var!='newstatpress_menuoverview_cap' AND $option_var!='newstatpress_menudetails_cap' AND $option_var!='newstatpress_menuvisits_cap' AND $option_var!='newstatpress_menusearch_cap' AND $option_var!='newstatpress_menutools_cap' AND $option_var!='newstatpress_menuoptions_cap')
     echo "<td>$option_title</td>\n";
   echo "<td><select name=$option_var>\n";
-  if($option_var=='newstatpress_mincap' OR $option_var=='newstatpress_menudetails_cap' OR $option_var=='newstatpress_menuvisits_cap') {
+  if($option_var=='newstatpress_menuoverview_cap' OR $option_var=='newstatpress_menudetails_cap' OR $option_var=='newstatpress_menuvisits_cap' OR $option_var=='newstatpress_menusearch_cap' OR $option_var=='newstatpress_menutools_cap' OR $option_var=='newstatpress_menuoptions_cap') {
     $role = get_role('administrator');
     foreach($role->capabilities as $cap => $grant) {
       print "<option ";
@@ -162,10 +162,10 @@ function iriNewStatPressOptions() {
   $option_var='newstatpress_dashboard';
   print_checked($option_title,$option_var);
 
-  $option_title=__('Minimum capability to view stats','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
+  $option_title=__('Minimum capability to display the overview menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
   echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
-  $option_var='newstatpress_mincap';
-  $val=get_option('newstatpress_mincap');
+  $option_var='newstatpress_menuoverview_cap';
+  $val=get_option($option_var);
   print_option('',$option_var,$val);
 
   echo "</tr>";
@@ -181,12 +181,36 @@ function iriNewStatPressOptions() {
 
   $option_title=__('Minimum capability to display the visits menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
   echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
-  // $option_var=$nsp_option_vars['menuvisits_cap']['name'];
   $option_var='newstatpress_menuvisits_cap';
   $val=get_option($option_var);
   print_option('',$option_var,$val);
   echo "</tr>";
   echo "<tr>";
+
+  $option_title=__('Minimum capability to display the search menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
+  echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+  $option_var='newstatpress_menusearch_cap';
+  $val=get_option($option_var);
+  print_option('',$option_var,$val);
+  echo "</tr>";
+  echo "<tr>";
+
+  $option_title=__('Minimum capability to display the tools menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
+echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+$option_var='newstatpress_menutools_cap';
+$val=get_option($option_var);
+print_option('',$option_var,$val);
+echo "</tr>";
+echo "<tr>";
+
+$option_title=__('Minimum capability to display the options menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
+echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+$option_var='newstatpress_menuvisits_cap';
+$val=get_option($option_var);
+print_option('',$option_var,$val);
+echo "</tr>";
+echo "<tr>";
+
 
   echo "</table></div>";
 

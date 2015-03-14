@@ -46,9 +46,15 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'ignore_permalink'=>array('name'=>'newstatpress_ignore_permalink','value'=>''),
                         'updateint'=>array('name'=>'newstatpress_updateint','value'=>''),
                         'calculation'=>array('name'=>'newstatpress_calculation_method','value'=>'classic'),
-                        'menu_cap'=>array('name'=>'newstatpress_mincap','value'=>'switch_themes'),
+                        'menu_cap'=>array('name'=>'newstatpress_mincap','value'=>'read'),
+                        'menuoverview_cap'=>array('name'=>'newstatpress_menuoverview_cap','value'=>'switch_themes'),
                         'menudetails_cap'=>array('name'=>'newstatpress_menudetails_cap','value'=>'switch_themes'),
-                        'menuvisits_cap'=>array('name'=>'newstatpress_menuvisits_cap','value'=>'switch_themes')
+                        'menuvisits_cap'=>array('name'=>'newstatpress_menuvisits_cap','value'=>'switch_themes'),
+                        'menusearch_cap'=>array('name'=>'newstatpress_menusearch_cap','value'=>'switch_themes'),
+                        'menuoptions_cap'=>array('name'=>'newstatpress_menuoptions_cap','value'=>'edit_users'),
+                        'menutools_cap'=>array('name'=>'newstatpress_menutools_cap','value'=>'switch_themes'),
+                        'menucredits_cap'=>array('name'=>'newstatpress_menucredits_cap','value'=>'read')
+
                       );
                       // ''=>array('name'=>'','value'=>''),
 
@@ -122,27 +128,48 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
 
 function nsp_BuildPluginMenu() {
 
+  global $nsp_option_vars;
+
+
   // Fix capability if it's not defined
-  $capability=get_option('newstatpress_mincap') ;
-  if(!$capability)
+  // $capability=get_option('newstatpress_mincap') ;
+  // if(!$capability) //default value
     $capability=$nsp_option_vars['menu_cap']['value'];
 
+  $overview_capability=get_option('newstatpress_menuoverview_cap') ;
+  if(!$overview_capability) //default value
+    $overview_capability=$nsp_option_vars['menuoverview_cap']['value'];
+
   $details_capability=get_option('newstatpress_menudetails_cap') ;
-  if(!$details_capability)
+  if(!$details_capability) //default value
     $details_capability=$nsp_option_vars['menudetails_cap']['value'];
 
-  $visits_capability=get_option('newstatpress_menudetails_cap') ;
-  if(!$visits_capability)
+  $visits_capability=get_option('newstatpress_menuvisits_cap') ;
+  if(!$visits_capability) //default value
     $visits_capability=$nsp_option_vars['menuvisits_cap']['value'];
 
+  $search_capability=get_option('newstatpress_menusearch_cap') ;
+  if(!$search_capability) //default value
+    $search_capability=$nsp_option_vars['menusearch_cap']['value'];
+
+  $tools_capability=get_option('newstatpress_menutools_cap') ;
+  if(!$tools_capability) //default value
+    $tools_capability=$nsp_option_vars['menutools_cap']['value'];
+
+  $options_capability=get_option('newstatpress_menuoptions_cap') ;
+  if(!$options_capability) //default value
+    $options_capability=$nsp_option_vars['menuoptions_cap']['value'];
+
+  $credits_capability=$nsp_option_vars['menucredits_cap']['value'];
+
   add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',nsp_BASENAME));
-  add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $capability, 'nsp-main', 'iriNewStatPressMain');
+  add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $overview_capability, 'nsp-main', 'iriNewStatPressMain');
   add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $details_capability, 'nsp_details', 'iriNewStatPressDetails');
   add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $visits_capability, 'nsp_visits', 'nsp_DisplayVisitsPage');
-  add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $capability, 'nsp_search', 'nsp_DatabaseSearch');
-  add_submenu_page('nsp-main', __('Tools','newstatpress'), __('Tools','newstatpress'), $capability, 'nsp_tools', 'nsp_DisplayToolsPage');
-  add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $capability, 'nsp_options', 'iriNewStatPressOptions');
-  add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $capability, 'nsp_credits', 'nsp_DisplayCreditsPage');
+  add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $search_capability, 'nsp_search', 'nsp_DatabaseSearch');
+  add_submenu_page('nsp-main', __('Tools','newstatpress'), __('Tools','newstatpress'), $tools_capability, 'nsp_tools', 'nsp_DisplayToolsPage');
+  add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $options_capability, 'nsp_options', 'iriNewStatPressOptions');
+  add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $credits_capability, 'nsp_credits', 'nsp_DisplayCreditsPage');
 
 }
 add_action('admin_menu', 'nsp_BuildPluginMenu');
