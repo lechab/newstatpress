@@ -19,7 +19,7 @@
 - [ ] Add'version' in external API
 - [ ] Change days calculation into prune functions
 - [ ] add number of visitors online in the overview page
-- add jquery for credit page
+- [ ] add jquery for credit page
 - [ ] Database migration routine with unique name
 
 
@@ -28,13 +28,15 @@
 ## 0.9.7
 
 User interface changes:
-- [x] Added New option in Overview Tab : overview stats calculation method (global distinct ip OR sum of each day)
-- [x] Added New options in General Tab : capabilities of some menus
+- [x] Added New option in Overview Tab : overview stats calculation method (global distinct ip OR sum of each day) (Note: online for month at the moment)
+- [x] Added New options in General Tab : add capabilities selection to display menus, options menu need to be administrator by default
 - [x] Added New information 'Visitors RSS Feeds' in Overview page
+- [ ] Updated Locale fr_FR, it_IT
 
 Core changes:
 - [x] Updated OS definition
 - [x] Updated Browser definition
+- [ ] Fixed '3 months Purge' issue
 
 
 ## 0.9.6
