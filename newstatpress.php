@@ -41,12 +41,14 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'autodelete'=>array('name'=>'newstatpress_autodelete','value'=>''),
                         'autodelete_spiders'=>array('name'=>'newstatpress_autodelete_spiders','value'=>''),
                         'daysinoverviewgraph'=>array('name'=>'newstatpress_daysinoverviewgraph','value'=>''),
-                        'mincap'=>array('name'=>'newstatpress_mincap','value'=>''),
                         'ignore_users'=>array('name'=>'newstatpress_ignore_users','value'=>''),
                         'ignore_ip'=>array('name'=>'newstatpress_ignore_ip','value'=>''),
                         'ignore_permalink'=>array('name'=>'newstatpress_ignore_permalink','value'=>''),
                         'updateint'=>array('name'=>'newstatpress_updateint','value'=>''),
-                        'calculation'=>array('name'=>'newstatpress_calculation_method','value'=>'classic')
+                        'calculation'=>array('name'=>'newstatpress_calculation_method','value'=>'classic'),
+                        'menu_cap'=>array('name'=>'newstatpress_mincap','value'=>'switch_themes'),
+                        'menudetails_cap'=>array('name'=>'newstatpress_menudetails_cap','value'=>'switch_themes'),
+                        'menuvisits_cap'=>array('name'=>'newstatpress_menuvisits_cap','value'=>'switch_themes')
                       );
                       // ''=>array('name'=>'','value'=>''),
 
@@ -123,12 +125,20 @@ function nsp_BuildPluginMenu() {
   // Fix capability if it's not defined
   $capability=get_option('newstatpress_mincap') ;
   if(!$capability)
-    $capability='switch_themes';
+    $capability=$nsp_option_vars['menu_cap']['value'];
+
+  $details_capability=get_option('newstatpress_menudetails_cap') ;
+  if(!$details_capability)
+    $details_capability=$nsp_option_vars['menudetails_cap']['value'];
+
+  $visits_capability=get_option('newstatpress_menudetails_cap') ;
+  if(!$visits_capability)
+    $visits_capability=$nsp_option_vars['menuvisits_cap']['value'];
 
   add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',nsp_BASENAME));
   add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $capability, 'nsp-main', 'iriNewStatPressMain');
-  add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $capability, 'nsp_details', 'iriNewStatPressDetails');
-  add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $capability, 'nsp_visits', 'nsp_DisplayVisitsPage');
+  add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $details_capability, 'nsp_details', 'iriNewStatPressDetails');
+  add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $visits_capability, 'nsp_visits', 'nsp_DisplayVisitsPage');
   add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $capability, 'nsp_search', 'nsp_DatabaseSearch');
   add_submenu_page('nsp-main', __('Tools','newstatpress'), __('Tools','newstatpress'), $capability, 'nsp_tools', 'nsp_DisplayToolsPage');
   add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $capability, 'nsp_options', 'iriNewStatPressOptions');
@@ -1481,7 +1491,7 @@ elseif ($print=='dashboard'){
             <tbody class='overview-list'>";
 }
   // build body overview table
-  $overview_rows=array('visitors','pageview','spiders','feeds');
+  $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');
   // echo "current month: ";
 
   foreach ($overview_rows as $row) {
@@ -1493,6 +1503,12 @@ elseif ($print=='dashboard'){
         $row_title=__('Visitors','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
       break;
+
+      case 'visitors_feeds' :
+        $row2='DISTINCT ip';
+        $row_title=__('Visitors through Feeds','newstatpress');
+        $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider='' AND agent<>''";
+        break;
 
       case 'pageview' :
         $row2='date';
@@ -1508,7 +1524,7 @@ elseif ($print=='dashboard'){
 
       case 'feeds' :
         $row2='date';
-        $row_title=__('Feeds','newstatpress');
+        $row_title=__('Pageviews through Feeds','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider=''";
       break;
     }
@@ -1516,28 +1532,40 @@ elseif ($print=='dashboard'){
     // query requests
     $qry_total = $wpdb->get_row($sql_QueryTotal);
     $qry_tyear = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'");
-    $qry_lmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$lastmonth%'");
+
 
     if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
 
-    // alternative calculation by mouth: sum of unique visitors of each day
-    $tot=0;
-    $t = getdate(current_time('timestamp'));
-    $year = $t['year'];
-    $month = sprintf('%02d', $t['mon']);
-    $day= $t['mday'];
-    for($i=0;$i<$day;$i++)
-    {
-      $qry_day=$wpdb->get_row($sql_QueryTotal. " AND date LIKE '$year$month$i%'");
-      $tot+=$qry_day->$row;
-    }
-    // echo $tot." ,";
-    $qry_tmonth->$row=$tot;
-}
-else { // classic
-  $qry_tmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thismonth%'");
-}
+      // alternative calculation by mouth: sum of unique visitors of each day
+      $tot=0;
+      $t = getdate(current_time('timestamp'));
+      $year = $t['year'];
+      $month = sprintf('%02d', $t['mon']);
+      $day= $t['mday'];
+      $totlm=0;
 
+      for($k=$t['mon'];$k>0;$k--)
+      {
+        //current month
+
+      }
+      for($i=0;$i<$day;$i++)
+      {
+        $qry_daylmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$lastmonth$i%'");
+        $qry_day=$wpdb->get_row($sql_QueryTotal. " AND date LIKE '$year$month$i%'");
+        $tot+=$qry_day->$row;
+        $totlm+=$qry_daylmonth->$row;
+
+      }
+      // echo $totlm." ,";
+      $qry_tmonth->$row=$tot;
+      $qry_lmonth->$row=$totlm;
+
+    }
+    else { // classic
+      $qry_tmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thismonth%'");
+      $qry_lmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$lastmonth%'");
+    }
 
 
     $qry_y = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$yesterday'");
