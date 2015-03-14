@@ -7,10 +7,17 @@
 - [ ] Fix number of dot of navbar in Visitors page
 - [ ] Add bot rss https://github.com/feedjira/feedjira/tree/master
 - [ ] update options use of foreach
-- [ ] changer le nom du widget dashboard
+- [ ] change the name of widget dashboard
 - [ ] Big problem on search function
 - [ ] Export database > dump sql (bkp)
 - [ ] add Select definitions to update
+- [ ] Add a 'unique visitors' row in the overview chart
+- [ ] Add options to (de)activate single chart/graphs of overview and details
+- [ ] Add options to let or not users (not administrator) to see or not options/owerview/details/visits
+- [ ] Add API Key in option
+- [ ] Generate extenal API interfaces
+- [ ] Add'version' in external API
+- [ ] Change days calculation into prune functions
 - add number on the websit in the overview page
 - add jquery for credit page
 
@@ -19,40 +26,43 @@
 ## 0.9.7
 
 User interface changes:
-* [ ] Added New option : overview stats calculation method (global distinct ip OR sum of each day)
-* [ ] Added New information 'Visitors RSS Feeds' in Overview page
+- [x] Added New option : overview stats calculation method (global distinct ip OR sum of each day)
+- [x] Added New information 'Visitors RSS Feeds' in Overview page
 
 ## 0.9.6
 Released date: 2015-02-21
 
 User interface changes:
-* Added Option page with tab navigation (use jQuery and idTabs)
-* Fixed Search page link
-* Updated Locale fr_FR, it_IT
+- [x] Added Option page with tab navigation (use jQuery and idTabs)
+- [x] Fixed Search page link
+- [x] Updated Locale fr_FR, it_IT
 
 Core changes:
-* Various fixes (global definition, function, plugin page names with nsp_ prefix, code spliting)
-* Various debug fixes (deprecated function, unset variable)
-* Fixed %thistotalvisit% in API call
+- [x] Various fixes (global definition, function, plugin page names with nsp_ prefix, code spliting)
+- [x] Various debug fixes (deprecated function, unset variable)
+- [x] Fixed %thistotalvisit% in API call
 
 
 ## 0.9.5
+Released date: 18/02/2015
 
-* Fixed PHP compatibility issue on old versions (tools page)
+- [x] Fixed PHP compatibility issue on old versions (tools page)
 
 ## 0.9.4
+Released date: 18/02/2015
 
 User interface changes:
-* Added Tool page with tab navigation
-* Added variable informations in Widget 'NewStatPress'
-* Fix Overview Table (CSS)
-* Updated Locale fr_FR, it_IT
+- [x] Added Tool page with tab navigation
+- [x] Added variable informations in Widget 'NewStatPress'
+- [x] Fix Overview Table (CSS)
+- [x] Updated Locale fr_FR, it_IT
 
 Core changes:
 - [x] Update of Widget 'NewStatPress' : code re-writed
 
 
 ## 0.9.3
+Released date: 17/02/2015
 
 - [x] Add Visits page with tab navigation
 - [x] Add tab navigation in Crédits page
@@ -70,18 +80,22 @@ Core changes:
 - [x] Update: locale fr_FR, it_IT
 
 ## 0.9.2
+Released date: 09/02/2015
 
 - [x] CSS fix, Overview fix and wp_enqueue_style compatibility fix
 
 ## 0.9.1
+Released date: 08/02/2015
 
 - [x] Activate changes of 0.8.9 in version 0.9.1 with PHP fixes
 
 ## 0.9.0
+Released date: 07/02/2015
 
 - [x] Revert to version 0.8.8 for problems with old PHP version
 
 ## 0.8.9
+Released date: 07/02/2015
 
 Development:
 - [x] Add Ip2nation download function in option page
