@@ -31,7 +31,7 @@ User interface changes:
 - [x] Added New option in Overview Tab : overview stats calculation method (global distinct ip OR sum of each day) (Note: online for month at the moment)
 - [x] Added New options in General Tab : add capabilities selection to display menus, options menu need to be administrator by default
 - [x] Added New information 'Visitors RSS Feeds' in Overview page
-- [ ] Updated Locale fr_FR, it_IT
+- [x] Updated Locale fr_FR, it_IT, cs_CZ
 
 Core changes:
 - [x] Updated OS definition
