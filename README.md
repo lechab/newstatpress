@@ -36,7 +36,7 @@ User interface changes:
 Core changes:
 - [x] Updated OS definition
 - [x] Updated Browser definition
-- [ ] Fixed '3 months Purge' issue
+- [x] Fixed '3 months Purge' issue
 
 
 ## 0.9.6

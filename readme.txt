@@ -4,7 +4,7 @@ Donate link: http://newstatpress.altervista.org
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 2.1
 Tested up to: 4.1
-Stable Tag: 0.9.6
+Stable Tag: 0.9.7
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -120,6 +120,20 @@ Check at http://newstatpress.altervista.org
 Check at http://newstatpress.altervista.org
 
 == Changelog ==
+
+= 0.9.7 =
+*Release Date - 11/04/2015*
+
+User interface changes:
+* Added New option in Overview Tab : overview stats calculation method (global distinct ip OR sum of each day) (Note: online for month at the moment)
+* Added New options in General Tab : add capabilities selection to display menus, options menu need to be administrator by default
+* Added New information 'Visitors RSS Feeds' in Overview page
+* Updated Locale fr_FR, it_IT, cs_CZ
+
+Core changes:
+* Updated OS definition
+* Updated Browser definition
+* Fixed '3 months Purge' issue
 
 = 0.9.6 =
 *Release Date - 21/02/2015*

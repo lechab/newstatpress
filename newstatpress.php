@@ -3,12 +3,12 @@
 Plugin Name: NewStatPress
 Plugin URI: http://newstatpress.altervista.org
 Description: Real time stats for your Wordpress blog
-Version: 0.9.6
+Version: 0.9.7
 Author: Stefano Tognon and cHab (from Daniele Lippi works)
 Author URI: http://newstatpress.altervista.org
 ************************************************************/
 
-$_NEWSTATPRESS['version']='0.9.6';
+$_NEWSTATPRESS['version']='0.9.7';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
@@ -940,18 +940,30 @@ function iriStatAppend() {
 
   // Auto-delete visits if...
   if(get_option('newstatpress_autodelete') != '') {
-    $t=gmdate("Ymd",strtotime('-'.get_option('newstatpress_autodelete')));
-    $results =$wpdb->query( "DELETE FROM " . $table_name . " WHERE date < '" . $t . "'");
+    $int = filter_var(get_option('newstatpress_autodelete'), FILTER_SANITIZE_NUMBER_INT);
+    # secure action
+    if ($int>=1) {
+      $t=gmdate('Ymd', current_time('timestamp')-86400*$int*30);
+
+      $results =$wpdb->query( "DELETE FROM " . $table_name . " WHERE date < '" . $t . "'");
+    }
   }
+
   // Auto-delete spiders visits if...
   if(get_option('newstatpress_autodelete_spiders') != '') {
-    $t=gmdate("Ymd",strtotime('-'.get_option('newstatpress_autodelete_spiders')));
-    $results =$wpdb->query(
-       "DELETE FROM " . $table_name . "
-        WHERE date < '" . $t . "' and
-              feed='' and
-              spider<>''
-       ");
+    $int = filter_var(get_option('newstatpress_autodelete_spiders'), FILTER_SANITIZE_NUMBER_INT);
+
+    # secure action
+    if ($int>=1) {
+      $t=gmdate('Ymd', current_time('timestamp')-86400*$int*30);
+
+      $results =$wpdb->query(
+         "DELETE FROM " . $table_name . "
+          WHERE date < '" . $t . "' and
+                feed='' and
+                spider<>''
+         ");
+    }
   }
 
   if ((!is_user_logged_in()) OR (get_option('newstatpress_collectloggeduser')=='checked')) {

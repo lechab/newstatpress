@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-15 12:52+0100\n"
-"PO-Revision-Date: 2015-03-15 13:25+0100\n"
+"POT-Creation-Date: 2015-04-11 19:07+0100\n"
+"PO-Revision-Date: 2015-04-11 19:08+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -12,42 +12,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.7.3\n"
+"X-Generator: Poedit 1.7.5\n"
 "X-Poedit-SearchPath-0: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk\n"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:6
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:6
 msgid "support page"
 msgstr "pagina di supporto"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:7
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:7
 msgid "the author"
 msgstr "l'autore"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:8
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:8
 msgid "Development"
 msgstr "Sviluppo"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:9
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:9
 msgid "Translation"
 msgstr "Traduzioni"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:10
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:10
 msgid "Donation"
 msgstr "Donazione"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:46
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:46
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:47
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:172
 msgid "Credits"
 msgstr "Crediti"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:48
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:48
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:49
 #, php-format
 msgid ""
 "If you have found this plugin usefull and you like it, you can support the "
@@ -61,29 +54,24 @@ msgstr ""
 "libero, puoi anche fare una donazione cliccando nel pulsante per supportare "
 "il lavoro."
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:54
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:54
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:55
 msgid "Make a donation"
 msgstr "Fai una donazione"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:66
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:66
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:67
 msgid "Contributor"
 msgstr "Collaboratore"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:70
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:70
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:71
 msgid "Description"
 msgstr "Descrizione"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:81
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:78
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:79
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:229
 msgid "Language"
 msgstr "Lingua"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:92
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:89
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:90
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:229
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:269
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:283
@@ -92,64 +80,17 @@ msgstr "Lingua"
 msgid "Date"
 msgstr "Data"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:103
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:100
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:101
 msgid "Plugin homepage"
 msgstr "homepage Plugin"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:105
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:102
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:103
 msgid "RSS news"
 msgstr "novità RSS"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/credits.php:106
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:103
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:104
 msgid "News"
 msgstr "Novità"
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/functions-extra.php:23
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:238
-msgid "All data removed"
-msgstr "Tutti i dati sono stati rimossi"
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/functions-extra.php:27
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:242
-msgid "Remove NewStatPress database"
-msgstr "Rimuove il database di NewStatPress"
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/functions-extra.php:30
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:245
-msgid ""
-"Warning: pressing the below button will make all your stored data to be "
-"erased!"
-msgstr ""
-"Attenzione: premendo il pulsante qui sotto, tutti i dati memorizzati "
-"verranno cancellati!"
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/functions-extra.php:34
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:249
-msgid ""
-"It is added for the people that did not want to use the plugin anymore and "
-"so they want to remove the stored data."
-msgstr ""
-"Questo è stato aggiunto per le persone che non vogliono più usare il plugin "
-"e pertanto vogliono liberare lo spazio occupato."
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/functions-extra.php:36
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:251
-msgid "If you are in doubt about this function, don't use it."
-msgstr "Se sei in dubbio circa l'uso di questa funzione, non usarla."
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/functions-extra.php:39
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:19
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:254
-msgid "Remove"
-msgstr "Rimozione"
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/functions-extra.php:39
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:254
-msgid "Are you sure?"
-msgstr "Sei sicuro?"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:12
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:167
@@ -410,7 +351,7 @@ msgid ""
 "Enter a list of users you don't want to track, separated by commas, even if "
 "collect data about logged users is on"
 msgstr ""
-"Inserisci uan lista di utenti che non vuoi tracciare, separati da virgole, "
+"Inserisci una lista di utenti che non vuoi tracciare, separati da virgole, "
 "anche se hai abilitato di registrare anche i dati di utenti autenticati."
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:330
@@ -671,6 +612,11 @@ msgstr "Aggiornamento"
 msgid "Export"
 msgstr "Esporta"
 
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:19
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:254
+msgid "Remove"
+msgstr "Rimozione"
+
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:24
 msgid "Database Tools"
 msgstr "Strumenti database"
@@ -743,6 +689,38 @@ msgstr "A:"
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:186
 msgid "You should choose a fields delimiter to separate the data:"
 msgstr "Devi scegliere un delimitatore per separare i dati"
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:238
+msgid "All data removed"
+msgstr "Tutti i dati sono stati rimossi"
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:242
+msgid "Remove NewStatPress database"
+msgstr "Rimuove il database di NewStatPress"
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:245
+msgid ""
+"Warning: pressing the below button will make all your stored data to be "
+"erased!"
+msgstr ""
+"Attenzione: premendo il pulsante qui sotto, tutti i dati memorizzati "
+"verranno cancellati!"
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:249
+msgid ""
+"It is added for the people that did not want to use the plugin anymore and "
+"so they want to remove the stored data."
+msgstr ""
+"Questo è stato aggiunto per le persone che non vogliono più usare il plugin "
+"e pertanto vogliono liberare lo spazio occupato."
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:251
+msgid "If you are in doubt about this function, don't use it."
+msgstr "Se sei in dubbio circa l'uso di questa funzione, non usarla."
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:254
+msgid "Are you sure?"
+msgstr "Sei sicuro?"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:327
 msgid "Database Update"
