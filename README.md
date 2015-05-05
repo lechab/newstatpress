@@ -17,11 +17,15 @@
 - [ ] Add API Key in option
 - [ ] Generate extenal API interfaces
 - [ ] Add'version' in external API
-- [ ] Change days calculation into prune functions
+- [x] Change days calculation into prune functions
 - [ ] add number of visitors online in the overview page
 - [ ] add jquery for credit page
 - [ ] Database migration routine with unique name
 
+
+## 0.9.9
+- [x] Fix missing browser images
+- [x] Add tools for optimize and repair the statpress table
 
 ## 0.9.8
 Released date: 2015-04-26
