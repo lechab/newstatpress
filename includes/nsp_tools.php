@@ -19,7 +19,9 @@ function nsp_DisplayToolsPage() {
   $ToolsPage_tabs = array( 'IP2nation' => __('IP2nation','newstatpress'),
                             'update' => __('Update','newstatpress'),
                             'export' => __('Export','newstatpress'),
-                            'remove' => __('Remove','newstatpress')
+                            'optimize' => __('Optimize','newstatpress'),
+                            'repair' => __('Repair','newstatpress'),
+                            'remove' => __('Remove','newstatpress')                            
                           );
 
   $default_tab='IP2nation';
@@ -46,6 +48,14 @@ function nsp_DisplayToolsPage() {
 
       case 'update' :
       nsp_Update();
+      break;
+
+      case 'optimize' :
+      nsp_Optimize();
+      break;
+
+      case 'repair' :
+      nsp_Repair();
       break;
 
       case 'remove' :
@@ -596,6 +606,72 @@ function nsp_UpdateNow() {
 
   print "</tbody></table></div><br>\n";
   $wpdb->hide_errors();
+}
+
+/**
+ * Optimize form function
+ */
+function nsp_Optimize() {
+  // database update if requested by user
+  if (isset($_POST['optimize']) && $_POST['optimize'] == 'yes' ) {
+    nsp_OptimizeNow();
+    die;
+  }
+  ?>
+  <div class='wrap'>
+   <h3><?php _e('Optimize table','newstatpress'); ?></h3>
+       <?php _e('To optimize the statpress table, just click on the button bellow.','newstatpress');?>
+   <br /><br />
+   <form method=post>
+    <input type=hidden name=page value=newstatpress>
+    <input type=hidden name=optimize value=yes>
+    <input type=hidden name=newstatpress_action value=optimize>
+    <button class='button button-primary' type=submit><?php _e('Optimize','newstatpress'); ?></button>
+   </form>
+   <br /><br />
+  <?php _e('Optimize a table is an database operation that can free some server space if you had lot of delation (like with prune activated) in it. This operation can take lot of server time to finish so use it only if you know what you are doing.','newstatpress');?>
+  </div><?php
+}
+
+/**
+ * Repair form function
+ */
+function nsp_Repair() {
+  // database update if requested by user
+  if (isset($_POST['repair']) && $_POST['repair'] == 'yes' ) {
+    nsp_RepairNow();
+    die;
+  }
+  ?>
+  <div class='wrap'>
+   <h3><?php _e('Repair table','newstatpress'); ?></h3>
+       <?php _e('To repair the statpress table if damaged, just click on the button bellow.','newstatpress');?>
+   <br /><br />
+   <form method=post>
+    <input type=hidden name=page value=newstatpress>
+    <input type=hidden name=repair value=yes>
+    <input type=hidden name=newstatpress_action value=repair>
+    <button class='button button-primary' type=submit><?php _e('Repair','newstatpress'); ?></button>
+   </form>
+   <br /><br />
+  <?php _e('Repair is an database operation that can fix a corrupted table. This operation can take lot of server time to finish so use it only if you know what you are doing.','newstatpress');?>
+  </div><?php
+}
+
+function nsp_OptimizeNow() {
+  global $wpdb;
+  $table_name = nsp_TABLENAME;  
+
+  $wpdb->query("OPTIMIZE TABLE $table_name");
+  print "<br /><div class='optimize'><p>".__('Optimization finished','newstatpress')."!</p></div>"; 
+}
+
+function nsp_RepairNow() {
+  global $wpdb;
+  $table_name = nsp_TABLENAME;  
+
+  $wpdb->query("REPAIR TABLE $table_name");
+  print "<br /><div class='repair'><p>".__('Repair finished','newstatpress')."!</p></div>";  
 }
 
 ?>
