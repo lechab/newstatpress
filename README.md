@@ -26,6 +26,7 @@
 ## 0.9.9
 - [x] Fix missing browser images
 - [x] Add tools for optimize and repair the statpress table
+- [x] Updated Locale it_IT
 
 ## 0.9.8
 Released date: 2015-04-26
