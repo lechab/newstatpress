@@ -23,6 +23,10 @@ Note: you must disable the original StatPress plugin (or other plugins still bas
 
 With the new ajax/javascript usage for variables in widget, the plugin is faster for a user being visit your site even with 1GB or more of database to use!
 
+Important: all previous versions from 0.9.9 are subject to XSS and SQL injection from an old Statpress routine. You have to use at least version 0.9.9.
+Unfortunately actually over 50% of people still use versions before 0.9.0!!!!
+Please update always to the latest version available.
+
 = Support =
 
 Check at  http://newstatpress.altervista.org
@@ -120,6 +124,15 @@ Check at http://newstatpress.altervista.org
 Check at http://newstatpress.altervista.org
 
 == Changelog ==
+= 0.9.9 =
+*Release Date - 20/05/2015*
+
+IMPORTANT CRITICAL UPDATE
+* Close a XSS and a SQL injection and possible other more complex to achieve (thanks to Adrián M. F. for discover and communicate them). Those are inside the search routine from Statpress so ALL previous versions of Newstatpress are vulnerable (and maybe they are present in lot of Statpress based plugin and Statpress itself).
+* Fix missing browser images
+* Add tools for optimize and repair the statpress table
+* Updated Locale it_IT
+
 
 = 0.9.8 =
 *Release Date - 26/04/2015*

@@ -24,6 +24,10 @@
 
 
 ## 0.9.9
+Released date: 2015-05-20
+
+IMPORTANT CRITICAL UPDATE
+- [x] Close a XSS and a SQL injection and possible other more complex to achieve (thanks to Adrián M. F. for discover and communicate them). Those are inside the search routine from Statpress so ALL previous versions of Newstatpress are vulnerable (and maybe they are present in lot of Statpress based plugin and Statpress itself).
 - [x] Fix missing browser images
 - [x] Add tools for optimize and repair the statpress table
 - [x] Updated Locale it_IT
