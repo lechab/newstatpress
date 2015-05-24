@@ -21,7 +21,7 @@ function nsp_DisplayToolsPage() {
                             'export' => __('Export','newstatpress'),
                             'optimize' => __('Optimize','newstatpress'),
                             'repair' => __('Repair','newstatpress'),
-                            'remove' => __('Remove','newstatpress')                            
+                            'remove' => __('Remove','newstatpress')
                           );
 
   $default_tab='IP2nation';
@@ -90,9 +90,11 @@ function nsp_IP2nation() {
      } else {
          _e('Last version installed: none ','newstatpress');
          echo '<br /><br />';
+
          _e('To download and to install the IP2nation database, just click on the button bellow.','newstatpress');
          $button_name='Download';
        }
+
     ?>
     <br /><br />
       <form method=post>
@@ -101,7 +103,16 @@ function nsp_IP2nation() {
        <input type=hidden name=newstatpress_action value=ip2nation>
        <button class='button button-primary' type=submit><?php _e($button_name,'newstatpress'); ?></button>
       </form>
-    </div><?php
+    </div>
+
+    <div class='update-nag'>
+
+    <?php
+    echo "<a href='http://www.ip2nation.com/'>"; _e('What is ip2nation?','newstatpress'); echo "</a><br>";
+    _e('ip2nation is a free MySQL database that offers a quick way to map an IP to a country. The database is optimized to ensure fast lookups and is based on information from ARIN, APNIC, RIPE etc. You may download the database using the link to the left. (sce: http://www.ip2nation.com)','newstatpress');
+    ?>
+    </div>
+<?php
 }
 
 // add by chab
@@ -660,18 +671,18 @@ function nsp_Repair() {
 
 function nsp_OptimizeNow() {
   global $wpdb;
-  $table_name = nsp_TABLENAME;  
+  $table_name = nsp_TABLENAME;
 
   $wpdb->query("OPTIMIZE TABLE $table_name");
-  print "<br /><div class='optimize'><p>".__('Optimization finished','newstatpress')."!</p></div>"; 
+  print "<br /><div class='optimize'><p>".__('Optimization finished','newstatpress')."!</p></div>";
 }
 
 function nsp_RepairNow() {
   global $wpdb;
-  $table_name = nsp_TABLENAME;  
+  $table_name = nsp_TABLENAME;
 
   $wpdb->query("REPAIR TABLE $table_name");
-  print "<br /><div class='repair'><p>".__('Repair finished','newstatpress')."!</p></div>";  
+  print "<br /><div class='repair'><p>".__('Repair finished','newstatpress')."!</p></div>";
 }
 
 ?>
