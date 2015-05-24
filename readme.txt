@@ -698,5 +698,3 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 
 
 == Upgrade Notice ==
-
-

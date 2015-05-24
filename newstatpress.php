@@ -53,8 +53,8 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'menusearch_cap'=>array('name'=>'newstatpress_menusearch_cap','value'=>'switch_themes'),
                         'menuoptions_cap'=>array('name'=>'newstatpress_menuoptions_cap','value'=>'edit_users'),
                         'menutools_cap'=>array('name'=>'newstatpress_menutools_cap','value'=>'switch_themes'),
-                        'menucredits_cap'=>array('name'=>'newstatpress_menucredits_cap','value'=>'read')
-
+                        'menucredits_cap'=>array('name'=>'newstatpress_menucredits_cap','value'=>'read'),
+                        'apikey'=>array('name'=>'newstatpress_apikey','value'=>'read')
                       );
                       // ''=>array('name'=>'','value'=>''),
 

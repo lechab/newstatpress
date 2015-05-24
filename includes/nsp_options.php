@@ -171,7 +171,8 @@ function nsp_Options() {
                           'overview' => __('Overview Menu','newstatpress'),
                           'details' => __('Details Menu','newstatpress'),
                           'visits' => __('Visits Menu','newstatpress'),
-                          'database' => __('Database','newstatpress')
+                          'database' => __('Database','newstatpress'),
+                          'api' => __('API (External access)','newstatpress')
                           );
 
   echo "<ul>";
@@ -478,6 +479,42 @@ function nsp_Options() {
 </table>
 </div>
 
+<?php
+// case 'API Key' :
+echo "<div id='api'>\n<table class='form-tableH'>";
+
+$option_title=__('API key','newstatpress');
+$option_var="newstatpress_apikey";
+$option_description=__('The external access API is build to let you to use the collected data from your Newstatpress plugin  in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run in another server). This key allows Newstatpress to recognize that you and only you want the data and not the not authorized people. Let it the input form blank means that you allow everyone to get data without authorization. Please be aware that the external API will be also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data (as Newstatpress uses the API from itself, that key will be used
+automatically).
+
+<br/><br/>To retrieve data from Newstatpress plugin, you can generate automatically or set manually a private key for the external API (Multi-Newstatpress) : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.','newstatpress');
+
+echo "<tr><td>\n<p class='ign'><label for=$option_var>$option_title</label></p>\n";
+echo "<p>$option_description</p>\n";
+echo "<div class='justified'>";
+
+echo "<p><textarea class='large-text code api' minlength='64' maxlength='128' cols='50' rows='3' name=$option_var id=$option_var>";
+echo get_option($option_var);
+echo "</textarea></p>\n";
+
+echo "</div>";
+
+echo "<tr><td>\n";
+echo "<div class='justified'>";
+echo "<div class='button' type='button' onClick='myFunction()'>";_e('Generate new API key','newstatpress');
+echo "</div>";
+echo "</td></tr>\n";
+echo "</div>";
+echo "</td></tr>\n";
+
+
+echo "</table></div";
+
+
+?>
+
+
 <p class='submit'>
 <input class='button button-primary' type=submit value="<?php _e('Save options','newstatpress'); ?>">
     <input type=hidden name=saveit value=yes>
@@ -490,6 +527,32 @@ function nsp_Options() {
 
   <script type="text/javascript">
   jQuery("#usual1 ul").idTabs(general);
+
+  function validateCode() {
+    // var TCode = document.getElementById('TCode').value;
+    var obj = document.getElementById("newstatpress_apikey").value;
+
+    if( /[^a-zA-Z0-9]/.test( obj ) ) {
+       alert('Input is not alphanumeric');
+       return false;
+    }
+    return true;
+ }
+
+ function randomString(length, chars) {
+     var result = '';
+     for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+     return result;
+ }
+
+ function myFunction() {
+     var obj = document.getElementById("newstatpress_apikey");
+     var txt = randomString(128, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+     obj.value = txt;
+ }
+
+
+
   </script>
 
 
