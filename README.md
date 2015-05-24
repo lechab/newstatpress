@@ -14,13 +14,22 @@
 - [ ] Add a 'unique visitors' row in the overview chart
 - [ ] Add options to (de)activate single chart/graphs of overview and details
 - [ ] Add options to let or not users (not administrator) to see or not options/owerview/details/visits
-- [ ] Add API Key in option
 - [ ] Generate extenal API interfaces
 - [ ] Add'version' in external API
 - [x] Change days calculation into prune functions
 - [ ] add number of visitors online in the overview page
 - [ ] add jquery for credit page
 - [ ] Database migration routine with unique name
+
+## 1.0.0
+Released date: 2015-0
+
+User interface changes:
+- [x] Added API key option in option menu
+
+Core changes:
+- [x] Fix the plugin menu view for "subscriver"
+- [x] Updated Locale fr_FR, it_IT
 
 
 ## 0.9.9
