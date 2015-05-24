@@ -13,6 +13,7 @@ $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
 
+
 define("nsp_TABLENAME", $wpdb->prefix . "statpress");
 define("nsp_BASENAME", dirname(plugin_basename(__FILE__)));
 
@@ -129,7 +130,8 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
 function nsp_BuildPluginMenu() {
 
   global $nsp_option_vars;
-
+  global $current_user;
+  get_currentuserinfo();
 
   // Fix capability if it's not defined
   // $capability=get_option('newstatpress_mincap') ;
@@ -162,6 +164,8 @@ function nsp_BuildPluginMenu() {
 
   $credits_capability=$nsp_option_vars['menucredits_cap']['value'];
 
+  // Display menu with personalized capabilities if user IS NOT "subscriber"
+  if ( ! user_can( $current_user, "subscriber" ) ) {
   add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'iriNewStatPressMain', plugins_url('newstatpress/images/stat.png',nsp_BASENAME));
   add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $overview_capability, 'nsp-main', 'iriNewStatPressMain');
   add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $details_capability, 'nsp_details', 'nsp_DisplayDetails');
@@ -170,7 +174,7 @@ function nsp_BuildPluginMenu() {
   add_submenu_page('nsp-main', __('Tools','newstatpress'), __('Tools','newstatpress'), $tools_capability, 'nsp_tools', 'nsp_DisplayToolsPage');
   add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $options_capability, 'nsp_options', 'nsp_Options');
   add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $credits_capability, 'nsp_credits', 'nsp_DisplayCreditsPage');
-
+  }
 }
 add_action('admin_menu', 'nsp_BuildPluginMenu');
 
