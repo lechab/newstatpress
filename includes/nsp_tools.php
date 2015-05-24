@@ -105,7 +105,7 @@ function nsp_IP2nation() {
       </form>
     </div>
 
-    <div class='update-nag'>
+    <div class='update-nag help'>
 
     <?php
     echo "<a href='http://www.ip2nation.com/'>"; _e('What is ip2nation?','newstatpress'); echo "</a><br>";
