@@ -21,6 +21,10 @@
 - [ ] add jquery for credit page
 - [ ] Database migration routine with unique name
 
+## 1.0.1
+
+- [x] Added bots (+5, thanks to Nahuel)
+
 ## 1.0.0
 Released date: 2015-0
 
