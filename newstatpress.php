@@ -3,12 +3,12 @@
 Plugin Name: NewStatPress
 Plugin URI: http://newstatpress.altervista.org
 Description: Real time stats for your Wordpress blog
-Version: 0.9.9
+Version: 1.0.1
 Author: Stefano Tognon and cHab (from Daniele Lippi works)
 Author URI: http://newstatpress.altervista.org
 ************************************************************/
 
-$_NEWSTATPRESS['version']='0.9.9';
+$_NEWSTATPRESS['version']='1.0.1';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
@@ -116,7 +116,6 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
    require ('includes/nsp_details.php');
    require ('includes/nsp_search.php');
    require ('includes/nsp_dashboard.php');
-
 
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
 }
@@ -1229,10 +1228,11 @@ function nsp_ExpandVarsInsideCode($body) {
     $body = str_replace("%topsearch%", iri_NewStatPress_Decode($qry[0]->search), $body);
   }
 
+//TODO Need an option to be activate by the user?
   # look for %installed%
-  if(strpos(strtolower($body),"%installed%") !== FALSE) {
-    $body = str_replace("%installed%", new_count_total(), $body);
-  }
+  // if(strpos(strtolower($body),"%installed%") !== FALSE) {
+  //   $body = str_replace("%installed%", new_count_total(), $body);
+  // }
   return $body;
 }
 
@@ -1475,7 +1475,8 @@ function nsp_MakeOverview($print ='dashboard') {
   $yesterdayHeader = gmdate('d M', current_time('timestamp')-86400);
   $todayHeader = gmdate('d M', current_time('timestamp'));
 
-  if ($print=='main'){
+  // build head table overview
+  if ($print=='main') {
     $overview_table.="<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
     $overview_table.="<table class='widefat center nsp'>
               <thead>
@@ -1500,42 +1501,29 @@ function nsp_MakeOverview($print ='dashboard') {
                 <th><span>$todayHeader</span></th>
               </tr></thead>
               <tbody class='overview-list'>";
-}
-elseif ($print=='dashboard'){
+  }
+  elseif ($print=='dashboard') {
+   $overview_table.="<table class='widefat center nsp'>
+                      <thead>
+                      <tr class='sup dashboard'>
+                      <th></th>
+                          <th scope='col'>". __('M-1','newstatpress'). "</th>
+                          <th scope='col' colspan='2'>". __('M','newstatpress'). "</th>
+                          <th scope='col'>". __('Y','newstatpress'). "</th>
+                          <th scope='col'>". __('T','newstatpress'). "</th>
+                      </tr>
+                      <tr class='inf dashboard'>
+                      <th></th>
+                          <th><span>$lastmonthHeader</span></th>
+                          <th colspan='2'><span > $thismonthHeader </span></th>
+                          <th><span>$yesterdayHeader</span></th>
+                          <th><span>$todayHeader</span></th>
+                      </tr></thead>
+                      <tbody class='overview-list'>";
+  }
 
-//   <th>". __('all','newstatpress'). "</th>
-//   <th scope='col'>". __('M-1','newstatpress'). "</th>
-//   <th scope='col' colspan='2'>". __('M','newstatpress'). "</th>
-//   <th scope='col' colspan='2'>". __('M-t','newstatpress'). "</th>
-//   <th scope='col'>". __('Y','newstatpress'). "</th>
-//   <th scope='col'>". __('T','newstatpress'). "</th>
-
-  $overview_table.="<table class='widefat center nsp'>
-
-            <thead>
-            <tr class='sup dashboard'>
-            <th></th>
-            <th>". __('Total since','newstatpress'). "</th>
-                <th scope='col'>". __('Last month','newstatpress'). "</th>
-                <th scope='col' colspan='2'>". __('This month','newstatpress'). "</th>
-                <th scope='col' colspan='2'>". __('Target This month','newstatpress'). "</th>
-                <th scope='col'>". __('Yesterday','newstatpress'). "</th>
-                <th scope='col'>". __('Today','newstatpress'). "</th>
-            </tr>
-            <tr class='inf dashboard'>
-            <th></th>
-                <th><span>$since</span></th>
-                <th><span>$lastmonthHeader</span></th>
-                <th colspan='2'><span > $thismonthHeader </span></th>
-                <th colspan='2'><span > $thismonthHeader </span></th>
-                <th><span>$yesterdayHeader</span></th>
-                <th><span>$todayHeader</span></th>
-          </tr></thead>
-            <tbody class='overview-list'>";
-}
-  // build body overview table
+  // build body table overview
   $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');
-  // echo "current month: ";
 
   foreach ($overview_rows as $row) {
 
@@ -1618,12 +1606,14 @@ elseif ($print=='dashboard'){
 
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>$row_title</td>";
-    $overview_table.="<td class='colc'>".$qry_total->$row."</td>\n";
+    if ($print=='main')
+      $overview_table.="<td class='colc'>".$qry_total->$row."</td>\n";
     if ($print=='main')
       $overview_table.="<td class='colc'>".$qry_tyear->$row."</td>\n";
     $overview_table.="<td class='colc'>".$qry_lmonth->$row."</td>\n";
     $overview_table.="<td class='colr'>".$qry_tmonth->$row. $calculated_result[0] ."</td>\n";
-    $overview_table.="<td class='colr'> $calculated_result[1] $calculated_result[2] </td>\n";
+    if ($print=='main')
+      $overview_table.="<td class='colr'> $calculated_result[1] $calculated_result[2] </td>\n";
     $overview_table.="<td class='colc'>".$qry_y->$row."</td>\n";
     $overview_table.="<td class='colc'>".$qry_t->$row."</td>\n";
     $overview_table.="</tr>";
