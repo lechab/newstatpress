@@ -124,10 +124,19 @@ Check at http://newstatpress.altervista.org
 Check at http://newstatpress.altervista.org
 
 == Changelog ==
+
+= 1.0.0 =
+*Release Date - 29/05/2015*
+
+* Remove %installed% variable
+
 = 0.9.9 =
 *Release Date - 20/05/2015*
 
-IMPORTANT CRITICAL UPDATE
+Note: IMPORTANT CRITICAL UPDATE
+
+Core changes:
+
 * Close a XSS and a SQL injection and possible other more complex to achieve (thanks to Adrián M. F. for discover and communicate them). Those are inside the search routine from Statpress so ALL previous versions of Newstatpress are vulnerable (and maybe they are present in lot of Statpress based plugin and Statpress itself).
 * Fix missing browser images
 * Add tools for optimize and repair the statpress table
@@ -137,6 +146,8 @@ IMPORTANT CRITICAL UPDATE
 = 0.9.8 =
 *Release Date - 26/04/2015*
 
+Core changes:
+
 * Fix missing routine for update
 * Fix cs_CZ translation
 
@@ -144,12 +155,14 @@ IMPORTANT CRITICAL UPDATE
 *Release Date - 11/04/2015*
 
 User interface changes:
+
 * Added New option in Overview Tab : overview stats calculation method (global distinct ip OR sum of each day) (Note: online for month at the moment)
 * Added New options in General Tab : add capabilities selection to display menus, options menu need to be administrator by default
 * Added New information 'Visitors RSS Feeds' in Overview page
 * Updated Locale fr_FR, it_IT, cs_CZ
 
 Core changes:
+
 * Updated OS definition
 * Updated Browser definition
 * Fixed '3 months Purge' issue
