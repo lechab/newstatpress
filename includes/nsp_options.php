@@ -10,13 +10,14 @@ function nsp_FilterForXss($_value){
 
   // Avoid XSS attacks
   $clean_value = preg_replace('/[^a-zA-Z0-9\,\.\/\ \-\_\?=&;]/', '', $_value);
-  if (strlen($_value)==0){
+  if (strlen($_value)==0) {
     return array();
-  } else {
-      $array_values = explode(',',$clean_value);
-      array_walk($array_values, 'nsp_TrimValue');
-      return $array_values;
-    }
+  }
+  else {
+    $array_values = explode(',',$clean_value);
+    array_walk($array_values, 'nsp_TrimValue');
+    return $array_values;
+  }
 }
 
 /**

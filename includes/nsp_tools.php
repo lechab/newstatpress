@@ -67,49 +67,89 @@ function nsp_DisplayToolsPage() {
 
 /**
  * IP2nation form function
- */
+ *
+ *************************/
 function nsp_IP2nation() {
-  // Importation if requested by user
-  if (isset($_POST['download']) && $_POST['download'] == 'yes' ) {
-    $install_result=nsp_IP2nationDownload();
-  }
-  ?>
-  <div class='wrap'><h3><?php _e('To import IP2nation database','newstatpress'); ?></h3>
 
-   <?php
-     if ( isset($install_result) AND $install_result !='') {
-       print "<br /><div class='updated'><p>".__($install_result,'newstatpress')."</p></div>";
+
+
+  // Install or Remove if requested by user
+  if (isset($_POST['installation']) && $_POST['installation'] == 'install' ) {
+    $install_result=nsp_IP2nationInstall();
+  }
+  elseif (isset($_POST['installation']) && $_POST['installation'] == 'remove' ) {
+    $install_result=nsp_IP2nationRemove();
+  }
+
+  // Display message if present
+  if (isset($install_result) AND $install_result !='') {
+    print "<br /><div class='updated'><p>".__($install_result,'newstatpress')."</p></div>";
+  }
+
+  global $nsp_option_vars;
+  global $wpdb;
+
+  //Create IP2nation variable if not exists: value 'none' by default or date when installed
+  $installed=get_option($nsp_option_vars['ip2nation']['name']);
+  if ($installed=="") {
+    add_option( $nsp_option_vars['ip2nation']['name'], $nsp_option_vars['ip2nation']['value'],'','yes');
+  }
+
+  echo "     <br /><br />";
+     $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
+
+     $table_name = "ip2nation";
+     if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+       $value_inst="none";
+       $class_inst="desactivated";
+       $installed=$nsp_option_vars['ip2nation']['value'];
+     }
+     else {
+         $value_inst="remove";
+         $class_inst="";
+         $installed=get_option($nsp_option_vars['ip2nation']['name']);
      }
 
-     $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
-     if (file_exists($file_ip2nation)) {
-       $i=sprintf(__('Last version installed: %s','newstatpress'), date('d/m/Y', filemtime($file_ip2nation)));
+    // Display status
+     if ($installed!="none") {
+       $i=sprintf(__('Last version installed: %s','newstatpress'), $installed);
        echo $i.'<br /><br />';
        _e('To update the IP2nation database, just click on the button bellow.','newstatpress');
        $button_name='Update';
-     } else {
-         _e('Last version installed: none ','newstatpress');
-         echo '<br /><br />';
+     }
+     else {
+       _e('Last version installed: none ','newstatpress');
+       echo '<br /><br />';
+       _e('To download and to install the IP2nation database, just click on the button bellow.','newstatpress');
+       $button_name='Install';
+     }
 
-         _e('To download and to install the IP2nation database, just click on the button bellow.','newstatpress');
-         $button_name='Download';
-       }
 
     ?>
+
     <br /><br />
       <form method=post>
        <input type=hidden name=page value=newstatpress>
-       <input type=hidden name=download value=yes>
+
+       <!-- <input type=hidden name=installation value=install> -->
        <input type=hidden name=newstatpress_action value=ip2nation>
-       <button class='button button-primary' type=submit><?php _e($button_name,'newstatpress'); ?></button>
+       <button class='button button-primary' type=submit name=installation value=install><?php _e($button_name,'newstatpress'); ?></button>
+     <!-- </form>
+     <form method=post> -->
+
+       <!-- <input type=hidden name=installation value=<?php echo $value_inst ?>> -->
+       <input type=hidden name=newstatpress_action value=ip2nation>
+       <button class='<?php echo $class_inst ?> button button-primary' type=submit name=installation value=<?php echo $value_inst ?>><?php _e('Remove','newstatpress'); ?></button>
       </form>
     </div>
 
     <div class='update-nag help'>
 
     <?php
-    echo "<a href='http://www.ip2nation.com/'>"; _e('What is ip2nation?','newstatpress'); echo "</a><br>";
+    echo "<a href='http://www.ip2nation.com/'>"; _e('What is ip2nation?','newstatpress'); echo "</a><br/>";
     _e('ip2nation is a free MySQL database that offers a quick way to map an IP to a country. The database is optimized to ensure fast lookups and is based on information from ARIN, APNIC, RIPE etc. You may download the database using the link to the left. (sce: http://www.ip2nation.com)','newstatpress');
+      echo "<br/><br />";
+      _e('Note: The installation may take a few seconds to achieve.','newstatpress');
     ?>
     </div>
 <?php
@@ -120,7 +160,7 @@ function nsp_IP2nation() {
  * Download and install IP2nation
  *
  * @return the status of the operation
- */
+ *************************************/
 function nsp_IP2nationDownload() {
 
   //Request to make http request with WP functions
@@ -177,6 +217,45 @@ function nsp_IP2nationDownload() {
   // Remove Zip file
   unlink( $temp_zip_file );
   return $install_status;
+}
+
+//TODO integrate error check
+function nsp_IP2nationInstall() {
+
+  global $wpdb;
+  global $nsp_option_vars;
+
+  $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
+
+  $sql = file_get_contents($file_ip2nation);
+  $sql_array = explode (";",$sql);
+  foreach ($sql_array as $val) {
+    $wpdb->query($val);
+
+  }
+  $date=date('d/m/Y', filemtime($file_ip2nation));
+  // echo $date;
+  update_option($nsp_option_vars['ip2nation']['name'], $date);
+  $install_status=__('Instalation of IP2nation database was successful','newstatpress');
+
+ return $install_status;
+}
+
+//TODO integrate error check
+function nsp_IP2nationRemove() {
+
+  global $wpdb;
+
+  $sql = "DROP TABLE IF EXISTS ip2nation;";
+  $wpdb->query($sql);
+  $sql ="DROP TABLE IF EXISTS ip2nationCountries;";
+  $wpdb->query($sql);
+
+  update_option($nsp_option_vars['ip2nation']['name'], $nsp_option_vars['ip2nation']['value']);
+
+  $install_status=__('IP2nation database was remove successfully','newstatpress');
+
+ return $install_status;
 }
 
 
@@ -257,21 +336,28 @@ function nsp_RemovePluginDatabase() {
   }
   else {
       ?>
+
         <div class='wrap'><h3><?php _e('Remove NewStatPress database','newstatpress'); ?></h3>
           <br />
-          <div class='error'><p>
-        <?php _e('Warning: pressing the below button will make all your stored data to be erased!',"newstatpress"); ?>
-      </p></div>
+
         <form method=post>
-        <?php
-        _e("It is added for the people that did not want to use the plugin anymore and so they want to remove the stored data.","newstatpress");
-        echo "<br />";
-        _e("If you are in doubt about this function, don't use it.","newstatpress");
-        ?>
-        <br /><br />
+              <?php _e('To remove the Newstatpress database, just click on the button bellow.','newstatpress');?>
+          <br /><br />
         <input class='button button-primary' type=submit value="<?php _e('Remove','newstatpress'); ?>" onclick="return confirm('<?php _e('Are you sure?','newstatpress'); ?>');" >
         <input type=hidden name=removeit value=yes>
         </form>
+        <div class='update-nag help'>
+          <?php
+            _e("This operation will remove all collected data by NewStatpress. This function is useful at people who did not want use the plugin any more or who want simply purge the stored data.","newstatpress");
+          ?>
+          <br />
+          <span class='strong'>
+          <?php _e("If you have doubt about this function, don't use it.","newstatpress"); ?>
+        </span>
+       </div>
+       <div class='update-nag warning'><p>
+     <?php _e('Warning: pressing the below button will make all your stored data to be erased!',"newstatpress"); ?>
+   </p></div>
         </div>
       <?php
   }
@@ -316,7 +402,7 @@ function nsp_DurationToDays() {
  *
  * @param url the url to parse
  * @return the extracted url
- */
+ *************************************/
 function nsp_ExtractFeedReq($url) {
   list($null,$q)=explode("?",$url);
   if (strpos($q, "&")!== false) list($res,$null)=explode("&",$q);
@@ -326,7 +412,8 @@ function nsp_ExtractFeedReq($url) {
 
 /**
  * Update form function
- */
+ *
+ ***********************/
 function nsp_Update() {
   // database update if requested by user
   if (isset($_POST['update']) && $_POST['update'] == 'yes' ) {
@@ -389,7 +476,7 @@ function nsp_UpdateNow() {
     foreach ( $READ as $RED ) {
       if($RES != '') { $wpdb->query($RED); }
     }
-    print "<td>".iritablesize("ip2nation")."</td>";
+    print "<td>".nsp_TableSize("ip2nation")."</td>";
     print "<td><img class'update_img' src='$img_ok'></td></tr>";
   }
 
@@ -397,11 +484,11 @@ function nsp_UpdateNow() {
   nsp_BuildPluginSQLTable('update');
 
   print "<tr><td>". __('Structure','newstatpress'). " $table_name</td>";
-  print "<td>".iritablesize($wpdb->prefix."statpress")."</td>";
+  print "<td>".nsp_TableSize($wpdb->prefix."statpress")."</td>";
   print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   print "<tr><td>". __('Index','newstatpress'). " $table_name</td>";
-  print "<td>".iriindextablesize($wpdb->prefix."statpress")."</td>";
+  print "<td>".nsp_IndexTableSize($wpdb->prefix."statpress")."</td>";
   print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   # Update Feed
@@ -581,7 +668,7 @@ function nsp_UpdateNow() {
       length(referrer)!=0 AND
       date BETWEEN $from_date AND $to_date");
   foreach ($qry as $rk) {
-    list($searchengine,$search_phrase)=explode("|",iriGetSE($rk->referrer));
+    list($searchengine,$search_phrase)=explode("|",nsp_GetSE($rk->referrer));
     if($searchengine <> '') {
       $q="
         UPDATE $table_name
@@ -600,11 +687,11 @@ function nsp_UpdateNow() {
 
   # Final statistics
   print "<tr><td>". __('Final Structure','newstatpress'). " $table_name</td>";
-  print "<td>".iritablesize($wpdb->prefix."statpress")."</td>"; // todo chab : to clean
+  print "<td>".nsp_TableSize($wpdb->prefix."statpress")."</td>"; // todo chab : to clean
   print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   print "<tr><td>". __('Final Index','newstatpress'). " $table_name</td>";
-  print "<td>".iriindextablesize($wpdb->prefix."statpress")."</td>"; // todo chab : to clean
+  print "<td>".nsp_IndexTableSize($wpdb->prefix."statpress")."</td>"; // todo chab : to clean
   print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   print "<tr><td>". __('Duration of the update','newstatpress'). "</td>";
@@ -630,18 +717,25 @@ function nsp_Optimize() {
   }
   ?>
   <div class='wrap'>
-   <h3><?php _e('Optimize table','newstatpress'); ?></h3>
-       <?php _e('To optimize the statpress table, just click on the button bellow.','newstatpress');?>
-   <br /><br />
-   <form method=post>
-    <input type=hidden name=page value=newstatpress>
-    <input type=hidden name=optimize value=yes>
-    <input type=hidden name=newstatpress_action value=optimize>
-    <button class='button button-primary' type=submit><?php _e('Optimize','newstatpress'); ?></button>
-   </form>
-   <br /><br />
-  <?php _e('Optimize a table is an database operation that can free some server space if you had lot of delation (like with prune activated) in it. This operation can take lot of server time to finish so use it only if you know what you are doing.','newstatpress');?>
-  </div><?php
+    <h3><?php _e('Optimize table','newstatpress'); ?></h3>
+    <?php _e('To optimize the statpress table, just click on the button bellow.','newstatpress');?>
+    <br /><br />
+    <form method=post>
+      <input type=hidden name=page value=newstatpress>
+      <input type=hidden name=optimize value=yes>
+      <input type=hidden name=newstatpress_action value=optimize>
+      <button class='button button-primary' type=submit><?php _e('Optimize','newstatpress'); ?></button>
+    </form>
+
+    <div class='update-nag help'>
+      <?php _e('Optimize a table is an database operation that can free some server space if you had lot of delation (like with prune activated) in it.','newstatpress');?>
+      <br />
+      <span class='strong'>
+        <?php _e('Be aware that this operation may take a lot of server time to finish the processing (depending on your database size). So so use it only if you know what you are doing.','newstatpress');?>
+      </span>
+    </div>
+  </div>
+  <?php
 }
 
 /**
@@ -664,8 +758,14 @@ function nsp_Repair() {
     <input type=hidden name=newstatpress_action value=repair>
     <button class='button button-primary' type=submit><?php _e('Repair','newstatpress'); ?></button>
    </form>
-   <br /><br />
-  <?php _e('Repair is an database operation that can fix a corrupted table. This operation can take lot of server time to finish so use it only if you know what you are doing.','newstatpress');?>
+
+   <div class='update-nag help'>
+     <?php _e('Repair is an database operation that can fix a corrupted table.','newstatpress');?>
+    <br />
+    <span class='strong'>
+    <?php _e('Be aware that this operation may take a lot of server time to finish the processing (depending on your database size). So so use it only if you know what you are doing.','newstatpress');?>
+    </span>
+   </div>
   </div><?php
 }
 

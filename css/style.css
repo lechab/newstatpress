@@ -417,6 +417,24 @@ font-size: 15px;
   border-left: 4px solid #666;
 }
 
+.warning {
+  background-color: #FFF;
+  border-left: 4px solid red;
+  padding: 0 15px;
+}
+.strong {
+  font-weight: bold;
+}
+
+.desactivated {
+  background: #888;
+  /*cursor: default;*/
+        pointer-events: none;
+
+        /*Button disabled - CSS color class*/
+        color: #c0c0c0;
+        /*background-color: #ffffff;*/
+}
 /*----------------------------------*/
 /* Details page                     */
 /*----------------------------------*/
@@ -563,4 +581,20 @@ div.pagination span.disabled {
   margin: 2px;
   border: 1px solid #EEE;
   color: #DDD;
+}
+
+
+/*temp*/
+
+.progressBar {
+    width: 300px;
+    background: #CCC;
+    border: solid 1px #000;
+    height: 30px;
+}
+
+.bar {
+    background: #F00;
+    height: 30px;
+    width: 0%;
 }
