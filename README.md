@@ -27,16 +27,18 @@
 
 User interface changes:
 - [x] Added API key option in option menu (fo future use)
+- [x] Added informations tabs in Tools menu ()
+- [x] Updated General tab in Option menu ()
 - [x] Updated Widgets title
 - [x] Updated IP2nation option menu
-- [x] Fix Dashboard widget overflow
+- [x] Fixed Dashboard widget overflow
 
 Core changes:
 - [x] Fix the plugin menu view for "subscriver"
 - [x] Fix IP2nation database installation bug
 - [x] Remove IP2nation download function (to be conform with WP policy)
 - [x] Massive code cleaning to avoid conflict with others plugins
-- [x] Added bots (+5, thanks to Nahuel) 
+- [x] Added bots (+5, thanks to Nahuel)
 - [x] Updated Locale fr_FR, it_IT
 
 ## 1.0.0

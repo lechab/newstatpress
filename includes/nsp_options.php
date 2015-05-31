@@ -66,15 +66,15 @@ function nsp_PrintOption($option_title, $option_var, $var) {
   echo "</select></td>\n";
 }
 
-// add by chab
 /**
  * Print a row of input
+ * added by cHab
  *
  * @param option_title the title for options
  * @param nsp_option_vars the variables for options
  * @param input_size the size of input
  * @param input_maxlength the max length of the input
- */
+ ****************************************************/
 function nsp_PrintRowInput($option_title, $nsp_option_vars, $input_size, $input_maxlength) {
   echo "<tr><td><label for=$nsp_option_vars[name]>$option_title</label></td>\n";
   echo "<td><input class='right' type='text' name=$nsp_option_vars[name] value=";
@@ -86,7 +86,7 @@ function nsp_PrintRowInput($option_title, $nsp_option_vars, $input_size, $input_
  * Print a row with given title
  *
  * @param option_title the title for option
- */
+ ******************************************/
 function nsp_PrintRow($option_title) {
   echo "<tr><td>$option_title</td></tr>\n";
 }
@@ -168,7 +168,7 @@ function nsp_Options() {
 
   <?php
   $ToolsPage_tabs = array('general' => __('General','newstatpress'),
-                          'data' => __('Data Collect','newstatpress'),
+                          'data' => __('Filters','newstatpress'),
                           'overview' => __('Overview Menu','newstatpress'),
                           'details' => __('Details Menu','newstatpress'),
                           'visits' => __('Visits Menu','newstatpress'),
@@ -193,21 +193,21 @@ function nsp_Options() {
   $input_maxlength='3';
 
   echo "<th scope='row' rowspan='2'>"; _e('Dashboard','newstatpress'); echo "</th>";
-
   $option_title=__('Enable NewStatPress widget','newstatpress');
   $option_var='newstatpress_dashboard';
   nsp_PrintChecked($option_title,$option_var);
+  echo "<tr><th scope='row' rowspan='1'>Minimum capability to display each specific menu (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)</th></tr>";
 
-  $option_title=__('Minimum capability to display the overview menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
-  echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+  $option_title=__('Overview menu','newstatpress');
+  echo "<tr><th scope='row' rowspan='1' class='tab'>"; echo $option_title."</th>";
   $option_var='newstatpress_menuoverview_cap';
   $val=get_option($option_var);
   nsp_PrintOption('',$option_var,$val);
 
   echo "</tr>";
   echo "<tr>";
-  $option_title=__('Minimum capability to display the detail menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
-  echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+  $option_title=__('Detail menu','newstatpress');
+  echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
   // $option_var=$nsp_option_vars['menudetails_cap']['name'];
   $option_var='newstatpress_menudetails_cap';
   $val=get_option($option_var);
@@ -215,32 +215,32 @@ function nsp_Options() {
   echo "</tr>";
   echo "<tr>";
 
-  $option_title=__('Minimum capability to display the visits menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
-  echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+  $option_title=__('Visits menu','newstatpress');
+  echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
   $option_var='newstatpress_menuvisits_cap';
   $val=get_option($option_var);
   nsp_PrintOption('',$option_var,$val);
   echo "</tr>";
   echo "<tr>";
 
-  $option_title=__('Minimum capability to display the search menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
-  echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+  $option_title=__('Search menu','newstatpress');
+  echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
   $option_var='newstatpress_menusearch_cap';
   $val=get_option($option_var);
   nsp_PrintOption('',$option_var,$val);
   echo "</tr>";
   echo "<tr>";
 
-  $option_title=__('Minimum capability to display the tools menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
-  echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+  $option_title=__('Tools menu','newstatpress');
+  echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
   $option_var='newstatpress_menutools_cap';
   $val=get_option($option_var);
   nsp_PrintOption('',$option_var,$val);
   echo "</tr>";
   echo "<tr>";
 
-  $option_title=__('Minimum capability to display the options menu','newstatpress')." (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)";
-  echo "<tr><th scope='row' rowspan='2'>"; echo $option_title."</th>";
+  $option_title=__('Options menu','newstatpress');
+  echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
   $option_var='newstatpress_menuvisits_cap';
   $val=get_option($option_var);
   nsp_PrintOption('',$option_var,$val);

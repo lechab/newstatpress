@@ -97,27 +97,37 @@ function nsp_IP2nation() {
 
   echo "<br /><br />";
      $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
+     $date=date('d/m/Y', filemtime($file_ip2nation));
 
      $table_name = "ip2nation";
      if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-       $value_inst="none";
+       $value_remove="none";
        $class_inst="desactivated";
        $installed=$nsp_option_vars['ip2nation']['value'];
      }
      else {
-         $value_inst="remove";
+         $value_remove="remove";
          $class_inst="";
          $installed=get_option($nsp_option_vars['ip2nation']['name']);
-        //  if($installed=='none');
-          // $installed=__('unknow','newstatpress');
+         if($installed=='none')
+          $installed=__('unknow','newstatpress');
      }
 
     // Display status
+    $i=sprintf(__('Last version available: %s','newstatpress'), $date);
+    echo $i.'<br />';
      if ($installed!="none") {
        $i=sprintf(__('Last version installed: %s','newstatpress'), $installed);
        echo $i.'<br /><br />';
        _e('To update the IP2nation database, just click on the button bellow.','newstatpress');
-       $button_name='Update';
+       if($installed==$date) {
+         $button_name='Update';
+         $value_install='none';
+         $class_install="desactivated";
+       }
+       else {
+         $button_name='Install';
+       }
      }
      else {
        _e('Last version installed: none ','newstatpress');
@@ -134,12 +144,12 @@ function nsp_IP2nation() {
        <input type=hidden name=page value=newstatpress>
 
        <input type=hidden name=newstatpress_action value=ip2nation>
-       <button class='button button-primary' type=submit name=installation value=install>
+       <button class='<?php echo $class_install ?> button button-primary' type=submit name=installation value=install>
          <?php _e($button_name,'newstatpress'); ?>
        </button>
 
        <input type=hidden name=newstatpress_action value=ip2nation>
-       <button class='<?php echo $class_inst ?> button button-primary' type=submit name=installation value=<?php echo $class_inst ?> >
+       <button class='<?php echo $class_inst ?> button button-primary' type=submit name=installation value=<?php echo $value_remove ?> >
          <?php _e('Remove','newstatpress'); ?>
        </button>
       </form>
@@ -148,10 +158,14 @@ function nsp_IP2nation() {
     <div class='update-nag help'>
 
     <?php
-    echo "<a href='http://www.ip2nation.com/'>"; _e('What is ip2nation?','newstatpress'); echo "</a><br/>";
-    _e('ip2nation is a free MySQL database that offers a quick way to map an IP to a country. The database is optimized to ensure fast lookups and is based on information from ARIN, APNIC, RIPE etc. You may download the database using the link to the left. (sce: http://www.ip2nation.com)','newstatpress');
-      echo "<br/><br />";
-      _e('Note: The installation may take a few seconds to achieve.','newstatpress');
+    _e('What is ip2nation?','newstatpress');
+    echo "<br/>";
+    _e('ip2nation is a free MySQL database that offers a quick way to map an IP to a country. The database is optimized to ensure fast lookups and is based on information from ARIN, APNIC, RIPE etc. You may download the database using the link to the left. (sce: <a href="http://www.ip2nation.com/">http://www.ip2nation.com</a>)','newstatpress');
+    echo "<br/><br />
+          <span class='strong'>"
+            .__('Note: The installation may take a few seconds to complete.','newstatpress').
+         "</span>";
+
     ?>
     </div>
 <?php
@@ -433,7 +447,22 @@ function nsp_Update() {
     <input type=hidden name=newstatpress_action value=update>
     <button class='button button-primary' type=submit><?php _e('Update','newstatpress'); ?></button>
    </form>
-  </div><?php
+  </div>
+
+  <div class='update-nag help'>
+
+  <?php
+
+  _e('Update the database is particularly useful when the ip2nation data and definitions data (OS, browser, spider) have been updated. An option in future will allow an automatic update of the database..','newstatpress');
+  echo "<br/><br />
+        <span class='strong'>"
+          .__('Note: The installation may take a few seconds to complete.','newstatpress').
+       "</span>";
+
+  ?>
+  </div>
+
+  <?php
 }
 
 /**
@@ -731,7 +760,7 @@ function nsp_Optimize() {
 
     <div class='update-nag help'>
       <?php _e('Optimize a table is an database operation that can free some server space if you had lot of delation (like with prune activated) in it.','newstatpress');?>
-      <br />
+      <br /><br />
       <span class='strong'>
         <?php _e('Be aware that this operation may take a lot of server time to finish the processing (depending on your database size). So so use it only if you know what you are doing.','newstatpress');?>
       </span>
@@ -763,7 +792,7 @@ function nsp_Repair() {
 
    <div class='update-nag help'>
      <?php _e('Repair is an database operation that can fix a corrupted table.','newstatpress');?>
-    <br />
+    <br /><br />
     <span class='strong'>
     <?php _e('Be aware that this operation may take a lot of server time to finish the processing (depending on your database size). So so use it only if you know what you are doing.','newstatpress');?>
     </span>
