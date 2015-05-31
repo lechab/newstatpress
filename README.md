@@ -36,7 +36,7 @@ Core changes:
 - [x] Fix IP2nation database installation bug
 - [x] Remove IP2nation download function (to be conform with WP policy)
 - [x] Massive code cleaning to avoid conflict with others plugins
-- [x] Added bots (+5, thanks to Nahuel)
+- [x] Added bots (+5, thanks to Nahuel) 
 - [x] Updated Locale fr_FR, it_IT
 
 ## 1.0.0

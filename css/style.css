@@ -427,7 +427,7 @@ font-size: 15px;
 }
 
 .desactivated {
-  background: #888;
+  background: #888; !important
   /*cursor: default;*/
         pointer-events: none;
 

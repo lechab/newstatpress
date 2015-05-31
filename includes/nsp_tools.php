@@ -95,7 +95,7 @@ function nsp_IP2nation() {
     add_option( $nsp_option_vars['ip2nation']['name'], $nsp_option_vars['ip2nation']['value'],'','yes');
   }
 
-  echo "     <br /><br />";
+  echo "<br /><br />";
      $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
 
      $table_name = "ip2nation";
@@ -108,6 +108,8 @@ function nsp_IP2nation() {
          $value_inst="remove";
          $class_inst="";
          $installed=get_option($nsp_option_vars['ip2nation']['name']);
+        //  if($installed=='none');
+          // $installed=__('unknow','newstatpress');
      }
 
     // Display status
@@ -131,15 +133,15 @@ function nsp_IP2nation() {
       <form method=post>
        <input type=hidden name=page value=newstatpress>
 
-       <!-- <input type=hidden name=installation value=install> -->
        <input type=hidden name=newstatpress_action value=ip2nation>
-       <button class='button button-primary' type=submit name=installation value=install><?php _e($button_name,'newstatpress'); ?></button>
-     <!-- </form>
-     <form method=post> -->
+       <button class='button button-primary' type=submit name=installation value=install>
+         <?php _e($button_name,'newstatpress'); ?>
+       </button>
 
-       <!-- <input type=hidden name=installation value=<?php echo $value_inst ?>> -->
        <input type=hidden name=newstatpress_action value=ip2nation>
-       <button class='<?php echo $class_inst ?> button button-primary' type=submit name=installation value=<?php echo $value_inst ?>><?php _e('Remove','newstatpress'); ?></button>
+       <button class='<?php echo $class_inst ?> button button-primary' type=submit name=installation value=<?php echo $class_inst ?> >
+         <?php _e('Remove','newstatpress'); ?>
+       </button>
       </form>
     </div>
 
