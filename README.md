@@ -21,16 +21,29 @@
 - [ ] add jquery for credit page
 - [ ] Database migration routine with unique name
 
-## 1.0.0
-Released date: 2015-0
+
+## 1.0.1
+*Released date: 2015-06-*
 
 User interface changes:
-- [x] Added API key option in option menu
+- [x] Added API key option in option menu (fo future use)
+- [x] Updated Widgets title
+- [x] Updated IP2nation option menu
+- [x] Fix Dashboard widget overflow
 
 Core changes:
 - [x] Fix the plugin menu view for "subscriver"
+- [x] Fix IP2nation database installation bug
+- [x] Remove IP2nation download function (to be conform with WP policy)
+- [x] Massive code cleaning to avoid conflict with others plugins
+- [x] Updated Bots definition
 - [x] Updated Locale fr_FR, it_IT
 
+## 1.0.0
+*Released date: 2015-05-29*
+
+Core changes:
+- [x] Remove %installed% variable
 
 ## 0.9.9
 Released date: 2015-05-20
