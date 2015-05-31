@@ -125,6 +125,10 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+= 1.0.1 =
+
+* Added bots (+5, thanks to Nahuel)
+
 = 1.0.0 =
 *Release Date - 29/05/2015*
 
