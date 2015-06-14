@@ -142,6 +142,9 @@ function nsp_Options() {
       $i=isset($_POST['newstatpress_dashboard']) ? $_POST['newstatpress_dashboard'] : '';
       update_option('newstatpress_dashboard', $i);
 
+      $i=isset($_POST['newstatpress_externalapi']) ? $_POST['newstatpress_externalapi'] : '';
+      update_option('newstatpress_externalapi', $i);
+
       global $nsp_option_vars;
 
       foreach($nsp_option_vars as $var) {
@@ -196,6 +199,7 @@ function nsp_Options() {
   $option_title=__('Enable NewStatPress widget','newstatpress');
   $option_var='newstatpress_dashboard';
   nsp_PrintChecked($option_title,$option_var);
+
   echo "<tr><th scope='row' rowspan='1'>Minimum capability to display each specific menu (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)</th></tr>";
 
   $option_title=__('Overview menu','newstatpress');
@@ -280,7 +284,7 @@ function nsp_Options() {
                   }
 
             echo "></input>
-            <label>Sum of the distinct IPs of each day (slower than classic method for big database)</label>
+            <label>"; _e('Sum of the distinct IPs of each day (slower than classic method for big database)','newstatpress'); echo "</label>
                     </p>
       </fieldset>
       </td>";
@@ -484,11 +488,16 @@ function nsp_Options() {
 // case 'API Key' :
 echo "<div id='api'>\n<table class='form-tableH'>";
 
+$option_title=__('Enable External API','newstatpress');
+$option_var='newstatpress_externalapi';
+nsp_PrintChecked($option_title,$option_var);
+echo "</td></tr>";
+
 $option_title=__('API key','newstatpress');
 $option_var="newstatpress_apikey";
-$option_description=__('The external access API is build to let you to use the collected data from your Newstatpress plugin  in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run in another server). This key allows Newstatpress to recognize that you and only you want the data and not the not authorized people. Let the input form blank means that you allow everyone to get data without authorization f externa API is activated. When the API will be ready, an option flag box will be used here to activate it. Please be aware that the external API will be also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data (as Newstatpress uses the API from itself, that key will be used automatically even if you let the API disabled).
+$option_description=__('The external access API is build to let you to use the collected data from your Newstatpress plugin  in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run in another server). This key allows Newstatpress to recognize that you and only you want the data and not the not authorized people. Let the input form blank means that you allow everyone to get data without authorization if external API is activated. The API should be activated with the flag box. Please be aware that the external API will be also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data, so you will need to choose an key and activate it.
 
-<br/><br/>To retrieve data from Newstatpress plugin, you can generate automatically or set manually a private key for the external API (used for exampe from Multi-Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.','newstatpress');
+<br/><br/>To retrieve data from Newstatpress plugin, you can generate automatically or set manually a private key for the external API (used for example from Multi-Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.','newstatpress');
 
 echo "<tr><td>\n<p class='ign'><label for=$option_var>$option_title</label></p>\n";
 echo "<p>$option_description</p>\n";

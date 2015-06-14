@@ -6,6 +6,8 @@ if($_SERVER['REQUEST_METHOD'] != "POST") die("Invalid use of API");
 
 require_once('../../../../../wp-load.php');
 
+if (get_option('newstatpress_externalapi')!='checked') die("API not activated");;
+
 // get the parameter from URL
 $var = $_REQUEST["VAR"];
 $key = $_REQUEST["KEY"];  # key readed is md5(date('m-d-y H i')+'Key')
