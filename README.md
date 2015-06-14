@@ -26,7 +26,9 @@
 *Released date: 2015-06-*
 
 User interface changes:
-- [x] Added API key option in option menu (fo future use)
+- [x] Added API key option in option menu
+- [x] Added API activation option in option menu
+- [x] Implement external API "version" (gives actual version of NewStatPress)
 - [x] Added informations tabs in Tools menu ()
 - [x] Updated General tab in Option menu ()
 - [x] Updated Widgets title

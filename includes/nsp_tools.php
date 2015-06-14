@@ -160,7 +160,7 @@ function nsp_IP2nation() {
     <?php
     _e('What is ip2nation?','newstatpress');
     echo "<br/>";
-    _e('ip2nation is a free MySQL database that offers a quick way to map an IP to a country. The database is optimized to ensure fast lookups and is based on information from ARIN, APNIC, RIPE etc. You may install the database using the link to the left. (sce: <a href="http://www.ip2nation.com/">http://www.ip2nation.com</a>)','newstatpress');
+    _e('ip2nation is a free MySQL database that offers a quick way to map an IP to a country. The database is optimized to ensure fast lookups and is based on information from ARIN, APNIC, RIPE etc. You may install the database using the link to the left. (see: <a href="http://www.ip2nation.com/">http://www.ip2nation.com</a>)','newstatpress');
     echo "<br/><br />
           <span class='strong'>"
             .__('Note: The installation may take some times to complete.','newstatpress').
@@ -456,7 +456,7 @@ function nsp_Update() {
   _e('Update the database is particularly useful when the ip2nation data and definitions data (OS, browser, spider) have been updated. An option in future will allow an automatic update of the database..','newstatpress');
   echo "<br/><br />
         <span class='strong'>"
-          .__('Note: The update may take soem times to complete.','newstatpress').
+          .__('Note: The update may take some times to complete.','newstatpress').
        "</span>";
 
   ?>
