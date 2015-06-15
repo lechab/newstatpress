@@ -298,7 +298,11 @@ function nsp_NewStatPressMain() {
     ORDER BY id DESC $querylimit
   ");
   foreach ($qry as $rk) {
-    print "<tr><td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td><td><a href='".$rk->referrer."' target='_blank'>".$rk->search."</a></td><td>".$rk->searchengine."</td><td><a href='".get_bloginfo('url').$extra.$rk->urlrequested."' target='_blank'>". __('page viewed','newstatpress'). "</a></td></tr>\n";
+    print "<tr>
+            <td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td>
+            <td><a href='".$rk->referrer."' target='_blank'>".$rk->search."</a></td>
+            <td>".$rk->searchengine."</td><td><a href='".get_bloginfo('url').$extra.$rk->urlrequested."' target='_blank'>". __('page viewed','newstatpress'). "</a></td>
+          </tr>\n";
   }
   print "</table></div>";
 
@@ -417,10 +421,12 @@ function nsp_ExtractFeedFromUrl($url) {
 }
 
 
-
 /**
  * Decode the url in a better manner
- */
+ *
+ * @param out_url
+ * @return url decoded
+ ************************************/
 function newstatpress_Decode($out_url) {
   if(!nsp_PermalinksEnabled()) {
     if ($out_url == '') $out_url = __('Page', 'newstatpress') . ": Home";
@@ -765,7 +771,7 @@ function nsp_Lastmonth() {
  * Create or update the table
  *
  * @param action to do: update, create
- ****************************/
+ *************************************/
  function nsp_BuildPluginSQLTable($action) {
 
    global $wpdb;

@@ -481,8 +481,10 @@ function nsp_UpdateNow() {
 
   $to_date  = gmdate("Ymd",current_time('timestamp'));
 
-  if ($days==-1) $from_date= "19990101";   // use a date where this plugin was not present
-  else $from_date = gmdate('Ymd', current_time('timestamp')-86400*$days);
+  if ($days==-1)
+    $from_date= "19990101";   // use a date where this plugin was not present
+  else
+    $from_date = gmdate('Ymd', current_time('timestamp')-86400*$days);
 
   $_newstatpress_url=PluginUrl();
 
@@ -491,32 +493,21 @@ function nsp_UpdateNow() {
   //add by chab
   //$var requesting the absolute path
   $img_ok = $_newstatpress_url.'images/ok.gif';
-  $ip2nation_db = $newstatpress_dir.'/includes/ip2nation.sql';
+  // $ip2nation_db = $newstatpress_dir.'/includes/ip2nation.sql';
 
   print "<div class='wrap'><h2>".__('Database Update','newstatpress')."</h2><br />";
 
   print "<table class='widefat nsp'><thead><tr><th scope='col'>".__('Updating...','newstatpress')."</th><th scope='col' style='width:400px;'>".__('Size','newstatpress')."</th><th scope='col' style='width:100px;'>".__('Result','newstatpress')."</th><th></th></tr></thead>";
   print "<tbody id='the-list'>";
 
-  # check if ip2nation .sql file exists
-  if(file_exists($ip2nation_db)) {
-    print "<tr><td>ip2nation.sql</td>";
-    $FP = fopen ($ip2nation_db, 'r' );
-    $READ = fread ( $FP, filesize ($ip2nation_db) );
-    $READ = explode ( ";\n", $READ );
-    foreach ( $READ as $RED ) {
-      if($RES != '') { $wpdb->query($RED); }
-    }
-    print "<td>".nsp_TableSize("ip2nation")."</td>";
-    print "<td><img class'update_img' src='$img_ok'></td></tr>";
-  }
-
   # update table
   nsp_BuildPluginSQLTable('update');
 
-  print "<tr><td>". __('Structure','newstatpress'). " $table_name</td>";
-  print "<td>".nsp_TableSize($wpdb->prefix."statpress")."</td>";
-  print "<td><img class'update_img' src='$img_ok'></td></tr>";
+  echo "<tr>
+          <td>". __('Structure','newstatpress'). " $table_name</td>
+          <td>".nsp_TableSize($wpdb->prefix."statpress")."</td>
+          <td><img class'update_img' src='$img_ok'></td>
+        </tr>";
 
   print "<tr><td>". __('Index','newstatpress'). " $table_name</td>";
   print "<td>".nsp_IndexTableSize($wpdb->prefix."statpress")."</td>";
