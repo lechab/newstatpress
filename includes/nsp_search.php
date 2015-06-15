@@ -75,8 +75,10 @@ function nsp_DatabaseSearch($what='') {
    # FIELDS
    $fields="";
    for($i=1;$i<=3;$i++) {
-     if($_GET["where$i"] != '') {
-       $fields.=$_GET["where$i"].",";
+     if($_GET["where$i"] != '') {       
+       $where_i=$_GET["where$i"];
+       if (!array_key_exists($where_i, $f)) $where_i=''; // prevent to use not valid values
+       $fields.=$where_i.',';
      }
    }
    $fields=rtrim($fields,",");
@@ -89,7 +91,7 @@ function nsp_DatabaseSearch($what='') {
    if (!isset($_GET['feed'])) { $where.=" AND feed=''"; }
    else if($_GET['feed'] != 'checked') { $where.=" AND feed=''"; }
 
-   for($i=1;$i<=3;$i++) {
+   for($i=1;$i<=3;$i++) {   
      if(($_GET["what$i"] != '') && ($_GET["where$i"] != '')) {
        $where_i=esc_sql($_GET["where$i"]);
        $what_i=esc_sql($_GET["what$i"]);
@@ -142,7 +144,7 @@ function nsp_DatabaseSearch($what='') {
        print "<tr>";
        for($i=1;$i<=3;$i++) {
          print "<td>";
-         if($_GET["where$i"] == 'urlrequested') { print nsp_DecodeURL($rk[$i-1]); }
+         if($_GET["where$i"] == 'urlrequested') { print iri_NewStatPress_Decode($rk[$i-1]); }
          else { if(isset($rk[$i-1])) print $rk[$i-1]; }
          print "</td>";
        }

@@ -160,10 +160,10 @@ function nsp_IP2nation() {
     <?php
     _e('What is ip2nation?','newstatpress');
     echo "<br/>";
-    _e('ip2nation is a free MySQL database that offers a quick way to map an IP to a country. The database is optimized to ensure fast lookups and is based on information from ARIN, APNIC, RIPE etc. You may download the database using the link to the left. (sce: <a href="http://www.ip2nation.com/">http://www.ip2nation.com</a>)','newstatpress');
+    _e('ip2nation is a free MySQL database that offers a quick way to map an IP to a country. The database is optimized to ensure fast lookups and is based on information from ARIN, APNIC, RIPE etc. You may install the database using the link to the left. (see: <a href="http://www.ip2nation.com/">http://www.ip2nation.com</a>)','newstatpress');
     echo "<br/><br />
           <span class='strong'>"
-            .__('Note: The installation may take a few seconds to complete.','newstatpress').
+            .__('Note: The installation may take some times to complete.','newstatpress').
          "</span>";
 
     ?>
@@ -227,7 +227,7 @@ function nsp_IP2nationDownload() {
     $install_status=__('Failure to unzip archive, please try to re-install','newstatpress');
   }
   else {
-    $install_status=__('Instalation of IP2nation database was successful','newstatpress');
+    $install_status=__('Installation of IP2nation database was successful','newstatpress');
   }
 
   // Remove Zip file
@@ -252,7 +252,7 @@ function nsp_IP2nationInstall() {
   $date=date('d/m/Y', filemtime($file_ip2nation));
   // echo $date;
   update_option($nsp_option_vars['ip2nation']['name'], $date);
-  $install_status=__('Instalation of IP2nation database was successful','newstatpress');
+  $install_status=__('Installation of IP2nation database was successful','newstatpress');
 
  return $install_status;
 }
@@ -456,7 +456,7 @@ function nsp_Update() {
   _e('Update the database is particularly useful when the ip2nation data and definitions data (OS, browser, spider) have been updated. An option in future will allow an automatic update of the database..','newstatpress');
   echo "<br/><br />
         <span class='strong'>"
-          .__('Note: The installation may take a few seconds to complete.','newstatpress').
+          .__('Note: The update may take some times to complete.','newstatpress').
        "</span>";
 
   ?>

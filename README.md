@@ -22,11 +22,13 @@
 - [ ] Database migration routine with unique name
 
 
-## 1.0.1
+## 1.0.2
 *Released date: 2015-06-*
 
 User interface changes:
-- [x] Added API key option in option menu (fo future use)
+- [x] Added API key option in option menu
+- [x] Added API activation option in option menu
+- [x] Implement external API "version" (gives actual version of NewStatPress)
 - [x] Added informations tabs in Tools menu ()
 - [x] Updated General tab in Option menu ()
 - [x] Updated Widgets title
@@ -36,10 +38,16 @@ User interface changes:
 Core changes:
 - [x] Fix the plugin menu view for "subscriver"
 - [x] Fix IP2nation database installation bug
-- [x] Remove IP2nation download function (to be conform with WP policy)
+- [x] Remove IP2nation download function (to be best conform with WP policy)
 - [x] Massive code cleaning to avoid conflict with others plugins
 - [x] Added bots (+5, thanks to Nahuel)
 - [x] Updated Locale fr_FR, it_IT
+
+## 1.0.1
+*Released date: 2015-06-08
+
+IMPORTANT CRITICAL UPDATE
+- [x] Close a SQL injection (Thanks to White Fir Design for discover and communicate). Actually the old Statpress search code seems to be sanitized all.
 
 ## 1.0.0
 *Released date: 2015-05-29*
