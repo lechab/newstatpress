@@ -126,8 +126,25 @@ Check at http://newstatpress.altervista.org
 == Changelog ==
 
 = 1.0.2 =
+*Release Date - 21/06/2015*
 
-* Added bots (+5, thanks to Nahuel)
+User interface changes:
+* Added API key option in option menu
+* Added API activation option in option menu
+* Implement external API "version" (gives actual version of NewStatPress)
+* Added informations tabs in Tools menu ()
+* Updated General tab in Option menu ()
+* Updated Widgets title
+* Updated IP2nation option menu
+* Fixed Dashboard widget overflow
+
+Core changes:
+* Fix the plugin menu view for "subscriver"
+* Fix IP2nation database installation bug
+* Remove IP2nation download function (to be best conform with WP policy)
+* Massive code cleaning to avoid conflict with others plugins
+* Added bots (+7, thanks to Nahuel)
+* Updated Locale fr_FR, it_IT
 
 = 1.0.1 =
 *Release Date - 08/06/2015*

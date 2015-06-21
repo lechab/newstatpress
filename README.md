@@ -23,7 +23,7 @@
 
 
 ## 1.0.2
-*Released date: 2015-06-*
+*Released date: 2015-06-21
 
 User interface changes:
 - [x] Added API key option in option menu
@@ -40,7 +40,7 @@ Core changes:
 - [x] Fix IP2nation database installation bug
 - [x] Remove IP2nation download function (to be best conform with WP policy)
 - [x] Massive code cleaning to avoid conflict with others plugins
-- [x] Added bots (+5, thanks to Nahuel)
+- [x] Added bots (+7, thanks to Nahuel)
 - [x] Updated Locale fr_FR, it_IT
 
 ## 1.0.1

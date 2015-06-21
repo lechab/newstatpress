@@ -90,7 +90,6 @@ function nsp_UpdateCheck() {
 
   if (version_compare( $active_version, $_NEWSTATPRESS['version'], '<' )) {
     update_option('newstatpress_version', $_NEWSTATPRESS['version']);
-    new_count_register();
   }
 }
 add_action( 'admin_init', 'nsp_UpdateCheck' );
