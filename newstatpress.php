@@ -1078,6 +1078,14 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
 }
 
 /**
+ * Return the expanded vars into the give code. API to use for users.
+ */
+function NewStatPress_Print($body='') {
+  return nsp_ExpandVarsInsideCode($body);
+}
+
+
+/**
  * Expand vars into the give code
  *
  * @param boby the code where to look for variables to expand

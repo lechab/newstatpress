@@ -132,6 +132,12 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+= 1.0.3 =
+*Release Date - 23/06/2015*
+
+* Fix nsp_DecodeURL code cleanup replacement
+* Fix NewStatPress_Print missing after cleanup
+
 = 1.0.2 =
 *Release Date - 21/06/2015*
 
