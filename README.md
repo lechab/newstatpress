@@ -24,8 +24,9 @@
 ## 1.0.7
 *Released date: 2015-*-*
 
-- [ ] Fix %mvisits% not giving result
-- [ ] Add %wvisits% week visits
+- [x] Fix %mvisits% not giving result
+- [x] Add %wvisits% week visits
+- [ ] Updated Locale fr_FR, it_IT
 
 ## 1.0.6
 *Released date: 2015-07-01

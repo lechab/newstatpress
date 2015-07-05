@@ -3,12 +3,12 @@
 Plugin Name: NewStatPress
 Plugin URI: http://newstatpress.altervista.org
 Description: Real time stats for your Wordpress blog
-Version: 1.0.6
+Version: 1.0.7
 Author: Stefano Tognon and cHab (from Daniele Lippi works)
 Author URI: http://newstatpress.altervista.org
 ************************************************************/
 
-$_NEWSTATPRESS['version']='1.0.6';
+$_NEWSTATPRESS['version']='1.0.7';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
@@ -64,6 +64,7 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
                        array('visits',__('Today visits', 'newstatpress')),
                        array('yvisits',__('Yesterday visits', 'newstatpress')),
                        array('mvisits',__('Month visits', 'newstatpress')),
+                       array('wvisits',__('Week visits', 'newstatpress')),
                        array('totalvisits',__('Total visits', 'newstatpress')),
                        array('totalpageviews',__('Total pages view', 'newstatpress')),
                        array('todaytotalpageviews',__('Total pages view today', 'newstatpress')),
@@ -1102,6 +1103,7 @@ function nsp_ExpandVarsInsideCode($body) {
   $vars_list=array('visits',
                    'yvisits',
                    'mvisits',
+                   'wvisits',
                    'totalvisits',
                    'totalpageviews',
                    'todaytotalpageviews',
