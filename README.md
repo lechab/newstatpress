@@ -24,9 +24,14 @@
 ## 1.0.7
 *Released date: 2015-*-*
 
+- [ ] Updated Locale fr_FR, it_IT
+
+## 1.0.7
+*Released date: 2015-07-11
+
 - [x] Fix %mvisits% not giving result
 - [x] Add %wvisits% week visits
-- [ ] Updated Locale fr_FR, it_IT
+- [x] Fix capability problems created by https://codex.wordpress.org/Multisite_Network_Administration
 
 ## 1.0.6
 *Released date: 2015-07-01

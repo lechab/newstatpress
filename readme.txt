@@ -134,11 +134,11 @@ Check at http://newstatpress.altervista.org
 == Changelog ==
 
 = 1.0.7 =
-*Release Date - xx/07/2015*
+*Release Date - 11/07/2015*
 
 * Fix %mvisits% not giving result
 * Add %wvisits% week visits
-* Updated Locale fr_FR, it_IT
+* Fix capability problems created by https://codex.wordpress.org/Multisite_Network_Administration
 
 = 1.0.6 =
 *Release Date - 01/07/2015*
