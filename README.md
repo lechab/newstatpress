@@ -13,54 +13,55 @@
 - [ ] add Select definitions to update
 - [ ] Add a 'unique visitors' row in the overview chart
 - [ ] Add options to (de)activate single chart/graphs of overview and details
-- [ ] Add options to let or not users (not administrator) to see or not options/owerview/details/visits
 - [ ] Generate extenal API interfaces
 - [ ] Add'version' in external API
 - [x] Change days calculation into prune functions
 - [ ] add number of visitors online in the overview page
-- [ ] add jquery for credit page
 - [ ] Database migration routine with unique name
 
-## 1.0.7
-*Released date: 2015-*-*
+## 1.0.8
+*Released date: 2015-*-**
 
-- [ ] Updated Locale fr_FR, it_IT
+- [x] add jquery tabs for credit page
+- [x] Updated browser definition
+- [x] add 2 spiders logo
+- [x] Updated Locale fr_FR, it_IT
 
 ## 1.0.7
-*Released date: 2015-07-11
+*Released date: 2015-07-11*
 
 - [x] Fix %mvisits% not giving result
 - [x] Add %wvisits% week visits
 - [x] Fix capability problems created by https://codex.wordpress.org/Multisite_Network_Administration
 
 ## 1.0.6
-*Released date: 2015-07-01
+*Released date: 2015-07-01*
 
-IMPORTANT UPDATE
+IMPORTANT SECURITY UPDATE
 
 - [x] Close a possible Reflected XSS attack (thanks to James H - g0blin Reserch)
 - [x] Avoid MySQL error if erroneous input is given (thanks to James H - g0blin Reserch)
 
 ## 1.0.5
-*Released date: 2015-06-30
+*Released date: 2015-06-30*
 
 IMPORTANT CRITICAL UPDATE
 - [x] Close a XSS and a SQLI Injection involeved IMG tag (thanks to James H - g0blin Reserch)
 
 ## 1.0.4
-*Released date: 2015-06-30
+*Released date: 2015-06-30*
 
 IMPORTANT CRITICAL UPDATE
 - [x] Close a persistent XSS via HTTP-Header (Referer) (no authentication required) (thanks to Michael Kapfer - HSASec-Team)
 
 ## 1.0.3
-*Released date: 2015-06-23
+*Released date: 2015-06-23*
 
 - [x] Fix nsp_DecodeURL code cleanup replacement
 - [x] Fix NewStatPress_Print missing after cleanup
 
 ## 1.0.2
-*Released date: 2015-06-21
+*Released date: 2015-06-21*
 
 User interface changes:
 - [x] Added API key option in option menu
