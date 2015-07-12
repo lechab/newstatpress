@@ -6,10 +6,14 @@
 function nsp_DisplayCreditsPage() {
 
   global $pagenow;
-  $support_pluginpage="<a href='https://wordpress.org/support/plugin/newstatpress' target='_blank'>".__('support page','newstatpress')."</a>";
-  $author_linkpage="<a href='http://newstatpress.altervista.org/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
 
   $page='nsp_credits';
+
+  $support_pluginpage="<a href='https://wordpress.org/support/plugin/newstatpress' target='_blank'>".__('support page','newstatpress')."</a>";
+
+  $author_linkpage="<a href='http://newstatpress.altervista.org/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
+
+  $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or  by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation by clicking on the button to support the work.','newstatpress'), $support_pluginpage, $author_linkpage);
 
   $CreditsPage_tabs = array( 'development' => __('Development','newstatpress'),
                              'translation' => __('Translation','newstatpress'),
@@ -32,6 +36,8 @@ function nsp_DisplayCreditsPage() {
   );
 
   $translators = array(
+    array('Stefano Tognon', 'Italian Update'),
+    array('cHab', 'French Update'),
     array('shilom', 'French Update'),
     array('Alphonse PHILIPPE', 'French Update'),
     array('Vincent G.', 'Lithuanian Addition'),
@@ -52,23 +58,30 @@ function nsp_DisplayCreditsPage() {
     array('Fleisher D.', '12/02/2015')
   );
 
+?>
 
-  echo "<div class='wrap'><h2>"; _e('Credits','newstatpress'); echo "</h2>";
-  echo "<table><tr><td>";
-  $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or  by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation by clicking on the button to support the work.','newstatpress'), $support_pluginpage, $author_linkpage);
-  echo $credits_introduction;
-  echo "</td><td class='don'>";
-  echo "<form  method='post' target='_blank' action='https://www.paypal.com/cgi-bin/webscr'>
-        <input type='hidden' value='_s-xclick' name='cmd'></input>
-        <input type='hidden' value='F5S5PF4QBWU7E' name='hosted_button_id'></input>
-        <input class='button button-primary perso' type=submit value='"; _e('Make a donation','newstatpress');
-  echo "'></form></td></tr></table>";
-
-  if ( $pagenow == 'admin.php' && $_GET['page'] == $page ){
-
-
-
-    ?>
+  <div class='wrap'>
+    <h2>
+      <?php _e('Credits','newstatpress'); ?>
+    </h2>
+  <table>
+    <tr>
+      <td>
+        <?php echo $credits_introduction; ?>
+      </td>
+      <td class='don'>
+        <form  method='post' target='_blank' action='https://www.paypal.com/cgi-bin/webscr'>
+          <input type='hidden' value='_s-xclick' name='cmd'></input>
+          <input type='hidden' value='F5S5PF4QBWU7E' name='hosted_button_id'></input>
+          <input class='button button-primary perso' type=submit value=' <?php _e('Make a donation','newstatpress'); ?>'>
+        </form>
+      </td>
+    </tr>
+  </table>
+  
+  <?php
+    if ( $pagenow == 'admin.php' && $_GET['page'] == $page ){
+  ?>
 
   <div id="usual1" class="usual">
     <ul>
@@ -94,8 +107,7 @@ function nsp_DisplayCreditsPage() {
       </thead>
       <tbody>
         <?php
-        foreach($contributors as $contributors)
-        {
+        foreach($contributors as $contributors) {
           echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
         };
         ?>
@@ -118,10 +130,8 @@ function nsp_DisplayCreditsPage() {
       </thead>
       <tbody>
         <?php
-          foreach($translators as $contributors)
-          {
-            echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n";
-            echo "<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
+          foreach($translators as $contributors) {
+          echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
           };
         ?>
       </tbody>
@@ -143,10 +153,8 @@ function nsp_DisplayCreditsPage() {
       </thead>
       <tbody>
         <?php
-          foreach($donators as $contributors)
-          {
-            echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n";
-            echo "<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
+          foreach($donators as $contributors) {
+          echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
           };
         ?>
       </tbody>
