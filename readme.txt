@@ -4,7 +4,7 @@ Donate link: http://newstatpress.altervista.org
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 2.1
 Tested up to: 4.2
-Stable Tag: 1.0.2
+Stable Tag: 1.0.7
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -23,9 +23,9 @@ Note: you must disable the original StatPress plugin (or other plugins still bas
 
 With the new ajax/javascript usage for variables in widget, the plugin is faster for a user being visit your site even with 1GB or more of database to use!
 
-Important: all previous versions from 0.9.9 are subject to XSS and SQL injection from an old Statpress routine. You have to use at least version 0.9.9.
-Unfortunately actually over 50% of people still use versions before 0.9.0!!!!
-Please update always to the latest version available.
+IMPORTANT: all previous versions from 1.0.4 are subject to XSS and SQL injection from an old Statpress routine. You have to use at least version 1.0.6.
+Unfortunately actually 75% of people still use versions before 1.0.0!!!!
+PLEASE UPDATE always to the latest version available.
 
 = Support =
 
@@ -44,6 +44,22 @@ You could ban IP list from stats editing def/banips.dat file.
 NewStatPress can automatically delete older records to allow the insertion of newer records when limited space is present.
 This features is left as original StatPress but it will be replaced by the history data instead.
 
+= External API =
+
+External API are a way to gives the collected informations as a web service using a POST call.
+With it you can use (for example) your colected data of Wordpress inside a Drupal site.
+The API must be enables by check a flag into the option (by dafault is is disabled) and a private KEY must be entered (you can generate a random one).
+This KEY is for authenticate the called as a valid allowed client.
+Even if the API is for external usage, it will be used internally for speed up page generation using AJAX, so at some point you will need to activate it to cotinue to see overwiew and Details pages.
+
+Actually those are the available commands:
+
+Command       Paramethers     Description
+-------------------------------------------------------------------
+version         <none>        gives the Newstatpress version in use
+
+External API is actually used bu Multi-NewStatPress (a software than manages data from multiple installation of NewStatPress in different servers).
+
 = NewStatPress Widget / NewStatPress_Print function =
 
 Widget is customizable. These are the available variables:
@@ -56,6 +72,7 @@ Widget is customizable. These are the available variables:
 * %visits% - Today visits
 * %yvisits% - Yesterday visits
 * %mvisits% - Month visits
+* %wvisits% - Week visits
 * %totalvisits% - Total visits
 * %os% - Operative system
 * %browser% - Browser
@@ -66,15 +83,6 @@ Widget is customizable. These are the available variables:
 * %topbrowser% - The most used Browser
 * %topos% - The most used O.S.
 * %topsearch% - The most used search terms
-* %installed% - Give the number of installed plugin (experimental)
-
-The number of installed plugins is obtained by counting the encripted MD5 site domain where the
-plugin is installed and his version inside a table into newstatpress.altervista.org database.
-As MD5 is used, this means that the site is registered anonymous and so site privacy is mantained.
-Actually the registration is send when you are in admin area, so it not affects a user that visit your site.
-If you put %installed% into one your page, take present that it goes to read a value to
-newstatpress.altervista.org database (it is one value, so performance should be fast).
-The used registration scripts are added inside include directory.
 
 Now you could add these values everywhere! NewStatPress offers a new PHP function *NewStatPress_Print()*.
 * i.e. NewStatPress_Print("%totalvisits% total visits.");
@@ -125,14 +133,67 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
-= 1.0.2 =
+= 1.0.7 =
+*Release Date - 11/07/2015*
 
-* Added bots (+5, thanks to Nahuel)
+* Fix %mvisits% not giving result
+* Add %wvisits% week visits
+* Fix capability problems created by https://codex.wordpress.org/Multisite_Network_Administration
+
+= 1.0.6 =
+*Release Date - 01/07/2015*
+
+* Close a possible Reflected XSS attack (thanks to James H - g0blin Reserch)
+* Avoid MySQL error if erroneous input is given (thanks to James H - g0blin Reserch)
+
+= 1.0.5 =
+*Release Date - 30/06/2015*
+
+IMPORTANT CRITICAL UPDATE
+
+* Close a XSS and a SQLI Injection involeved IMG tag (thanks to James H - g0blin Reserch)
+
+= 1.0.4 =
+*Release Date - 30/06/2015*
+
+IMPORTANT CRITICAL UPDATE
+
+* Close a persistent XSS via HTTP-Header (Referer) (no authentication required) (thanks to Michael Kapfer - HSASec-Team)
+
+= 1.0.3 =
+*Release Date - 23/06/2015*
+
+* Fix nsp_DecodeURL code cleanup replacement
+* Fix NewStatPress_Print missing after cleanup
+
+= 1.0.2 =
+*Release Date - 21/06/2015*
+
+ User interface changes:
+
+* Added API key option in option menu
+* Added API activation option in option menu
+* Implement external API "version" (gives actual version of NewStatPress)
+* Added informations tabs in Tools menu ()
+* Updated General tab in Option menu ()
+* Updated Widgets title
+* Updated IP2nation option menu
+* Fixed Dashboard widget overflow
+
+ Core changes:
+
+* Fix the plugin menu view for "subscriver"
+* Fix IP2nation database installation bug
+* Remove IP2nation download function (to be best conform with WP policy)
+* Massive code cleaning to avoid conflict with others plugins
+* Added bots (+7, thanks to Nahuel)
+* Updated Locale fr_FR, it_IT
 
 = 1.0.1 =
 *Release Date - 08/06/2015*
 
 IMPORTANT CRITICAL UPDATE
+
 * Close a SQL injection (Thanks to White Fir Design for discover and communicate). Actually the old Statpress search code seems to be sanitized all.
 
 
