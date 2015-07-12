@@ -200,7 +200,7 @@ function nsp_Options() {
   $option_var='newstatpress_dashboard';
   nsp_PrintChecked($option_title,$option_var);
 
-  echo "<tr><th scope='row' rowspan='1'>Minimum capability to display each specific menu (<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)</th></tr>";
+  echo "<tr><th scope='row' rowspan='1'>".__("Minimum capability to display each specific menu",'newstatpress')."(<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",'newstatpress')."</a>)</th></tr>";
 
   $option_title=__('Overview menu','newstatpress');
   echo "<tr><th scope='row' rowspan='1' class='tab'>"; echo $option_title."</th>";
@@ -487,6 +487,7 @@ function nsp_Options() {
 <?php
 // case 'API Key' :
 echo "<div id='api'>\n<table class='form-tableH'>";
+
 
 $option_title=__('Enable External API','newstatpress');
 $option_var='newstatpress_externalapi';
