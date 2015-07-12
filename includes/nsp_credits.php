@@ -8,12 +8,14 @@ function nsp_DisplayCreditsPage() {
   global $pagenow;
   $support_pluginpage="<a href='https://wordpress.org/support/plugin/newstatpress' target='_blank'>".__('support page','newstatpress')."</a>";
   $author_linkpage="<a href='http://newstatpress.altervista.org/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
+
+  $page='nsp_credits';
+
   $CreditsPage_tabs = array( 'development' => __('Development','newstatpress'),
                              'translation' => __('Translation','newstatpress'),
                              'donation' => __('Donation','newstatpress')
   );
-  $page='nsp_credits';
-  
+
   $contributors = array(
     array('Stefano Tognon', 'NewStatPress developer'),
     array('cHab', 'NewStatPress collaborator'),
@@ -26,8 +28,7 @@ function nsp_DisplayCreditsPage() {
     array('Ruud van der Veen', 'Add tab delimiter for exporting data'),
     array('kjmtsh', 'Many fixes about empty query result and obsolete functions'),
     array('Adrián M. F.', 'Find a XSS and a SQL injection'),
-    array('White Fir Design', 'Find a SQL injection'),
-    array('Michael Kapfer - HSASec-Team', 'Find a persistent XSS via HTTP-Header (Referer)(no authentication required)')
+    array('White Fir Design', 'Find a SQL injection')
   );
 
   $translators = array(
@@ -51,6 +52,7 @@ function nsp_DisplayCreditsPage() {
     array('Fleisher D.', '12/02/2015')
   );
 
+
   echo "<div class='wrap'><h2>"; _e('Credits','newstatpress'); echo "</h2>";
   echo "<table><tr><td>";
   $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or  by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation by clicking on the button to support the work.','newstatpress'), $support_pluginpage, $author_linkpage);
@@ -62,49 +64,101 @@ function nsp_DisplayCreditsPage() {
         <input class='button button-primary perso' type=submit value='"; _e('Make a donation','newstatpress');
   echo "'></form></td></tr></table>";
 
-  if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($CreditsPage_tabs,$_GET['tab'],$page);
-  else nsp_DisplayTabsNavbarForMenuPage($CreditsPage_tabs, 'development',$page);
-
   if ( $pagenow == 'admin.php' && $_GET['page'] == $page ){
 
-    if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
-    else $tab = 'development';
 
-    echo "<table class='credit'>\n";
-    echo "<thead>\n<tr><th class='cell-l'>";  _e('Contributor','newstatpress');
-    switch ( $tab ) {
 
-      case 'development' :
-      echo "</th>\n<th class='cell-r'>"; _e('Description','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
-      foreach($contributors as $contributors)
-      {
-        echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
-      };
-      break;
+    ?>
 
-      case 'translation' :
-      echo "</th>\n<th class='cell-r'>"; _e('Language','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
-      foreach($translators as $contributors)
-      {
-        echo "<tr>\n";
-        echo "<td class='cell-l'>$contributors[0]</td>\n";
-        echo "<td class='cell-r'>$contributors[1]</td>\n";
-        echo "</tr>\n";
-      };
-      break;
+  <div id="usual1" class="usual">
+    <ul>
+    <?php
+      foreach( $CreditsPage_tabs as $tab => $name ) {
+          echo "<li><a href='#$tab'>$name</a></li>";
+      }
+    ?>
+    </ul>
 
-      case 'donation' :
-      echo "</th>\n<th class='cell-r'>"; _e('Date','newstatpress'); echo "</th></tr>\n</thead>\n<tbody>";
-      foreach($donators as $contributors)
-      {
-        echo "<tr>\n";
-        echo "<td class='cell-l'>$contributors[0]</td>\n";
-        echo "<td class='cell-r'>$contributors[1]</td>\n";
-        echo "</tr>\n";
-      };
-      break;
-    }
-    echo "</tbody>";
+    <!-- tab 'development' -->
+    <div id='development'>
+    <table class='credit'>
+      <thead>
+        <tr>
+          <th class='cell-l'>
+            <?php _e('Contributor','newstatpress'); ?>
+          </th>
+          <th class='cell-r'>
+            <?php _e('Description','newstatpress'); ?>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        foreach($contributors as $contributors)
+        {
+          echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
+        };
+        ?>
+      </tbody>
+    </table>
+    </div>
+
+    <!-- tab 'translation' -->
+    <div id='translation'>
+    <table class='credit'>
+      <thead>
+        <tr>
+          <th class='cell-l'>
+            <?php _e('Contributor','newstatpress'); ?>
+          </th>
+          <th class='cell-r'>
+            <?php _e('Language','newstatpress'); ?>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          foreach($translators as $contributors)
+          {
+            echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n";
+            echo "<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
+          };
+        ?>
+      </tbody>
+    </table>
+    </div>
+
+    <!-- tab 'donation' -->
+    <div id='donation'>
+    <table class='credit'>
+      <thead>
+        <tr>
+          <th class='cell-l'>
+            <?php _e('Contributor','newstatpress'); ?>
+          </th>
+          <th class='cell-r'>
+            <?php _e('Date','newstatpress'); ?>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+          foreach($donators as $contributors)
+          {
+            echo "<tr>\n<td class='cell-l'>$contributors[0]</td>\n";
+            echo "<td class='cell-r'>$contributors[1]</td>\n</tr>\n";
+          };
+        ?>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    jQuery("#usual1 ul").idTabs(development);
+  </script>
+
+<?php
     echo "<table class='credit-footer'>\n<tr>\n<td>"; _e('Plugin homepage','newstatpress');
     echo ": <a target='_blank' href='http://newstatpress.altervista.org'>Newstatpress</a></td></tr>";
     echo "<tr>\n<td>"; _e('RSS news','newstatpress');
