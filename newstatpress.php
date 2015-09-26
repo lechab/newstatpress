@@ -1,14 +1,15 @@
 <?php
-/***********************************************************
-Plugin Name: NewStatPress
-Plugin URI: http://newstatpress.altervista.org
-Description: Real time stats for your Wordpress blog
-Version: 1.0.8
-Author: Stefano Tognon and cHab (from Daniele Lippi works)
-Author URI: http://newstatpress.altervista.org
+/**********************************************************
+ Plugin Name: NewStatPress
+ Plugin URI: http://newstatpress.altervista.org
+ Text Domain: newstatpress
+ Description: Real time stats for your Wordpress blog
+ Version: 1.0.9
+ Author: Stefano Tognon and cHab (from Daniele Lippi works)
+ Author URI: http://newstatpress.altervista.org
 ************************************************************/
 
-$_NEWSTATPRESS['version']='1.0.8';
+$_NEWSTATPRESS['version']='1.0.9';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
@@ -949,7 +950,7 @@ function nsp_StatAppend() {
      $exp_referrer=nsp_GetSE($referrer);
      if (isset($exp_referrer)) {
        list($searchengine,$search_phrase)=explode("|",$exp_referrer);
-     } 
+     }
     }
 
   // Country (ip2nation table) or language
