@@ -1,7 +1,7 @@
 # Newstatpress development roadmap
 
 **USELESS IDEA**
-- add a page help somewhere (the help for the different %variable%,...)
+- [ ] add a page help somewhere (the help for the different %variable%,...)
 - [ ] tab construction for overview page
 - [ ] irihdate function in double with newstatpress_hdate => to clean
 - [ ] Fix number of dot of navbar in Visitors page
@@ -19,12 +19,19 @@
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
 
+
+## 1.0.9
+*Released date: 2015-09-26
+
+- [x] Adeguate for translate.wordpress.org
+- [X] Update Readme for External API usage
+
 ## 1.0.8
 *Released date: 2015-09-19
 
 - [x] add jquery tabs for credit page
 - [x] Updated browser definition
-- [x] add 2 spiders logo
+- [x] add 2 spiders logo add missing browser images
 - [x] rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
 - [x] Updated Locale fr_FR, it_IT
 

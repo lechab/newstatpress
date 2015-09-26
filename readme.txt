@@ -4,7 +4,7 @@ Donate link: http://newstatpress.altervista.org
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 2.1
 Tested up to: 4.3
-Stable Tag: 1.0.8
+Stable Tag: 1.0.9
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -59,6 +59,13 @@ Command       Paramethers     Description
 version         <none>        gives the Newstatpress version in use
 
 External API is actually used bu Multi-NewStatPress (a software than manages data from multiple installation of NewStatPress in different servers).
+
+If you want to use the API you need to pass to POST those values:
+
+VAR   the variable for the query (like 'Version')
+KEY   the MD5 of date at minute level plus the key you enter into option (e.g in PHP: md5(gmdate('m-d-y H i')+key) )
+
+into those url: your_site+"/wp-content/plugins/newstatpress/includes/api/external.php" 
 
 = NewStatPress Widget / NewStatPress_Print function =
 
@@ -133,12 +140,18 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+= 1.0.9 =
+*Released date: 26/09/2015*
+
+* Adeguate for translate.wordpress.org
+* Update Readme for External API usage
+
 = 1.0.8 =
 *Released date: 19/09/2015*
 
 * add jquery tabs for credit page
 * Updated browser definition
-* add 2 spiders logo
+* add 2 spiders logo and add missing browser images
 * rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
 * Updated Locale fr_FR, it_IT
 
