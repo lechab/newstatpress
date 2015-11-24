@@ -4,12 +4,12 @@
  Plugin URI: http://newstatpress.altervista.org
  Text Domain: newstatpress
  Description: Real time stats for your Wordpress blog
- Version: 1.0.9
+ Version: 1.1.0
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
 
-$_NEWSTATPRESS['version']='1.0.9';
+$_NEWSTATPRESS['version']='1.1.0';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
