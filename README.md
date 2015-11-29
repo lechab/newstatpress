@@ -20,11 +20,17 @@
 - [ ] Database migration routine with unique name
 
 
+## 1.1.0
+*Released date: 2015-xx-xx
+
+- [x] Fix API key calcutation
+- [ ] Add dashboard generation via external API
+
 ## 1.0.9
 *Released date: 2015-09-26
 
 - [x] Adeguate for translate.wordpress.org
-- [X] Update Readme for External API usage
+- [x] Update Readme for External API usage
 
 ## 1.0.8
 *Released date: 2015-09-19

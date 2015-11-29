@@ -1,4 +1,6 @@
 <?php
+#header('Access-Control-Allow-Origin: *'); 
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -22,7 +24,7 @@ $table_name = $wpdb->prefix . "statpress";
 
 // read key from wordpress option
 $api_key=get_option('newstatpress_apikey');
-$api_key=md5(gmdate('m-d-y H i')+$api_key);
+$api_key=md5(gmdate('m-d-y H i').$api_key);
 
 
 // test if can use API
