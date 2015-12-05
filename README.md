@@ -18,13 +18,15 @@
 - [x] Change days calculation into prune functions
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
+- [ ] Add dashboard generation via external API
 
 
 ## 1.1.0
 *Released date: 2015-xx-xx
 
 - [x] Fix API key calcutation
-- [ ] Add dashboard generation via external API
+- [x] Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
+
 
 ## 1.0.9
 *Released date: 2015-09-26
@@ -35,10 +37,10 @@
 ## 1.0.8
 *Released date: 2015-09-19
 
-- [x] add jquery tabs for credit page
+- [x] Add jquery tabs for credit page
 - [x] Updated browser definition
-- [x] add 2 spiders logo add missing browser images
-- [x] rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
+- [x] Add 2 spiders logo add missing browser images
+- [x] Rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
 - [x] Updated Locale fr_FR, it_IT
 
 ## 1.0.7

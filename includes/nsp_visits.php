@@ -194,7 +194,7 @@ document.getElementById(thediv).style.display="none"
       $img=strtolower($rk->nation).".png";
       $lines = file($newstatpress_dir.'/def/domain.dat');
       foreach($lines as $line_num => $nation) {
-        list($id,$title)=explode("|",$nation);
+        list($title,$id)=explode("|",$nation);
         if($id===$rk->nation) break;
       }
       echo "<IMG style='border:0px;height:16px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, nsp_BASENAME). "'>  ";
@@ -334,7 +334,7 @@ document.getElementById(thediv).style.display="none"
 
           $lines = file($newstatpress_dir.'/def/domain.dat');
           foreach($lines as $line_num => $nation) {
-            list($id,$title)=explode("|",$nation);
+            list($title,$id)=explode("|",$nation);
             if($id===$rk->nation) break;
           }
           print "".__('Http domain', 'newstatpress')." <IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, nsp_BASENAME). "'>  ";
