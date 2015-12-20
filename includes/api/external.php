@@ -155,10 +155,23 @@ function nsp_ApiOverview() {
 
   $table_name = nsp_TABLENAME;
 
-  $thisyear = gmdate('Y', current_time('timestamp'));
 
-  $resultJ['since']=nsp_ExpandVarsInsideCode('%since%');  // export
-  $resultJ['lastmonth']=nsp_Lastmonth();                  // export
+  $lastmonth = nsp_Lastmonth();
+
+///  $resultJ['since']=nsp_ExpandVarsInsideCode('%since%');  // export
+  $resultJ['lastmonth']=$lastmonth;                       // export
+
+  $thisyear = gmdate('Y', current_time('timestamp'));
+  $thismonth = gmdate('Ym', current_time('timestamp'));
+  $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
+  $today = gmdate('Ymd', current_time('timestamp'));
+  $tlm[0]=substr($lastmonth,0,4); $tlm[1]=substr($lastmonth,4,2);
+
+  $thisyearHeader = gmdate('Y', current_time('timestamp'));
+  $lastmonthHeader = gmdate('M, Y',gmmktime(0,0,0,$tlm[1],1,$tlm[0]));
+  $thismonthHeader = gmdate('M, Y', current_time('timestamp'));
+  $yesterdayHeader = gmdate('d M', current_time('timestamp')-86400);
+  $todayHeader = gmdate('d M', current_time('timestamp'));
 
   $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');
 
@@ -187,11 +200,13 @@ function nsp_ApiOverview() {
         break;
     }
 
-    $qry_total = $wpdb->get_row($sql_QueryTotal);
-    $qry_tyear = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'"); 
+    if ($par==main) {
+      $qry_total = $wpdb->get_row($sql_QueryTotal);
+      $qry_tyear = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'"); 
 
-    $resultJ[$row.'_total'] = $qry_total->$row;  // export
-    $resultJ[$row.'_tyear'] = $qry_tyear->$row;  // export
+      $resultJ[$row.'_total'] = $qry_total->$row;  // export
+      $resultJ[$row.'_tyear'] = $qry_tyear->$row;  // export
+    }
 
     if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
 
@@ -245,21 +260,6 @@ function nsp_ApiOverview() {
 
   $overview_table='';
 
-  $since = $resultJ['since'];
-  $lastmonth = $resultJ['lastmonth'];
-
-  //$thisyear = gmdate('Y', current_time('timestamp'));
-  $thismonth = gmdate('Ym', current_time('timestamp'));
-  $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
-  $today = gmdate('Ymd', current_time('timestamp'));
-  $tlm[0]=substr($lastmonth,0,4); $tlm[1]=substr($lastmonth,4,2);
-
-  $thisyearHeader = gmdate('Y', current_time('timestamp'));
-  $lastmonthHeader = gmdate('M, Y',gmmktime(0,0,0,$tlm[1],1,$tlm[0]));
-  $thismonthHeader = gmdate('M, Y', current_time('timestamp'));
-  $yesterdayHeader = gmdate('d M', current_time('timestamp')-86400);
-  $todayHeader = gmdate('d M', current_time('timestamp'));
-
   // dashboard
   $overview_table.="<table class='widefat center nsp'>
                       <thead>
@@ -284,13 +284,13 @@ function nsp_ApiOverview() {
 
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>$row_title</td>";
-    if ($print=='main')
+    if ($par=='main')
       $overview_table.="<td class='colc'>".$resultJ[$row.'_total']."</td>\n";
-    if ($print=='main')
+    if ($par=='main')
       $overview_table.="<td class='colc'>".$resultJ[$row.'_tyear']."</td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_lmonth']."</td>\n";
     $overview_table.="<td class='colr'>".$resultJ[$row.'_tmonth'].$result[0] ."</td>\n";
-    if ($print=='main')
+    if ($par=='main')
       $overview_table.="<td class='colr'>".$result[1]." ".$result[2]."</td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_qry_y']."</td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_qry_t']."</td>\n";
