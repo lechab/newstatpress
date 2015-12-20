@@ -26,7 +26,7 @@
 
 - [x] Fix API key calcutation
 - [x] Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
-
+- [x] Add %monthtotalpageviews% variable (request by th3no0b)
 
 ## 1.0.9
 *Released date: 2015-09-26

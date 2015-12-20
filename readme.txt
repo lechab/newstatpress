@@ -54,16 +54,19 @@ Even if the API is for external usage, it will be used internally for speed up p
 
 Actually those are the available commands:
 
-Command       Paramethers     Description
--------------------------------------------------------------------
-version         <none>        gives the Newstatpress version in use
+Command | Paramethers | Description
+
+* version         <none>        gives the Newstatpress version in use
+* overwiew       dashboard      gives the Newstatpress dashboard overview table
 
 External API is actually used bu Multi-NewStatPress (a software than manages data from multiple installation of NewStatPress in different servers).
 
 If you want to use the API you need to pass to POST those values:
 
-VAR   the variable for the query (like 'Version')
-KEY   the MD5 of date at minute level plus the key you enter into option (e.g in PHP: md5(gmdate('m-d-y H i')+key) )
+* VAR   the variable for the query (like 'Version')
+* KEY   the MD5 of date at minute level plus the key you enter into option (e.g in PHP: md5(gmdate('m-d-y H i').key) )
+* PAR   the paramether associated with the VAR
+* TYP   the type of result: JSON (default) of HTML
 
 into those url: your_site+"/wp-content/plugins/newstatpress/includes/api/external.php" 
 
@@ -74,6 +77,7 @@ Widget is customizable. These are the available variables:
 * %thistotalvisits% - this page, total visits
 * %alltotalvisits% - all page, total visits
 * %totalpageviews% - total pages view
+* %monthtotalpageviews% - total pages view in the month
 * %todaytotalpageviews% -  total pages view today
 * %since% - Date of the first hit
 * %visits% - Today visits
@@ -97,20 +101,20 @@ Now you could add these values everywhere! NewStatPress offers a new PHP functio
 New sperimental functions: place this command [NewStatPress: xxx] every were in your Wordpress blog pages and you will have the graph about the xxx function.
 
 Available functions are:
- *  [NewStatPress: Overview]
- *  [NewStatPress: Top days]
- *  [NewStatPress: O.S.]
- *  [NewStatPress: Browser]
- *  [NewStatPress: Feeds]
- *  [NewStatPress: Search Engine]
- *  [NewStatPress: Search terms]
- *  [NewStatPress: Top referrer]
- *  [NewStatPress: Languages]
- *  [NewStatPress: Spider]
- *  [NewStatPress: Top Pages]
- *  [NewStatPress: Top Days - Unique visitors]
- *  [NewStatPress: Top Days - Pageviews]
- *  [NewStatPress: Top IPs - Pageviews]
+* [NewStatPress: Overview]
+* [NewStatPress: Top days]
+* [NewStatPress: O.S.]
+* [NewStatPress: Browser]
+* [NewStatPress: Feeds]
+* [NewStatPress: Search Engine]
+* [NewStatPress: Search terms]
+* [NewStatPress: Top referrer]
+* [NewStatPress: Languages]
+* [NewStatPress: Spider]
+* [NewStatPress: Top Pages]
+* [NewStatPress: Top Days - Unique visitors]
+* [NewStatPress: Top Days - Pageviews]
+* [NewStatPress: Top IPs - Pageviews]
 
 == Installation ==
 
