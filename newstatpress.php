@@ -1445,28 +1445,28 @@ function nsp_Shortcode($content = '') {
 }
 add_filter('the_content', 'nsp_Shortcode');
 
-function nsp_CalculateVariation($month,$lmonth,$row) {
+function nsp_CalculateVariation($month,$lmonth) {
 
-  $target = round($month->$row / (
+  $target = round($month / (
     (date("d", current_time('timestamp')) - 1 +
     (date("H", current_time('timestamp')) +
     (date("i", current_time('timestamp')) + 1)/ 60.0) / 24.0)) * date("t", current_time('timestamp'))
   );
 
-  $month->change = null;
+  $monthchange = null;
   $added = null;
 
-  if($lmonth->$row <> 0) {
-    $percent_change = round( 100 * ($month->$row / $lmonth->$row ) - 100,1);
-    $percent_target = round( 100 * ($target / $lmonth->$row ) - 100,1);
+  if($lmonth <> 0) {
+    $percent_change = round( 100 * ($month / $lmonth ) - 100,1);
+    $percent_target = round( 100 * ($target / $lmonth ) - 100,1);
 
     if($percent_change >= 0) {
       $percent_change=sprintf("+%'04.1f", $percent_target);
-      $month->change = "<td class='coll'><code style='color:green'>($percent_change%)</code></td>";
+      $monthchange = "<td class='coll'><code style='color:green'>($percent_change%)</code></td>";
     }
     else {
       $percent_change=sprintf("%'05.1f", $percent_change);
-      $month->change = "<td class='coll'><code style='color:red'>($percent_change%)</code></td>";
+      $monthchange = "<td class='coll'><code style='color:red'>($percent_change%)</code></td>";
     }
 
     if($percent_target >= 0) {
@@ -1479,11 +1479,11 @@ function nsp_CalculateVariation($month,$lmonth,$row) {
     }
   }
   else {
-    $month->change = "<td></td>";
+    $monthchange = "<td></td>";
     $added = "<td class='coll'></td>";
   }
 
-  $calculated_result=array($month->change,$target,$added);
+  $calculated_result=array($monthchange,$target,$added);
   return $calculated_result;
 }
 

@@ -159,7 +159,6 @@ function nsp_ApiOverview() {
   $lastmonth = nsp_Lastmonth();
 
 ///  $resultJ['since']=nsp_ExpandVarsInsideCode('%since%');  // export
-  $resultJ['lastmonth']=$lastmonth;                       // export
 
   $thisyear = gmdate('Y', current_time('timestamp'));
   $thismonth = gmdate('Ym', current_time('timestamp'));
@@ -172,6 +171,14 @@ function nsp_ApiOverview() {
   $thismonthHeader = gmdate('M, Y', current_time('timestamp'));
   $yesterdayHeader = gmdate('d M', current_time('timestamp')-86400);
   $todayHeader = gmdate('d M', current_time('timestamp'));
+
+
+  $resultJ['lastmonth']=$lastmonth;                       // export
+  $resultJ['thisyear']=$thisyear;                         // export
+  $resultJ['thismonth']=$thismonth;                       // export
+  $resultJ['yesterday']=$yesterday;                       // export
+  $resultJ['today']=$today;                               // export
+
 
   $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');
 
@@ -250,8 +257,8 @@ function nsp_ApiOverview() {
     $resultJ[$row.'_qry_y'] = $qry_y->$row;  // export
     $resultJ[$row.'_qry_t'] = $qry_t->$row;  // export
 
-    $calculated_result=nsp_CalculateVariation($qry_tmonth,$qry_lmonth,$row);
-    $resultJ[$row.'_cresult'] = $calculated_result;  // export
+    if($resultJ[$row.'_lmonth'] <> 0) $resultJ[$row.'_perc_change'] = round( 100 * ($resultJ[$row.'_tmonth'] / $resultJ[$row.'_lmonth'] ) - 100,1)."%";  // export
+    else $resultJ[$row.'_perc_change'] ='';
   }
 
   if ($typ=="JSON") return;  // avoid to calculte HTML if not necessary
@@ -280,7 +287,7 @@ function nsp_ApiOverview() {
                       <tbody class='overview-list'>";
 
   foreach ($overview_rows as $row) {
-    $result=$resultJ[$row.'_cresult'];
+    $result=nsp_CalculateVariation($resultJ[$row.'_tmonth'],$resultJ[$row.'_lmonth']);
 
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>$row_title</td>";

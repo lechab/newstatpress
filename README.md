@@ -18,7 +18,6 @@
 - [x] Change days calculation into prune functions
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
-- [ ] Add dashboard generation via external API
 
 
 ## 1.1.0
@@ -27,6 +26,7 @@
 - [x] Fix API key calcutation
 - [x] Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
 - [x] Add %monthtotalpageviews% variable (request by th3no0b)
+- [x] Add dashboard generation via external API
 
 ## 1.0.9
 *Released date: 2015-09-26
