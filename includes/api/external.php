@@ -1,8 +1,8 @@
 <?php
 header('Access-Control-Allow-Origin: *'); 
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+#error_reporting(E_ALL);
+#ini_set('display_errors', 1);
 
 require_once('../../../../../wp-load.php');
 
@@ -179,6 +179,11 @@ function nsp_ApiOverview() {
   $resultJ['yesterday']=$yesterday;                       // export
   $resultJ['today']=$today;                               // export
 
+  $thismonth1 = gmdate('Ym', current_time('timestamp')).'01';
+  $thismonth31 = gmdate('Ymt', current_time('timestamp'));
+  $lastmonth1 = $lastmonth.'01';
+  $lastmonth31 = gmdate('Ymt', strtotime($lastmonth1));
+
 
   $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');
 
@@ -244,8 +249,8 @@ function nsp_ApiOverview() {
 
     }
     else { // classic
-      $qry_tmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thismonth%'");
-      $qry_lmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$lastmonth%'");
+      $qry_tmonth = $wpdb->get_row($sql_QueryTotal. " AND date BETWEEN '$thismonth1' AND '$thismonth31'");
+      $qry_lmonth = $wpdb->get_row($sql_QueryTotal. " AND date BETWEEN '$lastmonth1' AND '$lastmonth31'");
     }
 
     $resultJ[$row.'_tmonth'] = $qry_tmonth->$row;  // export

@@ -27,6 +27,7 @@
 - [x] Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
 - [x] Add %monthtotalpageviews% variable (request by th3no0b)
 - [x] Add dashboard generation via external API
+- [x] Use full index in Dashboard queries for classical method: super speed up generation
 
 ## 1.0.9
 *Released date: 2015-09-26
