@@ -19,8 +19,12 @@
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
 
+## 1.1.2
+*Released date: 2016-01-07
 
-
+- [x] Use new Ajax call in Wordpress for dashboard
+- [x] Fix msising row titles in dashboard in External API
+ 
 ## 1.1.1
 *Released date: 2016-01-06
 

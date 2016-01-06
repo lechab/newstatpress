@@ -149,10 +149,12 @@ function nsp_ApiVersion() {
 function nsp_ApiOverview() {
   global $var;
   global $par;
+  global $typ; 
   global $wpdb;
   global $resultJ;
   global $resultH;
-
+  global $nsp_option_vars;
+  
   $table_name = nsp_TABLENAME;
 
 
@@ -192,27 +194,32 @@ function nsp_ApiOverview() {
     switch($row) {
       case 'visitors' :
         $row2='DISTINCT ip';
+        $row_title=__('Visitors','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
         break;
       case 'visitors_feeds' :
         $row2='DISTINCT ip';
+        $row_title=__('Visitors through Feeds','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider='' AND agent<>''";
         break;
       case 'pageview' :
         $row2='date';
+        $row_title=__('Pageviews','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
         break;
       case 'spiders' :
         $row2='date';
+        $row_title=__('Spiders','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider<>''";
         break;
       case 'feeds' :
         $row2='date';
+        $row_title=__('Pageviews through Feeds','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider=''";
         break;
     }
 
-    if ($par==main) {
+    if ($par=="main") {
       $qry_total = $wpdb->get_row($sql_QueryTotal);
       $qry_tyear = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'"); 
 
@@ -264,6 +271,8 @@ function nsp_ApiOverview() {
 
     if($resultJ[$row.'_lmonth'] <> 0) $resultJ[$row.'_perc_change'] = round( 100 * ($resultJ[$row.'_tmonth'] / $resultJ[$row.'_lmonth'] ) - 100,1)."%";  // export
     else $resultJ[$row.'_perc_change'] ='';
+    
+    $resultJ[$row.'_title']=$row_title;       // export
   }
 
   if ($typ=="JSON") return;  // avoid to calculte HTML if not necessary
@@ -295,7 +304,7 @@ function nsp_ApiOverview() {
     $result=nsp_CalculateVariation($resultJ[$row.'_tmonth'],$resultJ[$row.'_lmonth']);
 
     // build full current row
-    $overview_table.="<tr><td class='row_title $row'>$row_title</td>";
+    $overview_table.="<tr><td class='row_title $row'>".$resultJ[$row.'_title']."</td>";
     if ($par=='main')
       $overview_table.="<td class='colc'>".$resultJ[$row.'_total']."</td>\n";
     if ($par=='main')
