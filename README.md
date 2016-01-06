@@ -20,6 +20,12 @@
 - [ ] Database migration routine with unique name
 
 
+
+## 1.1.1
+*Released date: 2016-01-06
+
+- [x] Remove included jquery script that generate activation problem. Dashboard in now to fix.
+
 ## 1.1.0
 *Released date: 2016-01-06
 
