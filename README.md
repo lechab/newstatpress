@@ -21,13 +21,14 @@
 
 
 ## 1.1.0
-*Released date: 2015-xx-xx
+*Released date: 2016-01-06
 
 - [x] Fix API key calcutation
 - [x] Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
 - [x] Add %monthtotalpageviews% variable (request by th3no0b)
 - [x] Add dashboard generation via external API
 - [x] Use full index in Dashboard queries for classical method: super speed up generation
+- [x] Fix overwiew bug in total (thanks to Greg Sydney)
 
 ## 1.0.9
 *Released date: 2015-09-26

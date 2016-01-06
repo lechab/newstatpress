@@ -2,7 +2,7 @@
 Contributors: ice00
 Donate link: http://newstatpress.altervista.org
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
-Requires at least: 2.1
+Requires at least: 3.5
 Tested up to: 4.3
 Stable Tag: 1.1.0
 
@@ -143,6 +143,16 @@ Check at http://newstatpress.altervista.org
 Check at http://newstatpress.altervista.org
 
 == Changelog ==
+
+= 1.1.0 =
+*Released date: 06/01/2016*
+
+* Fix API key calcutation
+* Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
+* Add %monthtotalpageviews% variable (request by th3no0b)
+* Add dashboard generation via external API
+* Use full index in Dashboard queries for classical method: super speed up generation
+* Fix overwiew bug in total (thanks to Greg Sydney)
 
 = 1.0.9 =
 *Released date: 26/09/2015*

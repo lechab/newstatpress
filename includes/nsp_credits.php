@@ -34,6 +34,7 @@ function nsp_DisplayCreditsPage() {
     array('Adrián M. F.', 'Find a XSS and a SQL injection'),
     array('White Fir Design', 'Find a SQL injection'),
     array('Gwss', 'Fix domain.dat manages inside nsp_visits.php'),
+    array('Greg Sydney', 'Fix overwiew bug in total')
   );
 
   $translators = array(

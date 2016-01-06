@@ -1664,16 +1664,29 @@ function nsp_MakeOverview($print ='dashboard') {
     //  last "N" days graph  NEW
     $gdays=get_option('newstatpress_daysinoverviewgraph'); if($gdays == 0) { $gdays=20; }
     $start_of_week = get_option('start_of_week');
-    $qry = $wpdb->get_row("
-      SELECT count(date) as pageview, date
-      FROM $table_name
-      GROUP BY date HAVING date >= '".gmdate('Ymd', current_time('timestamp')-86400*$gdays)."'
-      ORDER BY pageview DESC
-      LIMIT 1
-    ");
 
+//
     $maxxday = 0;
-    if ($qry != null) $maxxday=$qry->pageview;
+    for($gg=$gdays-1;$gg>=0;$gg--) {
+
+      $date=gmdate('Ymd', current_time('timestamp')-86400*$gg);
+
+      $qry_visitors  = $wpdb->get_row("SELECT count(DISTINCT ip) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
+      $visitors[$gg] = $qry_visitors->total;
+
+      $qry_pageviews = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
+      $pageviews[$gg]= $qry_pageviews->total;
+
+      $qry_spiders   = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider<>'' AND date = '$date'");
+      $spiders[$gg]  = $qry_spiders->total;
+
+      $qry_feeds     = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed<>'' AND spider='' AND date = '$date'");
+      $feeds[$gg]    = $qry_feeds->total;
+
+      $total= $visitors[$gg] + $pageviews[$gg] + $spiders[$gg] + $feeds[$gg];
+      if ($total > $maxxday) $maxxday= $total; 
+    }
+//
     if($maxxday == 0) { $maxxday = 1; }
     # Y
     $gd=(90/$gdays).'%';
@@ -1686,17 +1699,10 @@ function nsp_MakeOverview($print ='dashboard') {
 
       $date=gmdate('Ymd', current_time('timestamp')-86400*$gg);
 
-      $qry_visitors = $wpdb->get_row("SELECT count(DISTINCT ip) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
-      $px_visitors = $scale_factor*(round($qry_visitors->total*100/$maxxday));
-
-      $qry_pageviews = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
-      $px_pageviews = $scale_factor*(round($qry_pageviews->total*100/$maxxday));
-
-      $qry_spiders = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider<>'' AND date = '$date'");
-      $px_spiders = $scale_factor*(round($qry_spiders->total*100/$maxxday));
-
-      $qry_feeds = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed<>'' AND spider='' AND date = '$date'");
-      $px_feeds = $scale_factor*(round($qry_feeds->total*100/$maxxday));
+      $px_visitors = $scale_factor*(round($visitors[ $gg]*100/$maxxday));
+      $px_pageviews= $scale_factor*(round($pageviews[$gg]*100/$maxxday));
+      $px_spiders  = $scale_factor*(round($spiders[  $gg]*100/$maxxday));
+      $px_feeds    = $scale_factor*(round($feeds[    $gg]*100/$maxxday));
 
       $px_white = $scale_factor*100 - $px_feeds - $px_spiders - $px_pageviews - $px_visitors;
 
@@ -1704,10 +1710,10 @@ function nsp_MakeOverview($print ='dashboard') {
 
       $overview_graph.="<div class='overview-graph'>
         <div style='border-left:1px; background:#ffffff;width:100%;height:".$px_white."px;'></div>
-        <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$qry_visitors->total." ".__('Visitors','newstatpress')."'></div>
-        <div class='web_bar' style='height:".$px_pageviews."px;' title='".$qry_pageviews->total." ".__('Pageviews','newstatpress')."'></div>
-        <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$qry_spiders->total." ".__('Spiders','newstatpress')."'></div>
-        <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$qry_feeds->total." ".__('Feeds','newstatpress')."'></div>
+        <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$visitors[$gg]." ".__('Visitors','newstatpress')."'></div>
+        <div class='web_bar' style='height:".$px_pageviews."px;' title='".$pageviews[$gg]." ".__('Pageviews','newstatpress')."'></div>
+        <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$spiders[$gg]." ".__('Spiders','newstatpress')."'></div>
+        <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$feeds[$gg]." ".__('Feeds','newstatpress')."'></div>
         <div style='background:gray;width:100%;height:1px;'></div>";
         if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) $overview_graph.="<div class='legend-W'>";
         else $overview_graph.="<div class='legend'>";
