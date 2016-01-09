@@ -6,7 +6,7 @@
     TYP: "HTML"
   }, 
   function(data,status){
-    $( "#loader-dashboard").hide();
-    $( "#result-dashboard" ).html( data );
-  }, "html").fail(function(error) { $( "#loader-dashboard").hide(); });
+    $( "#nsp_loader-dashboard").hide();
+    $( "#nsp_result-dashboard" ).html( data );
+  }, "html").fail(function(error) { $( "#nsp_loader-dashboard").hide(); });
 })(jQuery);  

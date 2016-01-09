@@ -19,6 +19,12 @@
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
 
+## 1.1.3
+*Released date: 2016-01-09
+
+- [x] Fix call to % calculation
+- [x] Change dashboard/overview call in External API
+
 ## 1.1.2
 *Released date: 2016-01-07
 

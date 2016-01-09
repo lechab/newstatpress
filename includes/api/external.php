@@ -87,20 +87,9 @@ function body() {
     case 'version':
       nsp_ApiVersion();
       break;
-    case 'overview':
-      // use a switch to avoid invalid parameters are passed
-      switch ($par) {
-        case 'main':
-        case 'dashboard':
-        case 'null':
-          nsp_ApiOverview();
-          break;
-        default:
-          header('HTTP/1.0 403 Forbidden');
-          die("Invalid PAR value for overview API.");    
-          return;   
-      }
-      break;  
+    case 'dashboard':
+      nsp_ApiDashboard();
+      break;
     default: 
       header('HTTP/1.0 403 Forbidden'); 
       die("Not recognized API.");
@@ -142,11 +131,11 @@ function nsp_ApiVersion() {
 }
 
 /**
- * API: overview
+ * API: dashboard
  *
  * Return the overview according to the passed parameters as json encoded
  */
-function nsp_ApiOverview() {
+function nsp_ApiDashboard() {
   global $var;
   global $par;
   global $typ; 
@@ -157,10 +146,8 @@ function nsp_ApiOverview() {
   
   $table_name = nsp_TABLENAME;
 
-
   $lastmonth = nsp_Lastmonth();
 
-///  $resultJ['since']=nsp_ExpandVarsInsideCode('%since%');  // export
 
   $thisyear = gmdate('Y', current_time('timestamp'));
   $thismonth = gmdate('Ym', current_time('timestamp'));
@@ -217,14 +204,6 @@ function nsp_ApiOverview() {
         $row_title=__('Pageviews through Feeds','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider=''";
         break;
-    }
-
-    if ($par=="main") {
-      $qry_total = $wpdb->get_row($sql_QueryTotal);
-      $qry_tyear = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'"); 
-
-      $resultJ[$row.'_total'] = $qry_total->$row;  // export
-      $resultJ[$row.'_tyear'] = $qry_tyear->$row;  // export
     }
 
     if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
@@ -305,14 +284,8 @@ function nsp_ApiOverview() {
 
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>".$resultJ[$row.'_title']."</td>";
-    if ($par=='main')
-      $overview_table.="<td class='colc'>".$resultJ[$row.'_total']."</td>\n";
-    if ($par=='main')
-      $overview_table.="<td class='colc'>".$resultJ[$row.'_tyear']."</td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_lmonth']."</td>\n";
     $overview_table.="<td class='colr'>".$resultJ[$row.'_tmonth'].$result[0] ."</td>\n";
-    if ($par=='main')
-      $overview_table.="<td class='colr'>".$result[1]." ".$result[2]."</td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_qry_y']."</td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_qry_t']."</td>\n";
     $overview_table.="</tr>";

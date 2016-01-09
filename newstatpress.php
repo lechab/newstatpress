@@ -4,12 +4,12 @@
  Plugin URI: http://newstatpress.altervista.org
  Text Domain: newstatpress
  Description: Real time stats for your Wordpress blog
- Version: 1.1.2
+ Version: 1.1.3
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
 
-$_NEWSTATPRESS['version']='1.1.2';
+$_NEWSTATPRESS['version']='1.1.3';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
@@ -1636,7 +1636,7 @@ function nsp_MakeOverview($print ='dashboard') {
     $qry_y = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$yesterday'");
     $qry_t = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$today'");
 
-    $calculated_result=nsp_CalculateVariation($qry_tmonth,$qry_lmonth,$row);
+    $calculated_result=nsp_CalculateVariation($qry_tmonth->$row, $qry_lmonth->$row);
 
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>$row_title</td>";
