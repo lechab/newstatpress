@@ -732,6 +732,7 @@ function nsp_UpdateNow() {
  * Optimize form function
  */
 function nsp_Optimize() {
+
   // database update if requested by user
   if (isset($_POST['optimize']) && $_POST['optimize'] == 'yes' ) {
     nsp_OptimizeNow();
@@ -806,5 +807,6 @@ function nsp_RepairNow() {
   $wpdb->query("REPAIR TABLE $table_name");
   print "<br /><div class='repair'><p>".__('Repair finished','newstatpress')."!</p></div>";
 }
+
 
 ?>

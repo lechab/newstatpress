@@ -67,7 +67,9 @@ function nsp_DisplayCreditsPage() {
   <table>
     <tr>
       <td>
-        <?php echo $credits_introduction; ?>
+        <?php
+        
+        echo $credits_introduction; ?>
       </td>
       <td class='don'>
         <form  method='post' target='_blank' action='https://www.paypal.com/cgi-bin/webscr'>
@@ -78,7 +80,7 @@ function nsp_DisplayCreditsPage() {
       </td>
     </tr>
   </table>
-  
+
   <?php
     if ( $pagenow == 'admin.php' && $_GET['page'] == $page ){
   ?>
