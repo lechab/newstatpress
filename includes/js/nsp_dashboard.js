@@ -1,8 +1,8 @@
 (function($) {
   $.post(ExtData.Url, {
-    VAR: "overview",
+    VAR: "dashboard",
     KEY: ExtData.Key,
-    PAR: "dashboard",
+    PAR: "",
     TYP: "HTML"
   }, 
   function(data,status){
