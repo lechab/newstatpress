@@ -1,3 +1,4 @@
+Windows 10.0|Windows NT 10.0|
 Windows 8.1|WindowsNT6.3|
 Windows 8|WindowsNT6.2|
 Windows 7|WindowsNT7|
@@ -22,6 +23,7 @@ Windows 3.1|Win3.1|
 Windows CE|WindowsCE|
 Windows CE|WinCE|
 Windows|Win32|
+Windows Phone OS 10.0|Windows Phone 10.0|
 Windows Phone OS 8|Windows Phone 8.0|
 Windows Phone OS 7|WindowsPhoneOS7.0|
 Windows Phone OS|WindowsPhoneOS|
@@ -55,6 +57,7 @@ Android Linux 2|Android2|
 Android Linux 3|Android3|
 Android Linux 4|Android4|
 Android Linux 5|Android5|
+Android Linux 6|Android6|
 Android Linux|Android|
 Bada 1.2|Bada/1.2|
 Bada|Bada|
@@ -103,10 +106,13 @@ Ubuntu Raring Ringtail|Ubuntu/13.04|
 Ubuntu Saucy Salamander|Ubuntu/13.10|
 Ubuntu Trusty Tahr|Ubuntu/14.04|
 Ubuntu Utopic Unicorn|Ubuntu/14.10|
+Ubuntu Vivid Vervet|Ubuntu/15.04|
+Ubuntu Wily Werewolf|Ubuntu/15.10|
 Ubuntu Linux|Ubuntu|
 Suse Linux|Suse|
 Suse Linux|SUSE|
 Fedora Linux|Fedora|
+Linux Mint 18 Sarah|Linux Mint/18 (Sarah)|
 Linux Mint 17 Rebecca|Linux Mint/17 (Rebecca)|
 Linux Mint 16 Petra|Linux Mint/16 (Petra)|
 Linux Mint 15 Olivia|Linux Mint/15 (Olivia)|
