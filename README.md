@@ -19,6 +19,12 @@
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
 
+## 1.1.4
+*Released date: 2016-01-xx
+
+- [ ] Experimental email notification options
+- [x] Add OS (+6), Browsers (+5)
+
 ## 1.1.3
 *Released date: 2016-01-09
 
