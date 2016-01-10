@@ -644,22 +644,30 @@ function nsp_Options() {
       </fieldset>
       <p class='option_list'>
         <label>
-          <?php _e('Time','newstatpress')?>&nbsp;:
-      <select name="mail_freq" id="mail_freq">
+          <?php _e('Publishing time','newstatpress')?>&nbsp;:
+      <select name="newstatpress_mail_notification_time" id="mail_time">
         <option value="0">- <?php _e('Select','newstatpress')?> -</option> ?>
       <?php
+      $name=$nsp_option_vars['mail_notification_time']['name'];
+      $timeuser=get_option($name);
+
         for ($h = 0; $h <= 23; $h++) {
           for($m = 0; $m <= 45; $m += 15) {
-            $value = sprintf('%02d', $h) . 'h' . sprintf('%02d', $m);
-            echo '<option value="'. $value.'">'. $value.'</option>\n';
+            $value = sprintf('%02d', $h) . ':' . sprintf('%02d', $m);
+            if($timeuser==$value)
+              echo '<option value="'. $value.'" selected>'. $value.'</option>\n';
+            else
+              echo '<option value="'. $value.'">'. $value.'</option>\n';
           }
         }
+
+
       ?>
       </select>
       </label>
     </p>
     <p class='option_list'>
-      <label for='newstatpress_mail_notification_emailaddress'><?php _e('Email address','newstatpress')?>&nbsp;:
+      <label for='newstatpress_mail_notification_emailaddress'><?php _e('Mailing address','newstatpress')?>&nbsp;:
       <input class='left' type='text' name='newstatpress_mail_notification_emailaddress' value='<?php
       $name=$nsp_option_vars['mail_notification_address']['name'];
       $email=get_option($name);
