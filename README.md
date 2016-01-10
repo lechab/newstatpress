@@ -1,7 +1,7 @@
 # Newstatpress development roadmap
 
 **USELESS IDEA**
-- add a page help somewhere (the help for the different %variable%,...)
+- [ ] add a page help somewhere (the help for the different %variable%,...)
 - [ ] tab construction for overview page
 - [ ] irihdate function in double with newstatpress_hdate => to clean
 - [ ] Fix number of dot of navbar in Visitors page
@@ -19,13 +19,46 @@
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
 
+## 1.1.3
+*Released date: 2016-01-09
+
+- [x] Fix call to % calculation
+- [x] Change dashboard/overview call in External API
+
+## 1.1.2
+*Released date: 2016-01-07
+
+- [x] Use new Ajax call in Wordpress for dashboard
+- [x] Fix msising row titles in dashboard in External API
+ 
+## 1.1.1
+*Released date: 2016-01-06
+
+- [x] Remove included jquery script that generate activation problem. Dashboard in now to fix.
+
+## 1.1.0
+*Released date: 2016-01-06
+
+- [x] Fix API key calcutation
+- [x] Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
+- [x] Add %monthtotalpageviews% variable (request by th3no0b)
+- [x] Add dashboard generation via external API
+- [x] Use full index in Dashboard queries for classical method: super speed up generation
+- [x] Fix overwiew bug in total (thanks to Greg Sydney)
+
+## 1.0.9
+*Released date: 2015-09-26
+
+- [x] Adeguate for translate.wordpress.org
+- [x] Update Readme for External API usage
+
 ## 1.0.8
 *Released date: 2015-09-19
 
-- [x] add jquery tabs for credit page
+- [x] Add jquery tabs for credit page
 - [x] Updated browser definition
-- [x] add 2 spiders logo
-- [x] rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
+- [x] Add 2 spiders logo add missing browser images
+- [x] Rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
 - [x] Updated Locale fr_FR, it_IT
 
 ## 1.0.7

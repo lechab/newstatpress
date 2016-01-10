@@ -118,6 +118,17 @@ if ($var=='alltotalvisits') {
    if ($qry != null) {
      echo $qry[0]->pageview;
    }  
+} elseif ($var=='monthtotalpageviews'){
+    $qry = $wpdb->get_results(
+      "SELECT count(id) AS pageview
+       FROM $table_name
+       WHERE
+        DATE >= DATE_FORMAT(CURDATE(), '%Y%m01') AND
+        spider='' and feed='';
+      ");
+   if ($qry != null) {
+     echo $qry[0]->pageview;
+   }
 } elseif ($var=='widget_topposts') {
     $limit = intval($_REQUEST["LIMIT"]);
     $showcounts = $_REQUEST["FLAG"];

@@ -32,7 +32,9 @@ function nsp_DisplayCreditsPage() {
     array('Ruud van der Veen', 'Add tab delimiter for exporting data'),
     array('kjmtsh', 'Many fixes about empty query result and obsolete functions'),
     array('Adrián M. F.', 'Find a XSS and a SQL injection'),
-    array('White Fir Design', 'Find a SQL injection')
+    array('White Fir Design', 'Find a SQL injection'),
+    array('Gwss', 'Fix domain.dat manages inside nsp_visits.php'),
+    array('Greg Sydney', 'Fix overwiew bug in total')
   );
 
   $translators = array(
@@ -55,7 +57,8 @@ function nsp_DisplayCreditsPage() {
     array('Sergio L.', '08/12/2014 <br /> 29/12/2013 <br /> 14/09/2013 <br /> 01/09/2013 <br />03/08/2013'),
     array('Ottavio F.', '14/10/2013'),
     array('Hubert H.', '01/08/2013'),
-    array('Fleisher D.', '12/02/2015')
+    array('Fleisher D.', '12/02/2015'),
+    array('Douglas R.', '09/01/2016')  
   );
 
 ?>

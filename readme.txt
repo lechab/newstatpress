@@ -2,9 +2,9 @@
 Contributors: ice00
 Donate link: http://newstatpress.altervista.org
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
-Requires at least: 2.1
+Requires at least: 3.5
 Tested up to: 4.3
-Stable Tag: 1.0.8
+Stable Tag: 1.1.3
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -54,11 +54,21 @@ Even if the API is for external usage, it will be used internally for speed up p
 
 Actually those are the available commands:
 
-Command       Paramethers     Description
--------------------------------------------------------------------
-version         <none>        gives the Newstatpress version in use
+Command | Paramethers | Description
+
+* version         <none>        gives the Newstatpress version in use
+* overwiew       dashboard      gives the Newstatpress dashboard overview table
 
 External API is actually used bu Multi-NewStatPress (a software than manages data from multiple installation of NewStatPress in different servers).
+
+If you want to use the API you need to pass to POST those values:
+
+* VAR   the variable for the query (like 'Version')
+* KEY   the MD5 of date at minute level plus the key you enter into option (e.g in PHP: md5(gmdate('m-d-y H i').key) )
+* PAR   the paramether associated with the VAR
+* TYP   the type of result: JSON (default) of HTML
+
+into those url: your_site+"/wp-content/plugins/newstatpress/includes/api/external.php" 
 
 = NewStatPress Widget / NewStatPress_Print function =
 
@@ -67,6 +77,7 @@ Widget is customizable. These are the available variables:
 * %thistotalvisits% - this page, total visits
 * %alltotalvisits% - all page, total visits
 * %totalpageviews% - total pages view
+* %monthtotalpageviews% - total pages view in the month
 * %todaytotalpageviews% -  total pages view today
 * %since% - Date of the first hit
 * %visits% - Today visits
@@ -90,20 +101,20 @@ Now you could add these values everywhere! NewStatPress offers a new PHP functio
 New sperimental functions: place this command [NewStatPress: xxx] every were in your Wordpress blog pages and you will have the graph about the xxx function.
 
 Available functions are:
- *  [NewStatPress: Overview]
- *  [NewStatPress: Top days]
- *  [NewStatPress: O.S.]
- *  [NewStatPress: Browser]
- *  [NewStatPress: Feeds]
- *  [NewStatPress: Search Engine]
- *  [NewStatPress: Search terms]
- *  [NewStatPress: Top referrer]
- *  [NewStatPress: Languages]
- *  [NewStatPress: Spider]
- *  [NewStatPress: Top Pages]
- *  [NewStatPress: Top Days - Unique visitors]
- *  [NewStatPress: Top Days - Pageviews]
- *  [NewStatPress: Top IPs - Pageviews]
+* [NewStatPress: Overview]
+* [NewStatPress: Top days]
+* [NewStatPress: O.S.]
+* [NewStatPress: Browser]
+* [NewStatPress: Feeds]
+* [NewStatPress: Search Engine]
+* [NewStatPress: Search terms]
+* [NewStatPress: Top referrer]
+* [NewStatPress: Languages]
+* [NewStatPress: Spider]
+* [NewStatPress: Top Pages]
+* [NewStatPress: Top Days - Unique visitors]
+* [NewStatPress: Top Days - Pageviews]
+* [NewStatPress: Top IPs - Pageviews]
 
 == Installation ==
 
@@ -133,12 +144,45 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+= 1.1.3 =
+*Released date: 09/01/2016*
+
+* Fix call to % calculation
+* Change dashboard/overview call in External API
+
+= 1.1.2 =
+*Released date: 07/01/2016*
+
+* Use new Ajax call in Wordpress for dashboard
+* Fix msising row titles in dashboard in External API
+
+= 1.1.1 =
+*Released date: 06/01/2016*
+
+* Remove included jquery script that generate activation problem. Dashboard in now to fix.
+
+= 1.1.0 =
+*Released date: 06/01/2016*
+
+* Fix API key calcutation
+* Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
+* Add %monthtotalpageviews% variable (request by th3no0b)
+* Add dashboard generation via external API
+* Use full index in Dashboard queries for classical method: super speed up generation
+* Fix overwiew bug in total (thanks to Greg Sydney)
+
+= 1.0.9 =
+*Released date: 26/09/2015*
+
+* Adeguate for translate.wordpress.org
+* Update Readme for External API usage
+
 = 1.0.8 =
 *Released date: 19/09/2015*
 
 * add jquery tabs for credit page
 * Updated browser definition
-* add 2 spiders logo
+* add 2 spiders logo and add missing browser images
 * rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
 * Updated Locale fr_FR, it_IT
 

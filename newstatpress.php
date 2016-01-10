@@ -4,12 +4,12 @@
  Plugin URI: http://newstatpress.altervista.org
  Text Domain: newstatpress
  Description: Real time stats for your Wordpress blog
- Version: 1.0.9
+ Version: 1.1.3
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
 
-$_NEWSTATPRESS['version']='1.0.x';
+$_NEWSTATPRESS['version']='1.1.3';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
@@ -1620,28 +1620,28 @@ function nsp_Shortcode($content = '') {
 }
 add_filter('the_content', 'nsp_Shortcode');
 
-function nsp_CalculateVariation($month,$lmonth,$row) {
+function nsp_CalculateVariation($month,$lmonth) {
 
-  $target = round($month->$row / (
+  $target = round($month / (
     (date("d", current_time('timestamp')) - 1 +
     (date("H", current_time('timestamp')) +
     (date("i", current_time('timestamp')) + 1)/ 60.0) / 24.0)) * date("t", current_time('timestamp'))
   );
 
-  $month->change = null;
+  $monthchange = null;
   $added = null;
 
-  if($lmonth->$row <> 0) {
-    $percent_change = round( 100 * ($month->$row / $lmonth->$row ) - 100,1);
-    $percent_target = round( 100 * ($target / $lmonth->$row ) - 100,1);
+  if($lmonth <> 0) {
+    $percent_change = round( 100 * ($month / $lmonth ) - 100,1);
+    $percent_target = round( 100 * ($target / $lmonth ) - 100,1);
 
     if($percent_change >= 0) {
       $percent_change=sprintf("+%'04.1f", $percent_target);
-      $month->change = "<td class='coll'><code style='color:green'>($percent_change%)</code></td>";
+      $monthchange = "<td class='coll'><code style='color:green'>($percent_change%)</code></td>";
     }
     else {
       $percent_change=sprintf("%'05.1f", $percent_change);
-      $month->change = "<td class='coll'><code style='color:red'>($percent_change%)</code></td>";
+      $monthchange = "<td class='coll'><code style='color:red'>($percent_change%)</code></td>";
     }
 
     if($percent_target >= 0) {
@@ -1654,11 +1654,11 @@ function nsp_CalculateVariation($month,$lmonth,$row) {
     }
   }
   else {
-    $month->change = "<td></td>";
+    $monthchange = "<td></td>";
     $added = "<td class='coll'></td>";
   }
 
-  $calculated_result=array($month->change,$target,$added);
+  $calculated_result=array($monthchange,$target,$added);
   return $calculated_result;
 }
 
@@ -1811,7 +1811,7 @@ function nsp_MakeOverview($print ='dashboard') {
     $qry_y = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$yesterday'");
     $qry_t = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$today'");
 
-    $calculated_result=nsp_CalculateVariation($qry_tmonth,$qry_lmonth,$row);
+    $calculated_result=nsp_CalculateVariation($qry_tmonth->$row, $qry_lmonth->$row);
 
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>$row_title</td>";
@@ -1839,16 +1839,29 @@ function nsp_MakeOverview($print ='dashboard') {
     //  last "N" days graph  NEW
     $gdays=get_option('newstatpress_daysinoverviewgraph'); if($gdays == 0) { $gdays=20; }
     $start_of_week = get_option('start_of_week');
-    $qry = $wpdb->get_row("
-      SELECT count(date) as pageview, date
-      FROM $table_name
-      GROUP BY date HAVING date >= '".gmdate('Ymd', current_time('timestamp')-86400*$gdays)."'
-      ORDER BY pageview DESC
-      LIMIT 1
-    ");
 
+//
     $maxxday = 0;
-    if ($qry != null) $maxxday=$qry->pageview;
+    for($gg=$gdays-1;$gg>=0;$gg--) {
+
+      $date=gmdate('Ymd', current_time('timestamp')-86400*$gg);
+
+      $qry_visitors  = $wpdb->get_row("SELECT count(DISTINCT ip) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
+      $visitors[$gg] = $qry_visitors->total;
+
+      $qry_pageviews = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
+      $pageviews[$gg]= $qry_pageviews->total;
+
+      $qry_spiders   = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider<>'' AND date = '$date'");
+      $spiders[$gg]  = $qry_spiders->total;
+
+      $qry_feeds     = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed<>'' AND spider='' AND date = '$date'");
+      $feeds[$gg]    = $qry_feeds->total;
+
+      $total= $visitors[$gg] + $pageviews[$gg] + $spiders[$gg] + $feeds[$gg];
+      if ($total > $maxxday) $maxxday= $total; 
+    }
+//
     if($maxxday == 0) { $maxxday = 1; }
     # Y
     $gd=(90/$gdays).'%';
@@ -1861,17 +1874,10 @@ function nsp_MakeOverview($print ='dashboard') {
 
       $date=gmdate('Ymd', current_time('timestamp')-86400*$gg);
 
-      $qry_visitors = $wpdb->get_row("SELECT count(DISTINCT ip) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
-      $px_visitors = $scale_factor*(round($qry_visitors->total*100/$maxxday));
-
-      $qry_pageviews = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
-      $px_pageviews = $scale_factor*(round($qry_pageviews->total*100/$maxxday));
-
-      $qry_spiders = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider<>'' AND date = '$date'");
-      $px_spiders = $scale_factor*(round($qry_spiders->total*100/$maxxday));
-
-      $qry_feeds = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed<>'' AND spider='' AND date = '$date'");
-      $px_feeds = $scale_factor*(round($qry_feeds->total*100/$maxxday));
+      $px_visitors = $scale_factor*(round($visitors[ $gg]*100/$maxxday));
+      $px_pageviews= $scale_factor*(round($pageviews[$gg]*100/$maxxday));
+      $px_spiders  = $scale_factor*(round($spiders[  $gg]*100/$maxxday));
+      $px_feeds    = $scale_factor*(round($feeds[    $gg]*100/$maxxday));
 
       $px_white = $scale_factor*100 - $px_feeds - $px_spiders - $px_pageviews - $px_visitors;
 
@@ -1879,10 +1885,10 @@ function nsp_MakeOverview($print ='dashboard') {
 
       $overview_graph.="<div class='overview-graph'>
         <div style='border-left:1px; background:#ffffff;width:100%;height:".$px_white."px;'></div>
-        <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$qry_visitors->total." ".__('Visitors','newstatpress')."'></div>
-        <div class='web_bar' style='height:".$px_pageviews."px;' title='".$qry_pageviews->total." ".__('Pageviews','newstatpress')."'></div>
-        <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$qry_spiders->total." ".__('Spiders','newstatpress')."'></div>
-        <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$qry_feeds->total." ".__('Feeds','newstatpress')."'></div>
+        <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$visitors[$gg]." ".__('Visitors','newstatpress')."'></div>
+        <div class='web_bar' style='height:".$px_pageviews."px;' title='".$pageviews[$gg]." ".__('Pageviews','newstatpress')."'></div>
+        <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$spiders[$gg]." ".__('Spiders','newstatpress')."'></div>
+        <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$feeds[$gg]." ".__('Feeds','newstatpress')."'></div>
         <div style='background:gray;width:100%;height:1px;'></div>";
         if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) $overview_graph.="<div class='legend-W'>";
         else $overview_graph.="<div class='legend'>";
