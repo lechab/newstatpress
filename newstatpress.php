@@ -59,7 +59,8 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'apikey'=>array('name'=>'newstatpress_apikey','value'=>'read'),
                         'ip2nation'=>array('name'=>'newstatpress_ip2nation','value'=>'none'),
                         'mail_notification'=>array('name'=>'newstatpress_mail_notification','value'=>'disabled'),
-                        'mail_notification_freq'=>array('name'=>'newstatpress_mail_notification_freq','value'=>'daily')
+                        'mail_notification_freq'=>array('name'=>'newstatpress_mail_notification_freq','value'=>'daily'),
+                        'mail_notification_address'=>array('name'=>'newstatpress_mail_notification_emailaddress','value'=>'')
                       );
                       // ''=>array('name'=>'','value'=>''),
 
@@ -232,107 +233,175 @@ function nsp_checkExport() {
 add_action('init','nsp_checkExport');
 
 
- /**
-  * Add Cron intervals
-  * added by cHab
-  *
-  * @param $schedules
-  * @return $schedules
-  */
+/**
+ * Add Cron intervals
+ * added by cHab
+ *
+ * @param $schedules
+ * @return $schedules
+ */
 function nsp_cron_intervals($schedules) {
-  $schedules['minutely'] = array(
-		'interval' => 60, // seconds
-		'display'  => __( 'Once a Minute' )
-	);
-	$schedules['weekly'] = array(
-		'interval' => 604800,
-		'display' => __('Once a Week')
-	);
-	$schedules['monthly'] = array(
-		'interval' => 2635200,
-		'display' => __('Once a Month')
-	);
-	return $schedules;
+ $schedules['minutely'] = array(
+   'interval' => 180, // seconds
+   'display'  => __( 'Once a Minute' )
+ );
+ $schedules['weekly'] = array(
+   'interval' => 604800,
+   'display' => __('Once a Week')
+ );
+ $schedules['monthly'] = array(
+   'interval' => 2635200,
+   'display' => __('Once a Month')
+ );
+ return $schedules;
 }
 add_filter( 'cron_schedules', 'nsp_cron_intervals');
 
 
 
 /**
- * Send visits summary by email
- *
- ***************************************************/
+* Send visits summary by email
+*
+***************************************************/
 function nsp_stat_by_email() {
-  //add_filter('wp_mail_from', 'new_mail_from');
-  //add_filter('wp_mail_from_name', 'new_mail_from_name');
+ //add_filter('wp_mail_from', 'new_mail_from');
+ //add_filter('wp_mail_from_name', 'new_mail_from_name');
 
-  //function new_mail_from() { return 'admin@mon-site.com'; }
-  //function new_mail_from_name() { return '[Nom de votre site]'; }
-  global $current_user;
-        get_currentuserinfo();
+ //function new_mail_from() { return 'admin@mon-site.com'; }
+ //function new_mail_from_name() { return '[Nom de votre site]'; }
+ global $current_user;
+       get_currentuserinfo();
 
-        echo 'Username: ' . $current_user->user_login . "\n";
-        echo 'User email: ' . $current_user->user_email . "\n";
-        echo 'User level: ' . $current_user->user_level . "\n";
-        echo 'User first name: ' . $current_user->user_firstname . "\n";
-        echo 'User last name: ' . $current_user->user_lastname . "\n";
-        echo 'User display name: ' . $current_user->display_name . "\n";
-        echo 'User ID: ' . $current_user->ID . "\n";
+       echo 'Username: ' . $current_user->user_login . "\n";
+         echo 'User email: ' . $current_user->user_email . "\n";
+       echo 'User level: ' . $current_user->user_level . "\n";
+       echo 'User first name: ' . $current_user->user_firstname . "\n";
+       echo 'User last name: ' . $current_user->user_lastname . "\n";
+       echo 'User display name: ' . $current_user->display_name . "\n";
+       echo 'User ID: ' . $current_user->ID . "\n";
 
-  // $email_address = 'lechablibre@free.fr';
-  $subject = __('Statistics of the day','newstatpress');
-  $message = 'this email has been send because you have selected the stats notification in the nsp plugin from your blog.';
-  //add_filter('wp_mail_content_type',create_function('', 'return "text/html"; '));
-  $email = wp_mail('lechablibre@free.fr', $subject, $message);
+       $date = date('m/d/Y h:i:s a', time());
 
-  if($email)
-    echo 'Votre email a bien été envoyé';
-  else {
-    echo "Erreur d'envoi";
-  }
+       $typ="HTML";
+       $resultH="";
+
+      //  nsp_ApiDashboard();
+
+      $name=$nsp_option_vars['mail_notification_address']['name'];
+      $email_address=get_option($name);
+
+
+ // $email_address = 'lechablibre@free.fr';
+ $subject = __('Statistics of the day','newstatpress');
+ $message = "Dear user, \nthis email has been send at $date because you have selected the stats notification in the nsp plugin from your blog. \n $resultH NewStatPress Team.";
+ //add_filter('wp_mail_content_type',create_function('', 'return "text/html"; '));
+ $email = wp_mail($email_address, $subject, $message);
+
+ // if($email)
+ //   echo 'Votre email a bien été envoyé';
+ // else {
+ //   echo "Erreur d'envoi";
+ // }
 }
 
-register_activation_hook(__FILE__, 'nsp_mail_notification_activate');
-
-function nsp_mail_notification_deactivate() {
-  wp_clear_scheduled_hook( 'nsp_mail_notification' );
-}
+// $name=$nsp_option_vars['mail_notification']['name'];
+// $status=get_option($name);
 
 
-if ( wp_next_scheduled( 'nsp_mail_notification' ) ) {
+// register_activation_hook(__FILE__, 'nsp_mail_notification_activate');
+  // $timestamp = wp_next_scheduled( 'nsp_mail_notification' );
 
+if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
+// if( $timestamp == false ) {
   $name=$nsp_option_vars['mail_notification']['name'];
   $status=get_option($name);
-  $name=$nsp_option_vars['mail_notification_freq']['name'];
-  $freq=get_option($name);
-  nsp_mail_notification_deactivate();
-  // if ($status=='disabled')
-  //   nsp_mail_notification_deactivate();
+
   if ($status=='enabled') {
-    // wp_unschedule_event( time(), 'nsp_mail_notification');
+    $name=$nsp_option_vars['mail_notification_freq']['name'];
+    $freq=get_option($name);
     wp_schedule_event( time(), $freq, 'nsp_mail_notification');
-    //delete_action( 'nsp_mail_notification', 'nsp_mail_notification' );
-  }
+}
+ // wp_schedule_event( time(), 'hourly', 'nsp_mail_notification' );
+ // nsp_mail_notification_activate();
+
 }
 else {
   $name=$nsp_option_vars['mail_notification']['name'];
   $status=get_option($name);
   $name=$nsp_option_vars['mail_notification_freq']['name'];
   $freq=get_option($name);
+  // wp_schedule_event( time(), $freq, 'nsp_mail_notification');
 
-  if ($status=='enabled') {
-    wp_schedule_event( time(), $freq, 'nsp_mail_notification' );
-    //delete_action( 'nsp_mail_notification', 'nsp_mail_notification' );
-
+  if ($status=='disabled')
+     nsp_mail_notification_deactivate();
+  elseif ($status=='enabled') {
+    // nsp_mail_notification_deactivate();
+    if(isset($_POST['saveit']) && $_POST['saveit'] == 'yes') {
+    $timestamp = wp_next_scheduled( 'nsp_mail_notification' );
+       wp_unschedule_event( $timestamp, 'nsp_mail_notification');
+       wp_schedule_event( time(), $freq, 'nsp_mail_notification');
+     }
   }
-
 }
 
-
-if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
-  // wp_schedule_event( time(), 'hourly', 'nsp_mail_notification' );
-
+function nsp_mail_notification_deactivate() {
+ wp_clear_scheduled_hook( 'nsp_mail_notification' );
 }
+
+// function nsp_mail_notification_activate() {
+//
+//   $name=$nsp_option_vars['mail_notification']['name'];
+//   $status=get_option($name);
+//   $name=$nsp_option_vars['mail_notification_freq']['name'];
+//   $freq=get_option($name);
+//   wp_schedule_event( time(), $freq, 'nsp_mail_notification');
+//
+//   if ($status=='disabled')
+//      nsp_mail_notification_deactivate();
+//
+//      if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
+//       wp_schedule_event( time(), 'hourly', 'nsp_mail_notification' );
+//
+//      }
+//
+//   if ( wp_next_scheduled( 'nsp_mail_notification' ) ) {
+//
+//   //  nsp_mail_notification_deactivate();
+//    // if ($status=='disabled')
+//    //   nsp_mail_notification_deactivate();
+//    if ($status=='enabled') {
+//      // wp_unschedule_event( time(), 'nsp_mail_notification');
+//      wp_schedule_event( time(), $freq, 'nsp_mail_notification');
+//      //delete_action( 'nsp_mail_notification', 'nsp_mail_notification' );
+//    }
+//   }
+//   else {
+//   //  $name=$nsp_option_vars['mail_notification']['name'];
+//   //  $status=get_option($name);
+//   //  $name=$nsp_option_vars['mail_notification_freq']['name'];
+//   //  $freq=get_option($name);
+//
+//    if ($status=='enabled') {
+//      wp_schedule_event( time(), $freq, 'nsp_mail_notification' );
+//      //delete_action( 'nsp_mail_notification', 'nsp_mail_notification' );
+//
+//    }
+//
+//   }
+//
+//
+//   if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
+//    wp_schedule_event( time(), 'hourly', 'nsp_mail_notification' );
+//
+//   }
+// }
+
+//Hook our function , wi_create_backup(), into the action wi_create_daily_backup
+add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
+
+
+
+
 
 
 

@@ -658,13 +658,28 @@ function nsp_Options() {
       </select>
       </label>
     </p>
-    <p class="description">Note: Notification will be sent to the email address specified by the user in Settings>General (ie :
+    <p class='option_list'>
+      <label for='newstatpress_mail_notification_emailaddress'><?php _e('Email address','newstatpress')?>&nbsp;:
+      <input class='left' type='text' name='newstatpress_mail_notification_emailaddress' value='<?php
+      $name=$nsp_option_vars['mail_notification_address']['name'];
+      $email=get_option($name);
+      if($email=='') {
+        $current_user = wp_get_current_user();
+        $email=$current_user->user_email;
+      }
+      // echo (get_option($nsp_option_vars['name'])=='') ? $nsp_option_vars['value']:get_option($nsp_option_vars['name']);
+      echo $email;
+
+      ?>' size=20 maxlength=30 />
+      </label>
+    </p>
+    <!-- <p class="description">Note: Notification will be sent to the email address specified by the user in Settings>General (ie :
     <?php
-      global $current_user;
-      get_currentuserinfo();
-      echo $current_user->user_email;
+      //global $current_user;
+      //get_currentuserinfo();
+      //echo $current_user->user_email;
     ?>
-    ).</p>
+    ).</p> -->
   </td>
   </tr>
   </table>
