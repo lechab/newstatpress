@@ -60,7 +60,9 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'ip2nation'=>array('name'=>'newstatpress_ip2nation','value'=>'none'),
                         'mail_notification'=>array('name'=>'newstatpress_mail_notification','value'=>'disabled'),
                         'mail_notification_freq'=>array('name'=>'newstatpress_mail_notification_freq','value'=>'daily'),
-                        'mail_notification_address'=>array('name'=>'newstatpress_mail_notification_emailaddress','value'=>'')
+                        'mail_notification_address'=>array('name'=>'newstatpress_mail_notification_emailaddress','value'=>''),
+                        'mail_notification_info'=>array('name'=>'newstatpress_mail_notification_info','value'=>'')
+
                       );
                       // ''=>array('name'=>'','value'=>''),
 
@@ -138,6 +140,9 @@ add_action( 'admin_init', 'nsp_UpdateCheck' );
    require ('includes/nsp_details.php');
    require ('includes/nsp_search.php');
    require ('includes/nsp_dashboard.php');
+
+  //  require ('includes/api/external.php');
+
 
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
 }
@@ -242,7 +247,7 @@ add_action('init','nsp_checkExport');
  */
 function nsp_cron_intervals($schedules) {
  $schedules['minutely'] = array(
-   'interval' => 180, // seconds
+   'interval' => 60, // seconds
    'display'  => __( 'Once a Minute' )
  );
  $schedules['weekly'] = array(
@@ -258,58 +263,98 @@ function nsp_cron_intervals($schedules) {
 add_filter( 'cron_schedules', 'nsp_cron_intervals');
 
 
-
 /**
 * Send visits summary by email
 *
 ***************************************************/
-function nsp_stat_by_email() {
- //add_filter('wp_mail_from', 'new_mail_from');
- //add_filter('wp_mail_from_name', 'new_mail_from_name');
-
- //function new_mail_from() { return 'admin@mon-site.com'; }
- //function new_mail_from_name() { return '[Nom de votre site]'; }
- global $current_user;
-       get_currentuserinfo();
-
-       echo 'Username: ' . $current_user->user_login . "\n";
-         echo 'User email: ' . $current_user->user_email . "\n";
-       echo 'User level: ' . $current_user->user_level . "\n";
-       echo 'User first name: ' . $current_user->user_firstname . "\n";
-       echo 'User last name: ' . $current_user->user_lastname . "\n";
-       echo 'User display name: ' . $current_user->display_name . "\n";
-       echo 'User ID: ' . $current_user->ID . "\n";
-
-       $date = date('m/d/Y h:i:s a', time());
-
-       $typ="HTML";
-       $resultH="";
-
-      //  nsp_ApiDashboard();
-
-      $name=$nsp_option_vars['mail_notification_address']['name'];
-      $email_address=get_option($name);
-
-
- // $email_address = 'lechablibre@free.fr';
- $subject = __('Statistics of the day','newstatpress');
- $message = "Dear user, \nthis email has been send at $date because you have selected the stats notification in the nsp plugin from your blog. \n $resultH NewStatPress Team.";
- //add_filter('wp_mail_content_type',create_function('', 'return "text/html"; '));
- $email = wp_mail($email_address, $subject, $message);
-
- // if($email)
- //   echo 'Votre email a bien été envoyé';
- // else {
- //   echo "Erreur d'envoi";
- // }
+function new_mail_from_name() {
+  return 'NewStatPress';
 }
+add_filter('wp_mail_from_name', 'new_mail_from_name');
 
-// $name=$nsp_option_vars['mail_notification']['name'];
-// $status=get_option($name);
+//
+// function custom_wp_mail_from( $email ) {
+//   $handle = 'newstatpress';
+// 	$find = 'http://';
+// 	$replace = '';
+// 	$link = get_bloginfo( 'url' );
+// 	$domain = str_replace( $find, $replace, $link );
+// 	return $handle . '@' . $domain ;
+// }
+// add_filter( 'wp_mail_from', 'custom_wp_mail_from' );
+
+//add_filter('wp_mail_from', 'new_mail_from');
+//add_filter('wp_mail_from_name', 'new_mail_from_name');
+
+//function new_mail_from() { return 'admin@mon-site.com'; }
+//function new_mail_from_name() { return '[Nom de votre site]'; }
+
+function set_content_type($content_type) {
+  return 'text/html';
+}
+add_filter('wp_mail_content_type','set_content_type');
+
+function nsp_stat_by_email() {
+
+  $date = date('m/d/Y h:i:s a', time());
+  $name=$nsp_option_vars['mail_notification_info']['name'];
+  // $email_address=
+
+  $name=$nsp_option_vars['mail_notification']['name'];
+$status=get_option($name);
+$name=$nsp_option_vars['mail_notification_freq']['name'];
+$freq=get_option($name);
+
+  $userna = get_option('newstatpress_mail_notification_info');
+  $typ="HTML";
+  $resultH="";
+
+  $blog_title = get_bloginfo('name');
+  $subject=sprintf(__('Statistics from your WP website : %s','newstatpress'), $blog_title);
+  $headers= 'From:NewStatPress';
+  // $headers= 'From:NewStatPress <nsp@wpsite.com>' . "\r\n".'Content-type: text/html';
+
+    //  $attachments=array(WP_CONTENT_DIR . '/plugins/spider-event-calendar/images/happybday.gif');
+
+    //  $wpdb->update($wpdb->prefix.  "spidercalendar_event",array('send'=>1),array('id'=>$ev_id[$j]));/**/
 
 
-// register_activation_hook(__FILE__, 'nsp_mail_notification_activate');
-  // $timestamp = wp_next_scheduled( 'nsp_mail_notification' );
+
+  //  nsp_ApiDashboard();
+
+  $name=$nsp_option_vars['mail_notification_address']['name'];
+  $email_address=get_option($name);
+
+  $support_pluginpage="<a href='https://wordpress.org/support/plugin/newstatpress' target='_blank'>".__('support page','newstatpress')."</a>";
+
+  $author_linkpage="<a href='http://newstatpress.altervista.org/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
+
+  $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or  by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation by clicking on the button to support the work.','newstatpress'), $support_pluginpage, $author_linkpage);
+
+  $email_address = 'lechablibre@free.fr';
+  $warning=__('This option is yet experimental, please report bugs or improvement (see link on the bottom)','newstatpress');
+  $advising=__('You receive this email because you have enabled the statistics notification in the NewStatpress plugin (option menu) from your WP website ','newstatpress');
+  $message = "Dear $userna, <br /> <br />
+             <i>$advising<STRONG>$blog_title</STRONG>.</i>
+             <mark>$warning.</mark> <br />
+             <br />
+             Statistics at $date (server time) from  $blog_title: <br />
+             $resultH <br /> <br />
+             Best Regards from <i>NewStatPress Team</i>. <br />
+             <br />
+             <br />
+             -- <br />
+             $credits_introduction";
+
+
+  $email = wp_mail($email_address, $subject, $message);
+
+// if($email)
+//   echo 'Votre email a bien été envoyé';
+// else {
+//   echo "Erreur d'envoi";
+// }
+}
 
 if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
 // if( $timestamp == false ) {
@@ -1859,7 +1904,7 @@ function nsp_MakeOverview($print ='dashboard') {
       $feeds[$gg]    = $qry_feeds->total;
 
       $total= $visitors[$gg] + $pageviews[$gg] + $spiders[$gg] + $feeds[$gg];
-      if ($total > $maxxday) $maxxday= $total; 
+      if ($total > $maxxday) $maxxday= $total;
     }
 //
     if($maxxday == 0) { $maxxday = 1; }
