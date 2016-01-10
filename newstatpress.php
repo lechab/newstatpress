@@ -141,7 +141,7 @@ add_action( 'admin_init', 'nsp_UpdateCheck' );
    require ('includes/nsp_search.php');
    require ('includes/nsp_dashboard.php');
 
-  //  require ('includes/api/external.php');
+
 
 
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
@@ -319,8 +319,9 @@ $freq=get_option($name);
     //  $wpdb->update($wpdb->prefix.  "spidercalendar_event",array('send'=>1),array('id'=>$ev_id[$j]));/**/
 
 
-
-  //  nsp_ApiDashboard();
+ require ('includes/api/nsp_api_dashboard.php');
+  
+   $resultH=nsp_ApiDashboard($typ);
 
   $name=$nsp_option_vars['mail_notification_address']['name'];
   $email_address=get_option($name);
