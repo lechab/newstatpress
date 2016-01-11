@@ -377,6 +377,8 @@ function nsp_calculationOffsetTime($t,$tu) {
     $plus_minute=60-$current_minute+$publishing_minutes;
     if($plus_hour==0)
       $plus_hour=23;
+    else
+      $plus_hour=$plus_hour-1;
   }
   else
     $plus_minute=$publishing_minutes-$current_minute;
@@ -400,8 +402,6 @@ if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
     $crontime_offest=nsp_calculationOffsetTime($t=time(),$timeuser);
     $crontime = time() + $crontime_offest ;
     wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
-    echo "coucou";
-
   }
 }
 else {

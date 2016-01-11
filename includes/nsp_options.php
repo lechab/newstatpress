@@ -288,6 +288,9 @@ function nsp_Options() {
                                 'api' => __('API','newstatpress')
                                 );
         foreach( $ToolsPage_tabs as $tab => $name ) {
+          if ($tab=='mail')
+            echo "  <li><a href='#$tab'>$name <sup style='color:red;''>(New)</sup></a></li>\n  ";
+          else
             echo "  <li><a href='#$tab'>$name</a></li>\n  ";
         }
         ?>
@@ -587,7 +590,9 @@ function nsp_Options() {
   </table>
 </div>
 
-<!-- tab 'database' -->
+<!-- ******************** -->
+<!-- ** tab 'database' ** -->
+<!-- ******************** -->
 <div id='database'>
   <h3><?php _e('Database update option','newstatpress'); ?></h3>
   <table>
@@ -615,6 +620,12 @@ function nsp_Options() {
 <!-- ** tab 'mail' ** -->
 <!-- **************** -->
 <div id='mail'>
+
+  <?php
+  $option_description=__('This option allows you to get periodic reports by email (dashboard informations). You can customize the frequency and the publishing time of the reports. Mailing address accept only one email address, check is well valid before reporting issues','newstatpress');
+  echo "<p>$option_description</p>\n";
+  ?>
+
   <table class='form-tableH'>
     <tr>
       <th scope='row' rowspan='2'><?php _e('Statistics notification is','newstatpress'); ?></th>
