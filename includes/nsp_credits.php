@@ -50,6 +50,7 @@ function nsp_DisplayCreditsPage() {
     array('Boulis Antoniou', 'Greek Addition'),
     array('Michael Yunat', 'Ukranian Addition'),
     array('Pawel Dworniak', 'Polish Update'),
+    array('Damian Dąbrowski', 'Polish Update'),
     array('Jiri Borovy', 'Czech Update')
   );
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: statpress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-19 20:24+0100\n"
-"PO-Revision-Date: 2015-09-19 20:24+0100\n"
+"POT-Creation-Date: 2016-01-13 21:16+0100\n"
+"PO-Revision-Date: 2016-01-13 21:16+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: el\n"
@@ -12,19 +12,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: .\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.8.5\n"
 "X-Poedit-SearchPath-0: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk\n"
 
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:52
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_visits.php:13
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1777
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1922
+msgid "Visitors"
+msgstr "Επισκέπτες"
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:57
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1783
+msgid "Visitors through Feeds"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:62
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:46
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:49
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1789
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1923
+msgid "Pageviews"
+msgstr "Εμφανίσεις"
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:67
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:37
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:659
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1795
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1924
+msgid "Spiders"
+msgstr "Ρομπότ"
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:72
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1801
+msgid "Pageviews through Feeds"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:136
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1753
+msgid "M-1"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:137
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1754
+msgid "M"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:138
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1755
+msgid "Y"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/api/nsp_api_dashboard.php:139
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1756
+#, fuzzy
+msgid "T"
+msgstr "Εως"
+
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:12
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:330
 #, fuzzy
 msgid "support page"
 msgstr "Τελευταίες σελίδες"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:14
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:332
 msgid "the author"
 msgstr ""
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:16
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:334
 #, php-format
 msgid ""
 "If you have found this plugin usefull and you like it, you can support the "
@@ -45,72 +102,72 @@ msgstr ""
 msgid "Donation"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:65
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:192
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:69
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:202
 msgid "Credits"
 msgstr "Αναφορές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:76
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:82
 msgid "Make a donation"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:101
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:124
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:147
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:107
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:130
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:153
 #, fuzzy
 msgid "Contributor"
 msgstr "Χώρες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:104
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:110
 #, fuzzy
 msgid "Description"
 msgstr "Επιλογές λεπτομερειών"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:127
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:133
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
 msgid "Language"
 msgstr "Γλώσσα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:150
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:292
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:310
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:357
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:386
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:156
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:502
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:520
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:567
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:596
 msgid "Date"
 msgstr "Ημέρομηνία"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:170
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:176
 msgid "Plugin homepage"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:172
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:178
 msgid "RSS news"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:173
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_credits.php:179
 msgid "News"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:13
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:187
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:42
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:197
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:16
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:45
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_functions-extra.php:51
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_visits.php:18
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:188
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1347
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:198
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1557
 msgid "Visits"
 msgstr "Επισκέψεις"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:19
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:191
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:48
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:201
 msgid "Options"
 msgstr "Επιλογές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:29
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_dashboard.php:58
 #, fuzzy
 msgid "NewStatPress Overview"
 msgstr "Ενημέρωση NewStatPress"
@@ -133,7 +190,7 @@ msgstr "Φυλλομετρητές"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:22
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:517
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1709
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1925
 msgid "Feeds"
 msgstr "Ροές"
 
@@ -158,13 +215,6 @@ msgstr "Χώρες"
 msgid "Languages"
 msgstr "Γλώσσες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:37
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:659
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1585
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1708
-msgid "Spiders"
-msgstr "Ρομπότ"
-
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:40
 msgid "Top pages"
 msgstr "Κορυφαίες σελίδες"
@@ -173,209 +223,210 @@ msgstr "Κορυφαίες σελίδες"
 msgid "Unique visitors"
 msgstr "Μοναδικοί επισκέπτες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:46
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:49
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1579
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1707
-msgid "Pageviews"
-msgstr "Εμφανίσεις"
-
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_details.php:49
 msgid "Top IPs"
 msgstr "Κορυφαίες IP"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:128
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:112
+msgid "now"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:237
 #, fuzzy
 msgid "NewStatPress Settings"
 msgstr "Ιστολόγιο NewStatPres"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:163
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:272
 #, fuzzy
 msgid "Options saved!"
 msgstr "Επιλογές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:173
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:281
 msgid "General"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:174
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:282
 msgid "Filters"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:175
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:283
 #, fuzzy
 msgid "Overview Menu"
 msgstr "Επισκόπηση"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:176
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:284
 #, fuzzy
 msgid "Details Menu"
 msgstr "Λεπτομέρειες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:177
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:285
 #, fuzzy
 msgid "Visits Menu"
 msgstr "Επισκέψεις"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:178
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:286
 msgid "Database"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:179
-msgid "API (External access)"
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:287
+msgid "Email Notification"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:198
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:288
+msgid "API"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:310
 msgid "Dashboard"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:199
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:311
 #, fuzzy
 msgid "Enable NewStatPress widget"
 msgstr "Εμφάνιση του εργαλείου για το ταμπλό του NewStatPress"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:203
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:315
 #, fuzzy
 msgid "Minimum capability to display each specific menu"
 msgstr "Ελάχιστη δυνατόητα εμφάνισης στατιστικών"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:203
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:315
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_visits.php:215
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_visits.php:355
 msgid "more info"
 msgstr "περισσότερες πληροφορίες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:205
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:317
 #, fuzzy
 msgid "Overview menu"
 msgstr "Επισκόπηση"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:213
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:325
 #, fuzzy
 msgid "Detail menu"
 msgstr "Λεπτομέρειες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:222
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:334
 #, fuzzy
 msgid "Visits menu"
 msgstr "Επισκέψεις"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:230
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:342
 #, fuzzy
 msgid "Search menu"
 msgstr "Μηχανή αναζήτησης"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:238
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:350
 msgid "Tools menu"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:246
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:358
 #, fuzzy
 msgid "Options menu"
 msgstr "Επιλογές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:261
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:372
 msgid "Visits calculation method"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:276
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:388
 msgid "Simple sum of distinct IPs (Classic method)"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:287
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:399
 msgid ""
 "Sum of the distinct IPs of each day (slower than classic method for big "
 "database)"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:294
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:406
 msgid "Graph"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:299
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:411
 #, fuzzy
 msgid "Days number in Overview graph"
 msgstr "Ημέρες στο γράφημα επισκόπισης"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:305
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:186
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1513
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:417
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:196
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1723
 msgid "Overview"
 msgstr "Επισκόπηση"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:307
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:419
 #, fuzzy, php-format
 msgid "Elements in Overview (default %d)"
 msgstr "Στοιχεία στην επισκόπιση (προεπιλογή 10) "
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:316
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:431
 msgid "Never"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:317
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:432
 #, fuzzy
 msgid "All"
 msgstr "Όλα!"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:318
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:433
 msgid "month"
 msgstr "μήνας"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:319
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:434
 msgid "months"
 msgstr "μήνες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:320
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:435
 msgid "week"
 msgstr "εβδομάδα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:321
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:436
 msgid "weeks"
 msgstr "εβδομάδες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:323
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:438
 #, fuzzy
 msgid "Data collection"
 msgstr "Επιλογές λεπτομερειών"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:325
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:440
 msgid "Crypt IP addresses"
 msgstr "Διευθύνσεις IP Crypt"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:329
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:444
 msgid "Collect data about logged users, too."
 msgstr "Συγκέντρωση δεδομένων και από τους συνδρομητές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:333
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:448
 msgid "Do not collect spiders visits"
 msgstr "Να μην συγκεντρώνονται στοιχεία από τα ρομπότ αναζήτησης"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:339
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:455
 msgid "Data purge"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:344
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:460
 #, fuzzy
 msgid "Automatically delete all visits older than"
 msgstr "Αυτόματη διαγραφή επισκέψεων παλαιοτέρων από"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:350
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:466
 msgid "Automatically delete only spiders visits older than"
 msgstr ""
 "Αυτόματη διαγραφή επισκέψεων των ρομπότ αναζήτησης που είναι παλαιότερες από"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:356
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:399
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:476
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:526
 #, fuzzy
 msgid "Parameters to ignore"
 msgstr "Διευθύνσεις IP που θα αγνοηθούν"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:361
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:482
 #, fuzzy
 msgid "Logged users"
 msgstr "Αγνόηση συνδεδεμένων χρηστών"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:363
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:484
 msgid ""
 "Enter a list of users you don't want to track, separated by commas, even if "
 "collect data about logged users is on"
@@ -383,12 +434,12 @@ msgstr ""
 "Εισάγετε λίστα χρηστών που δεν θέλετε να παρακολουθείται, με διαχωριστικό το "
 "κόμμα, ακόμη και εάν έχει επιλεχθεί η συλλογή δεδεομένων από συνδρομητές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:366
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:487
 #, fuzzy
 msgid "IP addresses"
 msgstr "Διευθύνσεις IP Crypt"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:368
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:489
 #, fuzzy
 msgid ""
 "Enter a list of networks you don't want to track, separated by commas. Each "
@@ -401,12 +452,12 @@ msgstr ""
 "CIDR notation (i.e. <em>192.168.1.1/24</em>). Εάν η μορφή δεν είναι σωστή το "
 "NewStatPress δεν μπορεί να παρακολουθήσει τις εμφανίσεις σωστά"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:371
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:492
 #, fuzzy
 msgid "Pages and posts"
 msgstr "Σελίδες και άρθρα που θα αγνοούνται"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:373
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:494
 #, fuzzy
 msgid ""
 "Enter a list of permalinks you don't want to track, separated by commas. You "
@@ -419,108 +470,108 @@ msgstr ""
 "em>, κλπ. Το NewStatPress θα αγνοήσει όλες τις εμφανίσεις σελίδων που η "
 "διεύθυνση <strong>περιέχει</strong>"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:381
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:505
 #, fuzzy
 msgid "Visitors by Spy"
 msgstr "Παρακολούθηση επισκεπτών"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:384
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:509
 #, fuzzy
 msgid "number of IP per page"
 msgstr "Παρακολούθηση: Αριθμός ρομπότ ανά σελίδα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:390
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:516
 #, fuzzy
 msgid "number of visits for IP"
 msgstr "Νέα Παρακολούθηση: Αριθμός επισκέψεων για IP"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:401
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:529
 #, fuzzy
 msgid "number of bot per page"
 msgstr "Παρακολούθηση: Αριθμός ρομπότ ανά σελίδα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:408
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:536
 #, fuzzy
 msgid "number of bot for IP"
 msgstr "Παρακολούθηση:Αριθμός ρομπότ ανά IP"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:418
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:548
 msgid "Element numbers to display in"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:420
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:551
 #, fuzzy, php-format
 msgid "Top days (default %d)"
 msgstr "Πλήθος στοιχείων στις Κορυφαίες Ημέρες (προκαθορισμένο 5)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:423
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:554
 #, fuzzy, php-format
 msgid "O.S. (default %d)"
 msgstr "Πλήθος στοιχείων στα λειτουργικά (προκαθορισμένο 10)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:426
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:557
 #, fuzzy, php-format
 msgid "Browser (default %d)"
 msgstr "Πλήθος στοιχείων στους φυλλομετρητές (προκαθορισμένο 10)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:429
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:560
 #, fuzzy, php-format
 msgid "Feed (default %d)"
 msgstr "Πλήθος στοιχείων στις Ροές (προκαθορισμένο 5)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:432
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:563
 #, fuzzy, php-format
 msgid "Search Engines (default %d)"
 msgstr "Πλήθος στοιχείων στις μηχανές αναζήτησης (προκαθορισμένο 10)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:435
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:566
 #, fuzzy, php-format
 msgid "Top Search Terms (default %d)"
 msgstr "Πλήθος στοιχείων στους κορυφαίους όρους αναζήτησης (προκαθορισμένο 20)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:438
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:569
 #, fuzzy, php-format
 msgid "Top Referrer (default %d)"
 msgstr "Πλήθος στοιχείων στους κοριφαίους αναφορείς (προκαθορισμένο 10)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:441
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:572
 #, fuzzy, php-format
 msgid "Countries/Languages (default %d)"
 msgstr "Πλήθος στοιχείων στις Χώρες/Γλώσσες (προκαθορισμένο 20)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:444
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:575
 #, fuzzy, php-format
 msgid "Spiders (default %d)"
 msgstr "Πλήθος στοιχείων στα ρομπότ (προκαθορισμένο 10)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:447
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:578
 #, fuzzy, php-format
 msgid "Top Pages (default %d)"
 msgstr "Πλήθος στοιχείων στις κορυφαίες σελίδες (προκαθορισμένο 5)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:450
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:581
 #, fuzzy, php-format
 msgid "Top Days - Unique visitors (default %d)"
 msgstr ""
 "Πλήθος στοιχείων στις κορυφαίες Ημέρες-Μοναδικοί επισκέπτες (προκαθορισμένο "
 "5)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:453
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:584
 #, fuzzy, php-format
 msgid "Top Days - Pageviews (default %d)"
 msgstr "Πλήθος στοιχείων στις Κορυφαίες Ημέρες-Εμφανίσεις (προκαθορισμένο 5)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:456
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:587
 #, fuzzy, php-format
 msgid "Top IPs - Pageviews (default %d)"
 msgstr ""
 "Πλήθος στοιχείων στις Κορυφαίες διευθύνσεις IP-Εμφανίσεις (προκαθορισμένο 5)"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:468
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:597
 msgid "Database update option"
 msgstr "Επιλογές ανανέωσης βάσης δεδομένων"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:472
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:603
 #, fuzzy
 msgid ""
 "Select the interval of date from today you want to use for updating your "
@@ -531,25 +582,62 @@ msgstr ""
 "πόροι θα χρειασθούν. Μπορεί να επιλεγεί να μην ανανεώνονται κάποια πεδία εάν "
 "χρειασθεί."
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:473
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:604
 msgid ""
 "Be aware, larger is the interval, longer is the update and bigger are the "
 "resources required."
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:480
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:612
 msgid "Update data in the given period"
 msgstr "Ενημέρωση δεδομένων στην δεδομένη περίοδο"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:492
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:625
+msgid ""
+"This option allows you to get periodic reports by email (dashboard "
+"informations). You can customize the frequency and the publishing time of "
+"the reports. Mailing address accept only one email address, check is well "
+"valid before reporting issues"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:631
+msgid "Statistics notification is"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:641
+msgid "Disabled"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:644
+msgid "Enabled"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:648
+msgid "Event schedule"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:658
+msgid "Publishing time"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:660
+msgid "Select"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:681
+#, fuzzy
+msgid "Mailing address"
+msgstr "Διευθύνσεις IP Crypt"
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:726
 msgid "Enable External API"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:497
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:730
 msgid "API key"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:499
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:732
 msgid ""
 "The external access API is build to let you to use the collected data from "
 "your Newstatpress plugin  in an other web server application (for example "
@@ -568,11 +656,11 @@ msgid ""
 "allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters."
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:515
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:749
 msgid "Generate new API key"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:529
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:755
 msgid "Save options"
 msgstr "Αποθήκευση επιλογών"
 
@@ -581,8 +669,8 @@ msgid "URL Requested"
 msgstr "Αιτούμενη URL"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_search.php:7
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:328
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:386
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:538
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:596
 msgid "Agent"
 msgstr "Πράκτορας"
 
@@ -603,15 +691,15 @@ msgid "Operative system"
 msgstr "Λειτουργικό σύστημα"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_search.php:12
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:328
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:357
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:538
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:567
 msgid "Browser"
 msgstr "Φυλλομετρητής"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_search.php:13
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:328
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:386
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:538
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:596
 msgid "Spider"
 msgstr "Ρομπότ"
 
@@ -621,10 +709,10 @@ msgstr "Διεύθυνση IP"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_search.php:16
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_search.php:63
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:189
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:435
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:449
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:566
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:199
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:645
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:659
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:776
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -659,7 +747,7 @@ msgid "include feed"
 msgstr "να συμπεριληφθεί η ροή"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_search.php:57
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1343
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1553
 msgid "Limit results to"
 msgstr "Περιορισμός αποτελεσμάτων σε"
 
@@ -686,12 +774,12 @@ msgid "Export"
 msgstr "Εξαγωγή"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:22
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:749
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:750
 msgid "Optimize"
 msgstr ""
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:23
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:781
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:782
 msgid "Repair"
 msgstr ""
 
@@ -869,8 +957,8 @@ msgid "Size"
 msgstr "Μέγεθος"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:500
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:292
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:310
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:502
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:520
 msgid "Result"
 msgstr "Αποτέλεσμα"
 
@@ -902,46 +990,46 @@ msgstr "Η ενημέρωση έγινε σε"
 msgid "SQL queries"
 msgstr "Κώδικας SQL"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:742
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:743
 msgid "Optimize table"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:743
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:744
 msgid "To optimize the statpress table, just click on the button bellow."
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:753
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:754
 msgid ""
 "Optimize a table is an database operation that can free some server space if "
 "you had lot of delation (like with prune activated) in it."
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:756
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:788
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:757
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:789
 msgid ""
 "Be aware that this operation may take a lot of server time to finish the "
 "processing (depending on your database size). So so use it only if you know "
 "what you are doing."
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:774
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:775
 msgid "Repair table"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:775
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:776
 msgid ""
 "To repair the statpress table if damaged, just click on the button bellow."
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:785
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:786
 msgid "Repair is an database operation that can fix a corrupted table."
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:799
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:800
 msgid "Optimization finished"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:807
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_tools.php:808
 msgid "Repair finished"
 msgstr ""
 
@@ -949,12 +1037,6 @@ msgstr ""
 #, fuzzy
 msgid "Last visitors"
 msgstr "Τελευταίες επισκέψεις"
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_visits.php:13
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1567
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1706
-msgid "Visitors"
-msgstr "Επισκέπτες"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_visits.php:14
 msgid "Spy Bot"
@@ -987,242 +1069,254 @@ msgstr "Χώρα της IP"
 msgid "Pages"
 msgstr "Σελίδες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:64
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:71
 #, fuzzy
 msgid "Today visits"
 msgstr "Επισκέπτες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:65
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:72
 #, fuzzy
 msgid "Yesterday visits"
 msgstr "Χθές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:66
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:73
 #, fuzzy
 msgid "Month visits"
 msgstr "Επισκέπτες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:67
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:74
 #, fuzzy
 msgid "Week visits"
 msgstr "Επισκέπτες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:68
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:75
 #, fuzzy
 msgid "Total visits"
 msgstr "Συνολικά από"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:69
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:76
 #, fuzzy
 msgid "Total pages view"
 msgstr "σελίδα που εμφανίσθηκε"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:70
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:77
 #, fuzzy
 msgid "Total pages view today"
 msgstr "σελίδα που εμφανίσθηκε"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:71
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:78
 msgid "This page, total visits"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:72
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:79
 msgid "All page, total visits"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:73
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:80
 #, fuzzy
 msgid "Visitor Operative System"
 msgstr "Λειτουργικό σύστημα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:74
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:81
 #, fuzzy
 msgid "Visitor Browser"
 msgstr "Επισκέπτες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:75
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:82
 #, fuzzy
 msgid "Visitor IP address"
 msgstr "Διευθύνσεις IP Crypt"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:76
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:83
 msgid "Date of the first hit"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:77
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:84
 msgid "Counts all online visitors"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:78
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:85
 msgid "Counts logged online visitors"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:79
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:86
 msgid "The most viewed Post"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:190
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:200
 msgid "Tools"
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:256
+msgid "Once a Week"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:260
+msgid "Once a Month"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:314
+#, php-format
+msgid "Visits statistics from %s"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:337
+msgid ""
+"This option is yet experimental, please report bugs or improvement (see link "
+"on the bottom)"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:338
+msgid ""
+"You receive this email because you have enabled the statistics notification "
+"in the NewStatpress plugin (option menu) from your WP website "
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:339
+msgid "Dear"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:343
+msgid "server time"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:345
+msgid "Best Regards from"
+msgstr ""
+
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
 msgid "Last hits"
 msgstr "Τελευταίες επισκέψεις"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:292
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:310
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:357
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:386
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:502
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:520
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:567
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:596
 msgid "Time"
 msgstr "Ώρα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
 msgid "Country"
 msgstr "Χώρα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:357
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:432
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:444
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:447
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:459
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:563
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:575
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:567
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:642
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:654
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:657
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:669
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:773
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:785
 msgid "Page"
 msgstr "Σελίδα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
 msgid "Feed"
 msgstr "Ροή"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:252
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:328
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:357
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:462
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:538
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:567
 msgid "OS"
 msgstr "Λειτουργικό"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:292
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:502
 msgid "Last search terms"
 msgstr "Τελευταίοι όροι αναζήτησης"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:292
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:502
 msgid "Terms"
 msgstr "Όροι"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:292
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:502
 msgid "Engine"
 msgstr "Μηχανή"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:304
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:322
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:514
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:532
 msgid "page viewed"
 msgstr "σελίδα που εμφανίσθηκε"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:310
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:520
 msgid "Last referrers"
 msgstr "Τελευταίοι αναφορείς "
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:310
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:520
 msgid "URL"
 msgstr "URL"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:328
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:538
 msgid "Last agents"
 msgstr "Τελευταίοι πράκτορες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:357
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:567
 msgid "Last pages"
 msgstr "Τελευταίες σελίδες"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:386
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:596
 msgid "Last spiders"
 msgstr "Τελευταία ρομπότ"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:433
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:448
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:564
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:643
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:658
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:774
 msgid "Category"
 msgstr "Κατηγορία"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:434
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:565
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:644
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:775
 msgid "Calendar"
 msgstr "Ημερολόγιο"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:616
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:826
 msgid "records"
 msgstr "εγγραφές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1289
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1499
 msgid "Title:"
 msgstr "Τίτλος:"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1293
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1503
 msgid "Body:"
 msgstr "Κύριο τμήμα:"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1297
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1507
 msgid "Stats available: "
 msgstr ""
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1338
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1548
 msgid "Title"
 msgstr "Τίτλος"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1518
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1728
 msgid "Total since"
 msgstr "Συνολικά από"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1519
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1729
 #, fuzzy
 msgid "This year"
 msgstr "έτος"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1520
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1730
 msgid "Last month"
 msgstr "Προηγούμενος Μήνας"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1521
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1731
 msgid "This month"
 msgstr "Τρέχων Μήνας"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1522
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1732
 msgid "Target This month"
 msgstr "Στόχος του μήνα"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1523
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1733
 msgid "Yesterday"
 msgstr "Χθές"
 
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1524
+#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1734
 msgid "Today"
 msgstr "Σήμερα"
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1543
-msgid "M-1"
-msgstr ""
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1544
-msgid "M"
-msgstr ""
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1545
-msgid "Y"
-msgstr ""
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1546
-#, fuzzy
-msgid "T"
-msgstr "Εως"
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1573
-msgid "Visitors through Feeds"
-msgstr ""
-
-#: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/newstatpress.php:1591
-msgid "Pageviews through Feeds"
-msgstr ""
 
 #, fuzzy
 #~ msgid "Last visitors by Spy"
