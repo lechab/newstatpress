@@ -47,28 +47,28 @@ This features is left as original StatPress but it will be replaced by the histo
 = External API =
 
 External API are a way to gives the collected informations as a web service using a POST call.
-With it you can use (for example) your colected data of Wordpress inside a Drupal site.
-The API must be enables by check a flag into the option (by dafault is is disabled) and a private KEY must be entered (you can generate a random one).
+With it you can use (for example) your collected data of Wordpress inside a Drupal site.
+The API must be enables by check a flag into the option (by default is disabled) and a private KEY must be entered (you can generate a random one).
 This KEY is for authenticate the called as a valid allowed client.
-Even if the API is for external usage, it will be used internally for speed up page generation using AJAX, so at some point you will need to activate it to cotinue to see overwiew and Details pages.
+Even if the API is for external usage, it will be used internally for speed up page generation using AJAX, so at some point you will need to activate it to continue to see overview and Details pages.
 
 Actually those are the available commands:
 
-Command | Paramethers | Description
+Command | Parameters | Description
 
 * version         <none>        gives the Newstatpress version in use
-* overwiew       dashboard      gives the Newstatpress dashboard overview table
+* overview       dashboard      gives the Newstatpress dashboard overview table
 
-External API is actually used bu Multi-NewStatPress (a software than manages data from multiple installation of NewStatPress in different servers).
+External API is actually used by Multi-NewStatPress (a software than manages data from multiple installation of NewStatPress in different servers).
 
 If you want to use the API you need to pass to POST those values:
 
 * VAR   the variable for the query (like 'Version')
 * KEY   the MD5 of date at minute level plus the key you enter into option (e.g in PHP: md5(gmdate('m-d-y H i').key) )
-* PAR   the paramether associated with the VAR
+* PAR   the parameter associated with the VAR
 * TYP   the type of result: JSON (default) of HTML
 
-into those url: your_site+"/wp-content/plugins/newstatpress/includes/api/external.php" 
+into those url: your_site+"/wp-content/plugins/newstatpress/includes/api/external.php"
 
 = NewStatPress Widget / NewStatPress_Print function =
 
@@ -154,33 +154,33 @@ Check at http://newstatpress.altervista.org
 *Released date: 07/01/2016*
 
 * Use new Ajax call in Wordpress for dashboard
-* Fix msising row titles in dashboard in External API
+* Fix missing row titles in dashboard in External API
 
 = 1.1.1 =
 *Released date: 06/01/2016*
 
-* Remove included jquery script that generate activation problem. Dashboard in now to fix.
+* Remove included jQuery script that generate activation problem. Dashboard in now to fix.
 
 = 1.1.0 =
 *Released date: 06/01/2016*
 
-* Fix API key calcutation
+* Fix API key calculation
 * Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
 * Add %monthtotalpageviews% variable (request by th3no0b)
 * Add dashboard generation via external API
 * Use full index in Dashboard queries for classical method: super speed up generation
-* Fix overwiew bug in total (thanks to Greg Sydney)
+* Fix overview bug in total (thanks to Greg Sydney)
 
 = 1.0.9 =
 *Released date: 26/09/2015*
 
-* Adeguate for translate.wordpress.org
+* Adequate for translate.wordpress.org
 * Update Readme for External API usage
 
 = 1.0.8 =
 *Released date: 19/09/2015*
 
-* add jquery tabs for credit page
+* add jQuery tabs for credit page
 * Updated browser definition
 * add 2 spiders logo and add missing browser images
 * rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
@@ -204,7 +204,7 @@ Check at http://newstatpress.altervista.org
 
 IMPORTANT CRITICAL UPDATE
 
-* Close a XSS and a SQLI Injection involeved IMG tag (thanks to James H - g0blin Reserch)
+* Close a XSS and a SQLI Injection involved IMG tag (thanks to James H - g0blin Reserch)
 
 = 1.0.4 =
 *Release Date - 30/06/2015*

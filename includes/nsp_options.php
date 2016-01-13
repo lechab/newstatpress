@@ -623,7 +623,10 @@ function nsp_Options() {
 
   <?php
   $option_description=__('This option allows you to get periodic reports by email (dashboard informations). You can customize the frequency and the publishing time of the reports. Mailing address accept only one email address, check is well valid before reporting issues','newstatpress');
-  echo "<p>$option_description</p>\n";
+  $option_description2=__('Note: Time\'s server is','newstatpress');
+  $time = date('H:i', time());
+  echo "<p>$option_description</p>\n
+        <p><i>$option_description2 $time</i></p>\n";
   ?>
 
   <table class='form-tableH'>

@@ -339,8 +339,8 @@ $freq=get_option($name);
   $message = __('Dear','newstatpress')." $userna, <br /> <br />
              <i>$advising<STRONG>$blog_title</STRONG>.</i>
              <mark>$warning.</mark> <br />
-             <br />
-             Statistics at $date (".__('server time','newstatpress').") from  $blog_title: <br />
+             <br />".
+             __('Statistics at','newstatpress')." $date (".__('server time','newstatpress').") from  $blog_title: <br />
              $resultH <br /> <br />"
              .__('Best Regards from','newstatpress')." <i>NewStatPress Team</i>. <br />
              <br />
