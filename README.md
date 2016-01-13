@@ -22,8 +22,11 @@
 ## 1.1.4
 *Released date: 2016-01-xx
 
-- [ ] Experimental email notification options
+- [x] Experimental email notification options
 - [x] Add OS (+6), Browsers (+5)
+- [x] fr_FR
+- [ ] it_IT
+- [x] pl-PL
 
 ## 1.1.3
 *Released date: 2016-01-09
