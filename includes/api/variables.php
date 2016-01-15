@@ -10,6 +10,7 @@ require_once('../../../../../wp-load.php');
 $var = $_REQUEST["VAR"];
 
 global $wpdb;
+global $nsp_option_vars;
 $table_name = $wpdb->prefix . "statpress";
 
 
@@ -49,16 +50,29 @@ if ($var=='alltotalvisits') {
      echo $qry[0]->pageview;
    }  
 } elseif ($var=='mvisits') {
-    $qry = $wpdb->get_results(
-      "SELECT count(DISTINCT(ip)) AS pageview
-       FROM $table_name
-       WHERE
-        DATE >= DATE_FORMAT(CURDATE(), '%Y%m01') AND
-        spider='' and feed='';
-      ");  
-   if ($qry != null) {
-     echo $qry[0]->pageview;
-   }
+    if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
+      $qry = $wpdb->get_results(
+        "SELECT SUM(pagv) FROM (
+          SELECT count(DISTINCT(ip)) AS pagv
+          FROM $table_name
+          WHERE
+           DATE >= DATE_FORMAT(CURDATE(), '%Y%m01') AND
+           spider='' and feed=''
+          GROUP BY DATE
+         ) AS pageview;
+      ");
+    } else {
+        $qry = $wpdb->get_results(
+          "SELECT count(DISTINCT(ip)) AS pageview
+           FROM $table_name
+           WHERE
+            DATE >= DATE_FORMAT(CURDATE(), '%Y%m01') AND
+            spider='' and feed='';
+        ");
+      }
+    if ($qry != null) {
+      echo $qry[0]->pageview;
+    }
 } elseif ($var=='wvisits') {
     $qry = $wpdb->get_results(
       "SELECT count(DISTINCT(ip)) AS pageview
