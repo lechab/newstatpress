@@ -297,6 +297,7 @@ add_filter('wp_mail_content_type','set_content_type');
 
 function nsp_stat_by_email() {
 
+global $nsp_option_vars;
   $date = date('m/d/Y h:i:s a', time());
   $name=$nsp_option_vars['mail_notification_info']['name'];
   // $email_address=

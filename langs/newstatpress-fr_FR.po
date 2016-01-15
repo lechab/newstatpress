@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: NewStatPress v1.1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-13 23:06+0100\n"
-"PO-Revision-Date: 2016-01-13 23:45+0100\n"
+"PO-Revision-Date: 2016-01-15 21:46+0100\n"
 "Last-Translator: cHab <chabdev@free.fr>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -519,7 +519,7 @@ msgstr "Visiteurs"
 # @ newstatpress
 #: includes/nsp_options.php:509
 msgid "number of IP per page"
-msgstr "nombre de robots par page"
+msgstr "nombre d’IP par page"
 
 #: includes/nsp_options.php:516
 msgid "number of visits for IP"
@@ -642,7 +642,7 @@ msgstr ""
 "(informations du tableau de bord). Vous pouvez personnaliser la fréquence et "
 "l’heure de publication des rapports. Le champs adresse de messagerie "
 "n’accepte qu’une seule adresse courriel, vérifier la validité de celle-ci "
-"avant de signaler les problèmes"
+"avant de signaler un problème."
 
 #: includes/nsp_options.php:626
 msgid "Note: Time's server is"
@@ -650,7 +650,7 @@ msgstr "Remarque : L’heure du serveur est"
 
 #: includes/nsp_options.php:634
 msgid "Statistics notification is"
-msgstr "Notification de statistiques est"
+msgstr "Notification de statistiques"
 
 #: includes/nsp_options.php:644
 msgid "Disabled"
@@ -1032,7 +1032,7 @@ msgstr ""
 
 #: includes/nsp_tools.php:459
 msgid "Note: The update may take some times to complete."
-msgstr "Note: L'installation peut prendre plusieurs secondes pour se terminer."
+msgstr "Note: La mise à jour peut prendre plusieurs secondes pour se terminer."
 
 #: includes/nsp_tools.php:498
 msgid "Database Update"
