@@ -637,14 +637,18 @@ function nsp_Options() {
     <td>
       <fieldset>
       <?php
-        $name=$nsp_option_vars['mail_notification']['name'];
-        $default=$nsp_option_vars['mail_notification']['value'];
+
       ?>
       <p>
-        <input type='radio' id='dis' name='<?php echo $name ?>' value='disabled'<?php input_selected($name,'disabled',$default);?> /> <label> <?php _e('Disabled','newstatpress'); ?></label>
+        <input type='radio' id='dis' name='<?php  $name=$nsp_option_vars['mail_notification']['name'];
+echo $name ?>' value='disabled'<?php
+        $name=$nsp_option_vars['mail_notification']['name'];
+        $default=$nsp_option_vars['mail_notification']['value'];
+         input_selected($name,'disabled',$default);?> /> <label> <?php _e('Disabled','newstatpress'); ?></label>
       </p>
       <p>
-        <input type='radio' id='ena' name='<?php echo $name ?>' value='enabled'<?php input_selected($name,'enabled');?> onclick='disable()' /><label> <?php _e('Enabled','newstatpress') ?></label>
+        <input type='radio' id='ena' name='<?php echo         $name=$nsp_option_vars['mail_notification']['name'];
+$name ?>' value='enabled'<?php $name=$nsp_option_vars['mail_notification']['name']; input_selected($name,'enabled');?> onclick='disable()' /><label> <?php _e('Enabled','newstatpress') ?></label>
       </p>
       <p class='option_list'>
         <label>
