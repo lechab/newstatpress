@@ -57,7 +57,7 @@ Actually those are the available commands:
 Command | Parameters | Description
 
 * version         <none>        gives the Newstatpress version in use
-* overview       dashboard      gives the Newstatpress dashboard overview table
+* dashboard       <none>        gives the Newstatpress dashboard overview table
 
 External API is actually used by Multi-NewStatPress (a software than manages data from multiple installation of NewStatPress in different servers).
 
