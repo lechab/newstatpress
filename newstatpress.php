@@ -247,7 +247,7 @@ add_action('init','nsp_checkExport');
  * @return $schedules
  */
 function nsp_cron_intervals($schedules) {
-  $schedules['fourlybyday'] = array(
+  $schedules['minutly/='] = array(
     'interval' => 60, // seconds
     'display' => __('Once a minute','newstatpress')
   );
@@ -411,7 +411,10 @@ if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
     $timeuser=get_option($name);
     $crontime_offest=nsp_calculationOffsetTime($t=time(),$timeuser);
     $crontime = time() + $crontime_offest ;
-    wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
+    if($freq=='_oneoff')
+      wp_schedule_single_event( $crontime, 'nsp_mail_notification' );
+    else
+      wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
   }
 }
 else {
@@ -432,7 +435,10 @@ else {
       remove_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
       $timestamp = wp_next_scheduled( 'nsp_mail_notification' );
       wp_unschedule_event( $timestamp, 'nsp_mail_notification');
-      wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
+      if($freq=='_oneoff')
+        wp_schedule_single_event( $crontime, 'nsp_mail_notification' );
+      else
+        wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
 
       // echo("<br>");
       // echo($crontime_offest . "<br>");

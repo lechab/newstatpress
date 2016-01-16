@@ -271,20 +271,27 @@ function nsp_Options() {
 
       // update database too and print message confirmation
       nsp_BuildPluginSQLTable('update');
-      print "<div id='optionsupdated' class='updated out'><br /><p>".__('Options saved!','newstatpress')."</p></div>";
+        // header('Location: admin.php?page=nsp_options');
+      print "<br /><div id='optionsupdated' class='updated'><p>".__('Options saved!','newstatpress')."</p></div>";
+      // echo '<script type="text/javascript">location.reload();</script>';
+
     }
-    if(isset($_POST['mailme']) && $_POST['mailme'] == 'yes') { //option mailme request by user
+    elseif(isset($_POST['saveit']) && $_POST['saveit'] == 'mailme') { //option mailme request by user
       nsp_stat_by_email('test');
+// header('Location: wp-admin/admin.php?page=nsp_options');
 
-      print "<div id='mailsent' class='updated'><br /><p class='out'>".__('Email sent by the server!','newstatpress')."</p></div>";
+    // [process the post data in 'mypostvar']
+    header ('Location: ' . $_SERVER['REQUEST_URI']);
+    // exit();
+
+      print "<br /><div id='mailsent' class='updated'><p>".__('Email sent by the server!','newstatpress')."</p></div>";
+      // echo '<script type="text/javascript">location.reload();</script>';
 
     }
-          $_POST['mailme']='';
-          unset($_POST['mailme']);
-          $_POST['savetit']='';
+
     ?>
 
-    <form method=post>
+    <form id="myoptions" method=post>
 
       <div id="usual1" class="usual">
       <ul>
@@ -654,6 +661,9 @@ function nsp_Options() {
           $tz = sprintf( '%s (UTC%s)', str_replace( '_', ' ', $tzstring ), $current_offset );
         }
 
+  $mailaddress_description=__('Mailing address accept only one email address, check is well valid before reporting issues.','newstatpress');
+  $timepublishing_description=__('Notification will be sent at Local time.','newstatpress');
+
 
   ?>
   <table class='form-tableH'>
@@ -711,6 +721,8 @@ function nsp_Options() {
       <span id="utc-time"><?php printf( esc_html__( 'UTC time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format, false, true ) ) . '</code>' ); ?></span>
       <span id="local-time"><?php printf( esc_html__( 'Local time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format ) ) . '</code>' ); ?></span>
     </p>
+    <p class="description option_list"><?php echo $timepublishing_description ?></p>
+
     <p class='option_list'>
       <label for='newstatpress_mail_notification_emailaddress'><?php _e('Mailing address','newstatpress')?>&nbsp;:
       <input id="mail_address" class='left' type='email' name='newstatpress_mail_notification_emailaddress' value='<?php
@@ -726,13 +738,14 @@ function nsp_Options() {
       ?>' size=20 maxlength=30 />
 
       <!-- <p class='submit'> -->
-        <input type=hidden name=mailme value=yes>
-        <input type=hidden name=page value=newstatpress><input type=hidden name=newstatpress_action value=options>
-        <input class='button button-default' type=submit value="<?php _e('Email Test','newstatpress'); ?>">
-
+      <button id="testmail" class='<?php echo $class_install ?> button button-primary' type=submit name=saveit value=mailme>
+        <?php _e('Email Test','newstatpress');?>
+      </button>
+        <!-- <input class='button button-default' type=submit value="<?php _e('Email Test','newstatpress');?>" name='saveit' value='mailme' /> -->
+        <!-- <input type=hidden name=saveit value=mailme> -->
+        <!-- <input type=hidden name=newstatpress_action value=options> -->
       <!-- </p> -->
-        <?php $mailaddress_description=__('Mailing address accept only one email address, check is well valid before reporting issues','newstatpress'); ?>
-      <p class="description"><?php echo $mailaddress_description ?></p>
+      <p class="description option_list"><?php echo $mailaddress_description ?></p>
       </label>
       <input type=hidden name='newstatpress_mail_notification_info' value=<?php $current_user = wp_get_current_user();
          echo $current_user->display_name;?> />
@@ -794,10 +807,17 @@ echo get_option($option_var);
     </div>
   </td></tr>
 </table></div>
-    <p class='submit'>
-      <input class='button button-primary' type=submit value="<?php _e('Save options','newstatpress'); ?>">
-      <input type=hidden name=saveit value=yes>
-      <input type=hidden name=page value=newstatpress><input type=hidden name=newstatpress_action value=options>
+       <input type=hidden name=page value=newstatpress>
+
+       <input type=hidden name=newstatpress_action value=options>
+       <button class='<?php echo $class_install ?> button button-primary' type=submit name=saveit value=yes>
+         <?php _e('Save options','newstatpress'); ?>
+       </button>
+
+
+      <!-- <input class='button button-primary' type=submit value="<?php _e('Save options','newstatpress'); ?>" name='saveit' value='yes'> -->
+      <!-- <input type=hidden name=saveit value=yes> -->
+      <!-- <input type=hidden name=page value=newstatpress><input type=hidden name=newstatpress_action value=options> -->
     </p>
   </div>
 </form>
