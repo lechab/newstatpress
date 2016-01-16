@@ -142,9 +142,6 @@ add_action( 'admin_init', 'nsp_UpdateCheck' );
    require ('includes/nsp_search.php');
    require ('includes/nsp_dashboard.php');
 
-
-
-
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
 }
 
@@ -247,17 +244,18 @@ add_action('init','nsp_checkExport');
  * @return $schedules
  */
 function nsp_cron_intervals($schedules) {
- // $schedules['minutely'] = array(
- //   'interval' => 10, // seconds
- //   'display'  => __( 'Once a Minute' )
- // );
+ $schedules['fourlybyday'] = array(
+   'interval' => 21600, // seconds
+   'display' => __('Four time by Day','newstatpress')
+ );
+
  $schedules['weekly'] = array(
    'interval' => 604800,
-   'display' => __('Once a Week')
+   'display' => __('Once a Week','newstatpress')
  );
  $schedules['monthly'] = array(
    'interval' => 2635200,
-   'display' => __('Once a Month')
+   'display' => __('Once a Month','newstatpress')
  );
  return $schedules;
 }
