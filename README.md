@@ -14,7 +14,7 @@
 - [ ] Add a 'unique visitors' row in the overview chart
 - [ ] Add options to (de)activate single chart/graphs of overview and details
 - [ ] Generate extenal API interfaces
-- [ ] Add'version' in external API
+- [ ] Add 'version' in external API
 - [x] Change days calculation into prune functions
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
@@ -22,8 +22,9 @@
 ## 1.1.4
 *Released date: 2016-01-xx
 
-- [x] Experimental email notification options
+- [x] Add email notification options
 - [x] Add OS (+6), Browsers (+5)
+- [x] Improved Options page
 - [x] fr_FR
 - [x] it_IT
 - [x] pl-PL
@@ -38,22 +39,22 @@
 *Released date: 2016-01-07
 
 - [x] Use new Ajax call in Wordpress for dashboard
-- [x] Fix msising row titles in dashboard in External API
- 
+- [x] Fix missing row titles in dashboard in External API
+
 ## 1.1.1
 *Released date: 2016-01-06
 
-- [x] Remove included jquery script that generate activation problem. Dashboard in now to fix.
+- [x] Remove included jQuery script that generate activation problem. Dashboard in now to fix.
 
 ## 1.1.0
 *Released date: 2016-01-06
 
-- [x] Fix API key calcutation
+- [x] Fix API key calculation
 - [x] Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
 - [x] Add %monthtotalpageviews% variable (request by th3no0b)
 - [x] Add dashboard generation via external API
 - [x] Use full index in Dashboard queries for classical method: super speed up generation
-- [x] Fix overwiew bug in total (thanks to Greg Sydney)
+- [x] Fix overview bug in total (thanks to Greg Sydney)
 
 ## 1.0.9
 *Released date: 2015-09-26
