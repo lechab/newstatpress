@@ -236,6 +236,10 @@ table.table-option td:first-child {
 
 }
 
+.form-tableH p {
+  font-size: 14px;
+}
+
 .form-tableH td,th {
   /*border: 1px solid;*/
 }

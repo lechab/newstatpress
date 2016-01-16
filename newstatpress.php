@@ -109,17 +109,20 @@ add_action( 'admin_init', 'nsp_UpdateCheck' );
  ***********************************************/
  function nsp_RegisterPluginStyles() {
 
+   //CSS
    $style_path=plugins_url('./css/style.css', __FILE__);
 
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
 
-   wp_enqueue_script("jquery");
-
+   // JS and jQuery
    $style_path2=plugins_url('./js/jquery.idTabs.min.js', __FILE__);
+   $js_nsp=plugins_url('./js/nsp_general.js', __FILE__);
 
    wp_register_script('NewStatPressJs', $style_path2);
    wp_enqueue_script('NewStatPressJs');
+   wp_register_script('NewStatPressJss', $js_nsp);
+   wp_enqueue_script('NewStatPressJss');
 
  }
  add_action( 'admin_enqueue_scripts', 'nsp_RegisterPluginStyles' );
@@ -244,6 +247,10 @@ add_action('init','nsp_checkExport');
  * @return $schedules
  */
 function nsp_cron_intervals($schedules) {
+  $schedules['fourlybyday'] = array(
+    'interval' => 60, // seconds
+    'display' => __('Once a minute','newstatpress')
+  );
  $schedules['fourlybyday'] = array(
    'interval' => 21600, // seconds
    'display' => __('Four time by Day','newstatpress')
@@ -293,7 +300,9 @@ function set_content_type($content_type) {
 }
 add_filter('wp_mail_content_type','set_content_type');
 
-function nsp_stat_by_email() {
+function nsp_stat_by_email($arg='') {
+
+
 
 global $nsp_option_vars;
   $date = date('m/d/Y h:i:s a', time());
@@ -306,11 +315,13 @@ $name=$nsp_option_vars['mail_notification_freq']['name'];
 $freq=get_option($name);
 
   $userna = get_option('newstatpress_mail_notification_info');
-  $typ="HTML";
-  $resultH="";
+  // $typ="HTML";
+  // $resultH="";
 
   $blog_title = get_bloginfo('name');
   $subject=sprintf(__('Visits statistics from %s','newstatpress'), $blog_title);
+  if($arg=='test')
+    $subject=sprintf(__('CECI est un test from %s','newstatpress'), $blog_title);
   $headers= 'From:NewStatPress';
   // $headers= 'From:NewStatPress <nsp@wpsite.com>' . "\r\n".'Content-type: text/html';
 
@@ -321,7 +332,7 @@ $freq=get_option($name);
 
  require_once ('includes/api/nsp_api_dashboard.php');
 
-   $resultH=nsp_ApiDashboard($typ);
+   $resultH=nsp_ApiDashboard("HTML");
 
   $name=$nsp_option_vars['mail_notification_address']['name'];
   $email_address=get_option($name);
@@ -330,7 +341,7 @@ $freq=get_option($name);
 
   $author_linkpage="<a href='http://newstatpress.altervista.org/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
 
-  $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or  by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation by clicking on the button to support the work.','newstatpress'), $support_pluginpage, $author_linkpage);
+  $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or  by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation directly on the plugin website or through the plugin (Credits Page).','newstatpress'), $support_pluginpage, $author_linkpage);
 
   $email_address = 'lechablibre@free.fr';
   $warning=__('This option is yet experimental, please report bugs or improvement (see link on the bottom)','newstatpress');

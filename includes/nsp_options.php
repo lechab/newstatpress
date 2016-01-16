@@ -159,7 +159,7 @@ function testr($current){
   $valu=$nsp_option_vars['mail_notification_freq']['value'];
     ?>
     <select name="newstatpress_mail_notification_freq" id="mail_freq">
-    <option <?php selected( $current, '_oneoff' ); ?> value="_oneoff"><?php esc_html_e( 'Non-repeating', 'wp-crontrol' ); ?></option>
+    <option <?php selected( $current, '_oneoff' ); ?> value="_oneoff"><?php esc_html_e( 'Non-repeating', 'newstatpress' ); ?></option>
     <?php foreach ( $schedules as $sched_name => $sched_data ) { ?>
       <option <?php selected( $current, $sched_name ); ?> value="<?php echo esc_attr( $sched_name ); ?>"><?php printf('%s (%s)', esc_html( $sched_data['display'] ), esc_html( interval($sched_data['interval'] )));?></option>
     <?php } ?>
@@ -224,9 +224,10 @@ function nsp_PrintTextaera($option_title, $option_var, $option_description) {
   echo "<tr><td>\n<p class='ign'><label for=$option_var>$option_title</label></p>\n";
   echo "<p>$option_description</p>\n";
   echo "<p><textarea class='large-text code' cols='40' rows='2' name=$option_var id=$option_var>";
-  echo implode(',', get_option($option_var,array()));
-  echo "</textarea></p>\n";
-  echo "</td></tr>\n";
+  echo implode(',', get_option($option_var,array())); ?>
+  </textarea></p>
+  </td></tr>
+  <?php
 }
 
 /**
@@ -270,8 +271,17 @@ function nsp_Options() {
 
       // update database too and print message confirmation
       nsp_BuildPluginSQLTable('update');
-      print "<br /><div class='updated'><p>".__('Options saved!','newstatpress')."</p></div>";
+      print "<div id='optionsupdated' class='updated out'><br /><p>".__('Options saved!','newstatpress')."</p></div>";
     }
+    if(isset($_POST['mailme']) && $_POST['mailme'] == 'yes') { //option mailme request by user
+      nsp_stat_by_email('test');
+
+      print "<div id='mailsent' class='updated'><br /><p class='out'>".__('Email sent by the server!','newstatpress')."</p></div>";
+
+    }
+          $_POST['mailme']='';
+          unset($_POST['mailme']);
+          $_POST['savetit']='';
     ?>
 
     <form method=post>
@@ -623,13 +633,29 @@ function nsp_Options() {
 <div id='mail'>
 
   <?php
-  $option_description=__('This option allows you to get periodic reports by email (dashboard informations). You can customize the frequency and the publishing time of the reports. Mailing address accept only one email address, check is well valid before reporting issues','newstatpress');
-  $option_description2=__('Note: Time server is','newstatpress');
+  $option_description=__('This option allows you to get periodic reports by email (dashboard informations). You can customize the frequency and the publishing time of the reports.','newstatpress');
+  // $option_description2=__('Note: Time server is','newstatpress');
   $time = date('H:i', time());
-  echo "<p>$option_description</p>\n
-        <p><i>$option_description2 $time</i></p>\n";
-  ?>
+  echo "<p>$option_description</p>\n";
+        // <p class=\"description\"><i>$option_description2 <code>$time</code></i></p>\n";
 
+        $time_format = 'H:i:s';
+
+        $tzstring = get_option( 'timezone_string' );
+        $current_offset = get_option( 'gmt_offset' );
+
+        if ( $current_offset >= 0 ) {
+          $current_offset = '+' . $current_offset;
+        }
+
+        if ( '' === $tzstring ) {
+          $tz = sprintf( 'UTC%s', $current_offset );
+        } else {
+          $tz = sprintf( '%s (UTC%s)', str_replace( '_', ' ', $tzstring ), $current_offset );
+        }
+
+
+  ?>
   <table class='form-tableH'>
     <tr>
       <th scope='row' rowspan='2'><?php _e('Statistics notification is','newstatpress'); ?></th>
@@ -641,12 +667,14 @@ function nsp_Options() {
         $name=$nsp_option_vars['mail_notification']['name'];
         $default=$nsp_option_vars['mail_notification']['value'];
       ?>
+      <form id="myForm">
       <p>
-        <input type='radio' id='dis' name='<?php echo $name ?>' value='disabled'<?php input_selected($name,'disabled',$default);?> /> <label> <?php _e('Disabled','newstatpress'); ?></label>
+        <input class="tog" type='radio' id='dis' name='<?php echo $name ?>' value='disabled'<?php input_selected($name,'disabled',$default);?> /> <label> <?php _e('Disabled','newstatpress'); ?></label>
       </p>
       <p>
-        <input type='radio' id='ena' name='<?php echo $name ?>' value='enabled'<?php input_selected($name,'enabled',$default);?> onclick='disable()' /><label> <?php _e('Enabled','newstatpress') ?></label>
+        <input class="tog" type='radio' id='ena' name='<?php echo $name ?>' value='enabled'<?php input_selected($name,'enabled',$default);?>  /><label> <?php _e('Enabled','newstatpress') ?></label>
       </p>
+      </form>
       <p class='option_list'>
         <label>
           <?php _e('Event schedule','newstatpress')?>&nbsp;:
@@ -680,10 +708,12 @@ function nsp_Options() {
       ?>
       </select>
       </label>
+      <span id="utc-time"><?php printf( esc_html__( 'UTC time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format, false, true ) ) . '</code>' ); ?></span>
+      <span id="local-time"><?php printf( esc_html__( 'Local time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format ) ) . '</code>' ); ?></span>
     </p>
     <p class='option_list'>
       <label for='newstatpress_mail_notification_emailaddress'><?php _e('Mailing address','newstatpress')?>&nbsp;:
-      <input class='left' type='text' name='newstatpress_mail_notification_emailaddress' value='<?php
+      <input id="mail_address" class='left' type='email' name='newstatpress_mail_notification_emailaddress' value='<?php
       $name=$nsp_option_vars['mail_notification_address']['name'];
       $email=get_option($name);
       if($email=='') {
@@ -694,6 +724,15 @@ function nsp_Options() {
       echo $email;
 
       ?>' size=20 maxlength=30 />
+
+      <!-- <p class='submit'> -->
+        <input type=hidden name=mailme value=yes>
+        <input type=hidden name=page value=newstatpress><input type=hidden name=newstatpress_action value=options>
+        <input class='button button-default' type=submit value="<?php _e('Email Test','newstatpress'); ?>">
+
+      <!-- </p> -->
+        <?php $mailaddress_description=__('Mailing address accept only one email address, check is well valid before reporting issues','newstatpress'); ?>
+      <p class="description"><?php echo $mailaddress_description ?></p>
       </label>
       <input type=hidden name='newstatpress_mail_notification_info' value=<?php $current_user = wp_get_current_user();
          echo $current_user->display_name;?> />
