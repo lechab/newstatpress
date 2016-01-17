@@ -13,21 +13,24 @@
 - [ ] add Select definitions to update
 - [ ] Add a 'unique visitors' row in the overview chart
 - [ ] Add options to (de)activate single chart/graphs of overview and details
-- [ ] Generate extenal API interfaces
+- [ ] Generate external API interfaces
 - [ ] Add 'version' in external API
 - [x] Change days calculation into prune functions
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
+- [ ] Serialize some NewStatPress options
+- [ ] Donation page to finish
 
 ## 1.1.4
 *Released date: 2016-01-xx
 
 - [x] Add email notification options
-- [x] Add OS (+6), Browsers (+5)
-- [x] Improved Options page
-- [x] fr_FR
-- [x] it_IT
-- [x] pl-PL
+- [x] Add Notice Message Box
+- [x] Add OS (+6), Browsers (+5), Spiders (+196)
+- [x] Add language informations on Credits page (jQuery implementation)
+- [x] Improved Options Page code
+- [x] Update locale fr_FR,  it_IT, pl-PL, es_ES
+- [x] Readme corrections
 
 ## 1.1.3
 *Released date: 2016-01-09
@@ -44,7 +47,7 @@
 ## 1.1.1
 *Released date: 2016-01-06
 
-- [x] Remove included jQuery script that generate activation problem. Dashboard in now to fix.
+- [x] Remove included jQuery script that generate activation problem. Dashboard is now to fix.
 
 ## 1.1.0
 *Released date: 2016-01-06
