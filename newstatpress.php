@@ -301,18 +301,15 @@ function set_content_type($content_type) {
 add_filter('wp_mail_content_type','set_content_type');
 
 function nsp_stat_by_email($arg='') {
-
-
-
-global $nsp_option_vars;
+  global $nsp_option_vars;
   $date = date('m/d/Y h:i:s a', time());
-  $name=$nsp_option_vars['mail_notification_info']['name'];
-  // $email_address=
+  // $name=$nsp_option_vars['mail_notification_info']['name'];
+
 
   $name=$nsp_option_vars['mail_notification']['name'];
-$status=get_option($name);
-$name=$nsp_option_vars['mail_notification_freq']['name'];
-$freq=get_option($name);
+  $status=get_option($name);
+  $name=$nsp_option_vars['mail_notification_freq']['name'];
+  $freq=get_option($name);
 
   $userna = get_option('newstatpress_mail_notification_info');
   // $typ="HTML";
@@ -321,7 +318,8 @@ $freq=get_option($name);
   $blog_title = get_bloginfo('name');
   $subject=sprintf(__('Visits statistics from %s','newstatpress'), $blog_title);
   if($arg=='test')
-    $subject=sprintf(__('CECI est un test from %s','newstatpress'), $blog_title);
+    $subject=sprintf(__('Mail notification test from %s','newstatpress'), $blog_title);
+
   $headers= 'From:NewStatPress';
   // $headers= 'From:NewStatPress <nsp@wpsite.com>' . "\r\n".'Content-type: text/html';
 
@@ -329,10 +327,8 @@ $freq=get_option($name);
 
     //  $wpdb->update($wpdb->prefix.  "spidercalendar_event",array('send'=>1),array('id'=>$ev_id[$j]));/**/
 
-
- require_once ('includes/api/nsp_api_dashboard.php');
-
-   $resultH=nsp_ApiDashboard("HTML");
+  require_once ('includes/api/nsp_api_dashboard.php');
+  $resultH=nsp_ApiDashboard("HTML");
 
   $name=$nsp_option_vars['mail_notification_address']['name'];
   $email_address=get_option($name);

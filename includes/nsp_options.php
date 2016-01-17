@@ -641,10 +641,13 @@ function nsp_Options() {
 
   <?php
   $option_description=__('This option allows you to get periodic reports by email (dashboard informations). You can customize the frequency and the publishing time of the reports.','newstatpress');
-  // $option_description2=__('Note: Time server is','newstatpress');
-  $time = date('H:i', time());
-  echo "<p>$option_description</p>\n";
-        // <p class=\"description\"><i>$option_description2 <code>$time</code></i></p>\n";
+  $option_description2=__('Note: WP Cron job need to be operational in aim to schedule Email Notification.','newstatpress');
+  $mailaddress_description=__('Mailing address accept only one email address, check is well valid before reporting issues.','newstatpress');
+  $timepublishing_description=__('Notification will be sent at UTC time.','newstatpress');
+
+  // $time = date('H:i', time());
+  echo "<p>$option_description</p>\n
+        <p><i><strong>$option_description2 </strong></i></p>\n";
 
         $time_format = 'H:i:s';
 
@@ -660,10 +663,6 @@ function nsp_Options() {
         } else {
           $tz = sprintf( '%s (UTC%s)', str_replace( '_', ' ', $tzstring ), $current_offset );
         }
-
-  $mailaddress_description=__('Mailing address accept only one email address, check is well valid before reporting issues.','newstatpress');
-  $timepublishing_description=__('Notification will be sent at Local time.','newstatpress');
-
 
   ?>
   <table class='form-tableH'>
@@ -738,7 +737,7 @@ function nsp_Options() {
       ?>' size=20 maxlength=30 />
 
       <!-- <p class='submit'> -->
-      <button id="testmail" class='<?php echo $class_install ?> button button-primary' type=submit name=saveit value=mailme>
+      <button id="testmail" class='<?php echo $class_install ?> button button-secondary' type=submit name=saveit value=mailme>
         <?php _e('Email Test','newstatpress');?>
       </button>
         <!-- <input class='button button-default' type=submit value="<?php _e('Email Test','newstatpress');?>" name='saveit' value='mailme' /> -->
@@ -823,33 +822,7 @@ echo get_option($option_var);
 </form>
 
   <script type="text/javascript">
-  jQuery("#usual1 ul").idTabs(general);
-
-  function validateCode() {
-    // var TCode = document.getElementById('TCode').value;
-    var obj = document.getElementById("newstatpress_apikey").value;
-
-    if( /[^a-zA-Z0-9]/.test( obj ) ) {
-       alert('Input is not alphanumeric');
-       return false;
-    }
-    return true;
- }
-
- function randomString(length, chars) {
-     var result = '';
-     for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
-     return result;
- }
-
- function myFunction() {
-     var obj = document.getElementById("newstatpress_apikey");
-     var txt = randomString(128, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
-     obj.value = txt;
- }
-
-
-
+    jQuery("#usual1 ul").idTabs(general);
   </script>
 
 <?php
