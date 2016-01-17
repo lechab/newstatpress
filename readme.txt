@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: ice00
-Donate link: http://newstatpress.altervista.org
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F5S5PF4QBWU7E
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 3.5
 Tested up to: 4.3
@@ -159,7 +159,7 @@ Check at http://newstatpress.altervista.org
 = 1.1.1 =
 *Released date: 06/01/2016*
 
-* Remove included jQuery script that generate activation problem. Dashboard in now to fix.
+* Remove included jQuery script that generate activation problem. Dashboard is now to fix.
 
 = 1.1.0 =
 *Released date: 06/01/2016*
@@ -183,7 +183,7 @@ Check at http://newstatpress.altervista.org
 * add jQuery tabs for credit page
 * Updated browser definition
 * add 2 spiders logo and add missing browser images
-* rewrite initialization to avoid Warning about Undefined variable search_phrase and searchengine
+* rewrite initialization to avoid Warning about Undefined variable search_phrase and search engine
 * Updated Locale fr_FR, it_IT
 
 = 1.0.7 =
@@ -235,7 +235,7 @@ IMPORTANT CRITICAL UPDATE
 
  Core changes:
 
-* Fix the plugin menu view for "subscriver"
+* Fix the plugin menu view for "subscriber"
 * Fix IP2nation database installation bug
 * Remove IP2nation download function (to be best conform with WP policy)
 * Massive code cleaning to avoid conflict with others plugins
@@ -262,9 +262,9 @@ Note: IMPORTANT CRITICAL UPDATE
 
 Core changes:
 
-* Close a XSS and a SQL injection and possible other more complex to achieve (thanks to Adrián M. F. for discover and communicate them). Those are inside the search routine from Statpress so ALL previous versions of Newstatpress are vulnerable (and maybe they are present in lot of Statpress based plugin and Statpress itself).
+* Close a XSS and a SQL injection and possible other more complex to achieve (thanks to Adrián M. F. for discover and communicate them). Those are inside the search routine from Statpress so ALL previous versions of NewStatPress are vulnerable (and maybe they are present in lot of Statpress based plugin and Statpress itself).
 * Fix missing browser images
-* Add tools for optimize and repair the statpress table
+* Add tools for optimize and repair the Statpress table
 * Updated Locale it_IT
 
 
@@ -399,7 +399,7 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 = 0.8.4 =
 *Release Date - 13/07/2014*
 
-* Spy menu reorganziation (thanks to Alphonse PHILIPPE)
+* Spy menu reorganization (thanks to Alphonse PHILIPPE)
 * Update French translation (thanks to Alphonse PHILIPPE)
 * Update Italian translation
 
@@ -523,7 +523,7 @@ NOTE: not install this version if you have not a recent PHP version. Attend the 
 
 * Add missing 2 spider images
 * Make configurable the number of elements in summary
-* Add random “support” link to all search robots (read the agrement note before updating)
+* Add random “support” link to all search robots (read the agreement note before updating)
 
 = 0.6.1 =
 *Release Date - 04/05/2013*
