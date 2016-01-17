@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress v1.1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-17 14:02+0100\n"
-"PO-Revision-Date: 2016-01-17 15:20+0100\n"
+"POT-Creation-Date: 2016-01-17 18:30+0100\n"
+"PO-Revision-Date: 2016-01-17 18:31+0100\n"
 "Last-Translator: cHab <chabdev@free.fr>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -23,51 +23,51 @@ msgstr ""
 
 # @ newstatpress
 #: includes/api/nsp_api_dashboard.php:52 includes/nsp_visits.php:13
-#: newstatpress.php:1805 newstatpress.php:1949
+#: newstatpress.php:1819 newstatpress.php:1963
 msgid "Visitors"
 msgstr "Visiteurs"
 
-#: includes/api/nsp_api_dashboard.php:57 newstatpress.php:1811
+#: includes/api/nsp_api_dashboard.php:57 newstatpress.php:1825
 msgid "Visitors through Feeds"
 msgstr "Visiteurs (par le flux RSS)"
 
 # @ newstatpress
 #: includes/api/nsp_api_dashboard.php:62 includes/nsp_details.php:46
-#: includes/nsp_details.php:49 newstatpress.php:1817 newstatpress.php:1950
+#: includes/nsp_details.php:49 newstatpress.php:1831 newstatpress.php:1964
 msgid "Pageviews"
 msgstr "Pages visitées"
 
 # @ newstatpress
 #: includes/api/nsp_api_dashboard.php:67 includes/nsp_details.php:37
-#: includes/nsp_tools.php:659 newstatpress.php:1823 newstatpress.php:1951
+#: includes/nsp_tools.php:659 newstatpress.php:1837 newstatpress.php:1965
 msgid "Spiders"
 msgstr "Robots"
 
-#: includes/api/nsp_api_dashboard.php:72 newstatpress.php:1829
+#: includes/api/nsp_api_dashboard.php:72 newstatpress.php:1843
 msgid "Pageviews through Feeds"
 msgstr "Pages vues (par le flux RSS)"
 
-#: includes/api/nsp_api_dashboard.php:136 newstatpress.php:1781
+#: includes/api/nsp_api_dashboard.php:136 newstatpress.php:1795
 msgid "M-1"
 msgstr "M-1"
 
-#: includes/api/nsp_api_dashboard.php:137 newstatpress.php:1782
+#: includes/api/nsp_api_dashboard.php:137 newstatpress.php:1796
 msgid "M"
 msgstr "M"
 
-#: includes/api/nsp_api_dashboard.php:138 newstatpress.php:1783
+#: includes/api/nsp_api_dashboard.php:138 newstatpress.php:1797
 msgid "Y"
 msgstr "H"
 
-#: includes/api/nsp_api_dashboard.php:139 newstatpress.php:1784
+#: includes/api/nsp_api_dashboard.php:139 newstatpress.php:1798
 msgid "T"
 msgstr "A"
 
-#: includes/nsp_credits.php:12 newstatpress.php:340
+#: includes/nsp_credits.php:12 newstatpress.php:342
 msgid "support page"
 msgstr "page de support"
 
-#: includes/nsp_credits.php:14 newstatpress.php:342
+#: includes/nsp_credits.php:14 newstatpress.php:344
 msgid "the author"
 msgstr "l'auteur"
 
@@ -99,7 +99,7 @@ msgid "Donation"
 msgstr "Don"
 
 # @ newstatpress
-#: includes/nsp_credits.php:36 newstatpress.php:202
+#: includes/nsp_credits.php:36 newstatpress.php:204
 msgid "Credits"
 msgstr "Crédits"
 
@@ -117,7 +117,7 @@ msgid "Description"
 msgstr "Description"
 
 # @ newstatpress
-#: includes/nsp_credits.php:89 newstatpress.php:490
+#: includes/nsp_credits.php:89 newstatpress.php:504
 msgid "Language"
 msgstr "Langue"
 
@@ -126,8 +126,8 @@ msgid "Status"
 msgstr "Statuts"
 
 # @ newstatpress
-#: includes/nsp_credits.php:112 newstatpress.php:490 newstatpress.php:530
-#: newstatpress.php:548 newstatpress.php:595 newstatpress.php:624
+#: includes/nsp_credits.php:112 newstatpress.php:504 newstatpress.php:544
+#: newstatpress.php:562 newstatpress.php:609 newstatpress.php:638
 msgid "Date"
 msgstr "Date"
 
@@ -143,17 +143,17 @@ msgstr "Fil RSS"
 msgid "News"
 msgstr "News"
 
-#: includes/nsp_dashboard.php:42 newstatpress.php:197
+#: includes/nsp_dashboard.php:42 newstatpress.php:199
 msgid "Details"
 msgstr "Détails"
 
 #: includes/nsp_dashboard.php:45 includes/nsp_functions-extra.php:51
-#: includes/nsp_visits.php:18 newstatpress.php:198 newstatpress.php:1585
+#: includes/nsp_visits.php:18 newstatpress.php:200 newstatpress.php:1599
 msgid "Visits"
 msgstr "Visites"
 
 # @ newstatpress
-#: includes/nsp_dashboard.php:48 newstatpress.php:201
+#: includes/nsp_dashboard.php:48 newstatpress.php:203
 msgid "Options"
 msgstr "Options"
 
@@ -178,7 +178,7 @@ msgid "Browsers"
 msgstr "Navigateurs"
 
 # @ newstatpress
-#: includes/nsp_details.php:22 includes/nsp_tools.php:517 newstatpress.php:1952
+#: includes/nsp_details.php:22 includes/nsp_tools.php:517 newstatpress.php:1966
 msgid "Feeds"
 msgstr "Flux"
 
@@ -396,7 +396,7 @@ msgstr "Graphique"
 msgid "Days number in Overview graph"
 msgstr "Nombre de jours dans l'aperçu graphique"
 
-#: includes/nsp_options.php:435 newstatpress.php:196 newstatpress.php:1751
+#: includes/nsp_options.php:435 newstatpress.php:198 newstatpress.php:1765
 msgid "Overview"
 msgstr "Vue générale"
 
@@ -654,6 +654,8 @@ msgid ""
 "Note: WP Cron job need to be operational in aim to schedule Email "
 "Notification."
 msgstr ""
+"Remarque: WP Cron besoin d’être opérationnel en vue de planifier la "
+"Notification par email."
 
 #: includes/nsp_options.php:645
 msgid ""
@@ -759,7 +761,7 @@ msgid "URL Requested"
 msgstr "URL demandées"
 
 # @ newstatpress
-#: includes/nsp_search.php:7 newstatpress.php:566 newstatpress.php:624
+#: includes/nsp_search.php:7 newstatpress.php:580 newstatpress.php:638
 msgid "Agent"
 msgstr "Agent"
 
@@ -784,13 +786,13 @@ msgid "Operative system"
 msgstr "Système d'exploitation"
 
 # @ newstatpress
-#: includes/nsp_search.php:12 newstatpress.php:490 newstatpress.php:566
-#: newstatpress.php:595
+#: includes/nsp_search.php:12 newstatpress.php:504 newstatpress.php:580
+#: newstatpress.php:609
 msgid "Browser"
 msgstr "Navigateur"
 
 # @ newstatpress
-#: includes/nsp_search.php:13 newstatpress.php:566 newstatpress.php:624
+#: includes/nsp_search.php:13 newstatpress.php:580 newstatpress.php:638
 msgid "Spider"
 msgstr "Robot"
 
@@ -799,8 +801,8 @@ msgstr "Robot"
 msgid "IP"
 msgstr "IP"
 
-#: includes/nsp_search.php:16 includes/nsp_search.php:63 newstatpress.php:199
-#: newstatpress.php:673 newstatpress.php:687 newstatpress.php:804
+#: includes/nsp_search.php:16 includes/nsp_search.php:63 newstatpress.php:201
+#: newstatpress.php:687 newstatpress.php:701 newstatpress.php:818
 msgid "Search"
 msgstr "Recherche"
 
@@ -840,7 +842,7 @@ msgid "include feed"
 msgstr "Inclure les flux"
 
 # @ newstatpress
-#: includes/nsp_search.php:57 newstatpress.php:1581
+#: includes/nsp_search.php:57 newstatpress.php:1595
 msgid "Limit results to"
 msgstr "Limiter les résultats à"
 
@@ -1072,7 +1074,7 @@ msgid "Size"
 msgstr "Taille"
 
 # @ newstatpress
-#: includes/nsp_tools.php:500 newstatpress.php:530 newstatpress.php:548
+#: includes/nsp_tools.php:500 newstatpress.php:544 newstatpress.php:562
 msgid "Result"
 msgstr "Résultat"
 
@@ -1266,37 +1268,37 @@ msgstr "Visiteurs enregistrés en ligne"
 msgid "The most viewed Post"
 msgstr "Post le plus vu"
 
-#: newstatpress.php:200
+#: newstatpress.php:202
 msgid "Tools"
 msgstr "Outils"
 
-#: newstatpress.php:252
+#: newstatpress.php:254
 msgid "Once a minute"
 msgstr "Une fois par minute"
 
-#: newstatpress.php:256
+#: newstatpress.php:258
 msgid "Four time by Day"
 msgstr "Quatre fois par jour"
 
-#: newstatpress.php:261
+#: newstatpress.php:263
 msgid "Once a Week"
 msgstr "Une fois par semaine"
 
-#: newstatpress.php:265
+#: newstatpress.php:267
 msgid "Once a Month"
 msgstr "Une fois par mois"
 
-#: newstatpress.php:322
+#: newstatpress.php:324
 #, php-format
 msgid "Visits statistics from %s"
 msgstr "Statistiques de visites de %s"
 
-#: newstatpress.php:324
+#: newstatpress.php:326
 #, php-format
 msgid "This is a test from %s"
 msgstr "Ceci est un test de %s"
 
-#: newstatpress.php:344
+#: newstatpress.php:346
 #, php-format
 msgid ""
 "If you have found this plugin usefull and you like it, you can support the "
@@ -1312,7 +1314,7 @@ msgstr ""
 "également faire un don directement sur le site de NewStatPress ou par le "
 "biais du plugin (page Crédits)."
 
-#: newstatpress.php:347
+#: newstatpress.php:349
 msgid ""
 "This option is yet experimental, please report bugs or improvement (see link "
 "on the bottom)"
@@ -1320,7 +1322,7 @@ msgstr ""
 "Cette option est encore expérimentale, merci de rapporter un bogue ou  des "
 "améliorations (voir le lien en bas)"
 
-#: newstatpress.php:348
+#: newstatpress.php:350
 msgid ""
 "You receive this email because you have enabled the statistics notification "
 "in the NewStatpress plugin (option menu) from your WP website "
@@ -1328,176 +1330,196 @@ msgstr ""
 "Vous recevez cet e-mail parce que vous avez activé la notification de "
 "statistiques dans le plugin NewStatpress (menu option) de votre site Web WP"
 
-#: newstatpress.php:349
+#: newstatpress.php:351
 msgid "Dear"
 msgstr "Cher"
 
-#: newstatpress.php:353
+#: newstatpress.php:355
 msgid "Statistics at"
 msgstr "Statistiques à"
 
-#: newstatpress.php:353
+#: newstatpress.php:355
 msgid "server time"
 msgstr "heure serveur"
 
-#: newstatpress.php:355
+#: newstatpress.php:357
 msgid "Best Regards from"
 msgstr "Salutations de "
 
-#: newstatpress.php:457
+#: newstatpress.php:471
 msgid ""
-"This new version integrate a new major function of <strong>Email "
+"This new version integrates a new major function : <strong>Email "
 "Notification</strong> (see Option Page) to get periodic reports of your "
 "statistics. This function remains a bit experimental until it's tested "
 "recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas "
 "R.</strong> to support our work with his donation.</i>"
 msgstr ""
+"Cette nouvelle version d’intègre une nouvelle fonction majeure de "
+"<strong>notification par courrier électronique</strong> (voir page Options) "
+"pour obtenir des rapports périodiques de vos statistiques. Cette fonction "
+"demeure un peu expérimentale jusqu’à ce qu’elle soit testée de manière "
+"récursive, merci d’être compréhensif. <br/> <i>Merci à <strong>Douglas R.</"
+"strong> Pour soutenir notre travail avec son don.</i>"
 
 # @ newstatpress
-#: newstatpress.php:490
+#: newstatpress.php:504
 msgid "Last hits"
 msgstr "Dernières ressources demandées"
 
 # @ newstatpress
-#: newstatpress.php:490 newstatpress.php:530 newstatpress.php:548
-#: newstatpress.php:595 newstatpress.php:624
+#: newstatpress.php:504 newstatpress.php:544 newstatpress.php:562
+#: newstatpress.php:609 newstatpress.php:638
 msgid "Time"
 msgstr "Heure"
 
 # @ newstatpress
-#: newstatpress.php:490
+#: newstatpress.php:504
 msgid "Country"
 msgstr "Pays"
 
 # @ newstatpress
-#: newstatpress.php:490 newstatpress.php:595 newstatpress.php:670
-#: newstatpress.php:682 newstatpress.php:685 newstatpress.php:697
-#: newstatpress.php:801 newstatpress.php:813
+#: newstatpress.php:504 newstatpress.php:609 newstatpress.php:684
+#: newstatpress.php:696 newstatpress.php:699 newstatpress.php:711
+#: newstatpress.php:815 newstatpress.php:827
 msgid "Page"
 msgstr "Page"
 
 # @ newstatpress
-#: newstatpress.php:490
+#: newstatpress.php:504
 msgid "Feed"
 msgstr "Flux"
 
 # @ newstatpress
-#: newstatpress.php:490 newstatpress.php:566 newstatpress.php:595
+#: newstatpress.php:504 newstatpress.php:580 newstatpress.php:609
 msgid "OS"
 msgstr "Système"
 
 # @ newstatpress
-#: newstatpress.php:530
+#: newstatpress.php:544
 msgid "Last search terms"
 msgstr "Derniers termes recherchés"
 
 # @ newstatpress
-#: newstatpress.php:530
+#: newstatpress.php:544
 msgid "Terms"
 msgstr "Termes"
 
 # @ newstatpress
-#: newstatpress.php:530
+#: newstatpress.php:544
 msgid "Engine"
 msgstr "Moteur"
 
 # @ newstatpress
-#: newstatpress.php:542 newstatpress.php:560
+#: newstatpress.php:556 newstatpress.php:574
 msgid "page viewed"
 msgstr "page visitée"
 
 # @ newstatpress
-#: newstatpress.php:548
+#: newstatpress.php:562
 msgid "Last referrers"
 msgstr "Dernières origines"
 
 # @ newstatpress
-#: newstatpress.php:548
+#: newstatpress.php:562
 msgid "URL"
 msgstr "URL"
 
 # @ newstatpress
-#: newstatpress.php:566
+#: newstatpress.php:580
 msgid "Last agents"
 msgstr "Derniers agents"
 
 # @ newstatpress
-#: newstatpress.php:595
+#: newstatpress.php:609
 msgid "Last pages"
 msgstr "Dernières pages"
 
 # @ newstatpress
-#: newstatpress.php:624
+#: newstatpress.php:638
 msgid "Last spiders"
 msgstr "Derniers robots"
 
 # @ newstatpress
-#: newstatpress.php:671 newstatpress.php:686 newstatpress.php:802
+#: newstatpress.php:685 newstatpress.php:700 newstatpress.php:816
 msgid "Category"
 msgstr "Categorie"
 
 # @ newstatpress
-#: newstatpress.php:672 newstatpress.php:803
+#: newstatpress.php:686 newstatpress.php:817
 msgid "Calendar"
 msgstr "Calendrier"
 
 # @ newstatpress
-#: newstatpress.php:854
+#: newstatpress.php:868
 msgid "records"
 msgstr "enregistrements"
 
 # @ newstatpress
-#: newstatpress.php:1527
+#: newstatpress.php:1541
 msgid "Title:"
 msgstr "Titre :"
 
 # @ newstatpress
-#: newstatpress.php:1531
+#: newstatpress.php:1545
 msgid "Body:"
 msgstr "Corps :"
 
-#: newstatpress.php:1535
+#: newstatpress.php:1549
 msgid "Stats available: "
 msgstr "Statistiques disponibles :"
 
 # @ newstatpress
-#: newstatpress.php:1576
+#: newstatpress.php:1590
 msgid "Title"
 msgstr "Titre"
 
 # @ newstatpress
-#: newstatpress.php:1756
+#: newstatpress.php:1770
 msgid "Total since"
 msgstr "Total depuis"
 
-#: newstatpress.php:1757
+#: newstatpress.php:1771
 msgid "This year"
 msgstr "Année en cours"
 
 # @ newstatpress
-#: newstatpress.php:1758
+#: newstatpress.php:1772
 msgid "Last month"
 msgstr "Mois précédent"
 
 # @ newstatpress
-#: newstatpress.php:1759
+#: newstatpress.php:1773
 msgid "This month"
 msgstr "Mois en cours"
 
 # @ newstatpress
-#: newstatpress.php:1760
+#: newstatpress.php:1774
 msgid "Target This month"
 msgstr "Cible de ce mois-ci"
 
 # @ newstatpress
-#: newstatpress.php:1761
+#: newstatpress.php:1775
 msgid "Yesterday"
 msgstr "Hier"
 
 # @ newstatpress
-#: newstatpress.php:1762
+#: newstatpress.php:1776
 msgid "Today"
 msgstr "Aujourd'hui"
+
+#~ msgid ""
+#~ "This new version integrate a new major function of <strong>Email "
+#~ "Notification</strong> (see Option Page) to get periodic reports of your "
+#~ "statistics. This function remains a bit experimental until it's tested "
+#~ "recursively, thanks to be comprehensive. <br/> <i>Thanks to "
+#~ "<strong>Douglas R.</strong> to support our work with his donation.</i>"
+#~ msgstr ""
+#~ "Cette nouvelle version d’intègre une nouvelle fonction majeure de "
+#~ "<strong>notification par courrier électronique</strong> (voir page "
+#~ "Options) pour obtenir des rapports périodiques de vos statistiques. Cette "
+#~ "fonction reste un peu expérimentale jusqu’à ce qu’elle soit testée de "
+#~ "manière récursive, merci d’être compréhensif. <br/> <i>Merci à "
+#~ "<strong>Douglas R.</strong> Pour soutenir notre travail avec son don.</i>"
 
 #~ msgid ""
 #~ "This option allows you to get periodic reports by email (dashboard "

@@ -468,7 +468,7 @@ add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
  ***********************************************************/
 function nsp_NoticeNew($activation) {
   if($activation) {
-    $description=__('This new version integrate a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>','newstatpress');
+    $description=__('This new version integrates a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>','newstatpress');
   ?>
     <div id="nspnotice" class="notice" style="padding:10px">
       <a  id="close" class="close"><span class="dashicons dashicons-no"></span>close</a>
