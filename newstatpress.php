@@ -114,6 +114,8 @@ add_action( 'admin_init', 'nsp_UpdateCheck' );
 
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
+  //  wp_enqueue_style('dashicons');
+
 
    // JS and jQuery
    $style_path2=plugins_url('./js/jquery.idTabs.min.js', __FILE__);
@@ -451,6 +453,13 @@ function nsp_mail_notification_deactivate() {
 //Hook mail publi
 add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
 
+
+// function wpc_dashicons() {
+// wp_enqueue_style('dashicons');
+// }
+//
+// add_action('wp_enqueue_scripts', 'wpc_dashicons');
+
 /**
  * display notice
  * added by cHab
@@ -461,14 +470,14 @@ function nsp_NoticeNew($activation) {
   if($activation) {
     $description=__('This new version integrate a new major function of <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>','newstatpress');
   ?>
-    <div class="notice" style="padding:10px">
+    <div id="nspnotice" class="notice" style="padding:10px">
+      <a  id="close" class="close"><span class="dashicons dashicons-no"></span>close</a>
       <span>
         <?php echo $description ?>
       </span>
     </div>
-
   <?php
-}
+  }
 }
 
 /**

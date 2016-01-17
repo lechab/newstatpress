@@ -353,6 +353,17 @@ font-size: 15px;
 .notice {
   font-size: 14px;
 }
+
+.close {
+  float:right;
+  margin:0 0 15px 25px;
+  font-variant:small-caps;
+  text-decoration:none;
+}
+/*.close:before {
+  content: "\f158";
+}*/
+
 .option_list {
   margin-left: 22px !important;
   margin-bottom: 0;

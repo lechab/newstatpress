@@ -29,6 +29,10 @@ if ($("#pagecredits").length) {
 
    }, 3000);
 
+   $( "#close" ).click(function() {
+     $('#nspnotice').fadeOut();
+   });
+
   //  $('#myoptions').get(0).reset();
 
   // $("#myform input[type='radio']:checked").val();
