@@ -300,12 +300,16 @@ function set_content_type($content_type) {
 }
 add_filter('wp_mail_content_type','set_content_type');
 
-
+/**
+ * Extract the feed from the given url
+ * added by chab
+ *
+ * @param type of mail ('' or 'test')
+ *************************************/
 function nsp_stat_by_email($arg='') {
   global $nsp_option_vars;
   $date = date('m/d/Y h:i:s a', time());
-  $name=$nsp_option_vars['mail_notification_info']['name'];
-  // $email_address=
+  // $name=$nsp_option_vars['mail_notification_info']['name'];
 
   $name=$nsp_option_vars['mail_notification']['name'];
   $status=get_option($name);
@@ -313,8 +317,6 @@ function nsp_stat_by_email($arg='') {
   $freq=get_option($name);
 
   $userna = get_option('newstatpress_mail_notification_info');
-  // $typ="HTML";
-  // $resultH="";
 
   $blog_title = get_bloginfo('name');
   $subject=sprintf(__('Visits statistics from %s','newstatpress'), $blog_title);
@@ -358,23 +360,24 @@ function nsp_stat_by_email($arg='') {
 
   $email = wp_mail($email_address, $subject, $message);
 
-// if($email)
-//   echo 'Votre email a bien été envoyé';
-// else {
-//   echo "Erreur d'envoi";
-// }
+  // if($email)
+  //   echo 'Votre email a bien été envoyé';
+  // else {
+  //   echo "Erreur d'envoi";
+  // }
 }
 
-//return offset_time in second to add to epoch format
+/**
+ * Calculate offset_time in second to add to epoch format
+ * added by cHab
+ *
+ * @param $t,$tu
+ * @return $offset_time
+ ***********************************************************/
 function nsp_calculationOffsetTime($t,$tu) {
 
   list($current_hour, $current_minute) = explode(":", date("H:i",$t));
   list($publishing_hour, $publishing_minutes) = explode(":", $tu);
-
-  // echo "<br />";
-  // echo $current_hour .":" .$current_minute;
-  // echo "<br />";
-  // echo $publishing_hour .":" .$publishing_minutes;
 
   if($current_hour>$publishing_hour)
     $plus_hour=24-$current_hour+$publishing_hour;
@@ -391,12 +394,8 @@ function nsp_calculationOffsetTime($t,$tu) {
   else
     $plus_minute=$publishing_minutes-$current_minute;
 
-  // echo "<br />";
-  // echo $plus_hour .":" .$plus_minute;
-
   return $offset_time=$plus_hour*60*60+$plus_minute*60;
 }
-
 
 if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
   $name=$nsp_option_vars['mail_notification']['name'];
@@ -453,6 +452,20 @@ function nsp_mail_notification_deactivate() {
 add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
 
 
+function nsp_NoticeNew($activation) {
+  if($activation) {
+    $description=__('This new version integrate a new major function of <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>','newstatpress');
+  ?>
+    <div class="notice" style="padding:10px">
+      <span>
+        <?php echo $description ?>
+      </span>
+    </div>
+
+  <?php
+}
+}
+
 /**
  * Show overwiew
  *
@@ -461,6 +474,7 @@ function nsp_NewStatPressMain() {
   global $wpdb;
   $table_name = nsp_TABLENAME;
 
+  nsp_NoticeNew(1);
   nsp_MakeOverview('main');
 
   $_newstatpress_url=PluginUrl();
@@ -1888,7 +1902,6 @@ function nsp_MakeOverview($print ='dashboard') {
     $gdays=get_option('newstatpress_daysinoverviewgraph'); if($gdays == 0) { $gdays=20; }
     $start_of_week = get_option('start_of_week');
 
-//
     $maxxday = 0;
     for($gg=$gdays-1;$gg>=0;$gg--) {
 
@@ -1909,7 +1922,7 @@ function nsp_MakeOverview($print ='dashboard') {
       $total= $visitors[$gg] + $pageviews[$gg] + $spiders[$gg] + $feeds[$gg];
       if ($total > $maxxday) $maxxday= $total;
     }
-//
+
     if($maxxday == 0) { $maxxday = 1; }
     # Y
     $gd=(90/$gdays).'%';

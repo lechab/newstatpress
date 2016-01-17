@@ -350,6 +350,9 @@ font-size: 15px;
 
 }*/
 
+.notice {
+  font-size: 14px;
+}
 .option_list {
   margin-left: 22px !important;
   margin-bottom: 0;
