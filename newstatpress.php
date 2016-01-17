@@ -451,7 +451,12 @@ function nsp_mail_notification_deactivate() {
 //Hook mail publi
 add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
 
-
+/**
+ * display notice
+ * added by cHab
+ *
+ * @param $activation 1: display, 0 : do noting
+ ***********************************************************/
 function nsp_NoticeNew($activation) {
   if($activation) {
     $description=__('This new version integrate a new major function of <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>','newstatpress');
