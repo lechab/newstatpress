@@ -27,6 +27,7 @@
 - [x] Add email notification options
 - [x] Add Notice Message Box
 - [x] Add OS (+6), Browsers (+5), Spiders (+197)
+- [x] Update Spiders images (+3)
 - [x] Add language informations on Credits page (jQuery implementation)
 - [x] Improved Options Page code
 - [x] Update locale fr_FR,  it_IT, pl-PL, es_ES
