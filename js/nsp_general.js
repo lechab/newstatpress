@@ -1,4 +1,26 @@
 jQuery(document).ready(function($){
+  console.log("toto");
+
+if ($("#pagecredits").length) {
+  $.getJSON('../wp-content/plugins/newstatpress/includes/credit.json', function(data) {
+   $.each(data.contacts, function(keyp, valp) {
+     var addressr="<tr>\n<td class='cell-l'>" + valp.name + "</td>\n<td class='cell-r'>" + valp.properties + "</td>\n</tr>\n";
+     $(addressr).appendTo("#addresses");
+
+   });
+  });
+  $.getJSON('../wp-content/plugins/newstatpress/includes/lang.json', function(data) {
+   $.each(data.translation, function(keyp, valp) {
+     var addressr="<tr>"+
+                  "<td class='cell-l'>" +
+                  "<img style='border:0px;height:16px;' alt='" + valp.domain + "' title='"+valp.domain+"'" + "src='../wp-content/plugins/newstatpress/images/domain/"+ valp.domain + ".png' /> " +
+                  valp.lang + "</td>\n<td class='cell-r'>" + valp.properties + "</td>" +
+                  "<td class='cell-r'>" + valp.status + "</td></tr>\n";
+     $(addressr).appendTo("#langr");
+
+   });
+  });
+}
 
   // Options Page > Mail Notification tab
   setTimeout(function() {
@@ -55,3 +77,27 @@ jQuery(document).ready(function($){
 
 
 });
+
+
+function validateCode() {
+  // var TCode = document.getElementById('TCode').value;
+  var obj = document.getElementById("newstatpress_apikey").value;
+
+  if( /[^a-zA-Z0-9]/.test( obj ) ) {
+     alert('Input is not alphanumeric');
+     return false;
+  }
+  return true;
+}
+
+function randomString(length, chars) {
+   var result = '';
+   for (var i = length; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+   return result;
+}
+
+function myFunction() {
+   var obj = document.getElementById("newstatpress_apikey");
+   var txt = randomString(128, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+   obj.value = txt;
+}
