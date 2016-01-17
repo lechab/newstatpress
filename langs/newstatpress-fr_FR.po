@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: NewStatPress v1.1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-17 14:02+0100\n"
-"PO-Revision-Date: 2016-01-17 14:02+0100\n"
+"PO-Revision-Date: 2016-01-17 15:20+0100\n"
 "Last-Translator: cHab <chabdev@free.fr>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Generator: Poedit 1.8.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
@@ -664,9 +664,8 @@ msgstr ""
 "vérifier la validité de celle-ci avant de signaler un problème."
 
 #: includes/nsp_options.php:646
-#, fuzzy
 msgid "Notification will be sent at UTC time."
-msgstr "La notification sera envoyée à l’heure locale."
+msgstr "Notification sera envoyée à l’heure UTC."
 
 #: includes/nsp_options.php:670
 msgid "Statistics notification is"
@@ -1273,7 +1272,7 @@ msgstr "Outils"
 
 #: newstatpress.php:252
 msgid "Once a minute"
-msgstr ""
+msgstr "Une fois par minute"
 
 #: newstatpress.php:256
 msgid "Four time by Day"
@@ -1293,9 +1292,9 @@ msgid "Visits statistics from %s"
 msgstr "Statistiques de visites de %s"
 
 #: newstatpress.php:324
-#, fuzzy, php-format
+#, php-format
 msgid "This is a test from %s"
-msgstr "Statistiques de visites de %s"
+msgstr "Ceci est un test de %s"
 
 #: newstatpress.php:344
 #, php-format
