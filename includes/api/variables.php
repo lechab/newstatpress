@@ -52,7 +52,7 @@ if ($var=='alltotalvisits') {
 } elseif ($var=='mvisits') {
     if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
       $qry = $wpdb->get_results(
-        "SELECT SUM(pagv) FROM (
+        "SELECT SUM(pagv) AS pageview FROM (
           SELECT count(DISTINCT(ip)) AS pagv
           FROM $table_name
           WHERE
