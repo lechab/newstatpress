@@ -28,6 +28,7 @@
 * Add Notice Message Box
 * Add OS (+6), Browsers (+5), Spiders (+197)
 * Add language flag and status on 'Credits' page
+* Add Activation of sum option for variable %mvisits%, %wvisits% and %totalvisits%
 
 * Change IP detection for better results behind proxy
 * Change 'Options' Page code : major improvements
