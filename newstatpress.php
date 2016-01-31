@@ -160,7 +160,7 @@ function nsp_Activation() {
   //  require ('includes/nsp_options.php');
   //  require ('includes/nsp_visits.php');
   //  require ('includes/nsp_details.php');
-   require ('includes/nsp_search.php');
+  //  require ('includes/nsp_search.php');
    require ('includes/nsp_dashboard.php');
 
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
@@ -214,7 +214,7 @@ function nsp_BuildPluginMenu() {
     add_submenu_page('nsp-main', __('Overview',nsp_TEXTDOMAIN), __('Overview',nsp_TEXTDOMAIN), $overview_capability, 'nsp-main', 'nsp_NewStatPressMainC');
     add_submenu_page('nsp-main', __('Details',nsp_TEXTDOMAIN), __('Details',nsp_TEXTDOMAIN), $details_capability, 'nsp_details', 'nsp_DisplayDetailsC');
     add_submenu_page('nsp-main', __('Visits',nsp_TEXTDOMAIN), __('Visits',nsp_TEXTDOMAIN), $visits_capability, 'nsp_visits', 'nsp_DisplayVisitsPageC');
-    add_submenu_page('nsp-main', __('Search',nsp_TEXTDOMAIN), __('Search',nsp_TEXTDOMAIN), $search_capability, 'nsp_search', 'nsp_DatabaseSearch');
+    add_submenu_page('nsp-main', __('Search',nsp_TEXTDOMAIN), __('Search',nsp_TEXTDOMAIN), $search_capability, 'nsp_search', 'nsp_DatabaseSearchC');
     add_submenu_page('nsp-main', __('Tools',nsp_TEXTDOMAIN), __('Tools',nsp_TEXTDOMAIN), $tools_capability, 'nsp_tools', 'nsp_DisplayToolsPageC');
     add_submenu_page('nsp-main', __('Options',nsp_TEXTDOMAIN), __('Options',nsp_TEXTDOMAIN), $options_capability, 'nsp_options', 'nsp_OptionsC');
     add_submenu_page('nsp-main', __('Credits',nsp_TEXTDOMAIN), __('Credits',nsp_TEXTDOMAIN), $credits_capability, 'nsp_credits', 'nsp_DisplayCreditsPageC');
@@ -251,6 +251,13 @@ function nsp_DisplayVisitsPageC() {
   require ('includes/nsp_visits.php');
   nsp_DisplayVisitsPage();
 }
+
+function nsp_DatabaseSearchC() {
+  require ('includes/nsp_search.php');
+  nsp_DatabaseSearch();
+}
+
+
 
 /**
  * Get the url of the plugin
@@ -1084,7 +1091,7 @@ function NewStatPress_Print($body='') {
 /**
  * Expand vars into the give code
  *
- * @param boby the code where to look for variables to expand
+ * @param body the code where to look for variables to expand
  * @return the modified code
  ************************************************************/
 function nsp_ExpandVarsInsideCode($body) {

@@ -36,7 +36,7 @@
 * Update Spiders images (+3)
 * Update locale fr_FR,  it_IT, pl-PL, es_ES
 
-* Fix Memory size : 0.5 Mb free
+* Fix Memory size : >0.5 Mb free
 * Fix HTML cleanup
 * Fix Readme.txt
 
