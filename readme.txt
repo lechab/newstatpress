@@ -98,7 +98,7 @@ Widget is customizable. These are the available variables:
 Now you could add these values everywhere! NewStatPress offers a new PHP function *NewStatPress_Print()*.
 * i.e. NewStatPress_Print("%totalvisits% total visits.");
 
-New sperimental functions: place this command [NewStatPress: xxx] every were in your Wordpress blog pages and you will have the graph about the xxx function.
+New experimental functions: place this command [NewStatPress: xxx] every were in your Wordpress blog pages and you will have the graph about the xxx function.
 
 Available functions are:
 * [NewStatPress: Overview]

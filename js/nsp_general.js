@@ -1,5 +1,5 @@
 jQuery(document).ready(function($){
-  console.log("toto");
+  // console.log("toto");
 
 if ($("#pagecredits").length) {
   $.getJSON('../wp-content/plugins/newstatpress/includes/credit.json', function(data) {
@@ -27,7 +27,7 @@ if ($("#pagecredits").length) {
      $('#mailsent').fadeOut();
      $('#optionsupdated').fadeOut();
 
-   }, 3000);
+   }, 4000);
 
    $( "#close" ).click(function() {
      $('#nspnotice').fadeOut();
@@ -100,7 +100,7 @@ function randomString(length, chars) {
    return result;
 }
 
-function myFunction() {
+function nspGenerateAPIKey() {
    var obj = document.getElementById("newstatpress_apikey");
    var txt = randomString(128, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
    obj.value = txt;

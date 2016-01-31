@@ -44,6 +44,44 @@ function nsp_DisplayVisitsPage() {
 }
 
 /**
+ * Get page period taken in statpress-visitors
+ */
+function newstatpress_page_periode() {
+  // pp is the display page periode
+  if(isset($_GET['pp'])) {
+    // Get Current page periode from URL
+    $periode = $_GET['pp'];
+    if($periode <= 0)
+      // Periode is less than 0 then set it to 1
+      $periode = 1;
+  } else
+      // URL does not show the page set it to 1
+      $periode = 1;
+  return $periode;
+}
+
+/**
+ * Get page post taken in statpress-visitors
+ *
+ * @return page
+ ******************************************/
+function newstatpress_page_posts() {
+  global $wpdb;
+  // pa is the display pages Articles
+  if(isset($_GET['pa'])) {
+    // Get Current page Articles from URL
+    $pageA = $_GET['pa'];
+    if($pageA <= 0)
+      // Article is less than 0 then set it to 1
+      $pageA = 1;
+  } else
+      // URL does not show the Article set it to 1
+      $pageA = 1;
+  return $pageA;
+}
+
+
+/**
  * New spy bot function taken in statpress-visitors
  */
 function nsp_SpyBot() {

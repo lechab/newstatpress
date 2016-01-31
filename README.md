@@ -22,36 +22,43 @@
 - [ ] Donation page to finish
 
 ## 1.1.4
-*Released date: 2016-01-xx
+*Released date: 2016-0x-xx*
 
-- [x] Add email notification options
-- [x] Add Notice Message Box
-- [x] Add OS (+6), Browsers (+5), Spiders (+197)
-- [x] Update Spiders images (+3)
-- [x] Add language informations on Credits page (jQuery implementation)
-- [x] Improved Options Page code
-- [x] Update locale fr_FR,  it_IT, pl-PL, es_ES
-- [x] Readme corrections
+* Add email notification options
+* Add Notice Message Box
+* Add OS (+6), Browsers (+5), Spiders (+197)
+* Add language flag and status on 'Credits' page
+
+* Change IP detection for better results behind proxy
+* Change 'Options' Page code : major improvements
+* Change 'Credits' Page code : use of json
+
+* Update Spiders images (+3)
+* Update locale fr_FR,  it_IT, pl-PL, es_ES
+
+* Fix Memory size : 0.5 Mb free
+* Fix HTML cleanup
+* Fix Readme.txt
 
 ## 1.1.3
-*Released date: 2016-01-09
+*Released date: 2016-01-09*
 
 - [x] Fix call to % calculation
 - [x] Change dashboard/overview call in External API
 
 ## 1.1.2
-*Released date: 2016-01-07
+*Released date: 2016-01-07*
 
 - [x] Use new Ajax call in Wordpress for dashboard
 - [x] Fix missing row titles in dashboard in External API
 
 ## 1.1.1
-*Released date: 2016-01-06
+*Released date: 2016-01-06*
 
 - [x] Remove included jQuery script that generate activation problem. Dashboard is now to fix.
 
 ## 1.1.0
-*Released date: 2016-01-06
+*Released date: 2016-01-06*
 
 - [x] Fix API key calculation
 - [x] Fix domain.dat manages inside nsp_visits.php (thanks to Gwss)
@@ -61,13 +68,13 @@
 - [x] Fix overview bug in total (thanks to Greg Sydney)
 
 ## 1.0.9
-*Released date: 2015-09-26
+*Released date: 2015-09-26*
 
 - [x] Adeguate for translate.wordpress.org
 - [x] Update Readme for External API usage
 
 ## 1.0.8
-*Released date: 2015-09-19
+*Released date: 2015-09-19*
 
 - [x] Add jquery tabs for credit page
 - [x] Updated browser definition

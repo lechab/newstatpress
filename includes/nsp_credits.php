@@ -6,7 +6,7 @@
 function nsp_DisplayCreditsPage() {
 
   global $pagenow;
-
+  // nsp_NoticeNew(1);
   $page='nsp_credits';
 
   $support_pluginpage="<a href='https://wordpress.org/support/plugin/newstatpress' target='_blank'>".__('support page','newstatpress')."</a>";
@@ -58,7 +58,7 @@ function nsp_DisplayCreditsPage() {
     <ul>
     <?php
       foreach( $CreditsPage_tabs as $tab => $name ) {
-          echo "<li><a href='#$tab'>$name</a></li>";
+          echo "<li><a href='#$tab'>$name</a></li>\n";
       }
     ?>
     </ul>
@@ -68,12 +68,8 @@ function nsp_DisplayCreditsPage() {
     <table class='credit'>
       <thead>
         <tr>
-          <th class='cell-l'>
-            <?php _e('Contributor','newstatpress'); ?>
-          </th>
-          <th class='cell-r'>
-            <?php _e('Description','newstatpress'); ?>
-          </th>
+          <th class='cell-l'><?php _e('Contributor','newstatpress'); ?></th>
+          <th class='cell-r'><?php _e('Description','newstatpress'); ?></th>
         </tr>
       </thead>
       <tbody id="addresses"></tbody>

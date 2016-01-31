@@ -19,7 +19,7 @@ function nsp_BuildDashboardWidget() {
     'Key' => md5(gmdate('m-d-y H i').$api_key)
   ));
 
-  
+
   ///nsp_MakeOverview('dashboard');
   /*
     echo "<script type=\"text/javascript\">
@@ -28,12 +28,12 @@ function nsp_BuildDashboardWidget() {
              KEY: \"".md5(gmdate('m-d-y H i').$api_key)."\",
              PAR: \"\",
              TYP: \"HTML\"
-           }, 
+           },
            function(data,status){
              $( \"#nsp_loader-dashboard\").hide();
              $( \"#nsp_result-dashboard\" ).html( data );
            }, \"html\");
-         </script>"; 
+         </script>";
          */
     echo "<div id=\"nsp_result-dashboard\"><img id=\"nsp_loader-dashboard\" src=\"$newstatpress_url/images/ajax-loader.gif\"></div>";
   ?>

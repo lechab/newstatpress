@@ -65,6 +65,16 @@ function nsp_DisplayToolsPage() {
   }
 }
 
+function nsp_IndexTableSize($table) {
+  global $wpdb;
+  $res = $wpdb->get_results("SHOW TABLE STATUS LIKE '$table'");
+  foreach ($res as $fstatus) {
+    $index_lenght = $fstatus->Index_length;
+  }
+  return number_format(($index_lenght/1024/1024), 2, ",", " ")." Mb";
+}
+
+
 /**
  * IP2nation form function
  *
