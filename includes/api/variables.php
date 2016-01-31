@@ -74,24 +74,50 @@ if ($var=='alltotalvisits') {
       echo $qry[0]->pageview;
     }
 } elseif ($var=='wvisits') {
-    $qry = $wpdb->get_results(
-      "SELECT count(DISTINCT(ip)) AS pageview
-       FROM $table_name
-       WHERE
-        YEARWEEK (date) = YEARWEEK( CURDATE()) AND
-        spider='' and feed='';
-      ");  
+    if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
+      $qry = $wpdb->get_results(
+        "SELECT SUM(pagv) AS pageview FROM (
+          SELECT count(DISTINCT(ip)) AS pagv
+          FROM $table_name
+          WHERE
+           YEARWEEK (date) = YEARWEEK( CURDATE()) AND
+           spider='' and feed=''
+          GROUP BY DATE
+         ) AS pageview;
+          ");              
+    } else {    
+        $qry = $wpdb->get_results(
+          "SELECT count(DISTINCT(ip)) AS pageview
+           FROM $table_name
+           WHERE
+             YEARWEEK (date) = YEARWEEK( CURDATE()) AND
+             spider='' and feed='';
+          ");  
+      }    
    if ($qry != null) {
      echo $qry[0]->pageview;
    }
 } elseif ($var=='totalvisits') {
-    $qry = $wpdb->get_results(
-      "SELECT count(DISTINCT(ip)) AS pageview
-       FROM $table_name
-       WHERE
-         spider='' AND
-         feed='';
-      ");
+    if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
+      $qry = $wpdb->get_results(
+        "SELECT SUM(pagv) AS pageview FROM (
+          SELECT count(DISTINCT(ip)) AS pagv
+          FROM `avwp_statpress`
+          WHERE
+           spider='' AND
+           feed=''
+          GROUP BY DATE
+         ) AS pageview;
+          ");         
+    } else { 
+      $qry = $wpdb->get_results(
+        "SELECT count(DISTINCT(ip)) AS pageview
+         FROM $table_name
+         WHERE
+           spider='' AND
+           feed='';
+        ");
+      }        
    if ($qry != null) {
      echo $qry[0]->pageview;
    }

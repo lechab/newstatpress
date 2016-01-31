@@ -20,6 +20,7 @@
 - [ ] Database migration routine with unique name
 - [ ] Serialize some NewStatPress options
 - [ ] Donation page to finish
+- [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
 
 ## 1.1.4
 *Released date: 2016-01-xx
@@ -32,6 +33,7 @@
 - [x] Improved Options Page code
 - [x] Update locale fr_FR,  it_IT, pl-PL, es_ES
 - [x] Readme corrections
+- [x] Activate sum option for variable %mvisits%, %wvisits% and %totalvisits%
 
 ## 1.1.3
 *Released date: 2016-01-09
