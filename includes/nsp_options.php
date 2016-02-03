@@ -223,6 +223,7 @@ function nsp_PrintTextaera($option_title, $option_var, $option_description) {
 
 /**
  * Manages the options that the user can choose
+ * Update by cHab : integrate JS tabulation
  */
 function nsp_Options() {
 ?>

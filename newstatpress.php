@@ -9,18 +9,27 @@
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
 
+
+// Make sure plugin remains secure if called directly
+if( !defined( 'ABSPATH' ) ) {
+	if( !headers_sent() ) { header('HTTP/1.1 403 Forbidden'); }
+	die(__('ERROR: This plugin requires WordPress and will not function if called directly.',nsp_TEXTDOMAIN));
+}
+
 $_NEWSTATPRESS['version']='1.1.4';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
 
 define('nsp_TEXTDOMAIN', 'newstatpress');
+define('nsp_PLUGINNAME', 'NewStatPress');
 define('nsp_TABLENAME', $wpdb->prefix . 'statpress');
 define('nsp_BASENAME', dirname(plugin_basename(__FILE__)));
+define('nsp_SERVER_NAME', nsp_GetServerName() );
 define('nsp_RATING_URL', 'https://wordpress.org/support/view/plugin-reviews/'.nsp_TEXTDOMAIN );
-define('nsp_SUPPORT_URL','https://wordpress.org/support/plugin/'.nsp_TEXTDOMAIN );
 define('nsp_PLUGIN_URL','http://newstatpress.altervista.org' );
 define('nsp_DONATE_URL', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F5S5PF4QBWU7E' );
+define('nsp_SUPPORT_URL','https://wordpress.org/support/plugin/'.nsp_TEXTDOMAIN );
 
 $newstatpress_dir = WP_PLUGIN_DIR . '/' .nsp_BASENAME;
 
@@ -89,21 +98,43 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
                        array('toppost',__('The most viewed Post', nsp_TEXTDOMAIN))
                       );
 
+
 /**
  * Check to update of the plugin
+ * Added by cHab
  *
  *******************************/
- function nsp_UpdateCheck() {
+function nsp_UpdateCheck() {
 
-   global $_NEWSTATPRESS;
-   $active_version = get_option('newstatpress_version', '0' );
+  global $_NEWSTATPRESS;
+  $active_version = get_option('newstatpress_version', '0' );
+  $admin_notices = get_option( 'newstatpress_admin_notices' );
 
-   if (version_compare( $active_version, $_NEWSTATPRESS['version'], '<' )) {
-     update_option('newstatpress_version', $_NEWSTATPRESS['version']);
-   }
-   nsp_Activation();
- }
- add_action( 'admin_init', 'nsp_UpdateCheck' );
+  if( !empty( $admin_notices ) )
+    add_action( 'admin_notices', 'nsp_AdminNotices' );
+
+  // check version and update installation date
+  if (version_compare( $active_version, $_NEWSTATPRESS['version'], '<' )) {
+    if (version_compare( $active_version, '1.1.0', '<' ))
+      nsp_Activation('old'); // for old installation > 14 days since nsp 1.1.4
+    update_option('newstatpress_version', $_NEWSTATPRESS['version']);
+  }
+
+  //check if is compatible with WP Version
+  // $rsfb_wp_version = RSFB_WP_VERSION;
+  // if( version_compare( $rsfb_wp_version, RSFB_REQUIRED_WP_VERSION, '<' ) ) {
+  //   deactivate_plugins( RSFB_PLUGIN_BASENAME );
+  //   $notice_text = sprintf( __( 'Plugin deactivated. WordPress Version %s required. Please upgrade WordPress to the latest version.', RSFB_PLUGIN_NAME ), RSFB_REQUIRED_WP_VERSION );
+  //   $new_admin_notice = array( 'style' => 'error', 'notice' => $notice_text );
+  //   update_option( 'newstatpress_admin_notices', $new_admin_notice );
+  //   add_action( 'admin_notices', 'nsp_AdminNotices' );
+  //   return FALSE;
+  // }
+
+  nsp_CheckNagNotices();
+
+}
+add_action( 'admin_init', 'nsp_UpdateCheck' );
 
 /**
  * Installation time update of the plugin
@@ -111,40 +142,42 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
  *
  *******************************/
 register_activation_hook( __FILE__, 'nsp_Activation' );
-function nsp_Activation() {
+function nsp_Activation($arg='') {
   global $nsp_option_vars;
   $nsp_settings = get_option($nsp_option_vars['settings']['name']);
   if( empty( $nsp_settings['install_time'] ) ) {
   	$nsp_settings['install_time'] = time();
+    if($arg='old')
+      $nsp_settings['install_time'] = time()-7776000;
     update_option( 'newstatpress_settings', $nsp_settings );
   }
 }
 
 /**
  * Load CSS style, languages files, extra files
+ * Added by cHab
  *
  ***********************************************/
- function nsp_RegisterPluginStyles() {
+ function nsp_RegisterPluginStylesAndScripts() {
 
    //CSS
    $style_path=plugins_url('./css/style.css', __FILE__);
 
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
-  //  wp_enqueue_style('dashicons');
-
+   //  wp_enqueue_style('dashicons');
 
    // JS and jQuery
-   $style_path2=plugins_url('./js/jquery.idTabs.min.js', __FILE__);
-   $js_nsp=plugins_url('./js/nsp_general.js', __FILE__);
-
-   wp_register_script('NewStatPressJs', $style_path2);
-   wp_enqueue_script('NewStatPressJs');
-   wp_register_script('NewStatPressJss', $js_nsp);
-   wp_enqueue_script('NewStatPressJss');
+   $scripts=array('idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
+                  'NewStatPressJs'=>plugins_url('./js/nsp_general.js', __FILE__));
+   foreach($scripts as $key=>$sc)
+   {
+       wp_register_script( $key, $sc );
+       wp_enqueue_script( $key );
+   }
 
  }
- add_action( 'admin_enqueue_scripts', 'nsp_RegisterPluginStyles' );
+ add_action( 'admin_enqueue_scripts', 'nsp_RegisterPluginStylesAndScripts' );
 
 
 
@@ -153,7 +186,7 @@ function nsp_Activation() {
  }
  add_action( 'plugins_loaded', 'nsp_load_textdomain' );
 
- if (is_admin()) { //load newstatpress
+ if (is_admin()) { //load dashboard and extra functions
    require ('includes/nsp_functions-extra.php');
   //  require ('includes/nsp_credits.php');
   //  require ('includes/nsp_tools.php');
@@ -167,9 +200,8 @@ function nsp_Activation() {
  }
 
 
-/**
- * Add pages for NewStatPress plugin
- *
+/*************************************
+ * Add pages for NewStatPress plugin *
  *************************************/
 function nsp_BuildPluginMenu() {
 
@@ -222,7 +254,6 @@ function nsp_BuildPluginMenu() {
 }
 add_action('admin_menu', 'nsp_BuildPluginMenu');
 
-
 function nsp_NewStatPressMainC() {
   require ('includes/nsp_overview.php');
   nsp_NewStatPressMain();
@@ -247,6 +278,7 @@ function nsp_DisplayToolsPageC() {
   require ('includes/nsp_tools.php');
   nsp_DisplayToolsPage();
 }
+
 function nsp_DisplayVisitsPageC() {
   require ('includes/nsp_visits.php');
   nsp_DisplayVisitsPage();
@@ -256,6 +288,7 @@ function nsp_DatabaseSearchC() {
   require ('includes/nsp_search.php');
   nsp_DatabaseSearch();
 }
+
 
 
 
@@ -276,24 +309,44 @@ function PluginUrl() {
   return $path;
 }
 
-
-/**
- * Check and Export if capability of user allow that
- *
- ***************************************************/
-function nsp_checkExport() {
-  if (isset($_GET['newstatpress_action']) && $_GET['newstatpress_action'] == 'exportnow') {
-    $mincap=get_option('newstatpress_mincap');
-    if ($mincap == '') $mincap = "level_8";
-    if ( current_user_can( $mincap ) ) {
-      nsp_ExportNow();
-    }
-  }
+function nsp_GetServerName() {
+	$server_name = '';
+	if(		!empty( $_SERVER['HTTP_HOST'] ) )		{ $server_name = $_SERVER['HTTP_HOST']; }
+	elseif(	!empty( $_NEWSTATPRESS_ENV['HTTP_HOST'] ) )		{ $server_name = $_NEWSTATPRESS_ENV['HTTP_HOST']; }
+	elseif(	!empty( $_SERVER['SERVER_NAME'] ) )		{ $server_name = $_SERVER['SERVER_NAME']; }
+	elseif(	!empty( $_NEWSTATPRESS_ENV['SERVER_NAME'] ) )	{ $server_name = $_NEWSTATPRESS_ENV['SERVER_NAME']; }
+	return nsp_CaseTrans( 'lower', $server_name );
 }
-add_action('init','nsp_checkExport');
 
-// Add Cron intervals for mail notification
-add_filter( 'cron_schedules', 'nsp_cron_intervals');
+/***TODO rsfb_strlen
+* Convert case using multibyte version if available, if not, use defaults
+***/
+function nsp_CaseTrans( $type, $string ) {
+
+	switch ($type) {
+		case 'upper':
+			return function_exists( 'mb_strtoupper' ) ? mb_strtoupper( $string, 'UTF-8' ) : strtoupper( $string );
+		case 'lower':
+			return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string, 'UTF-8' ) : strtolower( $string );
+		case 'ucfirst':
+			if( function_exists( 'mb_strtoupper' ) && function_exists( 'mb_substr' ) ) {
+				$strtmp = mb_strtoupper( mb_substr( $string, 0, 1, 'UTF-8' ), 'UTF-8' ) . mb_substr( $string, 1, NULL, 'UTF-8' );
+				/* Added workaround for strange PHP bug in mb_substr() on some servers */
+				return rsfb_strlen( $string ) === rsfb_strlen( $strtmp ) ? $strtmp : ucfirst( $string );
+			}
+			else { return ucfirst( $string ); }
+		case 'ucwords':
+			return function_exists( 'mb_convert_case' ) ? mb_convert_case( $string, MB_CASE_TITLE, 'UTF-8' ) : ucwords( $string );
+			/***
+			* Note differences in results between ucwords() and this.
+			* ucwords() will capitalize first characters without altering other characters, whereas this will lowercase everything, but capitalize the first character of each word.
+			* This works better for our purposes, but be aware of differences.
+			***/
+		default:
+			return $string;
+	}
+}
+
 
 
 /**
@@ -428,25 +481,7 @@ add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
 //
 // add_action('wp_enqueue_scripts', 'wpc_dashicons');
 
-/**
- * display notice
- * added by cHab
- *
- * @param $activation 1: display, 0 : do noting
- ***********************************************************/
-function nsp_NoticeNew($activation) {
-  if($activation) {
-    $description=__('This new version integrates a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>',nsp_TEXTDOMAIN);
-  ?>
-    <div id="nspnotice" class="notice" style="padding:10px">
-      <a  id="close" class="close"><span class="dashicons dashicons-no"></span>close</a>
-      <span>
-        <?php echo $description ?>
-      </span>
-    </div>
-  <?php
-  }
-}
+
 
 
 
@@ -459,40 +494,40 @@ function nsp_NoticeNew($activation) {
  * @param out_url
  * @return url decoded
  ************************************/
-// function newstatpress_Decode($out_url) {
-//   if(!nsp_PermalinksEnabled()) {
-//     if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
-//     if (my_substr($out_url, 0, 4) == "cat=") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(my_substr($out_url, 4));
-//     if (my_substr($out_url, 0, 2) == "m=") $out_url = __('Calendar', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 6, 2) . "/" . my_substr($out_url, 2, 4);
-//     if (my_substr($out_url, 0, 2) == "s=") $out_url = __('Search', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 2);
-//     if (my_substr($out_url, 0, 2) == "p=") {
-//       $subOut=my_substr($out_url, 2);
-//       $post_id_7 = get_post($subOut, ARRAY_A);
-//       $out_url = $post_id_7['post_title'];
-//     }
-//     if (my_substr($out_url, 0, 8) == "page_id=") {
-//       $subOut=my_substr($out_url, 8);
-//       $post_id_7 = get_page($subOut, ARRAY_A);
-//       $out_url = __('Page', nsp_TEXTDOMAIN) . ": " . $post_id_7['post_title'];
-//     }
-//  } else {
-//      if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
-//      else if (my_substr($out_url, 0, 9) == "category/") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(my_substr($out_url, 9));
-//           else if (my_substr($out_url, 0, 2) == "s=") $out_url = __('Search', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 2);
-//                else if (my_substr($out_url, 0, 2) == "p=") {
-//                       // not working yet
-//                       $subOut=my_substr($out_url, 2);
-//                       $post_id_7 = get_post($subOut, ARRAY_A);
-//                       $out_url = $post_id_7['post_title'];
-//                     } else if (my_substr($out_url, 0, 8) == "page_id=") {
-//                              // not working yet
-//                              $subOut=my_substr($out_url, 8);
-//                              $post_id_7 = get_page($subOut, ARRAY_A);
-//                              $out_url = __('Page', nsp_TEXTDOMAIN) . ": " . $post_id_7['post_title'];
-//                            }
-//    }
-//    return $out_url;
-// }
+function newstatpress_Decode($out_url) {
+  if(!nsp_PermalinksEnabled()) {
+    if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
+    if (my_substr($out_url, 0, 4) == "cat=") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(my_substr($out_url, 4));
+    if (my_substr($out_url, 0, 2) == "m=") $out_url = __('Calendar', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 6, 2) . "/" . my_substr($out_url, 2, 4);
+    if (my_substr($out_url, 0, 2) == "s=") $out_url = __('Search', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 2);
+    if (my_substr($out_url, 0, 2) == "p=") {
+      $subOut=my_substr($out_url, 2);
+      $post_id_7 = get_post($subOut, ARRAY_A);
+      $out_url = $post_id_7['post_title'];
+    }
+    if (my_substr($out_url, 0, 8) == "page_id=") {
+      $subOut=my_substr($out_url, 8);
+      $post_id_7 = get_page($subOut, ARRAY_A);
+      $out_url = __('Page', nsp_TEXTDOMAIN) . ": " . $post_id_7['post_title'];
+    }
+ } else {
+     if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
+     else if (my_substr($out_url, 0, 9) == "category/") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(my_substr($out_url, 9));
+          else if (my_substr($out_url, 0, 2) == "s=") $out_url = __('Search', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 2);
+               else if (my_substr($out_url, 0, 2) == "p=") {
+                      // not working yet
+                      $subOut=my_substr($out_url, 2);
+                      $post_id_7 = get_post($subOut, ARRAY_A);
+                      $out_url = $post_id_7['post_title'];
+                    } else if (my_substr($out_url, 0, 8) == "page_id=") {
+                             // not working yet
+                             $subOut=my_substr($out_url, 8);
+                             $post_id_7 = get_page($subOut, ARRAY_A);
+                             $out_url = __('Page', nsp_TEXTDOMAIN) . ": " . $post_id_7['post_title'];
+                           }
+   }
+   return $out_url;
+}
 
 /// COMMENTED by cHAb : not used -> TO DELETE if no problems
 /**
@@ -515,11 +550,13 @@ function nsp_NoticeNew($activation) {
  * (taken in statpress-visitors)
  */
 function my_substr($str, $x, $y = 0) {
-  if($y == 0) $y = strlen($str) - $x;
-  if(function_exists('mb_substr'))
-  return mb_substr($str, $x, $y);
-  else
- return substr($str, $x, $y);
+	if($y == 0)
+		$y = strlen($str) - $x;
+
+	if(function_exists('mb_substr'))
+		return mb_substr($str, $x, $y);
+	else
+		return substr($str, $x, $y);
 }
 
 
@@ -605,10 +642,12 @@ function newstatpress_hdate($dt = "00000000") {
 
 
 
+//---------------------------------------------------------------------------
+// GET DATA from visitors Functions
+//---------------------------------------------------------------------------
 
 
-
-/**
+/**TODO clean $accepted
  * Extracts the accepted language from browser headers
  */
 function nsp_GetLanguage($accepted){

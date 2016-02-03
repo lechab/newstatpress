@@ -321,6 +321,22 @@ function nsp_Export() {
 <?php
 }
 
+
+/**
+ * Check and Export if capability of user allow that
+ *
+ ***************************************************/
+function nsp_checkExport() {
+  if (isset($_GET['newstatpress_action']) && $_GET['newstatpress_action'] == 'exportnow') {
+    $mincap=get_option('newstatpress_mincap');
+    if ($mincap == '') $mincap = "level_8";
+    if ( current_user_can( $mincap ) ) {
+      nsp_ExportNow();
+    }
+  }
+}
+add_action('init','nsp_checkExport');
+
 /**
  * Export the NewStatPress data
  */
