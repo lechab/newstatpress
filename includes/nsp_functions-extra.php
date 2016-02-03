@@ -6,8 +6,7 @@
  *
  * @return $user_IP
  */
-function nsp_GetUserIP()
-{
+function nsp_GetUserIP() {
   $user_IP = "";
   $ip_pattern = '/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/';
 	$http_headers = array('HTTP_X_REAL_IP',
@@ -35,6 +34,7 @@ function nsp_GetUserIP()
 	return $user_IP;
 }
 
+
 //---------------------------------------------------------------------------
 // CRON Functions
 //---------------------------------------------------------------------------
@@ -46,7 +46,7 @@ function nsp_GetUserIP()
  * @param $schedules
  * @return $schedules
  */
-function nsp_cron_intervals($schedules) {
+function nsp_CronIntervals($schedules) {
   $schedules['fourlybyday'] = array(
    'interval' => 21600, // seconds
    'display' => __('Four time by Day',nsp_TEXTDOMAIN)
@@ -61,6 +61,8 @@ function nsp_cron_intervals($schedules) {
   );
   return $schedules;
 }
+add_filter( 'cron_schedules', 'nsp_CronIntervals');
+
 
 /**
  * Calculate offset_time in second to add to epoch format
@@ -93,68 +95,242 @@ function nsp_calculationOffsetTime($t,$tu) {
 }
 
 
+//---------------------------------------------------------------------------
+// NOTICE Functions
+//---------------------------------------------------------------------------
+/**
+ * display notice
+ * added by cHab
+ *
+ * @param $activation 1: display, 0 : do noting
+ ***********************************************************/
+function nsp_NoticeNew($activation) {
+  if(!$activation) {
+    $description=__('This new version integrates a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>',nsp_TEXTDOMAIN);
+  ?>
+    <div id="nspnotice" class="notice" style="padding:10px">
+      <a id="close" class="close"><span class="dashicons dashicons-no"></span>close</a>
+      <span>
+        <?php echo $description ?>
+      </span>
+    </div>
+  <?php
+  }
+}
+
+function nsp_CalculateEpochOffsetTime( $t1, $t2, $output_unit ) { //to complete with more output_unit
+  $offset_time_in_seconds = abs($t1-$t2);
+
+  if($output_unit=='day')
+    $offset_time=$offset_time_in_seconds/86400;
+  if($output_unit=='hour')
+      $offset_time=$offset_time_in_seconds/3600;
+  else {
+    $offset_time=$offset_time_in_seconds;
+  }
+
+  return $offset_time;
+}
+
+function nsp_GetDaysInstalled() {
+  global $nsp_option_vars;
+  $name=$nsp_option_vars['settings']['name'];
+  $settings=get_option($name);
+	$install_date	= empty( $settings['install_date'] ) ? time() : $settings['install_date'];
+	$num_days_inst	= nsp_CalculateEpochOffsetTime($install_date, time(), 'day');
+  if( $num_days_inst < 1 )
+    $num_days_inst = 1;
+
+	return $num_days_inst;
+}
+
+//---------------------------------------------------------------------------
+// URL Functions
+//---------------------------------------------------------------------------
+
+/**
+ * Extract the feed from the given url
+ *
+ * @param the url to parse
+ * @return the extracted url
+ *************************************/
+function nsp_ExtractFeedFromUrl($url) {
+  list($null,$q)=explode("?",$url);
+
+  if (strpos($q, "&")!== false)
+    list($res,$null)=explode("&",$q);
+  else
+    $res=$q;
+
+  return $res;
+}
+
+function nsp_GetUrl() {
+	// $url  = _is_ssl() ? 'https://' : 'http://';
+  $url = 'http://';
+	$url .= nsp_SERVER_NAME.$_SERVER['REQUEST_URI'];
+	return $url;
+}
+
+/**
+* Fix poorly formed URLs so as not to throw errors or cause problems
+*
+* @return $url
+*/
+function nsp_FixUrl( $url, $rem_frag = FALSE, $rem_query = FALSE, $rev = FALSE ) {
+	$url = trim( $url );
+	/* Too many forward slashes or colons after http */
+	$url = preg_replace( "~^(https?)\:+/+~i", "$1://", $url );
+	/* Too many dots */
+	$url = preg_replace( "~\.+~i", ".", $url );
+	/* Too many slashes after the domain */
+	$url = preg_replace( "~([a-z0-9]+)/+([a-z0-9]+)~i", "$1/$2", $url );
+	/* Remove fragments */
+	if( !empty( $rem_frag ) && strpos( $url, '#' ) !== FALSE ) { $url_arr = explode( '#', $url ); $url = $url_arr[0]; }
+	/* Remove query string completely */
+	if( !empty( $rem_query ) && strpos( $url, '?' ) !== FALSE ) { $url_arr = explode( '?', $url ); $url = $url_arr[0]; }
+	/* Reverse */
+	if( !empty( $rev ) ) { $url = strrev($url); }
+	return $url;
+}
+
+/***
+* Get query string array from URL
+***/
+function nsp_GetQueryArgs( $url ) {
+	if( empty( $url ) ) { return array(); }
+	$query_str = nsp_GetQueryString( $url );
+	parse_str( $query_str, $args );
+	return $args;
+}
+
+function nsp_GetQueryString( $url ) {
+	/***
+	* Get query string from URL
+	* Filter URLs with nothing after http
+	***/
+	if( empty( $url ) || preg_match( "~^https?\:*/*$~i", $url ) ) { return ''; }
+	/* Fix poorly formed URLs so as not to throw errors when parsing */
+	$url = nsp_FixUrl( $url );
+	/* NOW start parsing */
+	$parsed = @parse_url($url);
+	/* Filter URLs with no query string */
+	if( empty( $parsed['query'] ) ) { return ''; }
+	$query_str = $parsed['query'];
+	return $query_str;
+}
+
+function nsp_AdminNagNotices() {
+	global $current_user;
+	$nag_notices = get_user_meta( $current_user->ID, 'newstatpress_nag_notices', TRUE );
+	if( !empty( $nag_notices ) ) {
+		$nid			= $nag_notices['nid'];
+		$style		= $nag_notices['style']; /* 'error'  or 'updated' */
+		$timenow	= time();
+		$url			= nsp_GetUrl();
+		$query_args		= nsp_GetQueryArgs( $url );
+		$query_str		= '?' . http_build_query( array_merge( $query_args, array( 'newstatpress_hide_nag' => '1', 'nid' => $nid ) ) );
+		$query_str_con	= 'QUERYSTRING';
+		$notice			= str_replace( array( $query_str_con ), array( $query_str ), $nag_notices['notice'] );
+		// echo '<div class="'.$style.'"><p>'.$notice.'</p></div>';
+    ?>
+      <div id="nspnotice" class="<?php echo $style; ?>" style="padding:10px">
+        <!-- <a  id="close" class="close"><span class="dashicons dashicons-no"></span>close</a> -->
+        <p><?php echo $notice ?></p>
+      </div>
+    <?php
+	}
+}
+
+function nsp_CheckNagNotices() {
+	global $current_user;
+	$status	= get_user_meta( $current_user->ID, 'newstatpress_nag_status', TRUE );
+	if( !empty( $status['currentnag'] ) ) { add_action( 'admin_notices', 'nsp_AdminNagNotices' ); return; }
+	if( !is_array( $status ) ) { $status = array(); update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status ); }
+	$timenow		= time();
+	$num_days_inst	= nsp_GetDaysInstalled();
+  $votedate=14;
+  $donatedate=90;
+  $num_days_inst=95; //debug
+	$query_str_con	= 'QUERYSTRING';
+	/* Notices (Positive Nags) */
+	if( empty( $status['currentnag'] ) && ( empty( $status['lastnag'] ) || $status['lastnag'] <= $timenow - 1209600 ) ) {
+		if( empty( $status['vote'] ) && $num_days_inst >= $votedate ) {
+			$nid = 'n01';
+      $style = 'notice';
+
+      $notice_text = '<p>'. __( 'It looks like you\'ve been using NewStatPress for a while now. That\'s great!', nsp_TEXTDOMAIN ).'</p>';
+      $notice_text.= '<p>'. __( 'If you find this plugin useful, would you take a moment to give it a rating on WordPress.org?', nsp_TEXTDOMAIN ).'</p>';
+      $notice_text.= '<a class=\"button button-primary\" href=\"'.nsp_RATING_URL.'\" target=\"_blank\" rel=\"external\">'. __( 'Yes, I\'d like to rate it!', nsp_TEXTDOMAIN ) .'</a>';
+      $notice_text.= ' &nbsp; ';
+      $notice_text.= '<a class=\"button button-default\" href=\"'.$query_str_con.'\" target=\"_self\" rel=\"external\">'. __( 'I already did!', nsp_TEXTDOMAIN ) .'</a>';
+
+      $status['currentnag'] = TRUE;
+      $status['vote'] = FALSE;
+		}
+		elseif( empty( $status['donate'] ) && $num_days_inst >= $donatedate ) {
+			$nid = 'n02';
+      $style = 'notice';
+
+      $notice_text = '<p>'. __( 'You\'ve been using NewStatPress for several months now. We hope that means you like it and are finding it helpful.', nsp_TEXTDOMAIN ).'</p>';
+      $notice_text.= '<p>'. __( 'NewStatPress is provided for free and maintained only on free time. If you like the plugin, consider a donation to help further its development', nsp_TEXTDOMAIN ).'</p>';
+      $notice_text.= '<a class=\"button button-primary\" href=\"'.nsp_DONATE_URL.'\" target=\"_blank\" rel=\"external\">'. __( 'Yes, I\'d like to donate!', nsp_TEXTDOMAIN ) .'</a>';
+      $notice_text.= ' &nbsp; ';
+      $notice_text.= '<a class=\"button button-default\" href=\"'.$query_str_con.'\" target=\"_self\" rel=\"external\">'. __( 'I already did!', nsp_TEXTDOMAIN ) .'</a>';
+
+			$status['currentnag'] = TRUE;
+      $status['donate'] = FALSE;
+		}
+	}
+
+	if( !empty( $status['currentnag'] ) ) {
+		add_action( 'admin_notices', 'nsp_AdminNagNotices' );
+		$new_nag_notice = array( 'nid' => $nid, 'style' => $style, 'notice' => $notice_text );
+		update_user_meta( $current_user->ID, 'newstatpress_nag_notices', $new_nag_notice );
+		update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status );
+	}
+}
+
+function nsp_AdminNotices() {
+	$admin_notices = get_option('newstatpress_admin_notices');
+	if( !empty( $admin_notices ) ) {
+		$style 	= $admin_notices['style']; /* 'error' or 'updated' */
+		$notice	= $admin_notices['notice'];
+		echo '<div class="'.$style.'"><p>'.$notice.'</p></div>';
+	}
+	delete_option('newstatpress_admin_notices');
+}
+
+add_action( 'admin_init', 'nsp_HideNagNotices', -10 );
+function nsp_HideNagNotices() {
+	// if( !nsp_is_user_admin() ) { return; }
+	$ns_codes		= array( 'n01' => 'vote',
+                       'n02' => 'donate', );
+	if( !isset( $_GET['newstatpress_hide_nag'], $_GET['nid'], $ns_codes[$_GET['nid']] ) || $_GET['newstatpress_hide_nag'] != '1' ) { return; }
+	global $current_user;
+	$status			= get_user_meta( $current_user->ID, 'newstatpress_nag_status', TRUE );
+	$timenow		= time();
+	$url			= nsp_GetUrl();
+	$query_args		= nsp_GetQueryArgs( $url ); unset( $query_args['newstatpress_hide_nag'],$query_args['nid'] );
+	$query_str		= http_build_query( $query_args ); if( $query_str != '' ) { $query_str = '?'.$query_str; }
+	$redirect_url	= nsp_FixUrl( $url, TRUE, TRUE ) . $query_str;
+	$status['currentnag'] = FALSE; $status['lastnag'] = $timenow; $status[$ns_codes[$_GET['nid']]] = TRUE;
+	update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status );
+	update_user_meta( $current_user->ID, 'newstatpress_nag_notices', array() );
+	wp_redirect( $redirect_url );
+	exit;
+}
+
+
+//---------------------------------------------------------------------------
+// OTHER Functions
+//---------------------------------------------------------------------------
+
+
 function nsp_load_time()
 {
 	echo "<font size='1'>Page generated in " . timer_stop(0,2) . "s</font>";
 }
-
-/**
- * Send an email notification with the overview statistics
- * added by cHab
- *
- * @param $arg : type of mail ('' or 'test')
- * @return $email_confirmation
- *************************************/
-// function nsp_stat_by_email($arg='') {
-//   global $nsp_option_vars;
-//   $date = date('m/d/Y h:i:s a', time());
-//
-//   $name=$nsp_option_vars['mail_notification']['name'];
-//   $status=get_option($name);
-//   $name=$nsp_option_vars['mail_notification_freq']['name'];
-//   $freq=get_option($name);
-//
-//   $userna = get_option('newstatpress_mail_notification_info');
-//
-//   $headers= 'From:NewStatPress';
-//   $blog_title = get_bloginfo('name');
-//   $subject=sprintf(__('Visits statistics from [%s]',nsp_TEXTDOMAIN), $blog_title);
-//   if($arg=='test')
-//     $subject=sprintf(__('This is a test from [%s]',nsp_TEXTDOMAIN), $blog_title);
-//
-// // echo $demo=nsp_BASENAME . '/includes/api/nsp_api_dashboard.php';
-// //   include ('../includes/api/nsp_api_dashboard.php');
-//     include ($newstatpress_url."/includes/api/nsp_api_dashboard.php");
-//   $resultH=nsp_ApiDashboard("HTML");
-//
-//   $name=$nsp_option_vars['mail_notification_address']['name'];
-//   $email_address=get_option($name);
-//
-//   $support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page',nsp_TEXTDOMAIN)."</a>";
-//   $author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author',nsp_TEXTDOMAIN)."</a>";
-//
-//   $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or  by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation directly on the plugin website or through the plugin (Credits Page).',nsp_TEXTDOMAIN), $support_pluginpage, $author_linkpage);
-//
-//   $warning=__('This option is yet experimental, please report bugs or improvement (see link on the bottom)',nsp_TEXTDOMAIN);
-//   $advising=__('You receive this email because you have enabled the statistics notification in the NewStatpress plugin (option menu) from your WP website ',nsp_TEXTDOMAIN);
-//   $message = __('Dear',nsp_TEXTDOMAIN)." $userna, <br /> <br />
-//              <i>$advising<STRONG>$blog_title</STRONG>.</i>
-//              <mark>$warning.</mark> <br />
-//              <br />".
-//              __('Statistics at',nsp_TEXTDOMAIN)." $date (".__('server time',nsp_TEXTDOMAIN).") from  $blog_title: <br />
-//              $resultH <br /> <br />"
-//              .__('Best Regards from',nsp_TEXTDOMAIN)." <i>NewStatPress Team</i>. <br />
-//              <br />
-//              <br />
-//              -- <br />
-//              $credits_introduction";
-//
-//   $email_confirmation = wp_mail($email_address, $subject, $message);
-//
-//   return $email_confirmation;
-// }
-
-
 
 
 
@@ -176,16 +352,16 @@ function nsp_DisplayTabsNavbarForMenuPage($menu_tabs, $current, $ref) {
 }
 
 
-function nsp_DisplayTabsNavbarForMenuPages($menu_tabs, $current, $ref) {
-
-    echo "<div id='usual1' class='icon32 usual'><br></div>";
-    echo "<h2  class='nav-tab-wrapper'>";
-    foreach( $menu_tabs as $tab => $name ){
-        $class = ( $tab == $current ) ? ' nav-tab-active selected' : '';
-        echo "<a class='nav-tab$class' href='#$tab'>$name</a>";
-    }
-    echo '</h2>';
-}
+// function nsp_DisplayTabsNavbarForMenuPages($menu_tabs, $current, $ref) {
+//
+//     echo "<div id='usual1' class='icon32 usual'><br></div>";
+//     echo "<h2  class='nav-tab-wrapper'>";
+//     foreach( $menu_tabs as $tab => $name ){
+//         $class = ( $tab == $current ) ? ' nav-tab-active selected' : '';
+//         echo "<a class='nav-tab$class' href='#$tab'>$name</a>";
+//     }
+//     echo '</h2>';
+// }
 
 /**
  * Display data in table extracted from the given query
@@ -298,19 +474,11 @@ function nsp_GetGooglePie($title, $data_array) {
 }
 
 
-/**
- * Extract the feed from the given url
- *
- * @param url the url to parse
- * @return the extracted url
- *************************************/
-function nsp_ExtractFeedFromUrl($url) {
-  list($null,$q)=explode("?",$url);
-  if (strpos($q, "&")!== false) list($res,$null)=explode("&",$q);
-  else $res=$q;
-  return $res;
-}
 
+
+//---------------------------------------------------------------------------
+// TABLE Functions
+//---------------------------------------------------------------------------
 
 function nsp_TableSize($table) {
   global $wpdb;
