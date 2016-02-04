@@ -124,10 +124,11 @@ function nsp_UpdateCheck() {
   // $rsfb_wp_version = RSFB_WP_VERSION;
   // if( version_compare( $rsfb_wp_version, RSFB_REQUIRED_WP_VERSION, '<' ) ) {
   //   deactivate_plugins( RSFB_PLUGIN_BASENAME );
+	$notice_text=__('This new version integrates a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>',nsp_TEXTDOMAIN);
   //   $notice_text = sprintf( __( 'Plugin deactivated. WordPress Version %s required. Please upgrade WordPress to the latest version.', RSFB_PLUGIN_NAME ), RSFB_REQUIRED_WP_VERSION );
-  //   $new_admin_notice = array( 'style' => 'error', 'notice' => $notice_text );
-  //   update_option( 'newstatpress_admin_notices', $new_admin_notice );
-  //   add_action( 'admin_notices', 'nsp_AdminNotices' );
+  $new_admin_notice = array( 'style' => 'error', 'notice' => $notice_text );
+     update_option( 'newstatpress_admin_notices', $new_admin_notice );
+     add_action( 'admin_notices', 'nsp_AdminNotices' );
   //   return FALSE;
   // }
 

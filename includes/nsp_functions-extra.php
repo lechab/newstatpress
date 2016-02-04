@@ -296,7 +296,14 @@ function nsp_AdminNotices() {
 	if( !empty( $admin_notices ) ) {
 		$style 	= $admin_notices['style']; /* 'error' or 'updated' */
 		$notice	= $admin_notices['notice'];
-		echo '<div class="'.$style.'"><p>'.$notice.'</p></div>';
+    ?>
+    <div id="nspnotice" class="notice" style="padding:10px">
+      <a id="close" class="close"><span class="dashicons dashicons-no"></span>close</a>
+      <span>
+        <?php echo $notice ?>
+      </span>
+    </div>
+    <?php
 	}
 	delete_option('newstatpress_admin_notices');
 }
