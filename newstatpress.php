@@ -42,13 +42,7 @@ define('nsp_SUPPORT_URL','https://wordpress.org/support/plugin/'.nsp_TEXTDOMAIN 
 
 $newstatpress_dir = WP_PLUGIN_DIR . '/' .nsp_BASENAME;
 
-$support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
-$author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
 
-$credits_introduction=__('If you have found this plugin usefull and you like it, thank you to take a moment to rate it.','newstatpress');
-$credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on the %s or by adding/updating translation by contacting directly %s.','newstatpress'), $support_pluginpage, $author_linkpage);
-$credits_introduction.='<br />';
-$credits_introduction.=__('NewStatPress is provided for free and is maintained only on free time, you can also consider a donation to support further work.','newstatpress');
 
 $nsp_option_vars=array( // list of option variable name, with default value associated
                         // (''=>array('name'=>'','value'=>''))
@@ -418,10 +412,13 @@ function nsp_stat_by_email($arg='') {
   $name=$nsp_option_vars['mail_notification_address']['name'];
   $email_address=get_option($name);
 
-  // $support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
-  // $author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
+	$support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
+	$author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
 
-  $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation directly on the plugin website or through the plugin (Credits Page).','newstatpress'), $support_pluginpage, $author_linkpage);
+	$credits_introduction=__('If you have found this plugin useful and you like it, thank you to take a moment to rate it.','newstatpress');
+	$credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on the %s or by adding/updating translation by contacting directly %s.','newstatpress'), $support_pluginpage, $author_linkpage);
+	$credits_introduction.='<br />';
+	$credits_introduction.=__('NewStatPress is provided for free and is maintained only on free time, you can also consider a donation to support further work, directly on the plugin website or through the plugin (Credits Page).','newstatpress');
 
   $warning=__('This option is yet experimental, please report bugs or improvement (see link on the bottom)','newstatpress');
   $advising=__('You receive this email because you have enabled the statistics notification in the NewStatpress plugin (option menu) from your WP website ','newstatpress');

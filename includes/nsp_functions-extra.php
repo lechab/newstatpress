@@ -273,7 +273,7 @@ function nsp_CheckNagNotices() {
       $style = 'notice';
 
       $notice_text = '<p>'. __( 'You\'ve been using NewStatPress for several months now. We hope that means you like it and are finding it helpful.', 'newstatpress' ).'</p>';
-      $notice_text.= '<p>'. __( 'NewStatPress is provided for free and maintained only on free time. If you like the plugin, consider a donation to help further its development', 'newstatpress' ).'</p>';
+      $notice_text.= '<p>'. __( 'NewStatPress is provided for free and maintained only on free time. If you like the plugin, consider a donation to help further its development.', 'newstatpress' ).'</p>';
       $notice_text.= '<a class=\"button button-primary\" href=\"'.nsp_DONATE_URL.'\" target=\"_blank\" rel=\"external\">'. __( 'Yes, I\'d like to donate!', 'newstatpress' ) .'</a>';
       $notice_text.= ' &nbsp; ';
       $notice_text.= '<a class=\"button button-default\" href=\"'.$query_str_con.'\" target=\"_self\" rel=\"external\">'. __( 'I already did!', 'newstatpress' ) .'</a>';

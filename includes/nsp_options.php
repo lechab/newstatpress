@@ -730,7 +730,7 @@ function nsp_Options() {
           $option_description.=' '.__('This key allows NewStatpress to recognize that you and only you want the data and not the not authorized people. Let the input form blank means that you allow everyone to get data without authorization if external API is activated. The API should be activated with the check box. ',nsp_TEXTDOMAIN);
           $option_description2=' '.__('Please be aware that the external API will be also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data, so you will need to choose an key and activate it.',nsp_TEXTDOMAIN);
           // $option_description.='<br/><br/>';
-          $option_description3=__('To retrieve data from NewStatpress plugin, generate automatically or set manually a private key for the external API (used for example from Multi-Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.',nsp_TEXTDOMAIN);
+          $option_description3=__('To retrieve data from NewStatpress plugin, you can generate or set manually a private key for the external API (used for example from Multi-Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.',nsp_TEXTDOMAIN);
         ?>
         <div class="optiondescription">
         <p><?php echo $option_description ?>
@@ -741,7 +741,7 @@ function nsp_Options() {
 
 
 <?php
-echo "<tr><th scope='row' rowspan='2'>"; _e('API Externe',nsp_TEXTDOMAIN); echo "</th></tr>";
+echo "<tr><th scope='row' rowspan='2'>"; _e('Extern API',nsp_TEXTDOMAIN); echo "</th></tr>";
 
 
   $option_title=__('Enable External API',nsp_TEXTDOMAIN);
