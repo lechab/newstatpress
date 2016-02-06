@@ -268,6 +268,25 @@ line-height: 0.5em;
   line-height: 0;
 }*/
 
+.optiondescription p {
+    font-size: 14px;
+    font-weight: 400;
+    margin: 20px 10px 8px 10px;
+    padding: 6px 12px 8px 25px;
+    background-color: #f7f7f7;
+    /*background-color: rgba(0,0,0,.03);*/
+    color: #222;
+}
+.optiondescription p {
+  content: "\f465";
+
+}
+
+.optiondescription span {
+  font-style: italic;
+}
+
+
 .form-tableH {
   padding-top:20px;
   /*padding-bottom:20px;*/
@@ -421,6 +440,10 @@ font-size: 15px;
         display: flex;
         justify-content: center;
     }
+    .txtleft {
+            display: flex;
+            justify-content: right;
+        }
 
 .api {
     display: block;

@@ -623,7 +623,7 @@ function nsp_Options() {
       <!-- tab 'mail'  -->
       <div id='mail'>
         <?php
-          $option_description=__('This option allows you to get periodic reports by email (dashboard informations). You can customize the frequency and the publishing time of the reports.',nsp_TEXTDOMAIN);
+          $option_description=__('This option allows you to get periodic reports of visit statistics by email (dashboard information). You can customize the frequency and the publishing time of the reports.',nsp_TEXTDOMAIN);
           $option_description2=__('Note: WP Cron job need to be operational in aim to schedule Email Notification.',nsp_TEXTDOMAIN);
           $mailaddress_description=__('Mailing address accept only one email address, check is well valid before reporting issues.',nsp_TEXTDOMAIN);
           $timepublishing_description=__('Notification will be sent at UTC time.',nsp_TEXTDOMAIN);
@@ -649,10 +649,11 @@ function nsp_Options() {
             $email=$current_user->user_email;
           }
         ?>
-
-        <p><?php echo $option_description ?></p>
-        <p><i><?php echo $option_description2 ?></i></p>
-
+        <div class="optiondescription">
+        <p><?php echo $option_description ?>
+          <br />
+          <span><?php echo $option_description2 ?></span></p>
+        </div>
         <table class='form-tableH'>
           <tr>
             <th scope='row' rowspan='2'><?php _e('Statistics notification is',nsp_TEXTDOMAIN); ?></th>
@@ -724,35 +725,56 @@ function nsp_Options() {
 
       <!-- tab 'API' -->
       <div id='api'>
-        <table class='form-tableH'>
         <?php
-          $option_title=__('Enable External API',nsp_TEXTDOMAIN);
+          $option_description=__('The external access API is build to let you to use the collected data from your Newstatpress plugin  in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run in another server).',nsp_TEXTDOMAIN);
+          $option_description.=' '.__('This key allows NewStatpress to recognize that you and only you want the data and not the not authorized people. Let the input form blank means that you allow everyone to get data without authorization if external API is activated. The API should be activated with the check box. ',nsp_TEXTDOMAIN);
+          $option_description2=' '.__('Please be aware that the external API will be also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data, so you will need to choose an key and activate it.',nsp_TEXTDOMAIN);
+          // $option_description.='<br/><br/>';
+          $option_description3=__('To retrieve data from NewStatpress plugin, generate automatically or set manually a private key for the external API (used for example from Multi-Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.',nsp_TEXTDOMAIN);
+        ?>
+        <div class="optiondescription">
+        <p><?php echo $option_description ?>
+          <br />
+          <span><?php echo $option_description2 ?></span></p>
+        </div>
+        <table class='form-tableH'>
+
+
+<?php
+echo "<tr><th scope='row' rowspan='2'>"; _e('API Externe',nsp_TEXTDOMAIN); echo "</th></tr>";
+
+
+  $option_title=__('Enable External API',nsp_TEXTDOMAIN);
           $option_var='newstatpress_externalapi';
           nsp_PrintChecked($option_title,$option_var);
+          // echo "<tr><th scope='row' rowspan='2'>"; _e('API Externe',nsp_TEXTDOMAIN); echo "</th></tr>";
 
           $option_title=__('API key',nsp_TEXTDOMAIN);
-          $option_var='newstatpress_apikey';
-          $option_description=__('The external access API is build to let you to use the collected data from your Newstatpress plugin  in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run in another server). This key allows Newstatpress to recognize that you and only you want the data and not the not authorized people. Let the input form blank means that you allow everyone to get data without authorization if external API is activated. The API should be activated with the flag box. Please be aware that the external API will be also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data, so you will need to choose an key and activate it.',nsp_TEXTDOMAIN);
-          $option_description.='<br/><br/>';
-          $option_description.=__('To retrieve data from Newstatpress plugin, you can generate automatically or set manually a private key for the external API (used for example from Multi-Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.',nsp_TEXTDOMAIN);
-        ?>
+          $option_var='newstatpress_apikey'; ?>
           <tr>
-            <td>
+            <th scope='row' rowspan='2'>
               <p class='ign'>
                 <label for=<?php echo $option_var; ?>><?php echo $option_title; ?></label>
               </p>
-              <p><?php echo $option_description ?></p>
-              <div class='justified'>
-                <p>
-                  <textarea class='large-text code api' minlength='64' maxlength='128' cols='50' rows='3' name='<?php echo $option_var; ?>' id='<?php echo $option_var; ?>'><?php echo get_option($option_var);?></textarea>
-                </p>
-              </div>
-            </td>
+            </th>
+          </tr>
           <tr>
             <td>
-            <div class='justified'>
-              <div class='button' type='button' onClick='nspGenerateAPIKey()'><?php _e('Generate new API key',nsp_TEXTDOMAIN); ?></div>
+              <!-- <div > -->
+                      <div class='button' type='button' onClick='nspGenerateAPIKey()'><?php _e('Generate new API key',nsp_TEXTDOMAIN); ?></div>
+                    <div class='justified'>
+
+                  <textarea class='large-text code api txtleft' minlength='64' maxlength='128' cols='20' rows='3' name='<?php echo $option_var; ?>' id='<?php echo $option_var; ?>'><?php echo get_option($option_var);?></textarea>
             </div>
+
+              <!-- </div>
+
+            <div class='justified'> -->
+
+
+            <!-- </div> -->
+            <p class="description"><?php echo $option_description3 ?></p>
+
           </td>
         </tr>
         </table>
