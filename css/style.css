@@ -222,6 +222,45 @@ table.table-option td:first-child {
 .tab {
   padding-left: 45px !important;
 }
+
+.tabmail:before,
+.tabdata:before,
+.tabapi:before {
+
+
+ font-family: dashicons;
+      -moz-osx-font-smoothing: grayscale;
+ display: inline-block;
+
+ font-size: 20px;
+ font-style: normal;
+ font-weight: 400;
+ height: 22px;
+  width: 20px;
+ line-height: 1;
+ text-align: center;
+ text-decoration: inherit;
+ vertical-align: bottom;
+ padding-right: 2px;
+
+}
+.tabdata:before {
+content: "\f536";
+}
+.tabmail:before {
+  content: "\f465";
+}
+.tabapi:before {
+  content: "\f541";
+}
+.tabmail:after {
+  content: "(New)";
+  color: red;
+  vertical-align: super;
+line-height: 0.5em;
+    position: relative; top: -0.5em; font-size: .83em;
+
+}
 .table-databaseupdate {
   width: 60%;
 }
@@ -235,6 +274,14 @@ table.table-option td:first-child {
   color: #444;
 
 }
+
+.form-tableH th {
+  color: #222;
+}
+
+
+
+
 
 .form-tableH p {
   font-size: 14px;
@@ -435,8 +482,9 @@ font-size: 15px;
   padding-left: 15px;
 }
 
-.credit .don {
-  /*padding-left: 15px;*/
+.don {
+  padding-left: 5px;
+  text-align: center;
 }
 
 /*----------------------------------*/
