@@ -39,7 +39,6 @@ function nsp_TrimValue(&$value) {
  * @param var variables
  */
 function nsp_PrintOption($option_title, $option_var, $var) {
-
   if($option_var!='newstatpress_menuoverview_cap' AND $option_var!='newstatpress_menudetails_cap' AND $option_var!='newstatpress_menuvisits_cap' AND $option_var!='newstatpress_menusearch_cap' AND $option_var!='newstatpress_menutools_cap' AND $option_var!='newstatpress_menuoptions_cap')
     echo "<td>$option_title</td>\n";
   echo "<td><select name=$option_var>\n";
@@ -250,6 +249,12 @@ function nsp_Options() {
       update_option('newstatpress_externalapi', $i);
 
       global $nsp_option_vars;
+
+      // $status['state'] = FALSE;
+      // $status['freq'] = TRUE;
+      // $status['address'] = TRUE;
+      // $status['time'] = TRUE;
+      // $status['info'] = TRUE;
 
       foreach($nsp_option_vars as $var) {
 
@@ -664,6 +669,8 @@ function nsp_Options() {
             <?php
               $name=$nsp_option_vars['mail_notification']['name'];
               $default=$nsp_option_vars['mail_notification']['value'];
+
+              // $name="mail_notification['state']";
             ?>
             <form id="myForm">
             <p>
@@ -678,6 +685,8 @@ function nsp_Options() {
                 <?php _e('Event schedule',nsp_TEXTDOMAIN)?>&nbsp;:
                 <?php
                   $name=$nsp_option_vars['mail_notification_freq']['name'];
+                  // $name="mail_notification['state']";
+
                   nsp_PrintSchedules(get_option($name));
                 ?>
               </label>
