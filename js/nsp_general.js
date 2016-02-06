@@ -1,15 +1,14 @@
 jQuery(document).ready(function($){
-  // console.log("toto");
 
 if ($("#pagecredits").length) {
-  $.getJSON('../wp-content/plugins/newstatpress/includes/credit.json', function(data) {
+  $.getJSON('../wp-content/plugins/newstatpress/includes/json/credit.json', function(data) {
    $.each(data.contacts, function(keyp, valp) {
      var addressr="<tr>\n<td class='cell-l'>" + valp.name + "</td>\n<td class='cell-r'>" + valp.properties + "</td>\n</tr>\n";
      $(addressr).appendTo("#addresses");
 
    });
   });
-  $.getJSON('../wp-content/plugins/newstatpress/includes/lang.json', function(data) {
+  $.getJSON('../wp-content/plugins/newstatpress/includes/json/lang.json', function(data) {
    $.each(data.translation, function(keyp, valp) {
      var addressr="<tr>"+
                   "<td class='cell-l'>" +
@@ -17,6 +16,13 @@ if ($("#pagecredits").length) {
                   valp.lang + "</td>\n<td class='cell-r'>" + valp.properties + "</td>" +
                   "<td class='cell-r'>" + valp.status + "</td></tr>\n";
      $(addressr).appendTo("#langr");
+
+   });
+  });
+  $.getJSON('../wp-content/plugins/newstatpress/includes/json/donation.json', function(data) {
+   $.each(data.donation, function(keyp, valp) {
+     var donator="<tr>\n<td class='cell-l'>" + valp.donator + "</td>\n<td class='cell-r'>" + valp.date + "</td>\n</tr>\n";
+     $(donator).appendTo("#donatorlist");
 
    });
   });

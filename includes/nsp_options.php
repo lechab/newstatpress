@@ -296,10 +296,12 @@ function nsp_Options() {
                                   'api' => __('API',nsp_TEXTDOMAIN)
                                   );
           foreach( $ToolsPage_tabs as $tab => $name ) {
-            if ($tab=='mail')
-              echo "  <li><a href='#$tab'>$name <sup style='color:red;'>(New)</sup></a></li>\n  ";
-            else
-              echo "  <li><a href='#$tab'>$name</a></li>\n  ";
+            // if ($tab=='mail')
+            //   echo "<li><a href='#$tab'><span class=\"dashicons dashicons-email\"></span>$name <sup style='color:red;'>(New)</sup></a></li>\n  ";
+            // elseif ($tab=='data')
+            //     echo "<li><a href='#$tab'><span class=\"dashicons dashicons-filters\"></span>$name</a></li>\n  ";
+            // else
+              echo "<li><a href='#$tab' class='tab$tab'>$name</a></li>\n  ";
           }
         ?>
       </ul>

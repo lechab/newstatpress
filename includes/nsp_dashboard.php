@@ -6,7 +6,7 @@
  *******************************/
 function nsp_BuildDashboardWidget() {
   global $newstatpress_dir;
-  
+
   $api_key=get_option('newstatpress_apikey');
   $newstatpress_url=PluginUrl();
   $url=$newstatpress_url."/includes/api/external.php";

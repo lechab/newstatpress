@@ -19,22 +19,25 @@
 - [ ] add number of visitors online in the overview page
 - [ ] Database migration routine with unique name
 - [ ] Serialize some NewStatPress options
-- [ ] Donation page to finish
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
 
 ## 1.1.4
-*Released date: 2016-0x-xx*
+*Released date: 2016-02-xx*
 
 * Add email notification options
 * Add Notice Message Box
 * Add OS (+6), Browsers (+5), Spiders (+197)
 * Add language flag and status on 'Credits' page
 * Add Activation of sum option for variable %mvisits%, %wvisits% and %totalvisits%
+* Add Settings link in extensions page
+* Add control routine for old WP version
+* Add Internalization for shortcode
 * Change IP detection for better results behind proxy
 * Change 'Options' Page code : major improvements
 * Change 'Credits' Page code : use of json
 * Update Spiders images (+3)
 * Update locale fr_FR,  it_IT, pl-PL, es_ES
+* Fix bug for shortcode [NewStatPress: Top days]
 * Fix Memory size : >0.5 Mb free
 * Fix HTML cleanup
 * Fix Readme.txt

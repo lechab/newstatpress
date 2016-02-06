@@ -13,18 +13,27 @@
 // Make sure plugin remains secure if called directly
 if( !defined( 'ABSPATH' ) ) {
 	if( !headers_sent() ) { header('HTTP/1.1 403 Forbidden'); }
-	die(__('ERROR: This plugin requires WordPress and will not function if called directly.',nsp_TEXTDOMAIN));
+	die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
 $_NEWSTATPRESS['version']='1.1.4';
 $_NEWSTATPRESS['feedtype']='';
 
-global $newstatpress_dir, $wpdb, $nsp_option_vars, $nsp_widget_vars;
+global $newstatpress_dir,
+			 $wpdb,
+			 $nsp_option_vars,
+			 $nsp_widget_vars,
+			 $support_pluginpage,
+			 $author_linkpage;
+			 //global $credits_introduction;
 
 define('nsp_TEXTDOMAIN', 'newstatpress');
 define('nsp_PLUGINNAME', 'NewStatPress');
+define('nsp_REQUIRED_WP_VERSION','3.5');
+define('nsp_NOTICENEWS', TRUE);
 define('nsp_TABLENAME', $wpdb->prefix . 'statpress');
 define('nsp_BASENAME', dirname(plugin_basename(__FILE__)));
+define('nsp_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 define('nsp_SERVER_NAME', nsp_GetServerName() );
 define('nsp_RATING_URL', 'https://wordpress.org/support/view/plugin-reviews/'.nsp_TEXTDOMAIN );
 define('nsp_PLUGIN_URL','http://newstatpress.altervista.org' );
@@ -32,6 +41,14 @@ define('nsp_DONATE_URL', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&ho
 define('nsp_SUPPORT_URL','https://wordpress.org/support/plugin/'.nsp_TEXTDOMAIN );
 
 $newstatpress_dir = WP_PLUGIN_DIR . '/' .nsp_BASENAME;
+
+$support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
+$author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
+
+$credits_introduction=__('If you have found this plugin usefull and you like it, thank you to take a moment to rate it.','newstatpress');
+$credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on the %s or by adding/updating translation by contacting directly %s.','newstatpress'), $support_pluginpage, $author_linkpage);
+$credits_introduction.='<br />';
+$credits_introduction.=__('NewStatPress is provided for free and is maintained only on free time, you can also consider a donation to support further work.','newstatpress');
 
 $nsp_option_vars=array( // list of option variable name, with default value associated
                         // (''=>array('name'=>'','value'=>''))
@@ -80,22 +97,22 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                       );
 
 $nsp_widget_vars=array( // list of widget variables name, with description associated
-                       array('visits',__('Today visits', nsp_TEXTDOMAIN)),
-                       array('yvisits',__('Yesterday visits', nsp_TEXTDOMAIN)),
-                       array('mvisits',__('Month visits', nsp_TEXTDOMAIN)),
-                       array('wvisits',__('Week visits', nsp_TEXTDOMAIN)),
-                       array('totalvisits',__('Total visits', nsp_TEXTDOMAIN)),
-                       array('totalpageviews',__('Total pages view', nsp_TEXTDOMAIN)),
-                       array('todaytotalpageviews',__('Total pages view today', nsp_TEXTDOMAIN)),
-                       array('thistotalvisits',__('This page, total visits', nsp_TEXTDOMAIN)),
-                       array('alltotalvisits',__('All page, total visits', nsp_TEXTDOMAIN)),
-                       array('os',__('Visitor Operative System', nsp_TEXTDOMAIN)),
-                       array('browser',__('Visitor Browser', nsp_TEXTDOMAIN)),
-                       array('ip',__('Visitor IP address', nsp_TEXTDOMAIN)),
-                       array('since',__('Date of the first hit', nsp_TEXTDOMAIN)),
-                       array('visitorsonline',__('Counts all online visitors', nsp_TEXTDOMAIN)),
-                       array('usersonline',__('Counts logged online visitors', nsp_TEXTDOMAIN)),
-                       array('toppost',__('The most viewed Post', nsp_TEXTDOMAIN))
+                       array('visits',__('Today visits', 'newstatpress')),
+                       array('yvisits',__('Yesterday visits', 'newstatpress')),
+                       array('mvisits',__('Month visits', 'newstatpress')),
+                       array('wvisits',__('Week visits', 'newstatpress')),
+                       array('totalvisits',__('Total visits', 'newstatpress')),
+                       array('totalpageviews',__('Total pages view', 'newstatpress')),
+                       array('todaytotalpageviews',__('Total pages view today', 'newstatpress')),
+                       array('thistotalvisits',__('This page, total visits', 'newstatpress')),
+                       array('alltotalvisits',__('All page, total visits', 'newstatpress')),
+                       array('os',__('Visitor Operative System', 'newstatpress')),
+                       array('browser',__('Visitor Browser', 'newstatpress')),
+                       array('ip',__('Visitor IP address', 'newstatpress')),
+                       array('since',__('Date of the first hit', 'newstatpress')),
+                       array('visitorsonline',__('Counts all online visitors', 'newstatpress')),
+                       array('usersonline',__('Counts logged online visitors', 'newstatpress')),
+                       array('toppost',__('The most viewed Post', 'newstatpress'))
                       );
 
 
@@ -113,26 +130,32 @@ function nsp_UpdateCheck() {
   if( !empty( $admin_notices ) )
     add_action( 'admin_notices', 'nsp_AdminNotices' );
 
-  // check version and update installation date
+  // check version, update installation date and update notice status
   if (version_compare( $active_version, $_NEWSTATPRESS['version'], '<' )) {
     if (version_compare( $active_version, '1.1.0', '<' ))
       nsp_Activation('old'); // for old installation > 14 days since nsp 1.1.4
-    update_option('newstatpress_version', $_NEWSTATPRESS['version']);
+		if(nsp_NOTICENEWS) {
+			global $current_user;
+			$status = get_user_meta( $current_user->ID, 'newstatpress_nag_status', TRUE );
+			$status['news'] = FALSE ;
+			update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status );
+		}
+		update_option('newstatpress_version', $_NEWSTATPRESS['version']);
   }
 
   //check if is compatible with WP Version
-  // $rsfb_wp_version = RSFB_WP_VERSION;
-  // if( version_compare( $rsfb_wp_version, RSFB_REQUIRED_WP_VERSION, '<' ) ) {
-  //   deactivate_plugins( RSFB_PLUGIN_BASENAME );
-	$notice_text=__('This new version integrates a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>',nsp_TEXTDOMAIN);
-  //   $notice_text = sprintf( __( 'Plugin deactivated. WordPress Version %s required. Please upgrade WordPress to the latest version.', RSFB_PLUGIN_NAME ), RSFB_REQUIRED_WP_VERSION );
-  $new_admin_notice = array( 'style' => 'error', 'notice' => $notice_text );
-     update_option( 'newstatpress_admin_notices', $new_admin_notice );
-     add_action( 'admin_notices', 'nsp_AdminNotices' );
-  //   return FALSE;
-  // }
+	global $wp_version;
+  if( version_compare( $wp_version, nsp_REQUIRED_WP_VERSION, '<' ) ) {
+    deactivate_plugins( nsp_PLUGIN_BASENAME );
+  $notice_text = sprintf( __( 'Plugin %s deactivated. WordPress Version %s required. Please upgrade WordPress to the latest version.', 'newstatpress' ), nsp_PLUGINNAME, nsp_REQUIRED_WP_VERSION );
+ 	$new_admin_notice = array( 'style' => 'error', 'notice' => $notice_text );
+  update_option( 'newstatpress_admin_notices', $new_admin_notice );
+	add_action( 'admin_notices', 'nsp_AdminNotices' );
 
-  nsp_CheckNagNotices();
+	return FALSE;
+  }
+
+	nsp_CheckNagNotices();
 
 }
 add_action( 'admin_init', 'nsp_UpdateCheck' );
@@ -166,7 +189,8 @@ function nsp_Activation($arg='') {
 
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
-   //  wp_enqueue_style('dashicons');
+   wp_enqueue_style( 'NewStatPressStyles', get_stylesheet_uri(), array( 'dashicons' ), '1.0' );
+
 
    // JS and jQuery
    $scripts=array('idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
@@ -181,9 +205,8 @@ function nsp_Activation($arg='') {
  add_action( 'admin_enqueue_scripts', 'nsp_RegisterPluginStylesAndScripts' );
 
 
-
  function nsp_load_textdomain() {
-   load_plugin_textdomain( nsp_TEXTDOMAIN, false, nsp_BASENAME . '/langs' );
+   load_plugin_textdomain( 'newstatpress', false, nsp_BASENAME . '/langs' );
  }
  add_action( 'plugins_loaded', 'nsp_load_textdomain' );
 
@@ -200,7 +223,7 @@ function nsp_Activation($arg='') {
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
  }
 
-
+require ('includes/nsp_core.php');
 /*************************************
  * Add pages for NewStatPress plugin *
  *************************************/
@@ -244,13 +267,13 @@ function nsp_BuildPluginMenu() {
   // Display menu with personalized capabilities if user IS NOT "subscriber"
   if ( user_can( $current_user, "edit_posts" ) ) {
     add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'nsp_NewStatPressMainC', plugins_url('newstatpress/images/stat.png',nsp_BASENAME));
-    add_submenu_page('nsp-main', __('Overview',nsp_TEXTDOMAIN), __('Overview',nsp_TEXTDOMAIN), $overview_capability, 'nsp-main', 'nsp_NewStatPressMainC');
-    add_submenu_page('nsp-main', __('Details',nsp_TEXTDOMAIN), __('Details',nsp_TEXTDOMAIN), $details_capability, 'nsp_details', 'nsp_DisplayDetailsC');
-    add_submenu_page('nsp-main', __('Visits',nsp_TEXTDOMAIN), __('Visits',nsp_TEXTDOMAIN), $visits_capability, 'nsp_visits', 'nsp_DisplayVisitsPageC');
-    add_submenu_page('nsp-main', __('Search',nsp_TEXTDOMAIN), __('Search',nsp_TEXTDOMAIN), $search_capability, 'nsp_search', 'nsp_DatabaseSearchC');
-    add_submenu_page('nsp-main', __('Tools',nsp_TEXTDOMAIN), __('Tools',nsp_TEXTDOMAIN), $tools_capability, 'nsp_tools', 'nsp_DisplayToolsPageC');
-    add_submenu_page('nsp-main', __('Options',nsp_TEXTDOMAIN), __('Options',nsp_TEXTDOMAIN), $options_capability, 'nsp_options', 'nsp_OptionsC');
-    add_submenu_page('nsp-main', __('Credits',nsp_TEXTDOMAIN), __('Credits',nsp_TEXTDOMAIN), $credits_capability, 'nsp_credits', 'nsp_DisplayCreditsPageC');
+    add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $overview_capability, 'nsp-main', 'nsp_NewStatPressMainC');
+    add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $details_capability, 'nsp_details', 'nsp_DisplayDetailsC');
+    add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $visits_capability, 'nsp_visits', 'nsp_DisplayVisitsPageC');
+    add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $search_capability, 'nsp_search', 'nsp_DatabaseSearchC');
+    add_submenu_page('nsp-main', __('Tools','newstatpress'), __('Tools','newstatpress'), $tools_capability, 'nsp_tools', 'nsp_DisplayToolsPageC');
+    add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $options_capability, 'nsp_options', 'nsp_OptionsC');
+    add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $credits_capability, 'nsp_credits', 'nsp_DisplayCreditsPageC');
   }
 }
 add_action('admin_menu', 'nsp_BuildPluginMenu');
@@ -373,7 +396,7 @@ add_filter('wp_mail_content_type','nsp_Set_mail_content_type');
  * @return $email_confirmation
  *************************************/
 function nsp_stat_by_email($arg='') {
-  global $nsp_option_vars;
+  global $nsp_option_vars, $support_pluginpage, $author_linkpage;
   $date = date('m/d/Y h:i:s a', time());
 
   $name=$nsp_option_vars['mail_notification']['name'];
@@ -385,9 +408,9 @@ function nsp_stat_by_email($arg='') {
 
   $headers= 'From:NewStatPress';
   $blog_title = get_bloginfo('name');
-  $subject=sprintf(__('Visits statistics from [%s]',nsp_TEXTDOMAIN), $blog_title);
+  $subject=sprintf(__('Visits statistics from [%s]','newstatpress'), $blog_title);
   if($arg=='test')
-    $subject=sprintf(__('This is a test from [%s]',nsp_TEXTDOMAIN), $blog_title);
+    $subject=sprintf(__('This is a test from [%s]','newstatpress'), $blog_title);
 
   require_once ('includes/api/nsp_api_dashboard.php');
   $resultH=nsp_ApiDashboard("HTML");
@@ -395,20 +418,20 @@ function nsp_stat_by_email($arg='') {
   $name=$nsp_option_vars['mail_notification_address']['name'];
   $email_address=get_option($name);
 
-  $support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page',nsp_TEXTDOMAIN)."</a>";
-  $author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author',nsp_TEXTDOMAIN)."</a>";
+  // $support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
+  // $author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
 
-  $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or  by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation directly on the plugin website or through the plugin (Credits Page).',nsp_TEXTDOMAIN), $support_pluginpage, $author_linkpage);
+  $credits_introduction=sprintf(__('If you have found this plugin usefull and you like it, you can support the development by reporting bugs on the %s or by adding/updating translation by contacting directly %s. As this plugin is maintained only on free time, you can also make a donation directly on the plugin website or through the plugin (Credits Page).','newstatpress'), $support_pluginpage, $author_linkpage);
 
-  $warning=__('This option is yet experimental, please report bugs or improvement (see link on the bottom)',nsp_TEXTDOMAIN);
-  $advising=__('You receive this email because you have enabled the statistics notification in the NewStatpress plugin (option menu) from your WP website ',nsp_TEXTDOMAIN);
-  $message = __('Dear',nsp_TEXTDOMAIN)." $userna, <br /> <br />
+  $warning=__('This option is yet experimental, please report bugs or improvement (see link on the bottom)','newstatpress');
+  $advising=__('You receive this email because you have enabled the statistics notification in the NewStatpress plugin (option menu) from your WP website ','newstatpress');
+  $message = __('Dear','newstatpress')." $userna, <br /> <br />
              <i>$advising<STRONG>$blog_title</STRONG>.</i>
              <mark>$warning.</mark> <br />
              <br />".
-             __('Statistics at',nsp_TEXTDOMAIN)." $date (".__('server time',nsp_TEXTDOMAIN).") from  $blog_title: <br />
+             __('Statistics at','newstatpress')." $date (".__('server time','newstatpress').") from  $blog_title: <br />
              $resultH <br /> <br />"
-             .__('Best Regards from',nsp_TEXTDOMAIN)." <i>NewStatPress Team</i>. <br />
+             .__('Best Regards from','newstatpress')." <i>NewStatPress Team</i>. <br />
              <br />
              <br />
              -- <br />
@@ -460,9 +483,6 @@ else {
         wp_schedule_single_event( $crontime, 'nsp_mail_notification' );
       else
         wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
-
-      // echo("<br>");
-      // echo($crontime_offest . "<br>");
      }
   }
 }
@@ -476,74 +496,25 @@ function nsp_mail_notification_deactivate() {
 add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
 
 
-// function wpc_dashicons() {
-// wp_enqueue_style('dashicons');
-// }
-//
-// add_action('wp_enqueue_scripts', 'wpc_dashicons');
 
 
-
-
-
-
-
-/// COMMENTED by cHAb : not used -> TO DELETE if no problems
 /**
- * Decode the url in a better manner
+ * Add Settings link to plugins page
+ * added by cHab
  *
- * @param out_url
- * @return url decoded
- ************************************/
-function newstatpress_Decode($out_url) {
-  if(!nsp_PermalinksEnabled()) {
-    if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
-    if (my_substr($out_url, 0, 4) == "cat=") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(my_substr($out_url, 4));
-    if (my_substr($out_url, 0, 2) == "m=") $out_url = __('Calendar', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 6, 2) . "/" . my_substr($out_url, 2, 4);
-    if (my_substr($out_url, 0, 2) == "s=") $out_url = __('Search', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 2);
-    if (my_substr($out_url, 0, 2) == "p=") {
-      $subOut=my_substr($out_url, 2);
-      $post_id_7 = get_post($subOut, ARRAY_A);
-      $out_url = $post_id_7['post_title'];
-    }
-    if (my_substr($out_url, 0, 8) == "page_id=") {
-      $subOut=my_substr($out_url, 8);
-      $post_id_7 = get_page($subOut, ARRAY_A);
-      $out_url = __('Page', nsp_TEXTDOMAIN) . ": " . $post_id_7['post_title'];
-    }
- } else {
-     if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
-     else if (my_substr($out_url, 0, 9) == "category/") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(my_substr($out_url, 9));
-          else if (my_substr($out_url, 0, 2) == "s=") $out_url = __('Search', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 2);
-               else if (my_substr($out_url, 0, 2) == "p=") {
-                      // not working yet
-                      $subOut=my_substr($out_url, 2);
-                      $post_id_7 = get_post($subOut, ARRAY_A);
-                      $out_url = $post_id_7['post_title'];
-                    } else if (my_substr($out_url, 0, 8) == "page_id=") {
-                             // not working yet
-                             $subOut=my_substr($out_url, 8);
-                             $post_id_7 = get_page($subOut, ARRAY_A);
-                             $out_url = __('Page', nsp_TEXTDOMAIN) . ": " . $post_id_7['post_title'];
-                           }
-   }
-   return $out_url;
-}
+ */
+function nsp_AddSettingsLink( $links, $file ) {
+	if ( $file != plugin_basename( __FILE__ ))
+ 		return $links;
 
-/// COMMENTED by cHAb : not used -> TO DELETE if no problems
-/**
- * Get true if permalink is enabled in Wordpress
- * (taken in statpress-visitors)
- *
- * @return true if permalink is enabled in Wordpress
- ***************************************************/
-// function nsp_PermalinksEnabled() {
-//   global $wpdb;
-//
-//   $result = $wpdb->get_row('SELECT `option_value` FROM `' . $wpdb->prefix . 'options` WHERE `option_name` = "permalink_structure"');
-//   if ($result->option_value != '') return true;
-//   else return false;
-// }
+ 	$settings_link = '<a href="admin.php?page=nsp_options">' . __( 'Settings', 'newstatpress' ) . '</a>';
+
+ 	array_unshift( $links, $settings_link );
+
+ 	return $links;
+ }
+ add_filter( 'plugin_action_links', 'nsp_AddSettingsLink',10,2);
+
 
 
 /**
@@ -574,18 +545,7 @@ function my_substr($str, $x, $y = 0) {
 //   return ( ! preg_match( "/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/", $ip)) ? FALSE : TRUE;
 // }
 
-/**
- * Abbreviate the given string to a fixed length
- *
- * @param s the string
- * @param c the number of chars
- * @return the abbreviate string
- ***********************************************/
-function nsp_Abbreviate($s,$c) {
-  $s=__($s);
-  $res=""; if(strlen($s)>$c) { $res="..."; }
-  return substr($s,0,$c).$res;
-}
+
 
 
 /**
@@ -595,10 +555,10 @@ function nsp_Abbreviate($s,$c) {
  * @return the decoded url
  ****************************************/
 function nsp_DecodeURL($out_url) {
-  if($out_url == '') { $out_url=__('Page',nsp_TEXTDOMAIN).": Home"; }
-  if(substr($out_url,0,4)=="cat=") { $out_url=__('Category',nsp_TEXTDOMAIN).": ".get_cat_name(substr($out_url,4)); }
-  if(substr($out_url,0,2)=="m=") { $out_url=__('Calendar',nsp_TEXTDOMAIN).": ".substr($out_url,6,2)."/".substr($out_url,2,4); }
-  if(substr($out_url,0,2)=="s=") { $out_url=__('Search',nsp_TEXTDOMAIN).": ".substr($out_url,2); }
+  if($out_url == '') { $out_url=__('Page','newstatpress').": Home"; }
+  if(substr($out_url,0,4)=="cat=") { $out_url=__('Category','newstatpress').": ".get_cat_name(substr($out_url,4)); }
+  if(substr($out_url,0,2)=="m=") { $out_url=__('Calendar','newstatpress').": ".substr($out_url,6,2)."/".substr($out_url,2,4); }
+  if(substr($out_url,0,2)=="s=") { $out_url=__('Search','newstatpress').": ".substr($out_url,2); }
   if(substr($out_url,0,2)=="p=") {
     $subOut=substr($out_url,2);
     $post_id_7 = get_post($subOut, ARRAY_A);
@@ -607,7 +567,7 @@ function nsp_DecodeURL($out_url) {
   if(substr($out_url,0,8)=="page_id=") {
     $subOut=substr($out_url,8);
     $post_id_7=get_page($subOut, ARRAY_A);
-    $out_url = __('Page',nsp_TEXTDOMAIN).": ".$post_id_7['post_title'];
+    $out_url = __('Page','newstatpress').": ".$post_id_7['post_title'];
   }
   return $out_url;
 }
@@ -1323,18 +1283,18 @@ function nsp_WidgetInit($args) {
 
      // the form
     echo "<p>
-            <label for='newstatpress-title'>". __('Title:', nsp_TEXTDOMAIN) ."</label>
+            <label for='newstatpress-title'>". __('Title:', 'newstatpress') ."</label>
             <input class='widget-title' id='newstatpress-title' name='newstatpress-title' type='text' value=$title />
           </p>
           <p>
-            <label for='newstatpress-body'>". _e('Body:', nsp_TEXTDOMAIN) ."</label>
+            <label for='newstatpress-body'>". _e('Body:', 'newstatpress') ."</label>
             <textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea' placeholder='Example: Month visits: %mvisits%...'>$body</textarea>
           </p>
           <input type='hidden' id='newstatpress-submit' name='newstatpress-submit' value='1' />
-          <p>". __('Stats available: ', nsp_TEXTDOMAIN) ."<br/ >
+          <p>". __('Stats available: ', 'newstatpress') ."<br/ >
           <span class='widget_varslist'>";
           foreach($nsp_widget_vars as $var) {
-              echo "<a href='#'>%$var[0]%  <span>"; _e($var[1], nsp_TEXTDOMAIN); echo "</span></a> | ";
+              echo "<a href='#'>%$var[0]%  <span>"; _e($var[1], 'newstatpress'); echo "</span></a> | ";
           }
     echo "</span></p>";
   }
@@ -1372,16 +1332,16 @@ function nsp_WidgetInit($args) {
     $showcounts = htmlspecialchars($options['showcounts'], ENT_QUOTES);
     // the form
     echo "<p style='text-align:right;'>
-            <label for='newstatpresstopposts-title'>". __('Title',nsp_TEXTDOMAIN) . "
+            <label for='newstatpresstopposts-title'>". __('Title','newstatpress') . "
             <input style='width: 250px;' id='newstatpress-title' name='newstatpresstopposts-title' type='text' value=$title />
             </label>
           </p>
           <p style='text-align:right;'>
-            <label for='newstatpresstopposts-howmany'>". __('Limit results to',nsp_TEXTDOMAIN) ."
+            <label for='newstatpresstopposts-howmany'>". __('Limit results to','newstatpress') ."
             <input style='width: 100px;' id='newstatpresstopposts-howmany' name='newstatpresstopposts-howmany' type='text' value=$howmany />
             </label>
           </p>";
-    echo '<p style="text-align:right;"><label for="newstatpresstopposts-showcounts">' . __('Visits',nsp_TEXTDOMAIN) . ' <input id="newstatpresstopposts-showcounts" name="newstatpresstopposts-showcounts" type=checkbox value="checked" '.$showcounts.' /></label></p>';
+    echo '<p style="text-align:right;"><label for="newstatpresstopposts-showcounts">' . __('Visits','newstatpress') . ' <input id="newstatpresstopposts-showcounts" name="newstatpresstopposts-showcounts" type=checkbox value="checked" '.$showcounts.' /></label></p>';
     echo '<input type="hidden" id="newstatpress-submitTopPosts" name="newstatpresstopposts-submit" value="1" />';
   }
   function nsp_WidgetTopPosts($args) {
@@ -1400,86 +1360,6 @@ function nsp_WidgetInit($args) {
 }
 add_action('plugins_loaded', 'nsp_WidgetInit');
 
-
-/**
- * Replace a content in page with NewStatPress output
- * Used format is: [NewStatPress: type]
- * Type can be:
- *  [NewStatPress: Overview]
- *  [NewStatPress: Top days]
- *  [NewStatPress: O.S.]
- *  [NewStatPress: Browser]
- *  [NewStatPress: Feeds]
- *  [NewStatPress: Search Engine]
- *  [NewStatPress: Search terms]
- *  [NewStatPress: Top referrer]
- *  [NewStatPress: Languages]
- *  [NewStatPress: Spider]
- *  [NewStatPress: Top Pages]
- *  [NewStatPress: Top Days - Unique visitors]
- *  [NewStatPress: Top Days - Pageviews]
- *  [NewStatPress: Top IPs - Pageviews]
- *
- * @param content the content of page
- ******************************************************/
-function nsp_Shortcode($content = '') {
-  ob_start();
-  $TYPEs = array();
-  $TYPE = preg_match_all('/\[NewStatPress: (.*)\]/Ui', $content, $TYPEs);
-
-  foreach ($TYPEs[1] as $k => $TYPE) {
-    switch ($TYPE) {
-      case "Overview":
-        $replacement=nsp_MakeOverview(FALSE);
-        break;
-      case "Top days":
-        $replacement=nsp_GetDataQuery2("date","Top days", (get_option('newstatpress_el_top_days')=='') ? 5:get_option('newstatpress_el_top_days'), FALSE);
-        break;
-      case "O.S.":
-        $replacement=nsp_GetDataQuery2("os","O.S.",(get_option('newstatpress_el_os')=='') ? 10:get_option('newstatpress_el_os'),"","","AND feed='' AND spider='' AND os<>''", FALSE);
-        break;
-      case "Browser":
-        $replacement=nsp_GetDataQuery2("browser","Browser",(get_option('newstatpress_el_browser')=='') ? 10:get_option('newstatpress_el_browser'),"","","AND feed='' AND spider='' AND browser<>''", FALSE);
-        break;
-      case "Feeds":
-        $replacement=nsp_GetDataQuery2("feed","Feeds",(get_option('newstatpress_el_feed')=='') ? 5:get_option('newstatpress_el_feed'),"","","AND feed<>''", FALSE);
-        break;
-      case "Search Engine":
-        $replacement=nsp_GetDataQuery2("searchengine","Search engines",(get_option('newstatpress_el_searchengine')=='') ? 10:get_option('newstatpress_el_searchengine'),"","","AND searchengine<>''", FALSE);
-        break;
-      case "Search terms":
-        $replacement=nsp_GetDataQuery2("search","Top search terms",(get_option('newstatpress_el_search')=='') ? 20:get_option('newstatpress_el_search'),"","","AND search<>''", FALSE);
-        break;
-      case "Top referrer":
-        $replacement= nsp_GetDataQuery2("referrer","Top referrer",(get_option('newstatpress_el_referrer')=='') ? 10:get_option('newstatpress_el_referrer'),"","","AND referrer<>'' AND referrer NOT LIKE '%".get_bloginfo('url')."%'", FALSE);
-        break;
-      case "Languages":
-        $replacement=nsp_GetDataQuery2("nation","Countries/Languages",(get_option('newstatpress_el_languages')=='') ? 20:get_option('newstatpress_el_languages'),"","","AND nation<>'' AND spider=''", FALSE);
-        break;
-      case "Spider":
-        $replacement=nsp_GetDataQuery2("spider","Spiders",(get_option('newstatpress_el_spiders')=='') ? 10:get_option('newstatpress_el_spiders'),"","","AND spider<>''", FALSE);
-        break;
-      case "Top Pages":
-        $replacement=nsp_GetDataQuery2("urlrequested","Top pages",(get_option('newstatpress_el_pages')=='') ? 5:get_option('newstatpress_el_pages'),"","urlrequested","AND feed='' and spider=''", FALSE);
-        break;
-      case "Top Days - Unique visitors":
-        $replacement=nsp_GetDataQuery2("date","Top Days - Unique visitors",(get_option('newstatpress_el_visitors')=='') ? 5:get_option('newstatpress_el_visitors'),"distinct","ip","AND feed='' and spider=''", FALSE);
-        break;
-      case "Top Days - Pageviews":
-        $replacement=nsp_GetDataQuery2("date","Top Days - Pageviews",(get_option('newstatpress_el_daypages')=='') ? 5:get_option('newstatpress_el_daypages'),"","urlrequested","AND feed='' and spider=''", FALSE);
-        break;
-      case "Top IPs - Pageviews":
-        $replacement=nsp_GetDataQuery2("ip","Top IPs - Pageviews",(get_option('newstatpress_el_ippages')=='') ? 5:get_option('newstatpress_el_ippages'),"","urlrequested","AND feed='' and spider=''", FALSE);
-        break;
-      default:
-        $replacement="";
-    }
-    $content = str_replace($TYPEs[0][$k], $replacement, $content);
-  }
-  ob_get_clean();
-  return $content;
-}
-add_filter('the_content', 'nsp_Shortcode');
 
 function nsp_CalculateVariation($month,$lmonth) {
 
@@ -1547,18 +1427,18 @@ function nsp_MakeOverview($print ='dashboard') {
 
   // build head table overview
   if ($print=='main') {
-    $overview_table.="<div class='wrap'><h2>". __('Overview',nsp_TEXTDOMAIN). "</h2>";
+    $overview_table.="<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
     $overview_table.="<table class='widefat center nsp'>
               <thead>
               <tr class='sup'>
                 <th></th>
-                <th>". __('Total since',nsp_TEXTDOMAIN). "</th>
-                <th scope='col'>". __('This year',nsp_TEXTDOMAIN). "</th>
-                <th scope='col'>". __('Last month',nsp_TEXTDOMAIN). "</th>
-                <th scope='col' colspan='2'>". __('This month',nsp_TEXTDOMAIN). "</th>
-                <th scope='col' colspan='2'>". __('Target This month',nsp_TEXTDOMAIN). "</th>
-                <th scope='col'>". __('Yesterday',nsp_TEXTDOMAIN). "</th>
-                <th scope='col'>". __('Today',nsp_TEXTDOMAIN). "</th>
+                <th>". __('Total since','newstatpress'). "</th>
+                <th scope='col'>". __('This year','newstatpress'). "</th>
+                <th scope='col'>". __('Last month','newstatpress'). "</th>
+                <th scope='col' colspan='2'>". __('This month','newstatpress'). "</th>
+                <th scope='col' colspan='2'>". __('Target This month','newstatpress'). "</th>
+                <th scope='col'>". __('Yesterday','newstatpress'). "</th>
+                <th scope='col'>". __('Today','newstatpress'). "</th>
               </tr>
               <tr class='inf'>
                 <th></th>
@@ -1577,10 +1457,10 @@ function nsp_MakeOverview($print ='dashboard') {
                       <thead>
                       <tr class='sup dashboard'>
                       <th></th>
-                          <th scope='col'>". __('M-1',nsp_TEXTDOMAIN). "</th>
-                          <th scope='col' colspan='2'>". __('M',nsp_TEXTDOMAIN). "</th>
-                          <th scope='col'>". __('Y',nsp_TEXTDOMAIN). "</th>
-                          <th scope='col'>". __('T',nsp_TEXTDOMAIN). "</th>
+                          <th scope='col'>". __('M-1','newstatpress'). "</th>
+                          <th scope='col' colspan='2'>". __('M','newstatpress'). "</th>
+                          <th scope='col'>". __('Y','newstatpress'). "</th>
+                          <th scope='col'>". __('T','newstatpress'). "</th>
                       </tr>
                       <tr class='inf dashboard'>
                       <th></th>
@@ -1601,31 +1481,31 @@ function nsp_MakeOverview($print ='dashboard') {
 
       case 'visitors' :
         $row2='DISTINCT ip';
-        $row_title=__('Visitors',nsp_TEXTDOMAIN);
+        $row_title=__('Visitors','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
       break;
 
       case 'visitors_feeds' :
         $row2='DISTINCT ip';
-        $row_title=__('Visitors through Feeds',nsp_TEXTDOMAIN);
+        $row_title=__('Visitors through Feeds','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider='' AND agent<>''";
         break;
 
       case 'pageview' :
         $row2='date';
-        $row_title=__('Pageviews',nsp_TEXTDOMAIN);
+        $row_title=__('Pageviews','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
       break;
 
       case 'spiders' :
         $row2='date';
-        $row_title=__('Spiders',nsp_TEXTDOMAIN);
+        $row_title=__('Spiders','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider<>''";
       break;
 
       case 'feeds' :
         $row2='date';
-        $row_title=__('Pageviews through Feeds',nsp_TEXTDOMAIN);
+        $row_title=__('Pageviews through Feeds','newstatpress');
         $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider=''";
       break;
     }
@@ -1745,10 +1625,10 @@ function nsp_MakeOverview($print ='dashboard') {
 
       $overview_graph.="<div class='overview-graph'>
         <div style='border-left:1px; background:#ffffff;width:100%;height:".$px_white."px;'></div>
-        <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$visitors[$gg]." ".__('Visitors',nsp_TEXTDOMAIN)."'></div>
-        <div class='web_bar' style='height:".$px_pageviews."px;' title='".$pageviews[$gg]." ".__('Pageviews',nsp_TEXTDOMAIN)."'></div>
-        <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$spiders[$gg]." ".__('Spiders',nsp_TEXTDOMAIN)."'></div>
-        <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$feeds[$gg]." ".__('Feeds',nsp_TEXTDOMAIN)."'></div>
+        <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$visitors[$gg]." ".__('Visitors','newstatpress')."'></div>
+        <div class='web_bar' style='height:".$px_pageviews."px;' title='".$pageviews[$gg]." ".__('Pageviews','newstatpress')."'></div>
+        <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$spiders[$gg]." ".__('Spiders','newstatpress')."'></div>
+        <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$feeds[$gg]." ".__('Feeds','newstatpress')."'></div>
         <div style='background:gray;width:100%;height:1px;'></div>";
         if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) $overview_graph.="<div class='legend-W'>";
         else $overview_graph.="<div class='legend'>";

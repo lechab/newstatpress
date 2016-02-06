@@ -8,7 +8,7 @@ function nsp_NewStatPressMain() {
   global $wpdb;
   $table_name = nsp_TABLENAME;
 
-  nsp_NoticeNew(1);
+  //nsp_NoticeNew(1);
   nsp_MakeOverview('main');
 
   $_newstatpress_url=PluginUrl();
@@ -231,46 +231,18 @@ function nsp_NewStatPressMain() {
   nsp_load_time();
 }
 
-// function nsp_CalculateVariation($month,$lmonth) {
-//
-//   $target = round($month / (
-//     (date("d", current_time('timestamp')) - 1 +
-//     (date("H", current_time('timestamp')) +
-//     (date("i", current_time('timestamp')) + 1)/ 60.0) / 24.0)) * date("t", current_time('timestamp'))
-//   );
-//
-//   $monthchange = null;
-//   $added = null;
-//
-//   if($lmonth <> 0) {
-//     $percent_change = round( 100 * ($month / $lmonth ) - 100,1);
-//     $percent_target = round( 100 * ($target / $lmonth ) - 100,1);
-//
-//     if($percent_change >= 0) {
-//       $percent_change=sprintf("+%'04.1f", $percent_target);
-//       $monthchange = "<td class='coll'><code style='color:green'>($percent_change%)</code></td>";
-//     }
-//     else {
-//       $percent_change=sprintf("%'05.1f", $percent_change);
-//       $monthchange = "<td class='coll'><code style='color:red'>($percent_change%)</code></td>";
-//     }
-//
-//     if($percent_target >= 0) {
-//       $percent_target=sprintf("+%'04.1f", $percent_target);
-//       $added = "<td class='coll'><code style='color:green'>($percent_target%)</code></td>";
-//     }
-//     else {
-//       $percent_target=sprintf("%'05.1f", $percent_target);
-//       $added = "<td class='coll'><code style='color:red'>($percent_target%)</code></td>";
-//     }
-//   }
-//   else {
-//     $monthchange = "<td></td>";
-//     $added = "<td class='coll'></td>";
-//   }
-//
-//   $calculated_result=array($monthchange,$target,$added);
-//   return $calculated_result;
-// }
+/**
+ * Abbreviate the given string to a fixed length
+ *
+ * @param s the string
+ * @param c the number of chars
+ * @return the abbreviate string
+ ***********************************************/
+function nsp_Abbreviate($s,$c) {
+  $s=__($s);
+  $res=""; if(strlen($s)>$c) { $res="..."; }
+  return substr($s,0,$c).$res;
+}
+
 
 ?>

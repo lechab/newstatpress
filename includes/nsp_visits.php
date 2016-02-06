@@ -427,6 +427,61 @@ document.getElementById(thediv).style.display="none"
    echo "</div></div>";
 }
 
+/**
+ * Get true if permalink is enabled in Wordpress
+ * (taken in statpress-visitors)
+ *
+ * @return true if permalink is enabled in Wordpress
+ ***************************************************/
+function nsp_PermalinksEnabled() {
+  global $wpdb;
+
+  $result = $wpdb->get_row('SELECT `option_value` FROM `' . $wpdb->prefix . 'options` WHERE `option_name` = "permalink_structure"');
+  if ($result->option_value != '') return true;
+  else return false;
+}
+
+
+/**
+ * Decode the url in a better manner
+ *
+ * @param out_url
+ * @return url decoded
+ ************************************/
+function newstatpress_Decode($out_url) {
+  if(!nsp_PermalinksEnabled()) {
+    if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
+    if (my_substr($out_url, 0, 4) == "cat=") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(my_substr($out_url, 4));
+    if (my_substr($out_url, 0, 2) == "m=") $out_url = __('Calendar', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 6, 2) . "/" . my_substr($out_url, 2, 4);
+    if (my_substr($out_url, 0, 2) == "s=") $out_url = __('Search', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 2);
+    if (my_substr($out_url, 0, 2) == "p=") {
+      $subOut=my_substr($out_url, 2);
+      $post_id_7 = get_post($subOut, ARRAY_A);
+      $out_url = $post_id_7['post_title'];
+    }
+    if (my_substr($out_url, 0, 8) == "page_id=") {
+      $subOut=my_substr($out_url, 8);
+      $post_id_7 = get_page($subOut, ARRAY_A);
+      $out_url = __('Page', nsp_TEXTDOMAIN) . ": " . $post_id_7['post_title'];
+    }
+ } else {
+     if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
+     else if (my_substr($out_url, 0, 9) == "category/") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(my_substr($out_url, 9));
+          else if (my_substr($out_url, 0, 2) == "s=") $out_url = __('Search', nsp_TEXTDOMAIN) . ": " . my_substr($out_url, 2);
+               else if (my_substr($out_url, 0, 2) == "p=") {
+                      // not working yet
+                      $subOut=my_substr($out_url, 2);
+                      $post_id_7 = get_post($subOut, ARRAY_A);
+                      $out_url = $post_id_7['post_title'];
+                    } else if (my_substr($out_url, 0, 8) == "page_id=") {
+                             // not working yet
+                             $subOut=my_substr($out_url, 8);
+                             $post_id_7 = get_page($subOut, ARRAY_A);
+                             $out_url = __('Page', nsp_TEXTDOMAIN) . ": " . $post_id_7['post_title'];
+                           }
+   }
+   return $out_url;
+}
 
 /**
  * Display links for group of pages
