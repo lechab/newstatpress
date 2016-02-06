@@ -34,7 +34,13 @@ function nsp_GetUserIP() {
 	return $user_IP;
 }
 
-
+function nsp_ConnexionIsSSL() {
+	if( !empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) { return TRUE; }
+	if( !empty( $_SERVER['SERVER_PORT'] ) && ( '443' == $_SERVER['SERVER_PORT'] ) ) { return TRUE; }
+	if( !empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] ) { return TRUE; }
+	if( !empty( $_SERVER['HTTP_X_FORWARDED_SSL'] ) && 'off' !== $_SERVER['HTTP_X_FORWARDED_SSL'] ) { return TRUE; }
+	return FALSE;
+}
 //---------------------------------------------------------------------------
 // CRON Functions
 //---------------------------------------------------------------------------
@@ -49,15 +55,15 @@ function nsp_GetUserIP() {
 function nsp_CronIntervals($schedules) {
   $schedules['fourlybyday'] = array(
    'interval' => 21600, // seconds
-   'display' => __('Four time by Day',nsp_TEXTDOMAIN)
+   'display' => __('Four time by Day','newstatpress')
   );
   $schedules['weekly'] = array(
    'interval' => 604800,
-   'display' => __('Once a Week',nsp_TEXTDOMAIN)
+   'display' => __('Once a Week','newstatpress')
   );
   $schedules['monthly'] = array(
    'interval' => 2635200,
-   'display' => __('Once a Month',nsp_TEXTDOMAIN)
+   'display' => __('Once a Month','newstatpress')
   );
   return $schedules;
 }
@@ -98,26 +104,6 @@ function nsp_calculationOffsetTime($t,$tu) {
 //---------------------------------------------------------------------------
 // NOTICE Functions
 //---------------------------------------------------------------------------
-/**
- * display notice
- * added by cHab
- *
- * @param $activation 1: display, 0 : do noting
- ***********************************************************/
-function nsp_NoticeNew($activation) {
-  if(!$activation) {
-    $description=__('This new version integrates a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>',nsp_TEXTDOMAIN);
-  ?>
-    <div id="nspnotice" class="notice" style="padding:10px">
-      <a id="close" class="close"><span class="dashicons dashicons-no"></span>close</a>
-      <span>
-        <?php echo $description ?>
-      </span>
-    </div>
-  <?php
-  }
-}
-
 function nsp_CalculateEpochOffsetTime( $t1, $t2, $output_unit ) { //to complete with more output_unit
   $offset_time_in_seconds = abs($t1-$t2);
 
@@ -166,8 +152,8 @@ function nsp_ExtractFeedFromUrl($url) {
 }
 
 function nsp_GetUrl() {
-	// $url  = _is_ssl() ? 'https://' : 'http://';
-  $url = 'http://';
+	$url  = nsp_ConnexionIsSSL() ? 'https://' : 'http://';
+  //$url = 'http://';
 	$url .= nsp_SERVER_NAME.$_SERVER['REQUEST_URI'];
 	return $url;
 }
@@ -235,6 +221,11 @@ function nsp_AdminNagNotices() {
 		// echo '<div class="'.$style.'"><p>'.$notice.'</p></div>';
     ?>
       <div id="nspnotice" class="<?php echo $style; ?>" style="padding:10px">
+        <?php if ($nid=="n03") {
+        echo "<a id=\"close\" class=\"close\" href=\"$query_str\" target=\"_self\" rel=\"external\"><span class=\"dashicons dashicons-no\"></span>close</a>";
+        echo '<h4>'.__('NewStatPress News','newstatpress').'</h4>';
+        }
+        ?>
         <!-- <a  id="close" class="close"><span class="dashicons dashicons-no"></span>close</a> -->
         <p><?php echo $notice ?></p>
       </div>
@@ -254,16 +245,25 @@ function nsp_CheckNagNotices() {
   $num_days_inst=95; //debug
 	$query_str_con	= 'QUERYSTRING';
 	/* Notices (Positive Nags) */
+  if( empty( $status['news'] ) ) {
+    $nid = 'n03';
+    $style = 'notice';
+    $notice_text=__('This new version integrates a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>','newstatpress');
+    $status['currentnag'] = TRUE;
+    $status['news'] = FALSE;
+  }
+
+
 	if( empty( $status['currentnag'] ) && ( empty( $status['lastnag'] ) || $status['lastnag'] <= $timenow - 1209600 ) ) {
 		if( empty( $status['vote'] ) && $num_days_inst >= $votedate ) {
 			$nid = 'n01';
       $style = 'notice';
 
-      $notice_text = '<p>'. __( 'It looks like you\'ve been using NewStatPress for a while now. That\'s great!', nsp_TEXTDOMAIN ).'</p>';
-      $notice_text.= '<p>'. __( 'If you find this plugin useful, would you take a moment to give it a rating on WordPress.org?', nsp_TEXTDOMAIN ).'</p>';
-      $notice_text.= '<a class=\"button button-primary\" href=\"'.nsp_RATING_URL.'\" target=\"_blank\" rel=\"external\">'. __( 'Yes, I\'d like to rate it!', nsp_TEXTDOMAIN ) .'</a>';
+      $notice_text = '<p>'. __( 'It looks like you\'ve been using NewStatPress for a while now. That\'s great!', 'newstatpress' ).'</p>';
+      $notice_text.= '<p>'. __( 'If you find this plugin useful, would you take a moment to give it a rating on WordPress.org?', 'newstatpress' ).'</p>';
+      $notice_text.= '<a class=\"button button-primary\" href=\"'.nsp_RATING_URL.'\" target=\"_blank\" rel=\"external\">'. __( 'Yes, I\'d like to rate it!', 'newstatpress' ) .'</a>';
       $notice_text.= ' &nbsp; ';
-      $notice_text.= '<a class=\"button button-default\" href=\"'.$query_str_con.'\" target=\"_self\" rel=\"external\">'. __( 'I already did!', nsp_TEXTDOMAIN ) .'</a>';
+      $notice_text.= '<a class=\"button button-default\" href=\"'.$query_str_con.'\" target=\"_self\" rel=\"external\">'. __( 'I already did!', 'newstatpress' ) .'</a>';
 
       $status['currentnag'] = TRUE;
       $status['vote'] = FALSE;
@@ -272,15 +272,16 @@ function nsp_CheckNagNotices() {
 			$nid = 'n02';
       $style = 'notice';
 
-      $notice_text = '<p>'. __( 'You\'ve been using NewStatPress for several months now. We hope that means you like it and are finding it helpful.', nsp_TEXTDOMAIN ).'</p>';
-      $notice_text.= '<p>'. __( 'NewStatPress is provided for free and maintained only on free time. If you like the plugin, consider a donation to help further its development', nsp_TEXTDOMAIN ).'</p>';
-      $notice_text.= '<a class=\"button button-primary\" href=\"'.nsp_DONATE_URL.'\" target=\"_blank\" rel=\"external\">'. __( 'Yes, I\'d like to donate!', nsp_TEXTDOMAIN ) .'</a>';
+      $notice_text = '<p>'. __( 'You\'ve been using NewStatPress for several months now. We hope that means you like it and are finding it helpful.', 'newstatpress' ).'</p>';
+      $notice_text.= '<p>'. __( 'NewStatPress is provided for free and maintained only on free time. If you like the plugin, consider a donation to help further its development', 'newstatpress' ).'</p>';
+      $notice_text.= '<a class=\"button button-primary\" href=\"'.nsp_DONATE_URL.'\" target=\"_blank\" rel=\"external\">'. __( 'Yes, I\'d like to donate!', 'newstatpress' ) .'</a>';
       $notice_text.= ' &nbsp; ';
-      $notice_text.= '<a class=\"button button-default\" href=\"'.$query_str_con.'\" target=\"_self\" rel=\"external\">'. __( 'I already did!', nsp_TEXTDOMAIN ) .'</a>';
+      $notice_text.= '<a class=\"button button-default\" href=\"'.$query_str_con.'\" target=\"_self\" rel=\"external\">'. __( 'I already did!', 'newstatpress' ) .'</a>';
 
 			$status['currentnag'] = TRUE;
       $status['donate'] = FALSE;
 		}
+
 	}
 
 	if( !empty( $status['currentnag'] ) ) {
@@ -296,14 +297,8 @@ function nsp_AdminNotices() {
 	if( !empty( $admin_notices ) ) {
 		$style 	= $admin_notices['style']; /* 'error' or 'updated' */
 		$notice	= $admin_notices['notice'];
-    ?>
-    <div id="nspnotice" class="notice" style="padding:10px">
-      <a id="close" class="close"><span class="dashicons dashicons-no"></span>close</a>
-      <span>
-        <?php echo $notice ?>
-      </span>
-    </div>
-    <?php
+    $query_str_con	= 'QUERYSTRING';
+    echo '<div class="'.$style.'"><p>'.$notice.'</p></div>';
 	}
 	delete_option('newstatpress_admin_notices');
 }
@@ -312,7 +307,8 @@ add_action( 'admin_init', 'nsp_HideNagNotices', -10 );
 function nsp_HideNagNotices() {
 	// if( !nsp_is_user_admin() ) { return; }
 	$ns_codes		= array( 'n01' => 'vote',
-                       'n02' => 'donate', );
+                       'n02' => 'donate',
+                       'n03' => 'news' );
 	if( !isset( $_GET['newstatpress_hide_nag'], $_GET['nid'], $ns_codes[$_GET['nid']] ) || $_GET['newstatpress_hide_nag'] != '1' ) { return; }
 	global $current_user;
 	$status			= get_user_meta( $current_user->ID, 'newstatpress_nag_status', TRUE );
@@ -321,7 +317,10 @@ function nsp_HideNagNotices() {
 	$query_args		= nsp_GetQueryArgs( $url ); unset( $query_args['newstatpress_hide_nag'],$query_args['nid'] );
 	$query_str		= http_build_query( $query_args ); if( $query_str != '' ) { $query_str = '?'.$query_str; }
 	$redirect_url	= nsp_FixUrl( $url, TRUE, TRUE ) . $query_str;
-	$status['currentnag'] = FALSE; $status['lastnag'] = $timenow; $status[$ns_codes[$_GET['nid']]] = TRUE;
+	$status['currentnag'] = FALSE;
+  if ($_GET['nid']!="n03")
+    $status['lastnag'] = $timenow;
+  $status[$ns_codes[$_GET['nid']]] = TRUE;
 	update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status );
 	update_user_meta( $current_user->ID, 'newstatpress_nag_notices', array() );
 	wp_redirect( $redirect_url );
@@ -370,115 +369,9 @@ function nsp_DisplayTabsNavbarForMenuPage($menu_tabs, $current, $ref) {
 //     echo '</h2>';
 // }
 
-/**
- * Display data in table extracted from the given query
- *
- * @param fld GROUP BY argument of query
- * @param fldtitle title of field
- * @param limit quantity of elements to extract
- * @param param extra arguemnt for query (like DISTINCT)
- * @param queryfld field of query
- * @param exclude WHERE argument of query
- * @param print TRUE if the table is to print in page
- * @return return the HTML output accoding to the sprint state
- */
-function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld = "", $exclude= "", $print = TRUE) {
-  global $wpdb;
-  $table_name = nsp_TABLENAME;
 
-  if ($queryfld == '') {
-    $queryfld = $fld;
-  }
-  $text = "<div class='wrap'><table class='widefat'>\n<thead><tr><th scope='col' class='keytab-head'><h2>$fldtitle</h2></th><th scope='col' style='width:20%;text-align:center;'>".__('Visits','newstatpress')."</th><th></th></tr></thead>\n";
-  $rks = $wpdb->get_var("
-     SELECT count($param $queryfld) as rks
-     FROM $table_name
-     WHERE 1=1 $exclude;
-  ");
 
-  if($rks > 0) {
-    $sql="
-      SELECT count($param $queryfld) as pageview, $fld
-      FROM $table_name
-      WHERE 1=1 $exclude
-      GROUP BY $fld
-      ORDER BY pageview DESC
-    ";
-    if($limit > 0) {
-      $sql=$sql." LIMIT $limit";
-    }
-    $qry = $wpdb->get_results($sql);
-    $tdwidth=450;
 
-    // Collects data
-    $data=array();
-    foreach ($qry as $rk) {
-      $pc=round(($rk->pageview*100/$rks),1);
-      if($fld == 'nation') { $rk->$fld = strtoupper($rk->$fld); }
-      if($fld == 'date') { $rk->$fld = nsp_hdate($rk->$fld); }
-      if($fld == 'urlrequested') { $rk->$fld = nsp_DecodeURL($rk->$fld); }
-      $data[substr($rk->$fld,0,250)]=$rk->pageview;
-    }
-  }
-
-  // Draw table body
-  $text .= "<tbody id='the-list'>";
-  if($rks > 0) {  // Chart!
-
-    if($fld == 'nation') { // Nation chart
-      $charts=plugins_url('newstatpress')."/includes/geocharts.html".nsp_GetGoogleGeo($data);
-    }
-    else { // Pie chart
-      $charts=plugins_url('newstatpress')."/includes/piecharts.html".nsp_GetGooglePie($fldtitle, $data);
-    }
-
-    foreach ($data as $key => $value) {
-      $text .= "<tr><td class='keytab'>".$key."</td><td class='valuetab'>".$value."</td></tr>";
-    }
-
-    $text .= "<tr><td colspan=2 style='width:50%;'>
-        <iframe src='".$charts."' class='framebox'>
-          <p>[_e('This section requires a browser that supports iframes.]','newstatpress')</p>
-        </iframe></td></tr>";
-  }
-  $text .= "</tbody></table></div><br>\n";
-  if ($print) print $text;
-  else return $text;
-}
-
-/**
- * Get google url query for geo data
- *
- * @param data_array the array of data_array
- * @return the url with data
- */
-function nsp_GetGoogleGeo($data_array) {
-  if(empty($data_array)) { return ''; }
-  // get hash
-  foreach($data_array as $key => $value ) {
-    $values[] = $value;
-    $labels[] = $key;
-  }
-  return "?cht=Country&chd=".(implode(",",$values))."&chlt=Popularity&chld=".(implode(",",$labels));
-}
-
-/**
- * Get google url query for pie data
- *
- * @param data_array the array of data_array
- * @param title the title to use
- * @return the url with data
- */
-function nsp_GetGooglePie($title, $data_array) {
-  if(empty($data_array)) { return ''; }
-  // get hash
-  foreach($data_array as $key => $value ) {
-    $values[] = $value;
-    $labels[] = $key;
-  }
-
-  return "?title=".$title."&chd=".(implode(",",$values))."&chl=".urlencode(implode("|",$labels));
-}
 
 
 
@@ -494,7 +387,7 @@ function nsp_TableSize($table) {
     $data_lenght = $fstatus->Data_length;
     $data_rows = $fstatus->Rows;
   }
-  return number_format(($data_lenght/1024/1024), 2, ",", " ")." Mb ($data_rows ". __('records',nsp_TEXTDOMAIN).")";
+  return number_format(($data_lenght/1024/1024), 2, ",", " ")." Mb ($data_rows ". __('records','newstatpress').")";
 }
 
 
