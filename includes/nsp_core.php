@@ -84,7 +84,6 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
 	</table>
 	</div>
 	<br />\n";
-  print $text;
 
   if ($print)
 		print $text;
