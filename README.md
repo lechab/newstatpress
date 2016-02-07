@@ -22,25 +22,25 @@
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
 
 ## 1.1.4
-*Released date: 2016-02-xx*
+*Released date: 2016-02-07*
 
-* Add email notification options
-* Add Notice Message Box
-* Add OS (+6), Browsers (+5), Spiders (+197)
-* Add language flag and status on 'Credits' page
-* Add Activation of sum option for variable %mvisits%, %wvisits% and %totalvisits%
-* Add Settings link in extensions page
-* Add control routine for old WP version
-* Add Internalization for shortcode
-* Change IP detection for better results behind proxy
-* Change 'Options' Page code : major improvements
-* Change 'Credits' Page code : use of json
-* Update Spiders images (+3)
-* Update locale fr_FR,  it_IT, pl-PL, es_ES
-* Fix bug for shortcode [NewStatPress: Top days]
-* Fix Memory size : >0.5 Mb free
-* Fix HTML cleanup
-* Fix Readme.txt
+- [x] Add email notification options
+- [x] Add Notice Message Box
+- [x] Add OS (+6), Browsers (+5), Spiders (+197)
+- [x] Add language flag and status on 'Credits' page
+- [x] Add Activation of sum option for variable %mvisits%, %wvisits% and %totalvisits%
+- [x] Add Settings link in extensions page
+- [x] Add control routine for old WP version
+- [x] Add Internalization for shortcode
+- [x] Change IP detection for better results behind proxy
+- [x] Change 'Options' Page code : major improvements
+- [x] Change 'Credits' Page code : use of json
+- [x] Update Spiders images (+3)
+- [x] Update locale fr_FR,  it_IT, pl-PL, es_ES
+- [x] Fix bug for shortcode [NewStatPress: Top days]
+- [x] Fix Memory size : >0.5 Mb free
+- [x] Fix HTML cleanup
+- [x] Fix Readme.txt
 
 ## 1.1.3
 *Released date: 2016-01-09*

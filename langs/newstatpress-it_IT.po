@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-02-06 20:27+0100\n"
-"PO-Revision-Date: 2016-02-06 20:57+0100\n"
+"PO-Revision-Date: 2016-02-07 11:18+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -160,7 +160,7 @@ msgstr "Crediti"
 
 #: includes/nsp_credits.php:36
 msgid "Rate the plugin"
-msgstr "Valura il plugin"
+msgstr "Valuta il plugin"
 
 #: includes/nsp_credits.php:38
 msgid "Make a donation"
@@ -241,7 +241,7 @@ msgstr ""
 "<strong>Notifica via email</strong>  (guarda la pagina Opzioni) per avere "
 "report periodici delle tue statistiche. Questa funzione rimane sperimentale "
 "finchè non sarà testata adeguatamente; grazie per essere pazienti.  <br/> "
-"<i>Grazie a<strong>Douglas R.</strong> per aver supportato il nostro lavoro "
+"<i>Grazie a <strong>Douglas R.</strong> per aver supportato il nostro lavoro "
 "con una donazione."
 
 #: includes/nsp_functions-extra.php:262
