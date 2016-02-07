@@ -22,10 +22,7 @@ $_NEWSTATPRESS['feedtype']='';
 global $newstatpress_dir,
 			 $wpdb,
 			 $nsp_option_vars,
-			 $nsp_widget_vars,
-			 $support_pluginpage,
-			 $author_linkpage;
-			 //global $credits_introduction;
+			 $nsp_widget_vars;
 
 define('nsp_TEXTDOMAIN', 'newstatpress');
 define('nsp_PLUGINNAME', 'NewStatPress');
@@ -41,8 +38,6 @@ define('nsp_DONATE_URL', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&ho
 define('nsp_SUPPORT_URL','https://wordpress.org/support/plugin/'.nsp_TEXTDOMAIN );
 
 $newstatpress_dir = WP_PLUGIN_DIR . '/' .nsp_BASENAME;
-
-
 
 $nsp_option_vars=array( // list of option variable name, with default value associated
                         // (''=>array('name'=>'','value'=>''))
@@ -514,11 +509,11 @@ function nsp_AddSettingsLink( $links, $file ) {
 
 
 
-/**
+/**TODO useful or not????
  * PHP 4 compatible mb_substr function
  * (taken in statpress-visitors)
  */
-function my_substr($str, $x, $y = 0) {
+function nsp_MySubstr($str, $x, $y = 0) {
 	if($y == 0)
 		$y = strlen($str) - $x;
 
@@ -594,7 +589,7 @@ function nsp_hdate($dt = "00000000") {
 
 
 function newstatpress_hdate($dt = "00000000") {
-  return mysql2date(get_option('date_format'), my_substr($dt, 0, 4) . "-" . my_substr($dt, 4, 2) . "-" . my_substr($dt, 6, 2));
+  return mysql2date(get_option('date_format'), nsp_MySubstr($dt, 0, 4) . "-" . nsp_MySubstr($dt, 4, 2) . "-" . nsp_MySubstr($dt, 6, 2));
 }
 
 
