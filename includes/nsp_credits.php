@@ -18,11 +18,8 @@ function nsp_DisplayCreditsPage() {
                              'donation' => __('Donation','newstatpress')
   );
 
-  $support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
-  $author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
-
-  $credits_introduction=__('If you have found this plugin useful and you like it, thank you to take a moment to rate it.','newstatpress');
-  $credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on the %s or by adding/updating translation by contacting directly %s.','newstatpress'), $support_pluginpage, $author_linkpage);
+  $credits_introduction=__('If you have found this plugin usefull and you like it, thank you to take a moment to rate it.',nsp_TEXTDOMAIN);
+  $credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on the %s or by adding/updating translation by contacting directly %s.',nsp_TEXTDOMAIN), $support_pluginpage, $author_linkpage);
   $credits_introduction.='<br />';
   $credits_introduction.=__('NewStatPress is provided for free and is maintained only on free time, you can also consider a donation to support further work.','newstatpress');
 

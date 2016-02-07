@@ -144,6 +144,27 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+= 1.1.4 =
+*Released date: 07/02/2016*
+
+* Add email notification options
+* Add Notice Message Box
+* Add OS (+6), Browsers (+5), Spiders (+197)
+* Add language flag and status on 'Credits' page
+* Add Activation of sum option for variable %mvisits%, %wvisits% and %totalvisits%
+* Add Settings link in extensions page
+* Add control routine for old WP version
+* Add Internalization for shortcode
+* Change IP detection for better results behind proxy
+* Change 'Options' Page code : major improvements
+* Change 'Credits' Page code : use of json
+* Update Spiders images (+3)
+* Update locale fr_FR,  it_IT, pl-PL, es_ES
+* Fix bug for shortcode [NewStatPress: Top days]
+* Fix Memory size : >0.5 Mb free
+* Fix HTML cleanup
+* Fix Readme.txt
+
 = 1.1.3 =
 *Released date: 09/01/2016*
 
