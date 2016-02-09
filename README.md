@@ -22,7 +22,7 @@
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
 
 ## 1.1.4
-*Released date: 2016-02-07*
+*Released date: 2016-02-09*
 
 - [x] Add email notification options
 - [x] Add Notice Message Box
