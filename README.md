@@ -21,6 +21,11 @@
 - [ ] Serialize some NewStatPress options
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
 
+## 1.1.5
+*Released date: 2016-02-10*
+
+- [x] Double the length of email address
+
 ## 1.1.4
 *Released date: 2016-02-09*
 
