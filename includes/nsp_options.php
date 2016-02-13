@@ -719,7 +719,7 @@ function nsp_Options() {
 
           <p class='option_list'>
             <label for='newstatpress_mail_notification_emailaddress'><?php _e('Mailing address',nsp_TEXTDOMAIN)?>&nbsp;:
-              <input id="mail_address" class='left' type='email' name='newstatpress_mail_notification_emailaddress' value='<?php echo $email; ?>' size=20 maxlength=30 />
+              <input id="mail_address" class='left' type='email' name='newstatpress_mail_notification_emailaddress' value='<?php echo $email; ?>' size=20 maxlength=60 />
               <button id="testmail" class='button button-secondary' type=submit name=saveit value=mailme><?php _e('Email Test',nsp_TEXTDOMAIN);?></button>
               <p class="description option_list"><?php echo $mailaddress_description ?></p>
             </label>
