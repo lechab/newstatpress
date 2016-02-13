@@ -4,7 +4,7 @@
  Plugin URI: http://newstatpress.altervista.org
  Text Domain: newstatpress
  Description: Real time stats for your Wordpress blog
- Version: 1.1.4
+ Version: 1.1.5
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
@@ -16,7 +16,7 @@ if( !defined( 'ABSPATH' ) ) {
 	die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-$_NEWSTATPRESS['version']='1.1.4';
+$_NEWSTATPRESS['version']='1.1.5';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir,
@@ -367,15 +367,9 @@ function nsp_CaseTrans( $type, $string ) {
 * added by cHab
 *
 ***************************************************/
-function nsp_New_mail_from_name() {
-  return 'NewStatPress';
-}
-add_filter('wp_mail_from_name', 'nsp_New_mail_from_name');
-
 function nsp_Set_mail_content_type($content_type) {
   return 'text/html';
 }
-add_filter('wp_mail_content_type','nsp_Set_mail_content_type');
 
 /**
  * Send an email notification with the overview statistics
@@ -387,6 +381,8 @@ add_filter('wp_mail_content_type','nsp_Set_mail_content_type');
 function nsp_stat_by_email($arg='') {
   global $nsp_option_vars, $support_pluginpage, $author_linkpage;
   $date = date('m/d/Y h:i:s a', time());
+  
+  add_filter('wp_mail_content_type','nsp_Set_mail_content_type');
 
   $name=$nsp_option_vars['mail_notification']['name'];
   $status=get_option($name);
@@ -428,8 +424,10 @@ function nsp_stat_by_email($arg='') {
              <br />
              -- <br />
              $credits_introduction";
-
-  $email_confirmation = wp_mail($email_address, $subject, $message);
+  $headers = 'From: NewStatPress <newstatprss@altervista.org>' . "\r\n";
+  $email_confirmation = wp_mail($email_address, $subject, $message, $headers);
+  
+  remove_filter('wp_mail_content_type','nsp_Set_mail_content_type');
 
   return $email_confirmation;
 }
