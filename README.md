@@ -9,17 +9,36 @@
 - [ ] update options use of foreach
 - [ ] change the name of widget dashboard
 - [ ] Big problem on search function
-- [ ] Export database > dump sql (bkp)
 - [ ] add Select definitions to update
 - [ ] Add a 'unique visitors' row in the overview chart
 - [ ] Add options to (de)activate single chart/graphs of overview and details
 - [ ] Generate external API interfaces
 - [ ] Add 'version' in external API
-- [x] Change days calculation into prune functions
-- [ ] add number of visitors online in the overview page
-- [ ] Database migration routine with unique name
-- [ ] Serialize some NewStatPress options
+- [ ] OPTIMIZATION : Serialize some NewStatPress options
+
+
+
+- [ ] Add dialog box 'database update' when plugin is updated
+- [ ] Change graph system on 'details' page
+- [ ] Add JS/Jquery on 'overview' page
+- [ ] Add database migration -> nsp_database (unique name)
+- [ ] Export database > dump sql (bkp)
+
+## 1.1.7
+*Released date: 2016-03-31*
+
+- [ ] Change overview loading: used the external api
+- [ ] Add monthly overview
+- [ ] Add number of visitors online in the overview page
+
+## 1.1.6
+*Released date: 2016-02-*
+- [ ] Add 'from' option in email notification tab
+- [ ] Change the email notification activation control (according enabled/disabled)
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
+numero visite da sommare alle variabili %
+xx% per quelli che avevano un altro sistema e sono poi passati a newstatpress
+
 
 ## 1.1.5
 *Released date: 2016-02-10*
