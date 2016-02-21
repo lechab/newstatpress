@@ -15,7 +15,7 @@
 - [ ] Generate external API interfaces
 - [ ] Add 'version' in external API
 - [ ] OPTIMIZATION : Serialize some NewStatPress options
-
+- [ ] export data to PDF
 
 
 - [ ] Add dialog box 'database update' when plugin is updated
