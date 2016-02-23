@@ -361,6 +361,35 @@ function nsp_CaseTrans( $type, $string ) {
 }
 
 
+/**
+ * Calculate offset_time in second to add to epoch format
+ * added by cHab
+ *
+ * @param $t,$tu
+ * @return $offset_time
+ ***********************************************************/
+function nsp_calculationOffsetTime($t,$tu) {
+
+  list($current_hour, $current_minute) = explode(":", date("H:i",$t));
+  list($publishing_hour, $publishing_minutes) = explode(":", $tu);
+
+  if($current_hour>$publishing_hour)
+    $plus_hour=24-$current_hour+$publishing_hour;
+  else
+    $plus_hour=$publishing_hour-$current_hour;
+
+  if($current_minute>$publishing_minutes) {
+    $plus_minute=60-$current_minute+$publishing_minutes;
+    if($plus_hour==0)
+      $plus_hour=23;
+    else
+      $plus_hour=$plus_hour-1;
+  }
+  else
+    $plus_minute=$publishing_minutes-$current_minute;
+
+  return $offset_time=$plus_hour*60*60+$plus_minute*60;
+}
 
 /**
 * Parameters for newstatpress email notification
@@ -381,7 +410,7 @@ function nsp_Set_mail_content_type($content_type) {
 function nsp_stat_by_email($arg='') {
   global $nsp_option_vars, $support_pluginpage, $author_linkpage;
   $date = date('m/d/Y h:i:s a', time());
-  
+
   add_filter('wp_mail_content_type','nsp_Set_mail_content_type');
 
   $name=$nsp_option_vars['mail_notification']['name'];
@@ -426,7 +455,7 @@ function nsp_stat_by_email($arg='') {
              $credits_introduction";
   $headers = 'From: NewStatPress <newstatprss@altervista.org>' . "\r\n";
   $email_confirmation = wp_mail($email_address, $subject, $message, $headers);
-  
+
   remove_filter('wp_mail_content_type','nsp_Set_mail_content_type');
 
   return $email_confirmation;

@@ -70,35 +70,7 @@ function nsp_CronIntervals($schedules) {
 add_filter( 'cron_schedules', 'nsp_CronIntervals');
 
 
-/**
- * Calculate offset_time in second to add to epoch format
- * added by cHab
- *
- * @param $t,$tu
- * @return $offset_time
- ***********************************************************/
-function nsp_calculationOffsetTime($t,$tu) {
 
-  list($current_hour, $current_minute) = explode(":", date("H:i",$t));
-  list($publishing_hour, $publishing_minutes) = explode(":", $tu);
-
-  if($current_hour>$publishing_hour)
-    $plus_hour=24-$current_hour+$publishing_hour;
-  else
-    $plus_hour=$publishing_hour-$current_hour;
-
-  if($current_minute>$publishing_minutes) {
-    $plus_minute=60-$current_minute+$publishing_minutes;
-    if($plus_hour==0)
-      $plus_hour=23;
-    else
-      $plus_hour=$plus_hour-1;
-  }
-  else
-    $plus_minute=$publishing_minutes-$current_minute;
-
-  return $offset_time=$plus_hour*60*60+$plus_minute*60;
-}
 
 
 //---------------------------------------------------------------------------
