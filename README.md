@@ -24,20 +24,23 @@
 - [ ] Add database migration -> nsp_database (unique name)
 - [ ] Export database > dump sql (bkp)
 
-## 1.1.7
+## 1.1.8
 *Released date: 2016-03-31*
 
 - [ ] Change overview loading: used the external api
 - [ ] Add monthly overview
 - [ ] Add number of visitors online in the overview page
 
-## 1.1.6
+## 1.1.7
 *Released date: 2016-02-*
 - [ ] Add 'from' option in email notification tab
 - [ ] Change the email notification activation control (according enabled/disabled)
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
-numero visite da sommare alle variabili %
-xx% per quelli che avevano un altro sistema e sono poi passati a newstatpress
+
+## 1.1.6
+*Released date: 2016-02-23
+- [x] Fix email notification bug
+- [x] Update IT translation
 
 
 ## 1.1.5
