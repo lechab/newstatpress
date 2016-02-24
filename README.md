@@ -36,6 +36,7 @@
 - [ ] Add 'from' option in email notification tab
 - [ ] Change the email notification activation control (according enabled/disabled)
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
+- [x] Update CZ translation thanks to Petr Janda
 
 ## 1.1.6
 *Released date: 2016-02-23

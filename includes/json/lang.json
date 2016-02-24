@@ -38,8 +38,10 @@
       {
         "domain":"cz",
         "lang":"Czech",
-        "properties":"Jiri Borovy",
-        "status":"partially (75%)"
+        "properties":[ "Jiri Borovy",
+                       "<br />Petr Janda"
+        ],
+        "status":"up to date"
       },
       {
         "domain":"pl",

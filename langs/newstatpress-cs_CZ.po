@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress\n"
 "POT-Creation-Date: 2016-02-18 19:03+0100\n"
-"PO-Revision-Date: 2016-02-18 19:04+0100\n"
+"PO-Revision-Date: 2016-02-24 10:52+0100\n"
 "Last-Translator: Jiří Borový <jborovy@seznam.cz>\n"
 "Language-Team: Jiří Borový <jborovy@seznam.cz>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.6\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
@@ -46,19 +46,19 @@ msgstr "Zobrazení stránek od zdrojů feedů"
 
 #: includes/api/nsp_api_dashboard.php:136 newstatpress.php:1450
 msgid "M-1"
-msgstr ""
+msgstr "M-1"
 
 #: includes/api/nsp_api_dashboard.php:137 newstatpress.php:1451
 msgid "M"
-msgstr ""
+msgstr "M"
 
 #: includes/api/nsp_api_dashboard.php:138 newstatpress.php:1452
 msgid "Y"
-msgstr ""
+msgstr "Y"
 
 #: includes/api/nsp_api_dashboard.php:139 newstatpress.php:1453
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: includes/nsp_core.php:28 includes/nsp_dashboard.php:45
 #: includes/nsp_visits.php:18 newstatpress.php:261 newstatpress.php:1334
@@ -136,6 +136,8 @@ msgid ""
 "If you have found this plugin usefull and you like it, thank you to take a "
 "moment to rate it."
 msgstr ""
+"Jestli se Ti tento plugin líbí nebo myslíš, že je užitečný, uděl nám prosím "
+"hodnocení."
 
 #: includes/nsp_credits.php:22 newstatpress.php:410
 #, php-format
@@ -143,12 +145,16 @@ msgid ""
 "You can help to the plugin development by reporting bugs on the %s or by "
 "adding/updating translation by contacting directly %s."
 msgstr ""
+"Můžeš pomoci s vývojem pluginu už tím, že nahlásíš chyby na %s nebo nahrátím/"
+"aktualizací překladu kontaktováním %s."
 
 #: includes/nsp_credits.php:24
 msgid ""
 "NewStatPress is provided for free and is maintained only on free time, you "
 "can also consider a donation to support further work."
 msgstr ""
+"NewStatPress je poskytován zdarma a je udržován jen ve volných chvílích. "
+"Naší práci můžeš podpořit věnováním drobného příspěvku."
 
 #: includes/nsp_credits.php:29 newstatpress.php:265
 msgid "Credits"
@@ -156,7 +162,7 @@ msgstr "Autor"
 
 #: includes/nsp_credits.php:36
 msgid "Rate the plugin"
-msgstr ""
+msgstr "Ohodnotit plugin"
 
 #: includes/nsp_credits.php:38
 msgid "Make a donation"
@@ -177,7 +183,7 @@ msgstr "Jazyk"
 
 #: includes/nsp_credits.php:76
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: includes/nsp_credits.php:89 includes/nsp_overview.php:53
 #: includes/nsp_overview.php:106 includes/nsp_overview.php:133
@@ -211,19 +217,19 @@ msgstr "NewStatPress přehled"
 
 #: includes/nsp_functions-extra.php:58
 msgid "Four time by Day"
-msgstr ""
+msgstr "Čtyřikrát deně"
 
 #: includes/nsp_functions-extra.php:62
 msgid "Once a Week"
-msgstr ""
+msgstr "Jednou týdně"
 
 #: includes/nsp_functions-extra.php:66
 msgid "Once a Month"
-msgstr ""
+msgstr "Jedenkrát do měsíce"
 
 #: includes/nsp_functions-extra.php:226
 msgid "NewStatPress News"
-msgstr ""
+msgstr "Novinky NewStartPress"
 
 #: includes/nsp_functions-extra.php:251
 msgid ""
@@ -233,41 +239,50 @@ msgid ""
 "recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas "
 "R.</strong> to support our work with his donation.</i>"
 msgstr ""
+"Tato nová verze obsahuje novou důležitou funkci: <strong> E-mailové oznámení "
+"</strong> (viz stránka Nastavení) - je možno získat pravidelné zprávy o "
+"svých statistikách. Tato funkce zůstává trochu experimentální, dokud nebude "
+"důkladně otestována. Děkujeme za trpělivost <br/> <i> Díky <strong> Douglas "
+"R. </strong> za podporu naší práce svým darem. </i>"
 
 #: includes/nsp_functions-extra.php:262
 msgid ""
 "It looks like you've been using NewStatPress for a while now. That's great!"
-msgstr ""
+msgstr "Vypadá to, že již používáš NewStatPress nějakou dobu. To je skvělé!"
 
 #: includes/nsp_functions-extra.php:263
 msgid ""
 "If you find this plugin useful, would you take a moment to give it a rating "
 "on WordPress.org?"
-msgstr ""
+msgstr "Jestli se Ti plugin líbí, ohodnoť ho prosím na WordPress.org."
 
 #: includes/nsp_functions-extra.php:264
 msgid "Yes, I'd like to rate it!"
-msgstr ""
+msgstr "Ano, ohodnotím plugin právě teď."
 
 #: includes/nsp_functions-extra.php:266 includes/nsp_functions-extra.php:279
 msgid "I already did!"
-msgstr ""
+msgstr "Již jsem plugin ohodnotil."
 
 #: includes/nsp_functions-extra.php:275
 msgid ""
 "You've been using NewStatPress for several months now. We hope that means "
 "you like it and are finding it helpful."
 msgstr ""
+"Již používáš NewStatPress několik měsíců. Doufáme, že se Ti líbí a je pro "
+"Tebe užitečný."
 
 #: includes/nsp_functions-extra.php:276
 msgid ""
 "NewStatPress is provided for free and maintained only on free time. If you "
 "like the plugin, consider a donation to help further its development"
 msgstr ""
+"NewStatPress je poskytován zdarma a je udržován jen ve volných chvílích. "
+"Naší práci můžeš podpořit věnováním drobného příspěvku."
 
 #: includes/nsp_functions-extra.php:277
 msgid "Yes, I'd like to donate!"
-msgstr ""
+msgstr "Rád přispěji!"
 
 #: includes/nsp_functions-extra.php:390
 msgid "records"
@@ -277,65 +292,65 @@ msgstr "záznamy"
 #, php-format
 msgid "%s year"
 msgid_plural "%s years"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s rok"
+msgstr[1] "%s roky"
+msgstr[2] "%s let"
 
 #: includes/nsp_options.php:91
 #, php-format
 msgid "%s month"
 msgid_plural "%s months"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s měsíc"
+msgstr[1] "%s měsíce"
+msgstr[2] "%s měsíců"
 
 #: includes/nsp_options.php:92
 #, php-format
 msgid "%s week"
 msgid_plural "%s weeks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s týden"
+msgstr[1] "%s týdny"
+msgstr[2] "%s týdnů"
 
 #: includes/nsp_options.php:93
 #, php-format
 msgid "%s day"
 msgid_plural "%s days"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s den"
+msgstr[1] "%s dny"
+msgstr[2] "%s dnů"
 
 #: includes/nsp_options.php:94
 #, php-format
 msgid "%s hour"
 msgid_plural "%s hours"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s hodina"
+msgstr[1] "%s hodiny"
+msgstr[2] "%s hodin"
 
 #: includes/nsp_options.php:95
 #, php-format
 msgid "%s minute"
 msgid_plural "%s minutes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s minuta"
+msgstr[1] "%s minuty"
+msgstr[2] "%s minut"
 
 #: includes/nsp_options.php:96
 #, php-format
 msgid "%s second"
 msgid_plural "%s seconds"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%s vteřina"
+msgstr[1] "%s vteřiny"
+msgstr[2] "%s vteřin"
 
 #: includes/nsp_options.php:100
 msgid "now"
-msgstr ""
+msgstr "nyní"
 
 #: includes/nsp_options.php:149
 msgid "Non-repeating"
-msgstr ""
+msgstr "Neopakující se"
 
 #: includes/nsp_options.php:231
 msgid "NewStatPress Settings"
@@ -347,11 +362,11 @@ msgstr "Volby uloženy!"
 
 #: includes/nsp_options.php:281
 msgid "Email sent by the server!"
-msgstr ""
+msgstr "Email odeslán serverem"
 
 #: includes/nsp_options.php:283
 msgid "Problem: Email not sent by the server!"
-msgstr ""
+msgstr "Problém: email nebyl odeslán!"
 
 #: includes/nsp_options.php:294
 msgid "General"
@@ -359,7 +374,7 @@ msgstr "Obecné"
 
 #: includes/nsp_options.php:295
 msgid "Filters"
-msgstr ""
+msgstr "Filtry"
 
 #: includes/nsp_options.php:296
 msgid "Overview Menu"
@@ -379,11 +394,11 @@ msgstr "Databáze"
 
 #: includes/nsp_options.php:300
 msgid "Email Notification"
-msgstr ""
+msgstr "Emailové upozornění"
 
 #: includes/nsp_options.php:301
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: includes/nsp_options.php:325
 msgid "Dashboard"
@@ -394,7 +409,6 @@ msgid "Enable NewStatPress widget"
 msgstr "Zapnout NewStatPress widget"
 
 #: includes/nsp_options.php:330
-#, fuzzy
 msgid "Minimum capability to display each specific menu"
 msgstr "Minimální práva k zobrazení menu hledaní"
 
@@ -404,32 +418,26 @@ msgid "more info"
 msgstr "více info"
 
 #: includes/nsp_options.php:332
-#, fuzzy
 msgid "Overview menu"
-msgstr "Přehled Menu"
+msgstr "Přehled nabídky"
 
 #: includes/nsp_options.php:340
-#, fuzzy
 msgid "Detail menu"
-msgstr "Podrobnosti Menu"
+msgstr "Podrobná nabídka"
 
 #: includes/nsp_options.php:349
-#, fuzzy
 msgid "Visits menu"
-msgstr "Návštěvy Menu"
+msgstr "Návštěvnická nabídka"
 
 #: includes/nsp_options.php:357
-#, fuzzy
 msgid "Search menu"
-msgstr "Internetový vyhledávač"
+msgstr "Nabídka vyhledávání"
 
 #: includes/nsp_options.php:365
-#, fuzzy
 msgid "Tools menu"
 msgstr "Nástroje"
 
 #: includes/nsp_options.php:373
-#, fuzzy
 msgid "Options menu"
 msgstr "Nastavení"
 
@@ -446,6 +454,8 @@ msgid ""
 "Sum of the distinct IPs of each day (slower than classic method for big "
 "database)"
 msgstr ""
+"Součet unikátních IP adres v každém dni (pro velké databáze pomalejší než "
+"klasická metoda)"
 
 #: includes/nsp_options.php:420
 msgid "Graph"
@@ -683,73 +693,78 @@ msgid ""
 "informations). You can customize the frequency and the publishing time of "
 "the reports."
 msgstr ""
+"Tato volba umožňuje získávat pravidelné reporty emailem. Můžeš upravit "
+"frekvenci zasílání, případně čas vydání reportu."
 
 #: includes/nsp_options.php:632
 msgid ""
 "Note: WP Cron job need to be operational in aim to schedule Email "
 "Notification."
 msgstr ""
+"Poznámka: Pokud chceš naplánovat emailové notifikace, musí být v provozu WP "
+"Cron."
 
 #: includes/nsp_options.php:633
 msgid ""
 "Mailing address accept only one email address, check is well valid before "
 "reporting issues."
 msgstr ""
+"Poštovní adresa přijímá pouze jednu e-mailovou adresu, kontrola je stejně "
+"platná před hlášením problémů."
 
 #: includes/nsp_options.php:634
 msgid "Notification will be sent at UTC time."
-msgstr ""
+msgstr "Upozornění bude odesláno s časem UTC."
 
 #: includes/nsp_options.php:663
 msgid "Statistics notification is"
-msgstr ""
+msgstr "Upozornění se statistikou je"
 
 #: includes/nsp_options.php:676
 msgid "Disabled"
-msgstr ""
+msgstr "Vypnuto"
 
 #: includes/nsp_options.php:679
 msgid "Enabled"
-msgstr ""
+msgstr "Zapnuto"
 
 #: includes/nsp_options.php:684
 msgid "Event schedule"
-msgstr ""
+msgstr "Naplánovaná událost"
 
 #: includes/nsp_options.php:696
 msgid "Publishing time"
-msgstr ""
+msgstr "Čas zveřejnění"
 
 #: includes/nsp_options.php:698
 msgid "Select"
-msgstr ""
+msgstr "Výběr"
 
 #: includes/nsp_options.php:715
 #, php-format
 msgid "UTC time is %s"
-msgstr ""
+msgstr "UTC čas je %s"
 
 #: includes/nsp_options.php:716
 #, php-format
 msgid "Local time is %s"
-msgstr ""
+msgstr "Místní čas je %s"
 
 #: includes/nsp_options.php:721
-#, fuzzy
 msgid "Mailing address"
-msgstr "Návštěvy IP adres"
+msgstr "Poštovní adresa"
 
 #: includes/nsp_options.php:723
 msgid "Email Test"
-msgstr ""
+msgstr "Test emailu"
 
 #: includes/nsp_options.php:738
 msgid "Enable External API"
-msgstr ""
+msgstr "Povolení externího API"
 
 #: includes/nsp_options.php:742
 msgid "API key"
-msgstr ""
+msgstr "Klíč API"
 
 #: includes/nsp_options.php:744
 msgid ""
@@ -764,6 +779,16 @@ msgid ""
 "itself when are processed AJAX calls for speedup page rendering of queried "
 "data, so you will need to choose an key and activate it."
 msgstr ""
+"Externí přístup k API je postaven tak, aby shromažďoval data z Tvého "
+"Newstatpress pluginu, a to i v jiné aplikaci na webovém serveru (například "
+"můžete zobrazit data týkající se blogu Wordpress nebo Drupal, které pracují "
+"na jiném serveru). Tento klíč umožňí Newstatpressu uvědomit si, že pouze Ty "
+"jsi oprávněná osoba a nebude poskytovat data lidem bez pověření. Necháš-li "
+"vstupní formulář prázdný, znamená to, že každému je umožněn přes API zisk "
+"dat zcela volně. API by mělo být aktivováno s příznakem pole. Uvědom si, že "
+"externí rozhraní API bude také používat pro vlastní potřebu Newstatpress při "
+"zpracování AJAX volání. To je kvůli zrychlení vykreslování stránky z "
+"dotazovaných dat, takže si budeš muset vybrat klíč a aktivovat jej."
 
 #: includes/nsp_options.php:746
 msgid ""
@@ -772,10 +797,14 @@ msgid ""
 "Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, "
 "0-9), length should be between 64 and 128 characters."
 msgstr ""
+"Pro získání dat z NewStartPress pluginu můžete vygenerovat automatický nebo "
+"nastavit manuálně soukromý klíč pro rozhraní API (využito například u Multi-"
+"NewStartPress software) : Dovoleny jsou pouze alfanumerické znaky (A-Z, a-z, "
+"0-9). Délka by měla být mězi 64 a 128 znaky."
 
 #: includes/nsp_options.php:763
 msgid "Generate new API key"
-msgstr ""
+msgstr "Vygeneruj nový API klíč"
 
 #: includes/nsp_options.php:773
 msgid "Save options"
@@ -951,11 +980,11 @@ msgstr "Export"
 
 #: includes/nsp_tools.php:22 includes/nsp_tools.php:776
 msgid "Optimize"
-msgstr ""
+msgstr "Optimalizace"
 
 #: includes/nsp_tools.php:23 includes/nsp_tools.php:808
 msgid "Repair"
-msgstr ""
+msgstr "Oprava"
 
 #: includes/nsp_tools.php:24 includes/nsp_tools.php:163
 #: includes/nsp_tools.php:388
@@ -968,12 +997,12 @@ msgstr "Databázové nástroje"
 
 #: includes/nsp_tools.php:123
 msgid "unknow"
-msgstr ""
+msgstr "neznámý"
 
 #: includes/nsp_tools.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Last version available: %s"
-msgstr "Poslední verze instalována: %s"
+msgstr "Poslední dostupná verze: %s"
 
 #: includes/nsp_tools.php:130
 #, php-format
@@ -999,7 +1028,7 @@ msgstr ""
 
 #: includes/nsp_tools.php:171
 msgid "What is ip2nation?"
-msgstr ""
+msgstr "Co je ip2naion?"
 
 #: includes/nsp_tools.php:173
 msgid ""
@@ -1009,10 +1038,15 @@ msgid ""
 "the link to the left. (see: <a href=\"http://www.ip2nation.com/\">http://www."
 "ip2nation.com</a>)"
 msgstr ""
+"ip2nation je vonlně šiřitelná MySQL databáze, která nabízí rychlou cestu ke "
+"zmapování země vybrané IP adresy. Databáze je optimalizována pro rychlé "
+"vyhledávání založené na informacích z ARIN, APNIC, RIPE atd. .Můžeš "
+"naistalovat databázi odkazem nalevo  (see: <a href=\"http://www.ip2nation."
+"com/\">http://www.ip2nation.com</a>)"
 
 #: includes/nsp_tools.php:176
 msgid "Note: The installation may take some times to complete."
-msgstr ""
+msgstr "Poznámka: Instalace může zabrat nějakou chvilku."
 
 #: includes/nsp_tools.php:220
 msgid "Failure to save content locally, please try to re-install."
@@ -1023,14 +1057,12 @@ msgid "Failure to unzip archive, please try to re-install"
 msgstr "Není možní rozbalit archiv, zkuste, prosím, reinstalovat."
 
 #: includes/nsp_tools.php:240 includes/nsp_tools.php:265
-#, fuzzy
 msgid "Installation of IP2nation database was successful"
 msgstr "Instalace databáze IP2nation byla úspěšná"
 
 #: includes/nsp_tools.php:282
-#, fuzzy
 msgid "IP2nation database was remove successfully"
-msgstr "Instalace databáze IP2nation byla úspěšná"
+msgstr "Odinstalace databáze IP2nation byla úspěšná"
 
 #: includes/nsp_tools.php:294
 msgid "Export stats to text file"
@@ -1065,28 +1097,24 @@ msgid "Remove NewStatPress database"
 msgstr "Smazání NewStatPress databáze"
 
 #: includes/nsp_tools.php:386
-#, fuzzy
 msgid "To remove the Newstatpress database, just click on the button bellow."
 msgstr ""
-"Chcete-li aktualizovat databázi newstatpress, stačí klikněte na tlačítko "
-"níže."
+"Chcete-li odebrat databázi newstatpress, stačí kliknout na tlačítko níže."
 
 #: includes/nsp_tools.php:388
 msgid "Are you sure?"
 msgstr "Jste si jisti?"
 
 #: includes/nsp_tools.php:393
-#, fuzzy
 msgid ""
 "This operation will remove all collected data by NewStatpress. This function "
 "is useful at people who did not want use the plugin any more or who want "
 "simply purge the stored data."
 msgstr ""
-"Je to přidáno pro lidi, kteří nechtějí používat už nikdy tento plugin a "
-"chtějí smazat veškerá data."
+"Tato operace  odebere všechna data.  Toto použij v případě, že již nikdy "
+"nechceš použít tento plugin a chceš smazat veškerá data."
 
 #: includes/nsp_tools.php:397
-#, fuzzy
 msgid "If you have doubt about this function, don't use it."
 msgstr "Pokud pochybujete, že to chcete udělat. Radši to nedělejte."
 
@@ -1112,10 +1140,13 @@ msgid ""
 "definitions data (OS, browser, spider) have been updated. An option in "
 "future will allow an automatic update of the database.."
 msgstr ""
+"Aktualizace databáze je užitečná v případě současné aktualizace dat a "
+"definicí ip2nation (OS, prohlížeč, spider). Tato volba umožní v  budoucnu "
+"aktualizovat databázi automaticky."
 
 #: includes/nsp_tools.php:485
 msgid "Note: The update may take some times to complete."
-msgstr ""
+msgstr "Poznámka: Aktualizace může chvilku zabrat."
 
 #: includes/nsp_tools.php:524
 msgid "Database Update"
@@ -1159,13 +1190,12 @@ msgstr "SQL dotazy"
 
 #: includes/nsp_tools.php:769
 msgid "Optimize table"
-msgstr ""
+msgstr "Optimalizovat tabulku"
 
 #: includes/nsp_tools.php:770
-#, fuzzy
 msgid "To optimize the statpress table, just click on the button bellow."
 msgstr ""
-"Chcete-li aktualizovat databázi newstatpress, stačí klikněte na tlačítko "
+"Chcete-li aktualizovat databázi newstatpress, stačí kliknout na tlačítko "
 "níže."
 
 #: includes/nsp_tools.php:780
@@ -1173,6 +1203,8 @@ msgid ""
 "Optimize a table is an database operation that can free some server space if "
 "you had lot of delation (like with prune activated) in it."
 msgstr ""
+"Optimalizace tabulky uvolní místo na serveru, obzvláště v případech velých "
+"prodlev."
 
 #: includes/nsp_tools.php:783 includes/nsp_tools.php:815
 msgid ""
@@ -1180,30 +1212,30 @@ msgid ""
 "processing (depending on your database size). So so use it only if you know "
 "what you are doing."
 msgstr ""
+"Pozor, tato operace zabere hodně času (závisí na velikosti databáze). Takže "
+"to udělej jen pokud víš, co děláš."
 
 #: includes/nsp_tools.php:801
 msgid "Repair table"
-msgstr ""
+msgstr "Oprav tabulku"
 
 #: includes/nsp_tools.php:802
-#, fuzzy
 msgid ""
 "To repair the statpress table if damaged, just click on the button bellow."
 msgstr ""
-"Chcete-li aktualizovat databázi newstatpress, stačí klikněte na tlačítko "
-"níže."
+"Chcete-li opravit databázi newstatpress, stačí kliknout na tlačítko níže."
 
 #: includes/nsp_tools.php:812
 msgid "Repair is an database operation that can fix a corrupted table."
-msgstr ""
+msgstr "Oprava může pomoci napravit poškozenou tabulku."
 
 #: includes/nsp_tools.php:826
 msgid "Optimization finished"
-msgstr ""
+msgstr "Optimalizace dokončena"
 
 #: includes/nsp_tools.php:834
 msgid "Repair finished"
-msgstr ""
+msgstr "Oprava dokončena"
 
 #: includes/nsp_visits.php:12
 msgid "Last visitors"
@@ -1248,7 +1280,7 @@ msgstr "Stránky"
 msgid ""
 "ERROR: This plugin requires WordPress and will not function if called "
 "directly."
-msgstr ""
+msgstr "CHYBA: Tento plugin vyžaduje WordPress a bez toho nebude fungovat."
 
 #: newstatpress.php:89
 msgid "Today visits"
@@ -1263,9 +1295,8 @@ msgid "Month visits"
 msgstr "Mesíční návštěvy"
 
 #: newstatpress.php:92
-#, fuzzy
 msgid "Week visits"
-msgstr "Včerejší návštěvy"
+msgstr "Týdení návštěvy"
 
 #: newstatpress.php:93
 msgid "Total visits"
@@ -1321,6 +1352,8 @@ msgid ""
 "Plugin %s deactivated. WordPress Version %s required. Please upgrade "
 "WordPress to the latest version."
 msgstr ""
+"Plugin %s není aktivní. Je třeba WordPress %s. Aktualizuj WP na nejnovější "
+"verzi."
 
 #: newstatpress.php:263
 msgid "Tools"
@@ -1329,12 +1362,12 @@ msgstr "Nástroje"
 #: newstatpress.php:396
 #, php-format
 msgid "Visits statistics from [%s]"
-msgstr ""
+msgstr "Návštěvní statistiky od [%s]"
 
 #: newstatpress.php:398
 #, php-format
 msgid "This is a test from [%s]"
-msgstr ""
+msgstr "Toto je test od [%s]"
 
 #: newstatpress.php:406
 msgid "support page"
@@ -1349,6 +1382,8 @@ msgid ""
 "If you have found this plugin useful and you like it, thank you to take a "
 "moment to rate it."
 msgstr ""
+"Pokud se ti zdá, že je plugin užitečný a líbí se Ti, udělej si chvilku a "
+"ohodnoť ho."
 
 #: newstatpress.php:412
 msgid ""
@@ -1356,38 +1391,45 @@ msgid ""
 "can also consider a donation to support further work, directly on the plugin "
 "website or through the plugin (Credits Page)."
 msgstr ""
+"NewStatPress je poskytován zdarma a je udržován pouze ve volném čase autorů. "
+"Naši další práci můžeš podpořit drobným příspěvkem přímo na stránkách "
+"pluginu."
 
 #: newstatpress.php:414
 msgid ""
 "This option is yet experimental, please report bugs or improvement (see link "
 "on the bottom)"
 msgstr ""
+"Tato volba je prozatím experimetální, prosím dej nám vědět v případě chyby "
+"nebo nápadů na zlepšení."
 
 #: newstatpress.php:415
 msgid ""
 "You receive this email because you have enabled the statistics notification "
 "in the NewStatpress plugin (option menu) from your WP website "
 msgstr ""
+"Dostal jsi tento email, protože jsi povolil notifikace o statistikách v "
+"NewStatePlugin na Tvých WP stránkách."
 
 #: newstatpress.php:416
 msgid "Dear"
-msgstr ""
+msgstr "Drahý"
 
 #: newstatpress.php:420
 msgid "Statistics at"
-msgstr ""
+msgstr "Statistiky na"
 
 #: newstatpress.php:420
 msgid "server time"
-msgstr ""
+msgstr "čas serveru"
 
 #: newstatpress.php:422
 msgid "Best Regards from"
-msgstr ""
+msgstr "S pozdravem od"
 
 #: newstatpress.php:500
 msgid "Settings"
-msgstr ""
+msgstr "Nastavení"
 
 #: newstatpress.php:1276
 msgid "Title:"
