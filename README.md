@@ -15,7 +15,6 @@
 - [ ] Generate external API interfaces
 - [ ] Add 'version' in external API
 - [ ] OPTIMIZATION : Serialize some NewStatPress options
-- [ ] export data to PDF
 
 
 - [ ] Add dialog box 'database update' when plugin is updated
@@ -24,19 +23,32 @@
 - [ ] Add database migration -> nsp_database (unique name)
 - [ ] Export database > dump sql (bkp)
 
-## 1.1.8
+## 1.1.9
 *Released date: 2016-03-31*
 
 - [ ] Change overview loading: used the external api
 - [ ] Add monthly overview
 - [ ] Add number of visitors online in the overview page
 
-## 1.1.7
-*Released date: 2016-02-*
+## 1.1.8
+*Released date: 2016-03-*
 - [ ] Add 'from' option in email notification tab
 - [ ] Change the email notification activation control (according enabled/disabled)
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
+- [ ] Add pickaday for export function
+- [ ] Add option (limit results) for export function (for small memory server)
+- [ ] Add SQL format for export function
+- [ ] Add export data to PDF for export function
+
+
+## 1.1.7
+*Released date: 2016-02-*
+- [x] Added Icons on database tools
 - [x] Update CZ translation thanks to Petr Janda
+- [ ] Update FR translation
+- [x] Fix Export misfunction in database tools ('right' issue)
+- [x] Fix Export misfunction in database tools ('date' issue)
+
 
 ## 1.1.6
 *Released date: 2016-02-23
