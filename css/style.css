@@ -224,6 +224,11 @@ table.table-option td:first-child {
 }
 
 .tabmail:before,
+.tabexport:before,
+.tabupdate:before,
+.tabremove:before,
+.tabrepair:before,
+.taboptimize:before,
 .tabdata:before,
 .tabapi:before {
 
@@ -263,6 +268,22 @@ line-height: 0.5em;
 }
 .table-databaseupdate {
   width: 60%;
+}
+/*tool*/
+.tabexport:before {
+  content: "\f498";
+}
+.tabupdate:before {
+  content: "\f463";
+}
+.tabremove:before {
+  content: "\f182";
+}
+.taboptimize:before {
+  content: "\f311";
+}
+.tabrepair:before {
+  content: "\f107";
 }
 /*.dash-option {
   line-height: 0;
