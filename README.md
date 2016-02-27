@@ -45,9 +45,9 @@
 *Released date: 2016-02-*
 - [x] Added Icons on database tools
 - [x] Update CZ translation thanks to Petr Janda
-- [ ] Update FR translation
-- [x] Fix Export misfunction in database tools ('right' issue)
-- [x] Fix Export misfunction in database tools ('date' issue)
+- [x] Update FR translation
+- [x] Fix Export dysfunction in database tools ('right' issue)
+- [x] Fix Export dysfunction in database tools ('date' issue)
 
 
 ## 1.1.6
