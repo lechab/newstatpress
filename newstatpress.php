@@ -4,7 +4,7 @@
  Plugin URI: http://newstatpress.altervista.org
  Text Domain: newstatpress
  Description: Real time stats for your Wordpress blog
- Version: 1.1.6
+ Version: 1.1.7
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
@@ -16,7 +16,7 @@ if( !defined( 'ABSPATH' ) ) {
 	die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-$_NEWSTATPRESS['version']='1.1.6';
+$_NEWSTATPRESS['version']='1.1.7';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir,
@@ -150,6 +150,28 @@ function nsp_UpdateCheck() {
 add_action( 'admin_init', 'nsp_UpdateCheck' );
 
 /**
+ * Check and Export if capability of user allow that
+ * need here due to header change
+ * Updated by cHab
+ *
+ ***************************************************/
+function nsp_checkExport() {
+	global $nsp_option_vars;
+	global $current_user;
+	get_currentuserinfo();
+  if (isset($_GET['newstatpress_action']) && $_GET['newstatpress_action'] == 'exportnow') {
+		$tools_capability=get_option('newstatpress_menutools_cap') ;
+		if(!$tools_capability) //default value
+			$tools_capability=$nsp_option_vars['menutools_cap']['value'];
+		if ( user_can( $current_user, $tools_capability ) ) {
+			require ('includes/nsp_tools.php');
+    	nsp_ExportNow();
+  	}
+	}
+}
+add_action('init','nsp_checkExport');
+
+/**
  * Installation time update of the plugin
  * Added by cHab
  *
@@ -201,12 +223,6 @@ function nsp_Activation($arg='') {
 
  if (is_admin()) { //load dashboard and extra functions
    require ('includes/nsp_functions-extra.php');
-  //  require ('includes/nsp_credits.php');
-  //  require ('includes/nsp_tools.php');
-  //  require ('includes/nsp_options.php');
-  //  require ('includes/nsp_visits.php');
-  //  require ('includes/nsp_details.php');
-  //  require ('includes/nsp_search.php');
    require ('includes/nsp_dashboard.php');
 
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );

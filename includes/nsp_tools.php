@@ -297,11 +297,11 @@ function nsp_Export() {
     <table>
       <tr>
         <td><?php _e('From:','newstatpress'); ?> </td>
-        <td><input type=text size=10 maxlength=8 =from placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+        <td><input type="text" size="10" maxlength="8" name="from" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
       </tr>
       <tr>
         <td><?php _e('To:','newstatpress'); ?> </td>
-        <td><input type=text size=10 maxlength=8 name=to placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+        <td><input type="text" size="10" maxlength="8" name="to" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
       </tr>
     </table>
     <table>
@@ -310,7 +310,7 @@ function nsp_Export() {
         <td><select name=del>
           <option>,</option>
           <option>tab</option>
-          <option>;</option>
+          <option selected>;</option>
           <option>|</option></select>
       </tr>
     </table>
@@ -320,22 +320,6 @@ function nsp_Export() {
   </div>
 <?php
 }
-
-
-/**
- * Check and Export if capability of user allow that
- *
- ***************************************************/
-function nsp_checkExport() {
-  if (isset($_GET['newstatpress_action']) && $_GET['newstatpress_action'] == 'exportnow') {
-    $mincap=get_option('newstatpress_mincap');
-    if ($mincap == '') $mincap = "level_8";
-    if ( current_user_can( $mincap ) ) {
-      nsp_ExportNow();
-    }
-  }
-}
-add_action('init','nsp_checkExport');
 
 /**
  * Export the NewStatPress data
