@@ -145,7 +145,7 @@ Check at http://newstatpress.altervista.org
 == Changelog ==
 
 = 1.1.7 =
-*Released date: 2016-02-*
+*Released date: 2016-02-28
 
 * Added Icons on database tools
 * Update CZ translation thanks to Petr Janda
