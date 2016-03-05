@@ -200,11 +200,20 @@ function nsp_Activation($arg='') {
 
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
+
+	 $style_path2=plugins_url('./css/pikaday.css', __FILE__);
+
+	 wp_register_style('pikaday', $style_path2);
+   wp_enqueue_style('pikaday');
+
    wp_enqueue_style( 'NewStatPressStyles', get_stylesheet_uri(), array( 'dashicons' ), '1.0' );
 
 
    // JS and jQuery
-   $scripts=array('idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
+   $scripts=array('jQuery'=>plugins_url('./js/jquery.min.js', __FILE__),
+		 							'idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
+									'moment'=>plugins_url('./js/moment.min.js', __FILE__),
+									'pikaday'=>plugins_url('./js/pikaday.js', __FILE__),
                   'NewStatPressJs'=>plugins_url('./js/nsp_general.js', __FILE__));
    foreach($scripts as $key=>$sc)
    {
