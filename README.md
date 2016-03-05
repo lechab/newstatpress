@@ -35,11 +35,10 @@
 - [ ] Add 'from' option in email notification tab
 - [ ] Change the email notification activation control (according enabled/disabled)
 - [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
-- [ ] Add pickaday for export function
+- [x] Add pickaday for export function (https://github.com/dbushell/Pikaday)
 - [ ] Add option (limit results) for export function (for small memory server)
 - [ ] Add SQL format for export function
 - [ ] Add export data to PDF for export function
-
 
 ## 1.1.7
 *Released date: 2016-02-*
