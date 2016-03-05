@@ -2,8 +2,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Newstatpress 1.1.7\n"
 "Report-Msgid-Bugs-To: \n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2016-02-28 00:54+0100\n"
 "PO-Revision-Date: 2016-02-28 11:30+0100\n"
+=======
+"POT-Creation-Date: 2016-01-17 14:02+0100\n"
+"PO-Revision-Date: 2016-02-28 09:55+0100\n"
+>>>>>>> 54ccb669d9db36256de8ced1eb31ed2d3c2937c7
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: cHab\n"
 "Language: es_ES\n"

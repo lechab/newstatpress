@@ -41,7 +41,7 @@
 - [ ] Add export data to PDF for export function
 
 ## 1.1.7
-*Released date: 2016-02-*
+*Released date: 2016-02-28
 - [x] Added Icons on database tools
 - [x] Update CZ translation thanks to Petr Janda
 - [x] Update FR translation
