@@ -14,6 +14,7 @@ function nsp_DisplayCreditsPage() {
   $page='nsp_credits';
 
   $CreditsPage_tabs = array( 'development' => __('Development','newstatpress'),
+                             'ressources' => __('Ressources','newstatpress'),
                              'translation' => __('Translation','newstatpress'),
                              'donation' => __('Donation','newstatpress')
   );
@@ -63,6 +64,19 @@ function nsp_DisplayCreditsPage() {
           </tr>
         </thead>
         <tbody id="addresses"></tbody>
+      </table>
+    </div>
+
+    <!-- tab 'ressources' -->
+    <div id='ressources'>
+      <table class='credit'>
+        <thead>
+          <tr>
+            <th class='cell-l'><?php _e('Ressources','newstatpress'); ?></th>
+            <th class='cell-r'><?php _e('Description','newstatpress'); ?></th>
+          </tr>
+        </thead>
+        <tbody id="ressource"></tbody>
       </table>
     </div>
 
