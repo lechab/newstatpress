@@ -28,6 +28,8 @@ if ($("#pagecredits").length) {
   });
 }
 
+
+
   // Options Page > Mail Notification tab
   setTimeout(function() {
      $('#mailsent').fadeOut();
@@ -37,6 +39,38 @@ if ($("#pagecredits").length) {
 
    $( "#close" ).click(function() {
      $('#nspnotice').fadeOut();
+   });
+
+   // --- picker date
+   var pickerfrom = new Pikaday({
+           field: document.getElementById('datefrom'),
+           format: 'YYYYMMDD',
+           onSelect: function() {
+   							pickerfrom.gotoToday();
+           },
+   				onClose: function() {
+   					//$( "#date_report" ).text( this.getMoment().format('DD/MM/YYYY') );
+             datefilename=this.getMoment().format('YYYYMMDD');
+ 				  }
+   });
+
+   var pickerto = new Pikaday({
+           field: document.getElementById('dateto'),
+           format: 'YYYYMMDD',
+           i18n: {
+                 previousMonth : 'Mois précédent',
+                 nextMonth     : 'Mois suivant',
+                 months        : ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'],
+                 weekdays      : ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+                 weekdaysShort : ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']
+           },
+           onSelect: function() {
+                 pickerto.gotoToday();
+           },
+           onClose: function() {
+             //$( "#date_report" ).text( this.getMoment().format('DD/MM/YYYY') );
+             //datefilename=this.getMoment().format('YYYYMMDD');
+           }
    });
 
   //  $('#myoptions').get(0).reset();

@@ -297,11 +297,15 @@ function nsp_Export() {
     <table>
       <tr>
         <td><?php _e('From:','newstatpress'); ?> </td>
-        <td><input type="text" size="10" maxlength="8" name="from" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+        <td>
+          <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+          <input id="datefrom" type="text" size="10" maxlength="8" name="from" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
       </tr>
       <tr>
         <td><?php _e('To:','newstatpress'); ?> </td>
-        <td><input type="text" size="10" maxlength="8" name="to" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+        <td><input id="dateto" type="text" size="10" maxlength="8" name="to" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
       </tr>
     </table>
     <table>
