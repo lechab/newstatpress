@@ -19,10 +19,20 @@ if ($("#pagecredits").length) {
 
    });
   });
+  $.getJSON('../wp-content/plugins/newstatpress/includes/json/ressources.json', function(data) {
+   $.each(data.ressources, function(keyp, valp) {
+     var row="<tr>"+
+             "<td class='cell-l'>" + valp.ref + "</td>\n" +
+             "<td class='cell-r'>" + valp.description + "</td>\n" +
+             "<td class='cell-r'><a href=\"" + valp.website + "\">" + valp.website + "</a></td>\n" +
+             "</tr>\n";
+     $(row).appendTo("#ressourceslist");
+   });
+  });
   $.getJSON('../wp-content/plugins/newstatpress/includes/json/donation.json', function(data) {
    $.each(data.donation, function(keyp, valp) {
-     var donator="<tr>\n<td class='cell-l'>" + valp.donator + "</td>\n<td class='cell-r'>" + valp.date + "</td>\n</tr>\n";
-     $(donator).appendTo("#donatorlist");
+     var row="<tr>\n<td class='cell-l'>" + valp.donator + "</td>\n<td class='cell-r'>" + valp.date + "</td>\n</tr>\n";
+     $(row).appendTo("#donatorlist");
 
    });
   });
