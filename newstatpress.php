@@ -478,7 +478,7 @@ function nsp_stat_by_email($arg='') {
              <br />
              -- <br />
              $credits_introduction";
-  $headers = 'From: NewStatPress <newstatprss@altervista.org>' . "\r\n";
+  $headers = 'From: NewStatPress <newstatpress@altervista.org>' . "\r\n";
   $email_confirmation = wp_mail($email_address, $subject, $message, $headers);
 
   remove_filter('wp_mail_content_type','nsp_Set_mail_content_type');
