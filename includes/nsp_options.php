@@ -632,6 +632,7 @@ function nsp_Options() {
           $option_description2=__('Note: WP Cron job need to be operational in aim to schedule Email Notification.',nsp_TEXTDOMAIN);
           $mailaddress_description=__('Mailing address accept only one email address, check is well valid before reporting issues.',nsp_TEXTDOMAIN);
           $timepublishing_description=__('Notification will be sent at UTC time.',nsp_TEXTDOMAIN);
+          $from_description=__('Sender could be personalized accordin your need (by default : \'NewStatPress\').',nsp_TEXTDOMAIN);
 
           $time_format = 'H:i:s';
 
@@ -716,6 +717,14 @@ function nsp_Options() {
             <span id="local-time"><?php printf( esc_html__( 'Local time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format ) ) . '</code>' ); ?></span>
           </p>
           <p class="description option_list"><?php echo $timepublishing_description ?></p>
+
+          <p class='option_list'>
+            <label for='newstatpress_mail_notification_emailaddress'><?php _e('Sender (From)',nsp_TEXTDOMAIN)?>&nbsp;:
+              <input id="mail_address" class='left' type='email' name='newstatpress_mail_notification_emailaddress' value='<?php echo $email; ?>' size=20 maxlength=60 />
+              <p class="description option_list"><?php echo $from_description ?></p>
+            </label>
+            <input type=hidden name='newstatpress_mail_notification_info' value=<?php $current_user = wp_get_current_user(); echo $current_user->display_name;?> />
+          </p>
 
           <p class='option_list'>
             <label for='newstatpress_mail_notification_emailaddress'><?php _e('Mailing address',nsp_TEXTDOMAIN)?>&nbsp;:
