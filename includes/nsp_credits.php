@@ -56,6 +56,7 @@ function nsp_DisplayCreditsPage() {
 
     <!-- tab 'development' -->
     <div id='development'>
+      <p class="dev_intro"><?php _e('This plugin is a fork of','newstatpress'); ?><span>Statpress</span> plugin, originaly develop by <span>Daniele Lippi</span> and not anymore maintened.</p>
       <table class='credit'>
         <thead>
           <tr>
@@ -72,11 +73,12 @@ function nsp_DisplayCreditsPage() {
       <table class='credit'>
         <thead>
           <tr>
-            <th class='cell-l'><?php _e('Ressources','newstatpress'); ?></th>
+            <th class='cell-l'><?php _e('Reference','newstatpress'); ?></th>
             <th class='cell-r'><?php _e('Description','newstatpress'); ?></th>
+            <th class='cell-r'><?php _e('Website','newstatpress'); ?></th>
           </tr>
         </thead>
-        <tbody id="ressource"></tbody>
+        <tbody id="ressourceslist"></tbody>
       </table>
     </div>
 
