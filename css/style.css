@@ -302,7 +302,9 @@ line-height: 0.5em;
 
 
 
-
+.dev_intro span {
+  font-weight: 500;
+}
 
 .form-tableH p {
   font-size: 14px;
