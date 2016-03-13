@@ -1601,8 +1601,6 @@ function nsp_MakeOverview($print ='dashboard') {
 
     $calculated_result=nsp_CalculateVariation($qry_tmonth->$row, $qry_lmonth->$row);
 
-
-		// foreach ($overview_rows as $row) {
 			switch($row) {
 
 				case 'visitors' :
@@ -1622,8 +1620,7 @@ function nsp_MakeOverview($print ='dashboard') {
 												$qry_total->$row=$qry_total->$row+$offsets['pageviewfeeds'];
 												break;
 			}
-		// }
-		$qry_total_and_offset=$qry_total->$row+$offsets['alltotalvisits'];
+
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>$row_title</td>";
     if ($print=='main')

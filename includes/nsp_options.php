@@ -442,7 +442,7 @@ function nsp_Options() {
             $name=$nsp_option_vars['stats_offsets']['name'];
             $val=get_option($name);
 
-            print_r($val);
+            //print_r($val);
             $alltotalvisits	= empty( $val['alltotalvisits'] ) ? 0 : $val['alltotalvisits'];
             $visitorsfeeds	= empty( $val['visitorsfeeds'] ) ? 0 : $val['visitorsfeeds'];
             $pageviews	= empty( $val['pageviews'] ) ? 0 : $val['pageviews'];
