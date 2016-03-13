@@ -82,7 +82,8 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'mail_notification_address'=>array('name'=>'newstatpress_mail_notification_emailaddress','value'=>''),
                         'mail_notification_time'=>array('name'=>'newstatpress_mail_notification_time','value'=>''),
                         'mail_notification_info'=>array('name'=>'newstatpress_mail_notification_info','value'=>''),
-                        'settings'=>array('name'=>'newstatpress_settings','value'=>'')
+                        'settings'=>array('name'=>'newstatpress_settings','value'=>''),
+												'stats_offsets'=>array('name'=>'newstatpress_stats_offsets','value'=>'0')
                       );
 
 $nsp_widget_vars=array( // list of widget variables name, with description associated
@@ -1453,7 +1454,9 @@ function nsp_MakeOverview($print ='dashboard') {
   $table_name = nsp_TABLENAME;
 
   $overview_table='';
-
+	global $nsp_option_vars;
+	$offsets = get_option($nsp_option_vars['stats_offsets']['name']);
+	//$offsets['alltotalvisits']=1000;
   // $since = NewStatPress_Print('%since%');
   $since = nsp_ExpandVarsInsideCode('%since%');
   $lastmonth = nsp_Lastmonth();
@@ -1598,10 +1601,33 @@ function nsp_MakeOverview($print ='dashboard') {
 
     $calculated_result=nsp_CalculateVariation($qry_tmonth->$row, $qry_lmonth->$row);
 
+
+		// foreach ($overview_rows as $row) {
+			switch($row) {
+
+				case 'visitors' :
+												$qry_total->$row=$qry_total->$row+$offsets['alltotalvisits'];
+												break;
+				case 'visitors_feeds' :
+												$qry_total->$row=$qry_total->$row+$offsets['visitorsfeeds'];
+												break;
+				case 'pageview' :
+												$qry_total->$row=$qry_total->$row+$offsets['pageviews'];
+												break;
+
+				case 'spiders' :
+												$qry_total->$row=$qry_total->$row+$offsets['spy'];
+												break;
+				case 'feeds' :
+												$qry_total->$row=$qry_total->$row+$offsets['pageviewfeeds'];
+												break;
+			}
+		// }
+		$qry_total_and_offset=$qry_total->$row+$offsets['alltotalvisits'];
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>$row_title</td>";
     if ($print=='main')
-      $overview_table.="<td class='colc'>".$qry_total->$row."</td>\n";
+      	$overview_table.="<td class='colc'>".$qry_total->$row."</td>\n";
     if ($print=='main')
       $overview_table.="<td class='colc'>".$qry_tyear->$row."</td>\n";
     $overview_table.="<td class='colc'>".$qry_lmonth->$row."</td>\n";

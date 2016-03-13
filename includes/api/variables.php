@@ -12,8 +12,8 @@ $var = $_REQUEST["VAR"];
 global $wpdb;
 global $nsp_option_vars;
 $table_name = $wpdb->prefix . "statpress";
-
-
+$offsets = get_option($nsp_option_vars['stats_offsets']['name']);
+$offsets['alltotalvisits']=1000;
 // test all vars
 if ($var=='alltotalvisits') {
   $qry = $wpdb->get_results(
@@ -25,7 +25,7 @@ if ($var=='alltotalvisits') {
     urlrequested!='';
    ");
    if ($qry != null) {
-     echo $qry[0]->pageview;
+     echo $qry[0]->pageview+1000;
    }
 } elseif ($var=='visits') {
     $qry = $wpdb->get_results(
@@ -37,7 +37,7 @@ if ($var=='alltotalvisits') {
       ");
    if ($qry != null) {
      echo $qry[0]->pageview;
-   } 
+   }
 } elseif ($var=='yvisits') {
     $qry = $wpdb->get_results(
       "SELECT count(DISTINCT(ip)) AS pageview
@@ -48,7 +48,7 @@ if ($var=='alltotalvisits') {
       ");
    if ($qry != null) {
      echo $qry[0]->pageview;
-   }  
+   }
 } elseif ($var=='mvisits') {
     if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
       $qry = $wpdb->get_results(
@@ -84,16 +84,16 @@ if ($var=='alltotalvisits') {
            spider='' and feed=''
           GROUP BY DATE
          ) AS pageview;
-          ");              
-    } else {    
+          ");
+    } else {
         $qry = $wpdb->get_results(
           "SELECT count(DISTINCT(ip)) AS pageview
            FROM $table_name
            WHERE
              YEARWEEK (date) = YEARWEEK( CURDATE()) AND
              spider='' and feed='';
-          ");  
-      }    
+          ");
+      }
    if ($qry != null) {
      echo $qry[0]->pageview;
    }
@@ -108,8 +108,8 @@ if ($var=='alltotalvisits') {
            feed=''
           GROUP BY DATE
          ) AS pageview;
-          ");         
-    } else { 
+          ");
+    } else {
       $qry = $wpdb->get_results(
         "SELECT count(DISTINCT(ip)) AS pageview
          FROM $table_name
@@ -117,7 +117,7 @@ if ($var=='alltotalvisits') {
            spider='' AND
            feed='';
         ");
-      }        
+      }
    if ($qry != null) {
      echo $qry[0]->pageview;
    }
@@ -128,7 +128,7 @@ if ($var=='alltotalvisits') {
        WHERE
          spider='' AND
          feed='';
-      ");  
+      ");
    if ($qry != null) {
      echo $qry[0]->pageview;
    }
@@ -140,7 +140,7 @@ if ($var=='alltotalvisits') {
          date = '".gmdate("Ymd",current_time('timestamp'))."' AND
          spider='' AND
          feed='';
-      ");  
+      ");
    if ($qry != null) {
      echo $qry[0]->pageview;
    }
@@ -157,7 +157,7 @@ if ($var=='alltotalvisits') {
       ");
    if ($qry != null) {
      echo $qry[0]->pageview;
-   }  
+   }
 } elseif ($var=='monthtotalpageviews'){
     $qry = $wpdb->get_results(
       "SELECT count(id) AS pageview
@@ -172,7 +172,7 @@ if ($var=='alltotalvisits') {
 } elseif ($var=='widget_topposts') {
     $limit = intval($_REQUEST["LIMIT"]);
     $showcounts = $_REQUEST["FLAG"];
-    
+
     $res="\n<ul>\n";
     $qry = $wpdb->get_results(
       "SELECT urlrequested,count(*) as totale
@@ -191,7 +191,4 @@ if ($var=='alltotalvisits') {
    echo "$res</ul>\n";
 }
 
-?> 
-
-
-
+?>

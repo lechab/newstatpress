@@ -432,6 +432,47 @@ function nsp_Options() {
 
             $option_title=sprintf(__('Elements in Overview (default %d)',nsp_TEXTDOMAIN), $nsp_option_vars['overview']['value']);
             nsp_PrintRowInput($option_title,$nsp_option_vars['overview'],$input_size,$input_maxlength);
+
+            echo "<tr><th scope='row' rowspan='1'>".__("Statistics offsets (Total visits)",nsp_TEXTDOMAIN)."</th></tr>";
+
+            // input parameters
+            $input_size='10';
+            $input_maxlength='10';
+            $option_title=__('Total visits',nsp_TEXTDOMAIN);
+            $name=$nsp_option_vars['stats_offsets']['name'];
+            $val=get_option($name);
+
+            print_r($val);
+            $alltotalvisits	= empty( $val['alltotalvisits'] ) ? 0 : $val['alltotalvisits'];
+            $visitorsfeeds	= empty( $val['visitorsfeeds'] ) ? 0 : $val['visitorsfeeds'];
+            $pageviews	= empty( $val['pageviews'] ) ? 0 : $val['pageviews'];
+            $pageviewfeeds	= empty( $val['pageviewfeeds'] ) ? 0 : $val['pageviewfeeds'];
+            $spy	= empty( $val['spy'] ) ? 0 : $val['spy'];
+
+            echo "<tr><td><label for=\"".$name."[alltotalvisits]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[alltotalvisits]\" value=\"".$alltotalvisits;
+            echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+
+            $option_title=__('Visitors through Feeds','newstatpress');
+            echo "<tr><td><label for=\"".$name."[visitorsfeeds]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[visitorsfeeds]\" value=\"".$visitorsfeeds;
+            echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+
+            $option_title=__('Pageviews','newstatpress');
+            echo "<tr><td><label for=\"".$name."[pageviews]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[pageviews]\" value=\"".$pageviews;
+            echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+
+            $option_title=__('Pageviews through Feeds','newstatpress');
+            echo "<tr><td><label for=\"".$name."[pageviewfeeds]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[pageviewfeeds]\" value=\"".$pageviewfeeds;
+            echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+
+            $option_title=__('Spiders','newstatpress');
+            echo "<tr><td><label for=\"".$name."[spy]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[spy]\" value=\"".$spy;
+            echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+
           ?>
         </table>
       </div>
