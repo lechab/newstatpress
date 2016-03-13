@@ -438,7 +438,6 @@ function nsp_Options() {
             // input parameters
             $input_size='10';
             $input_maxlength='10';
-            $option_title=__('Total visits',nsp_TEXTDOMAIN);
             $name=$nsp_option_vars['stats_offsets']['name'];
             $val=get_option($name);
 
@@ -449,6 +448,7 @@ function nsp_Options() {
             $pageviewfeeds	= empty( $val['pageviewfeeds'] ) ? 0 : $val['pageviewfeeds'];
             $spy	= empty( $val['spy'] ) ? 0 : $val['spy'];
 
+            $option_title=__('Visitors','newstatpress');
             echo "<tr><td><label for=\"".$name."[alltotalvisits]\">".$option_title."</label></td>\n";
             echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[alltotalvisits]\" value=\"".$alltotalvisits;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
@@ -472,9 +472,9 @@ function nsp_Options() {
             echo "<tr><td><label for=\"".$name."[spy]\">".$option_title."</label></td>\n";
             echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[spy]\" value=\"".$spy;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
-
           ?>
         </table>
+        <br />
       </div>
 
       <!-- tab 'data' -->

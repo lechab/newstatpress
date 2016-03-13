@@ -12,8 +12,15 @@ $var = $_REQUEST["VAR"];
 global $wpdb;
 global $nsp_option_vars;
 $table_name = $wpdb->prefix . "statpress";
-$offsets = get_option($nsp_option_vars['stats_offsets']['name']);
-$offsets['alltotalvisits']=1000;
+
+
+//$offsets = get_option($nsp_option_vars['stats_offsets']['name']);
+// $offsets['alltotalvisits'];
+// $offsets['visitorsfeeds'];
+// $offsets['pageviews'];
+// $offsets['spy'];
+// $offsets['pageviewfeeds'];
+
 // test all vars
 if ($var=='alltotalvisits') {
   $qry = $wpdb->get_results(
@@ -25,7 +32,7 @@ if ($var=='alltotalvisits') {
     urlrequested!='';
    ");
    if ($qry != null) {
-     echo $qry[0]->pageview+1000;
+     echo $qry[0]->pageview;
    }
 } elseif ($var=='visits') {
     $qry = $wpdb->get_results(
