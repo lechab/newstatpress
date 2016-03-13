@@ -1328,7 +1328,7 @@ function nsp_WidgetInit($args) {
      // the form
     echo "<p>
             <label for='newstatpress-title'>". __('Title:', 'newstatpress') ."</label>
-            <input class='widget-title' id='newstatpress-title' name='newstatpress-title' type='text' value=$title />
+            <input class='widget-title' id='newstatpress-title' name='newstatpress-title' type='text' value='$title' />
           </p>
           <p>
             <label for='newstatpress-body'>". _e('Body:', 'newstatpress') ."</label>
