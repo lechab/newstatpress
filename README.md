@@ -40,6 +40,7 @@
 - [ ] Add option (limit results) for export function (for small memory server)
 - [ ] Add SQL format for export function
 - [ ] Add export data to PDF for export function
+- [x] Fix title with spaces visualization in widget
 
 ## 1.1.7
 *Released date: 2016-02-28
