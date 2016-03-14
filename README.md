@@ -22,6 +22,9 @@
 - [ ] Add JS/Jquery on 'overview' page
 - [ ] Add database migration -> nsp_database (unique name)
 - [ ] Export database > dump sql (bkp)
+- [ ] Add option (limit results) for export function (for small memory server)
+- [ ] Add SQL format for export function
+- [ ] Add export data to PDF for export function
 
 ## 1.1.9
 *Released date: 2016-03-31*
@@ -29,17 +32,15 @@
 - [ ] Change overview loading: used the external api
 - [ ] Add monthly overview
 - [ ] Add number of visitors online in the overview page
+- [ ] Change the email notification activation control (according enabled/disabled)
+
 
 ## 1.1.8
 *Released date: 2016-03-*
-- [ ] Add 'from' option in email notification tab
-- [ ] Change the email notification activation control (according enabled/disabled)
-- [ ] Add option for adding a fixed number of visits for how before use another statistic plugin
+- [x] Add 'from' option in email notification tab
+- [x] Add option for adding a fixed number of visits for how before use another statistic plugin
 - [x] Add pickaday for export function (https://github.com/dbushell/Pikaday)
-- [x] Add ressources tab in 
-- [ ] Add option (limit results) for export function (for small memory server)
-- [ ] Add SQL format for export function
-- [ ] Add export data to PDF for export function
+- [x] Add ressources tab in Credits page
 - [x] Fix title with spaces visualization in widget
 
 ## 1.1.7
