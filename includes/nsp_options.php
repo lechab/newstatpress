@@ -695,6 +695,13 @@ function nsp_Options() {
             $current_user = wp_get_current_user();
             $email=$current_user->user_email;
           }
+          $name=$nsp_option_vars['mail_notification_sender']['name'];
+          $sender=get_option($name);
+          if($sender=='')
+        	 $sender=$nsp_option_vars['mail_notification_sender']['value'];
+
+        //  (get_option($nsp_option_vars['name'])=='') ? $sender=$nsp_option_vars['value']:$sender=get_option($nsp_option_vars['name']);
+
         ?>
 
         <p><?php echo $option_description ?></p>
@@ -760,8 +767,8 @@ function nsp_Options() {
           <p class="description option_list"><?php echo $timepublishing_description ?></p>
 
           <p class='option_list'>
-            <label for='newstatpress_mail_notification_emailaddress'><?php _e('Sender (From)',nsp_TEXTDOMAIN)?>&nbsp;:
-              <input id="mail_address" class='left' type='email' name='newstatpress_mail_notification_emailaddress' value='<?php echo $email; ?>' size=20 maxlength=60 />
+            <label for='newstatpress_mail_notification_sender'><?php _e('Sender (From)',nsp_TEXTDOMAIN)?>&nbsp;:
+              <input id="sender" class='left' type='text' name='newstatpress_mail_notification_sender' value='<?php echo $sender; ?>' size=20 maxlength=60 />
               <p class="description option_list"><?php echo $from_description ?></p>
             </label>
             <input type=hidden name='newstatpress_mail_notification_info' value=<?php $current_user = wp_get_current_user(); echo $current_user->display_name;?> />

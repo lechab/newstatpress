@@ -82,7 +82,8 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'mail_notification_address'=>array('name'=>'newstatpress_mail_notification_emailaddress','value'=>''),
                         'mail_notification_time'=>array('name'=>'newstatpress_mail_notification_time','value'=>''),
                         'mail_notification_info'=>array('name'=>'newstatpress_mail_notification_info','value'=>''),
-                        'settings'=>array('name'=>'newstatpress_settings','value'=>''),
+												'mail_notification_sender'=>array('name'=>'newstatpress_mail_notification_sender','value'=>'NewsStatPress'),
+												'settings'=>array('name'=>'newstatpress_settings','value'=>''),
 												'stats_offsets'=>array('name'=>'newstatpress_stats_offsets','value'=>'0')
                       );
 
@@ -458,6 +459,13 @@ function nsp_stat_by_email($arg='') {
   $name=$nsp_option_vars['mail_notification_address']['name'];
   $email_address=get_option($name);
 
+	$name=$nsp_option_vars['mail_notification_sender']['name'];
+	$sender=get_option($name);
+	//$sender=get_option($nsp_option_vars['name']);
+	if($sender=='')
+	 $sender=$nsp_option_vars['mail_notification_sender']['value'];
+
+
 	$support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
 	$author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
 
@@ -479,7 +487,7 @@ function nsp_stat_by_email($arg='') {
              <br />
              -- <br />
              $credits_introduction";
-  $headers = 'From: NewStatPress <newstatpress@altervista.org>' . "\r\n";
+  $headers = "From: " . $sender . "<newstatpress@altervista.org> \r\n";
   $email_confirmation = wp_mail($email_address, $subject, $message, $headers);
 
   remove_filter('wp_mail_content_type','nsp_Set_mail_content_type');
