@@ -14,10 +14,10 @@ global $nsp_option_vars;
 $table_name = $wpdb->prefix . "statpress";
 
 
-//$offsets = get_option($nsp_option_vars['stats_offsets']['name']);
-// $offsets['alltotalvisits'];
+$offsets = get_option($nsp_option_vars['stats_offsets']['name']);
+   // $offsets['alltotalvisits'];
 // $offsets['visitorsfeeds'];
-// $offsets['pageviews'];
+   // $offsets['pageviews'];
 // $offsets['spy'];
 // $offsets['pageviewfeeds'];
 
@@ -32,7 +32,7 @@ if ($var=='alltotalvisits') {
     urlrequested!='';
    ");
    if ($qry != null) {
-     echo $qry[0]->pageview;
+     echo $qry[0]->pageview+$offsets['alltotalvisits'];
    }
 } elseif ($var=='visits') {
     $qry = $wpdb->get_results(
@@ -137,7 +137,7 @@ if ($var=='alltotalvisits') {
          feed='';
       ");
    if ($qry != null) {
-     echo $qry[0]->pageview;
+     echo $qry[0]->pageview+$offsets['pageviews'];;
    }
 } elseif ($var=='todaytotalpageviews') {
     $qry = $wpdb->get_results(
