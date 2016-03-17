@@ -93,6 +93,8 @@ if ($("#pagecredits").length) {
       $("#mail_time").attr("disabled", true);
       $("#mail_address").attr("disabled", true);
       $("#testmail").attr("disabled", true);
+      $("#sender").attr("disabled", true);
+
     }
 
     if($('#ena:checked').val()==='enabled') {
@@ -100,6 +102,8 @@ if ($("#pagecredits").length) {
       $("#mail_time").attr("disabled", false);
       $("#mail_address").attr("disabled", false);
       $("#testmail").attr("disabled", false);
+      $("#sender").attr("disabled", false);
+
     }
     //   if($('#ena:checked').val()==='enabled')
     //
@@ -118,12 +122,14 @@ if ($("#pagecredits").length) {
     $("#mail_time").attr("disabled", true);
     $("#mail_address").attr("disabled", true);
     $("#testmail").attr("disabled", true);
+    $("#sender").attr("disabled", true);
   });
   $( "#ena" ).click(function() {
     $("#mail_freq").attr("disabled", false);
     $("#mail_time").attr("disabled", false);
     $("#mail_address").attr("disabled", false);
     $("#testmail").attr("disabled", false);
+    $("#sender").attr("disabled", false);
   });
 
 

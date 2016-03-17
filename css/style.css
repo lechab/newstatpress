@@ -223,6 +223,10 @@ table.table-option td:first-child {
   padding-left: 45px !important;
 }
 
+.tab2 {
+  padding-left: 0px !important;
+}
+
 .tabmail:before,
 .tabexport:before,
 .tabupdate:before,

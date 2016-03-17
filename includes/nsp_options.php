@@ -387,36 +387,41 @@ function nsp_Options() {
             <th scope='row' rowspan='2'> <?php _e('Visits calculation method',nsp_TEXTDOMAIN); ?> </th>
           </tr>
           <tr>
-          <?php
-            $name=$nsp_option_vars['calculation']['name'];
-            $valu=$nsp_option_vars['calculation']['value'];
-            echo "<td>
-                  <fieldset>
-              <p><input type='radio' name='$name' value=";
+            <td>
+              <fieldset>
+              <?php
+                $name=$nsp_option_vars['calculation']['name'];
+                $valu=$nsp_option_vars['calculation']['value'];
+                echo "
+                  <p><input type='radio' name='$name' value=";
 
-                    if ((get_option($name)=='') OR (get_option($name)==$valu)) {
-                      // echo $nsp_option_vars['calculation']['value'];
-                      echo $valu." checked";
-                    }
-                    echo " />
-                    <label>"; _e('Simple sum of distinct IPs (Classic method)',nsp_TEXTDOMAIN); echo "</label>
-                </p>
-                <p>
-                    <input type='radio' name='$name' value=";
-
-                      echo 'sum';
-                        if (get_option($name)=='sum') {
-                          echo " checked";
+                        if ((get_option($name)=='') OR (get_option($name)==$valu)) {
+                          // echo $nsp_option_vars['calculation']['value'];
+                          echo $valu." checked";
                         }
+                        echo " />
+                        <label>"; _e('Simple sum of distinct IPs (Classic method)',nsp_TEXTDOMAIN); echo "</label>
+                    </p>
+                    <p>
+                        <input type='radio' name='$name' value=";
 
-                  echo " />
-                  <label>"; _e('Sum of the distinct IPs of each day (slower than classic method for big database)',nsp_TEXTDOMAIN); echo "</label>
-                          </p>
-            </fieldset>
-            </td>";
-            echo "</tr>";
-            echo "<tr>";
+                          echo 'sum';
+                            if (get_option($name)=='sum') {
+                              echo " checked";
+                            }
 
+                      echo " />
+                      <label>"; _e('Sum of the distinct IPs of each day',nsp_TEXTDOMAIN); echo "<br /> "; _e('(slower than classic method for big database)',nsp_TEXTDOMAIN);
+              ?>
+              </label>
+              </p>
+              </fieldset>
+            </td>
+          </tr>
+          <tr><td></td></tr>
+
+          <tr>
+            <?php
             echo "<th scope='row' rowspan='2'>"; _e('Graph',nsp_TEXTDOMAIN); echo "</th>";
             echo "</tr>";
             echo "<tr>";
@@ -433,7 +438,7 @@ function nsp_Options() {
             $option_title=sprintf(__('Elements in Overview (default %d)',nsp_TEXTDOMAIN), $nsp_option_vars['overview']['value']);
             nsp_PrintRowInput($option_title,$nsp_option_vars['overview'],$input_size,$input_maxlength);
 
-            echo "<tr><th scope='row' rowspan='1'>".__("Statistics offsets (Total visits)",nsp_TEXTDOMAIN)."</th></tr>";
+            echo "<tr><th scope='row' rowspan='6'>".__("Statistics offsets (Total visits)",nsp_TEXTDOMAIN)."</th></tr>";
 
             // input parameters
             $input_size='10';
@@ -447,31 +452,37 @@ function nsp_Options() {
             $pageviews	= empty( $val['pageviews'] ) ? 0 : $val['pageviews'];
             $pageviewfeeds	= empty( $val['pageviewfeeds'] ) ? 0 : $val['pageviewfeeds'];
             $spy	= empty( $val['spy'] ) ? 0 : $val['spy'];
-
+            //secho "<tr><td></td></tr>";
             $option_title=__('Visitors','newstatpress');
-            echo "<tr><td><label for=\"".$name."[alltotalvisits]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[alltotalvisits]\" value=\"".$alltotalvisits;
+            echo "<tr><td class=\"tab2\"><label for=\"".$name."[alltotalvisits]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[alltotalvisits]\" value=\"".$alltotalvisits;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+            //echo "<tr><td></td></tr>";
 
             $option_title=__('Visitors through Feeds','newstatpress');
-            echo "<tr><td><label for=\"".$name."[visitorsfeeds]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[visitorsfeeds]\" value=\"".$visitorsfeeds;
+            echo "<tr><td class=\"tab2\"><label for=\"".$name."[visitorsfeeds]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[visitorsfeeds]\" value=\"".$visitorsfeeds;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+            //echo "<tr><td></td></tr>";
 
             $option_title=__('Pageviews','newstatpress');
-            echo "<tr><td><label for=\"".$name."[pageviews]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[pageviews]\" value=\"".$pageviews;
+            echo "<tr><td class=\"tab2\"><label for=\"".$name."[pageviews]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[pageviews]\" value=\"".$pageviews;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+            //echo "<tr><td></td></tr>";
 
             $option_title=__('Pageviews through Feeds','newstatpress');
-            echo "<tr><td><label for=\"".$name."[pageviewfeeds]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[pageviewfeeds]\" value=\"".$pageviewfeeds;
+            echo "<tr><td class=\"tab2\"><label for=\"".$name."[pageviewfeeds]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[pageviewfeeds]\" value=\"".$pageviewfeeds;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+            //echo "<tr><td></td></tr>";
 
             $option_title=__('Spiders','newstatpress');
-            echo "<tr><td><label for=\"".$name."[spy]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='text' name=\"newstatpress_stats_offsets[spy]\" value=\"".$spy;
+            echo "<tr><td class=\"tab2\"><label for=\"".$name."[spy]\">".$option_title."</label></td>\n";
+            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[spy]\" value=\"".$spy;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
+          //  echo "<tr><td></td></tr>";
+
           ?>
         </table>
         <br />
@@ -669,11 +680,11 @@ function nsp_Options() {
       <!-- tab 'mail'  -->
       <div id='mail'>
         <?php
-          $option_description=__('This option allows you to get periodic reports by email (dashboard informations). You can customize the frequency and the publishing time of the reports.',nsp_TEXTDOMAIN);
+          $option_description=__('This option allows you to get periodic reports by email (dashboard informations). You can customize the frequency and the publishing time of the reports and also the description of Sender.',nsp_TEXTDOMAIN);
           $option_description2=__('Note: WP Cron job need to be operational in aim to schedule Email Notification.',nsp_TEXTDOMAIN);
           $mailaddress_description=__('Mailing address accept only one email address, check is well valid before reporting issues.',nsp_TEXTDOMAIN);
           $timepublishing_description=__('Notification will be sent at UTC time.',nsp_TEXTDOMAIN);
-          $from_description=__('Sender could be personalized accordin your need (by default : \'NewStatPress\').',nsp_TEXTDOMAIN);
+          $from_description=__('Sender could be personalized according your website (by default : \'NewStatPress\').',nsp_TEXTDOMAIN);
 
           $time_format = 'H:i:s';
 
@@ -712,79 +723,83 @@ function nsp_Options() {
             <th scope='row' rowspan='2'><?php _e('Statistics notification is',nsp_TEXTDOMAIN); ?></th>
           </tr>
           <tr>
-          <td>
-            <fieldset>
-            <?php
-              $name=$nsp_option_vars['mail_notification']['name'];
-              $default=$nsp_option_vars['mail_notification']['value'];
+            <td>
+              <fieldset>
+              <?php
+                $name=$nsp_option_vars['mail_notification']['name'];
+                $default=$nsp_option_vars['mail_notification']['value'];
+              ?>
+              <form id="myForm">
+                <p>
+                  <input class="tog" type='radio' id='dis' name='<?php echo $name ?>' value='disabled'<?php input_selected($name,'disabled',$default);?> /> <label> <?php _e('Disabled',nsp_TEXTDOMAIN); ?></label>
+                </p>
+                <p>
+                  <input class="tog" type='radio' id='ena' name='<?php echo $name ?>' value='enabled'<?php input_selected($name,'enabled',$default);?>  /><label> <?php _e('Enabled',nsp_TEXTDOMAIN) ?></label>
+                </p>
+              </form>
+              </fieldset>
+            </td>
+          </tr>
+          <tr>
+            <th scope='row' rowspan='2'><?php _e('Event schedule',nsp_TEXTDOMAIN); ?></th>
+          </tr>
+          <tr>
+            <td>
+              <?php
+                $name=$nsp_option_vars['mail_notification_freq']['name'];
+                nsp_PrintSchedules(get_option($name));
+              ?>
+            </td>
+          </tr>
+          <tr>
+            <th scope='row' rowspan='2'><?php _e('Publishing time',nsp_TEXTDOMAIN); ?></th>
+          </tr>
+          <tr>
+            <td>
+              <select name="newstatpress_mail_notification_time" id="mail_time">
+            <option value="0">- <?php _e('Select',nsp_TEXTDOMAIN)?> -</option> ?>
+          <?php
+            $name=$nsp_option_vars['mail_notification_time']['name'];
+            $timeuser=get_option($name);
 
-              // $name="mail_notification['state']";
-            ?>
-            <form id="myForm">
-            <p>
-              <input class="tog" type='radio' id='dis' name='<?php echo $name ?>' value='disabled'<?php input_selected($name,'disabled',$default);?> /> <label> <?php _e('Disabled',nsp_TEXTDOMAIN); ?></label>
-            </p>
-            <p>
-              <input class="tog" type='radio' id='ena' name='<?php echo $name ?>' value='enabled'<?php input_selected($name,'enabled',$default);?>  /><label> <?php _e('Enabled',nsp_TEXTDOMAIN) ?></label>
-            </p>
-            </form>
-            <p class='option_list'>
-              <label>
-                <?php _e('Event schedule',nsp_TEXTDOMAIN)?>&nbsp;:
-                <?php
-                  $name=$nsp_option_vars['mail_notification_freq']['name'];
-                  // $name="mail_notification['state']";
-
-                  nsp_PrintSchedules(get_option($name));
-                ?>
-              </label>
-            </p>
-            </fieldset>
-            <p class='option_list'>
-              <label>
-                <?php _e('Publishing time',nsp_TEXTDOMAIN)?>&nbsp;:
-            <select name="newstatpress_mail_notification_time" id="mail_time">
-              <option value="0">- <?php _e('Select',nsp_TEXTDOMAIN)?> -</option> ?>
-            <?php
-              $name=$nsp_option_vars['mail_notification_time']['name'];
-              $timeuser=get_option($name);
-
-                for ($h = 0; $h <= 23; $h++) {
-                  for($m = 0; $m <= 45; $m += 15) {
-                    $value = sprintf('%02d', $h) . ':' . sprintf('%02d', $m);
-                    if($timeuser==$value)
-                      echo '<option value="'. $value.'" selected>'. $value.'</option>\n';
-                    else
-                      echo '<option value="'. $value.'">'. $value.'</option>\n';
-                  }
+              for ($h = 0; $h <= 23; $h++) {
+                for($m = 0; $m <= 45; $m += 15) {
+                  $value = sprintf('%02d', $h) . ':' . sprintf('%02d', $m);
+                  if($timeuser==$value)
+                    echo '<option value="'. $value.'" selected>'. $value.'</option>\n';
+                  else
+                    echo '<option value="'. $value.'">'. $value.'</option>\n';
                 }
-            ?>
-            </select>
-            </label>
-            <span id="utc-time"><?php printf( esc_html__( 'UTC time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format, false, true ) ) . '</code>' ); ?></span>
-            <span id="local-time"><?php printf( esc_html__( 'Local time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format ) ) . '</code>' ); ?></span>
-          </p>
-          <p class="description option_list"><?php echo $timepublishing_description ?></p>
+              }
+          ?>
+          </select>
+          <span id="utc-time"><?php printf( esc_html__( 'UTC time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format, false, true ) ) . '</code>' ); ?></span>
+          <span id="local-time"><?php printf( esc_html__( 'Local time is %s', 'wp-crontrol' ), '<code>' . esc_html( date_i18n( $time_format ) ) . '</code>' ); ?></span>
+          <p class="description"><?php echo $timepublishing_description ?></p>
 
-          <p class='option_list'>
-            <label for='newstatpress_mail_notification_sender'><?php _e('Sender (From)',nsp_TEXTDOMAIN)?>&nbsp;:
+            </td>
+          </tr>
+          <tr>
+            <th scope='row' rowspan='2'><?php _e('Sender Description (From)',nsp_TEXTDOMAIN); ?></th>
+          </tr>
+          <tr>
+            <td>
               <input id="sender" class='left' type='text' name='newstatpress_mail_notification_sender' value='<?php echo $sender; ?>' size=20 maxlength=60 />
-              <p class="description option_list"><?php echo $from_description ?></p>
-            </label>
-            <input type=hidden name='newstatpress_mail_notification_info' value=<?php $current_user = wp_get_current_user(); echo $current_user->display_name;?> />
-          </p>
-
-          <p class='option_list'>
-            <label for='newstatpress_mail_notification_emailaddress'><?php _e('Mailing address',nsp_TEXTDOMAIN)?>&nbsp;:
+              <p class="description"><?php echo $from_description ?></p>
+            </td>
+          </tr>
+          <tr>
+            <th scope='row' rowspan='2'><?php _e('Mailing address',nsp_TEXTDOMAIN); ?></th>
+          </tr>
+          <tr>
+            <td>
               <input id="mail_address" class='left' type='email' name='newstatpress_mail_notification_emailaddress' value='<?php echo $email; ?>' size=20 maxlength=60 />
               <button id="testmail" class='button button-secondary' type=submit name=saveit value=mailme><?php _e('Email Test',nsp_TEXTDOMAIN);?></button>
-              <p class="description option_list"><?php echo $mailaddress_description ?></p>
+              <p class="description"><?php echo $mailaddress_description ?></p>
             </label>
             <input type=hidden name='newstatpress_mail_notification_info' value=<?php $current_user = wp_get_current_user(); echo $current_user->display_name;?> />
-          </p>
-
-        </td>
-        </tr>
+            </td>
+          </tr>
         </table>
       </div>
 
