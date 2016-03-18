@@ -411,14 +411,16 @@ function nsp_Options() {
                             }
 
                       echo " />
-                      <label>"; _e('Sum of the distinct IPs of each day',nsp_TEXTDOMAIN); echo "<br /> "; _e('(slower than classic method for big database)',nsp_TEXTDOMAIN);
+                      <label>";
+                      _e('Sum of the distinct IPs of each day',nsp_TEXTDOMAIN);
+                      echo "<br /> <span class=\"description\">";
+                      _e('(slower than classic method for big database)',nsp_TEXTDOMAIN);
               ?>
-              </label>
+            </span></label>
               </p>
               </fieldset>
             </td>
           </tr>
-          <tr><td></td></tr>
 
           <tr>
             <?php
