@@ -264,14 +264,14 @@ content: "\f536";
 .tabapi:before {
   content: "\f541";
 }
-.tabmail:after {
+/*.tabmail:after {
   content: "(New)";
   color: red;
   vertical-align: super;
 line-height: 0.5em;
     position: relative; top: -0.5em; font-size: .83em;
 
-}
+}*/
 .table-databaseupdate {
   width: 60%;
 }
