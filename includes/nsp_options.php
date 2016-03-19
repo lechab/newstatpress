@@ -423,20 +423,21 @@ function nsp_Options() {
           </tr>
 
           <tr>
+            <th scope='row' rowspan='2'> <?php _e('Graph',nsp_TEXTDOMAIN); ?></th>
+          </tr>
+          <tr>
             <?php
-            echo "<th scope='row' rowspan='2'>"; _e('Graph',nsp_TEXTDOMAIN); echo "</th>";
-            echo "</tr>";
-            echo "<tr>";
-
             $val=array(array(7,''),array(10,''),array(20,''),array(30,''),array(50,''));
             $option_title=__('Days number in Overview graph',nsp_TEXTDOMAIN);
             $option_var='newstatpress_daysinoverviewgraph';
             nsp_PrintOption($option_title,$option_var,$val);
-            echo "</tr>";
-            echo "<tr>";
-
-            echo "<th scope='row' rowspan='2'>"; _e('Overview',nsp_TEXTDOMAIN); echo "</th>";
-
+            ?>
+          </tr>
+          <tr>
+            <th scope='row' rowspan='3'> <?php _e('Overview',nsp_TEXTDOMAIN); ?></th>
+          </tr>
+          <tr>
+            <?php
             $option_title=sprintf(__('Elements in Overview (default %d)',nsp_TEXTDOMAIN), $nsp_option_vars['overview']['value']);
             nsp_PrintRowInput($option_title,$nsp_option_vars['overview'],$input_size,$input_maxlength);
 
@@ -454,36 +455,31 @@ function nsp_Options() {
             $pageviews	= empty( $val['pageviews'] ) ? 0 : $val['pageviews'];
             $pageviewfeeds	= empty( $val['pageviewfeeds'] ) ? 0 : $val['pageviewfeeds'];
             $spy	= empty( $val['spy'] ) ? 0 : $val['spy'];
-            //secho "<tr><td></td></tr>";
+
             $option_title=__('Visitors','newstatpress');
             echo "<tr><td class=\"tab2\"><label for=\"".$name."[alltotalvisits]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[alltotalvisits]\" value=\"".$alltotalvisits;
+            echo "<td><input class='right' type='number' required name=\"newstatpress_stats_offsets[alltotalvisits]\" value=\"".$alltotalvisits;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
-            //echo "<tr><td></td></tr>";
 
             $option_title=__('Visitors through Feeds','newstatpress');
             echo "<tr><td class=\"tab2\"><label for=\"".$name."[visitorsfeeds]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[visitorsfeeds]\" value=\"".$visitorsfeeds;
+            echo "<td><input class='right' type='number' required name=\"newstatpress_stats_offsets[visitorsfeeds]\" value=\"".$visitorsfeeds;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
-            //echo "<tr><td></td></tr>";
 
             $option_title=__('Pageviews','newstatpress');
             echo "<tr><td class=\"tab2\"><label for=\"".$name."[pageviews]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[pageviews]\" value=\"".$pageviews;
+            echo "<td><input class='right' type='number' required name=\"newstatpress_stats_offsets[pageviews]\" value=\"".$pageviews;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
-            //echo "<tr><td></td></tr>";
 
             $option_title=__('Pageviews through Feeds','newstatpress');
             echo "<tr><td class=\"tab2\"><label for=\"".$name."[pageviewfeeds]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[pageviewfeeds]\" value=\"".$pageviewfeeds;
+            echo "<td><input class='right' type='number' required name=\"newstatpress_stats_offsets[pageviewfeeds]\" value=\"".$pageviewfeeds;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
-            //echo "<tr><td></td></tr>";
 
             $option_title=__('Spiders','newstatpress');
             echo "<tr><td class=\"tab2\"><label for=\"".$name."[spy]\">".$option_title."</label></td>\n";
-            echo "<td><input class='right' type='number' name=\"newstatpress_stats_offsets[spy]\" value=\"".$spy;
+            echo "<td><input class='right' type='number' required name=\"newstatpress_stats_offsets[spy]\" value=\"".$spy;
             echo "\" size=\"$input_size\" maxlength=\"$input_maxlength\" />\n</td></tr>\n";
-          //  echo "<tr><td></td></tr>";
 
           ?>
         </table>
