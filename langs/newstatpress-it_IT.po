@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-19 19:36+0100\n"
-"PO-Revision-Date: 2016-03-19 19:36+0100\n"
+"PO-Revision-Date: 2016-03-19 20:07+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: newstatpress.php\n"
 "X-Poedit-SearchPath-1: includes\n"
@@ -316,6 +316,9 @@ msgid ""
 "rating commentaries if you wish to report an issue with the plugin, it will "
 "be processed more quickly by the team."
 msgstr ""
+"NB: per favore aprite un ticket nella pagina di supporto invece di "
+"aggiungerla al commento della tua valutazione se vuoi riportare un problema "
+"con il plugin, perchè sarà processato più velocemente dal team."
 
 #: includes/nsp_functions-extra.php:243
 msgid "Yes, I'd like to rate it!"
@@ -354,50 +357,50 @@ msgstr "record"
 #, php-format
 msgid "%s year"
 msgid_plural "%s years"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s anno"
+msgstr[1] "%s anni"
 
 #: includes/nsp_options.php:91
 #, php-format
 msgid "%s month"
 msgid_plural "%s months"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s mese"
+msgstr[1] "%s mesi"
 
 #: includes/nsp_options.php:92
 #, php-format
 msgid "%s week"
 msgid_plural "%s weeks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s settimana"
+msgstr[1] "%s settimane"
 
 #: includes/nsp_options.php:93
 #, php-format
 msgid "%s day"
 msgid_plural "%s days"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s giorno"
+msgstr[1] "%s giorni"
 
 #: includes/nsp_options.php:94
 #, php-format
 msgid "%s hour"
 msgid_plural "%s hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s ora"
+msgstr[1] "%s ore"
 
 #: includes/nsp_options.php:95
 #, php-format
 msgid "%s minute"
 msgid_plural "%s minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s minuto"
+msgstr[1] "%s minuti"
 
 #: includes/nsp_options.php:96
 #, php-format
 msgid "%s second"
 msgid_plural "%s seconds"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s secondo"
+msgstr[1] "%s secondi"
 
 #: includes/nsp_options.php:100
 msgid "now"
