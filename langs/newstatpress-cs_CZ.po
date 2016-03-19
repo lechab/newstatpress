@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress\n"
-"POT-Creation-Date: 2016-03-17 23:05+0100\n"
-"PO-Revision-Date: 2016-03-17 23:05+0100\n"
+"POT-Creation-Date: 2016-03-19 15:22+0100\n"
+"PO-Revision-Date: 2016-03-19 15:22+0100\n"
 "Last-Translator: Jiří Borový <jborovy@seznam.cz>\n"
 "Language-Team: Jiří Borový <jborovy@seznam.cz>\n"
 "Language: cs_CZ\n"
@@ -19,30 +19,30 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/api/nsp_api_dashboard.php:52 includes/nsp_options.php:456
+#: includes/api/nsp_api_dashboard.php:52 includes/nsp_options.php:458
 #: includes/nsp_visits.php:13 newstatpress.php:1539 newstatpress.php:1703
 msgid "Visitors"
 msgstr "Návštěvníci"
 
-#: includes/api/nsp_api_dashboard.php:57 includes/nsp_options.php:462
+#: includes/api/nsp_api_dashboard.php:57 includes/nsp_options.php:464
 #: newstatpress.php:1545
 msgid "Visitors through Feeds"
 msgstr "Návštěvníci od zdrojů feedů"
 
 #: includes/api/nsp_api_dashboard.php:62 includes/nsp_core.php:196
 #: includes/nsp_core.php:199 includes/nsp_details.php:45
-#: includes/nsp_details.php:48 includes/nsp_options.php:468
+#: includes/nsp_details.php:48 includes/nsp_options.php:470
 #: newstatpress.php:1551 newstatpress.php:1704
 msgid "Pageviews"
 msgstr "Viděno stránek"
 
 #: includes/api/nsp_api_dashboard.php:67 includes/nsp_core.php:187
-#: includes/nsp_details.php:36 includes/nsp_options.php:480
-#: includes/nsp_tools.php:673 newstatpress.php:1557 newstatpress.php:1705
+#: includes/nsp_details.php:36 includes/nsp_options.php:482
+#: includes/nsp_tools.php:750 newstatpress.php:1557 newstatpress.php:1705
 msgid "Spiders"
 msgstr "Špióni robotů"
 
-#: includes/api/nsp_api_dashboard.php:72 includes/nsp_options.php:474
+#: includes/api/nsp_api_dashboard.php:72 includes/nsp_options.php:476
 #: newstatpress.php:1563
 msgid "Pageviews through Feeds"
 msgstr "Zobrazení stránek od zdrojů feedů"
@@ -75,22 +75,22 @@ msgid "Top days"
 msgstr "Top dny"
 
 #: includes/nsp_core.php:166 includes/nsp_details.php:15
-#: includes/nsp_tools.php:629
+#: includes/nsp_tools.php:706
 msgid "OSes"
 msgstr "Operační systémy"
 
 #: includes/nsp_core.php:169 includes/nsp_details.php:18
-#: includes/nsp_tools.php:651
+#: includes/nsp_tools.php:728
 msgid "Browsers"
 msgstr "Prohlížeče"
 
 #: includes/nsp_core.php:172 includes/nsp_details.php:21
-#: includes/nsp_tools.php:531 newstatpress.php:1706
+#: includes/nsp_tools.php:608 newstatpress.php:1706
 msgid "Feeds"
 msgstr "Feeds"
 
 #: includes/nsp_core.php:175 includes/nsp_details.php:24
-#: includes/nsp_tools.php:695
+#: includes/nsp_tools.php:772
 msgid "Search engines"
 msgstr "Internetový vyhledávač"
 
@@ -122,23 +122,31 @@ msgstr "Unikátní návštěvnici"
 msgid "Top IPs"
 msgstr "Top IP"
 
-#: includes/nsp_credits.php:16
+#: includes/nsp_credits.php:14
 msgid "Development"
 msgstr "Vývoj"
 
-#: includes/nsp_credits.php:17
+#: includes/nsp_credits.php:15
 msgid "Ressources"
 msgstr ""
 
-#: includes/nsp_credits.php:18
+#: includes/nsp_credits.php:16
 msgid "Translation"
 msgstr "Překlad"
 
-#: includes/nsp_credits.php:19
+#: includes/nsp_credits.php:17
 msgid "Donation"
 msgstr "Přízpěvek"
 
-#: includes/nsp_credits.php:22
+#: includes/nsp_credits.php:20
+msgid "the support page"
+msgstr ""
+
+#: includes/nsp_credits.php:21 newstatpress.php:470
+msgid "the author"
+msgstr "autor"
+
+#: includes/nsp_credits.php:23
 msgid ""
 "If you have found this plugin usefull and you like it, thank you to take a "
 "moment to rate it."
@@ -146,16 +154,14 @@ msgstr ""
 "Jestli se Ti tento plugin líbí nebo myslíš, že je užitečný, uděl nám prosím "
 "hodnocení."
 
-#: includes/nsp_credits.php:23 newstatpress.php:473
+#: includes/nsp_credits.php:24
 #, php-format
 msgid ""
-"You can help to the plugin development by reporting bugs on the %s or by "
-"adding/updating translation by contacting directly %s."
+"You can help to the plugin development by reporting bugs on %s or by adding/"
+"updating translation by contacting directly %s."
 msgstr ""
-"Můžeš pomoci s vývojem pluginu už tím, že nahlásíš chyby na %s nebo nahrátím/"
-"aktualizací překladu kontaktováním %s."
 
-#: includes/nsp_credits.php:25
+#: includes/nsp_credits.php:26
 msgid ""
 "NewStatPress is provided for free and is maintained only on free time, you "
 "can also consider a donation to support further work."
@@ -163,62 +169,66 @@ msgstr ""
 "NewStatPress je poskytován zdarma a je udržován jen ve volných chvílích. "
 "Naší práci můžeš podpořit věnováním drobného příspěvku."
 
-#: includes/nsp_credits.php:30 newstatpress.php:292
+#: includes/nsp_credits.php:31 newstatpress.php:292
 msgid "Credits"
 msgstr "Autor"
 
-#: includes/nsp_credits.php:37
+#: includes/nsp_credits.php:39
 msgid "Rate the plugin"
 msgstr "Ohodnotit plugin"
 
-#: includes/nsp_credits.php:39
+#: includes/nsp_credits.php:41
 msgid "Make a donation"
 msgstr "Přizpět darem"
 
-#: includes/nsp_credits.php:59
-msgid "This plugin is a fork of"
+#: includes/nsp_credits.php:61
+msgid "This plugin is a fork of the plugin"
 msgstr ""
 
-#: includes/nsp_credits.php:63 includes/nsp_credits.php:91
-#: includes/nsp_credits.php:104
+#: includes/nsp_credits.php:61
+msgid "originally developed (and not longer maintened) by"
+msgstr ""
+
+#: includes/nsp_credits.php:65 includes/nsp_credits.php:93
+#: includes/nsp_credits.php:106
 msgid "Contributor"
 msgstr "Spolupracovník"
 
-#: includes/nsp_credits.php:64 includes/nsp_credits.php:77
+#: includes/nsp_credits.php:66 includes/nsp_credits.php:79
 msgid "Description"
 msgstr "Popis"
 
-#: includes/nsp_credits.php:76
+#: includes/nsp_credits.php:78
 msgid "Reference"
 msgstr ""
 
-#: includes/nsp_credits.php:78
+#: includes/nsp_credits.php:80
 msgid "Website"
 msgstr ""
 
-#: includes/nsp_credits.php:90 includes/nsp_overview.php:56
+#: includes/nsp_credits.php:92 includes/nsp_overview.php:56
 msgid "Language"
 msgstr "Jazyk"
 
-#: includes/nsp_credits.php:92
+#: includes/nsp_credits.php:94
 msgid "Status"
 msgstr "Status"
 
-#: includes/nsp_credits.php:105 includes/nsp_overview.php:53
+#: includes/nsp_credits.php:107 includes/nsp_overview.php:53
 #: includes/nsp_overview.php:106 includes/nsp_overview.php:133
 #: includes/nsp_overview.php:180 includes/nsp_overview.php:209
 msgid "Date"
 msgstr "Datum"
 
-#: includes/nsp_credits.php:121
+#: includes/nsp_credits.php:118
 msgid "Plugin homepage"
 msgstr "Domovská stránka pluginu"
 
-#: includes/nsp_credits.php:126
+#: includes/nsp_credits.php:123
 msgid "RSS news"
 msgstr "RSS novinky"
 
-#: includes/nsp_credits.php:127
+#: includes/nsp_credits.php:124
 msgid "News"
 msgstr "Novinky"
 
@@ -252,38 +262,50 @@ msgstr "Novinky NewStartPress"
 
 #: includes/nsp_functions-extra.php:223
 msgid ""
-"This new version integrates a new major function : <strong>Email "
-"Notification</strong> (see Option Page) to get periodic reports of your "
-"statistics. This function remains a bit experimental until it's tested "
-"recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas "
-"R.</strong> to support our work with his donation.</i>"
+"In addition of some fixes and optimizations, several new options in this "
+"version:"
 msgstr ""
-"Tato nová verze obsahuje novou důležitou funkci: <strong> E-mailové oznámení "
-"</strong> (viz stránka Nastavení) - je možno získat pravidelné zprávy o "
-"svých statistikách. Tato funkce zůstává trochu experimentální, dokud nebude "
-"důkladně otestována. Děkujeme za trpělivost <br/> <i> Díky <strong> Douglas "
-"R. </strong> za podporu naší práce svým darem. </i>"
 
-#: includes/nsp_functions-extra.php:234
+#: includes/nsp_functions-extra.php:225
+msgid "Offsets statistics option (see Option Page>General)."
+msgstr ""
+
+#: includes/nsp_functions-extra.php:226
+msgid ""
+"Sender option for statistics email notification (see Option Page>Email "
+"Notification)."
+msgstr ""
+
+#: includes/nsp_functions-extra.php:227
+msgid "Picker date and new options for export tool (see Tools Page>Export)."
+msgstr ""
+
+#: includes/nsp_functions-extra.php:229
+msgid ""
+"A big thank you from the team for all those who took the time to evaluate "
+"the plugin and those who have supported our work with their donations."
+msgstr ""
+
+#: includes/nsp_functions-extra.php:240
 msgid ""
 "It looks like you've been using NewStatPress for a while now. That's great!"
 msgstr "Vypadá to, že již používáš NewStatPress nějakou dobu. To je skvělé!"
 
-#: includes/nsp_functions-extra.php:235
+#: includes/nsp_functions-extra.php:241
 msgid ""
 "If you find this plugin useful, would you take a moment to give it a rating "
 "on WordPress.org?"
 msgstr "Jestli se Ti plugin líbí, ohodnoť ho prosím na WordPress.org."
 
-#: includes/nsp_functions-extra.php:236
+#: includes/nsp_functions-extra.php:242
 msgid "Yes, I'd like to rate it!"
 msgstr "Ano, ohodnotím plugin právě teď."
 
-#: includes/nsp_functions-extra.php:238 includes/nsp_functions-extra.php:251
+#: includes/nsp_functions-extra.php:244 includes/nsp_functions-extra.php:257
 msgid "I already did!"
 msgstr "Již jsem plugin ohodnotil."
 
-#: includes/nsp_functions-extra.php:247
+#: includes/nsp_functions-extra.php:253
 msgid ""
 "You've been using NewStatPress for several months now. We hope that means "
 "you like it and are finding it helpful."
@@ -291,7 +313,7 @@ msgstr ""
 "Již používáš NewStatPress několik měsíců. Doufáme, že se Ti líbí a je pro "
 "Tebe užitečný."
 
-#: includes/nsp_functions-extra.php:248
+#: includes/nsp_functions-extra.php:254
 msgid ""
 "NewStatPress is provided for free and maintained only on free time. If you "
 "like the plugin, consider a donation to help further its development"
@@ -299,11 +321,11 @@ msgstr ""
 "NewStatPress je poskytován zdarma a je udržován jen ve volných chvílích. "
 "Naší práci můžeš podpořit věnováním drobného příspěvku."
 
-#: includes/nsp_functions-extra.php:249
+#: includes/nsp_functions-extra.php:255
 msgid "Yes, I'd like to donate!"
 msgstr "Rád přispěji!"
 
-#: includes/nsp_functions-extra.php:362
+#: includes/nsp_functions-extra.php:368
 msgid "records"
 msgstr "záznamy"
 
@@ -468,96 +490,96 @@ msgstr "Metoda výpočtu návštěv"
 msgid "Simple sum of distinct IPs (Classic method)"
 msgstr "Jednoduchý součet různých IP adres (klasická metoda)"
 
-#: includes/nsp_options.php:414
+#: includes/nsp_options.php:415
 msgid "Sum of the distinct IPs of each day"
 msgstr ""
 
-#: includes/nsp_options.php:414
+#: includes/nsp_options.php:417
 msgid "(slower than classic method for big database)"
 msgstr ""
 
-#: includes/nsp_options.php:425
+#: includes/nsp_options.php:427
 msgid "Graph"
 msgstr "Graf"
 
-#: includes/nsp_options.php:430
+#: includes/nsp_options.php:432
 msgid "Days number in Overview graph"
 msgstr "Počet dnů v přehledu grafu"
 
-#: includes/nsp_options.php:436 newstatpress.php:286 newstatpress.php:1485
+#: includes/nsp_options.php:438 newstatpress.php:286 newstatpress.php:1485
 msgid "Overview"
 msgstr "Celkový přehled"
 
-#: includes/nsp_options.php:438
+#: includes/nsp_options.php:440
 #, php-format
 msgid "Elements in Overview (default %d)"
 msgstr "Prvky v přehledu (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:441
+#: includes/nsp_options.php:443
 msgid "Statistics offsets (Total visits)"
 msgstr ""
 
-#: includes/nsp_options.php:497
+#: includes/nsp_options.php:499
 msgid "Never"
 msgstr "Nikdy"
 
-#: includes/nsp_options.php:498
+#: includes/nsp_options.php:500
 msgid "All"
 msgstr "Vše"
 
-#: includes/nsp_options.php:499
+#: includes/nsp_options.php:501
 msgid "month"
 msgstr "měsíc"
 
-#: includes/nsp_options.php:500
+#: includes/nsp_options.php:502
 msgid "months"
 msgstr "měsíce"
 
-#: includes/nsp_options.php:501
+#: includes/nsp_options.php:503
 msgid "week"
 msgstr "týden"
 
-#: includes/nsp_options.php:502
+#: includes/nsp_options.php:504
 msgid "weeks"
 msgstr "týdny"
 
-#: includes/nsp_options.php:504
+#: includes/nsp_options.php:506
 msgid "Data collection"
 msgstr "Sběr dat"
 
-#: includes/nsp_options.php:506
+#: includes/nsp_options.php:508
 msgid "Crypt IP addresses"
 msgstr "Dekódovat IP adresu."
 
-#: includes/nsp_options.php:510
+#: includes/nsp_options.php:512
 msgid "Collect data about logged users, too."
 msgstr "Sbírat data o přihlášených uživatelích."
 
-#: includes/nsp_options.php:514
+#: includes/nsp_options.php:516
 msgid "Do not collect spiders visits"
 msgstr "Nesbírat data špiónů robotů."
 
-#: includes/nsp_options.php:521
+#: includes/nsp_options.php:523
 msgid "Data purge"
 msgstr "Vymazání dat"
 
-#: includes/nsp_options.php:526
+#: includes/nsp_options.php:528
 msgid "Automatically delete all visits older than"
 msgstr "Automaticky mazat všechny návštěvy starší než"
 
-#: includes/nsp_options.php:532
+#: includes/nsp_options.php:534
 msgid "Automatically delete only spiders visits older than"
 msgstr "Automaticky mazat pouze návštěvy robotů starší než"
 
-#: includes/nsp_options.php:540 includes/nsp_options.php:589
+#: includes/nsp_options.php:542 includes/nsp_options.php:591
 msgid "Parameters to ignore"
 msgstr "Ignorované parametry"
 
-#: includes/nsp_options.php:545
+#: includes/nsp_options.php:547
 msgid "Logged users"
 msgstr "Přihlášení uživatelé"
 
-#: includes/nsp_options.php:547
+#: includes/nsp_options.php:549
 msgid ""
 "Enter a list of users you don't want to track, separated by commas, even if "
 "collect data about logged users is on"
@@ -565,11 +587,11 @@ msgstr ""
 "Zadejte seznam uživatelů, které nechcete sledovat, odělené čárkou, i když je "
 "budete sledovat, když budou přihlášeni"
 
-#: includes/nsp_options.php:550
+#: includes/nsp_options.php:552
 msgid "IP addresses"
 msgstr "IP adresy"
 
-#: includes/nsp_options.php:552
+#: includes/nsp_options.php:554
 msgid ""
 "Enter a list of networks you don't want to track, separated by commas. Each "
 "network <strong>must</strong> be defined using the CIDR notation (i.e. "
@@ -581,11 +603,11 @@ msgstr ""
 "<em>192.168.1.1/24</em>). Je-li formát nesprávný, NewStatPress nesleduje "
 "zobrazení stránek správně."
 
-#: includes/nsp_options.php:555
+#: includes/nsp_options.php:557
 msgid "Pages and posts"
 msgstr "Stránky a příspěvky"
 
-#: includes/nsp_options.php:557
+#: includes/nsp_options.php:559
 msgid ""
 "Enter a list of permalinks you don't want to track, separated by commas. You "
 "should omit the domain name from these resources: <em>/about, p=1</em>, etc. "
@@ -597,100 +619,100 @@ msgstr ""
 "atd. NewStatPress bude ignorovat všechny zobrazení stránek, jejichž trvalý "
 "odkaz <strong>obsahuje</strong> alespoň jeden ze zdrojů."
 
-#: includes/nsp_options.php:568
+#: includes/nsp_options.php:570
 msgid "Visitors by Spy"
 msgstr "Návštěvníci od špiónů robotů"
 
-#: includes/nsp_options.php:572
+#: includes/nsp_options.php:574
 msgid "number of IP per page"
 msgstr "počet IP na stránku"
 
-#: includes/nsp_options.php:579
+#: includes/nsp_options.php:581
 msgid "number of visits for IP"
 msgstr "počet návštěv pro IP"
 
-#: includes/nsp_options.php:592
+#: includes/nsp_options.php:594
 msgid "number of bot per page"
 msgstr "počet robotů na stránku"
 
-#: includes/nsp_options.php:599
+#: includes/nsp_options.php:601
 msgid "number of bot for IP"
 msgstr "počet robotů na IP"
 
-#: includes/nsp_options.php:611
+#: includes/nsp_options.php:613
 msgid "Element numbers to display in"
 msgstr "Zobrazit počet prvků v"
 
-#: includes/nsp_options.php:614
+#: includes/nsp_options.php:616
 #, php-format
 msgid "Top days (default %d)"
 msgstr "Nejlepší dny (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:617
+#: includes/nsp_options.php:619
 #, php-format
 msgid "O.S. (default %d)"
 msgstr "O.S. (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:620
+#: includes/nsp_options.php:622
 #, php-format
 msgid "Browser (default %d)"
 msgstr "Prohlížeč (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:623
+#: includes/nsp_options.php:625
 #, php-format
 msgid "Feed (default %d)"
 msgstr "Feed (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:626
+#: includes/nsp_options.php:628
 #, php-format
 msgid "Search Engines (default %d)"
 msgstr "Vyhledávače (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:629
+#: includes/nsp_options.php:631
 #, php-format
 msgid "Top Search Terms (default %d)"
 msgstr "Top vyhledávací termíny (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:632
+#: includes/nsp_options.php:634
 #, php-format
 msgid "Top Referrer (default %d)"
 msgstr "Top zdrojová stránka (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:635
+#: includes/nsp_options.php:637
 #, php-format
 msgid "Countries/Languages (default %d)"
 msgstr "Země/jazyky (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:638
+#: includes/nsp_options.php:640
 #, php-format
 msgid "Spiders (default %d)"
 msgstr "Špióni (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:641
+#: includes/nsp_options.php:643
 #, php-format
 msgid "Top Pages (default %d)"
 msgstr "Top Stránky (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:644
+#: includes/nsp_options.php:646
 #, php-format
 msgid "Top Days - Unique visitors (default %d)"
 msgstr "Nejlepší dny - unikátních návštěvníků (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:647
+#: includes/nsp_options.php:649
 #, php-format
 msgid "Top Days - Pageviews (default %d)"
 msgstr "Nejlepší dny - zobrazení stránky (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:650
+#: includes/nsp_options.php:652
 #, php-format
 msgid "Top IPs - Pageviews (default %d)"
 msgstr "Top IPs - zobrazení stránky (výchozí hodnota %d)"
 
-#: includes/nsp_options.php:658
+#: includes/nsp_options.php:660
 msgid "Database update option"
 msgstr "Možnost aktualizace databáze"
 
-#: includes/nsp_options.php:663
+#: includes/nsp_options.php:665
 msgid ""
 "Select the interval of date from today you want to use for updating your "
 "database with new definitions. "
@@ -698,7 +720,7 @@ msgstr ""
 "Vyberte interval data od dnešního dne, které chcete použít pro aktualizaci "
 "databáze pomocí nové definice."
 
-#: includes/nsp_options.php:664
+#: includes/nsp_options.php:666
 msgid ""
 "Be aware, larger is the interval, longer is the update and bigger are the "
 "resources required."
@@ -706,18 +728,18 @@ msgstr ""
 "Mějte na paměti, větší je interval, delší je aktualizace a větší jsou "
 "požadované zdroje."
 
-#: includes/nsp_options.php:672
+#: includes/nsp_options.php:674
 msgid "Update data in the given period"
 msgstr "Aktualizovat data v daném období"
 
-#: includes/nsp_options.php:683
+#: includes/nsp_options.php:685
 msgid ""
 "This option allows you to get periodic reports by email (dashboard "
 "informations). You can customize the frequency and the publishing time of "
 "the reports and also the description of Sender."
 msgstr ""
 
-#: includes/nsp_options.php:684
+#: includes/nsp_options.php:686
 msgid ""
 "Note: WP Cron job need to be operational in aim to schedule Email "
 "Notification."
@@ -725,7 +747,7 @@ msgstr ""
 "Poznámka: Pokud chceš naplánovat emailové notifikace, musí být v provozu WP "
 "Cron."
 
-#: includes/nsp_options.php:685
+#: includes/nsp_options.php:687
 msgid ""
 "Mailing address accept only one email address, check is well valid before "
 "reporting issues."
@@ -733,71 +755,71 @@ msgstr ""
 "Poštovní adresa přijímá pouze jednu e-mailovou adresu, kontrola je stejně "
 "platná před hlášením problémů."
 
-#: includes/nsp_options.php:686
+#: includes/nsp_options.php:688
 msgid "Notification will be sent at UTC time."
 msgstr "Upozornění bude odesláno s časem UTC."
 
-#: includes/nsp_options.php:687
+#: includes/nsp_options.php:689
 msgid ""
 "Sender could be personalized according your website (by default : "
 "'NewStatPress')."
 msgstr ""
 
-#: includes/nsp_options.php:723
+#: includes/nsp_options.php:725
 msgid "Statistics notification is"
 msgstr "Upozornění se statistikou je"
 
-#: includes/nsp_options.php:734
+#: includes/nsp_options.php:736
 msgid "Disabled"
 msgstr "Vypnuto"
 
-#: includes/nsp_options.php:737
+#: includes/nsp_options.php:739
 msgid "Enabled"
 msgstr "Zapnuto"
 
-#: includes/nsp_options.php:744
+#: includes/nsp_options.php:746
 msgid "Event schedule"
 msgstr "Naplánovaná událost"
 
-#: includes/nsp_options.php:755
+#: includes/nsp_options.php:757
 msgid "Publishing time"
 msgstr "Čas zveřejnění"
 
-#: includes/nsp_options.php:760
+#: includes/nsp_options.php:762
 msgid "Select"
 msgstr "Výběr"
 
-#: includes/nsp_options.php:776
+#: includes/nsp_options.php:778
 #, php-format
 msgid "UTC time is %s"
 msgstr "UTC čas je %s"
 
-#: includes/nsp_options.php:777
+#: includes/nsp_options.php:779
 #, php-format
 msgid "Local time is %s"
 msgstr "Místní čas je %s"
 
-#: includes/nsp_options.php:783
+#: includes/nsp_options.php:785
 msgid "Sender Description (From)"
 msgstr ""
 
-#: includes/nsp_options.php:792
+#: includes/nsp_options.php:794
 msgid "Mailing address"
 msgstr "Poštovní adresa"
 
-#: includes/nsp_options.php:797
+#: includes/nsp_options.php:799
 msgid "Email Test"
 msgstr "Test emailu"
 
-#: includes/nsp_options.php:810
+#: includes/nsp_options.php:812
 msgid "Enable External API"
 msgstr "Povolení externího API"
 
-#: includes/nsp_options.php:814
+#: includes/nsp_options.php:816
 msgid "API key"
 msgstr "Klíč API"
 
-#: includes/nsp_options.php:816
+#: includes/nsp_options.php:818
 msgid ""
 "The external access API is build to let you to use the collected data from "
 "your Newstatpress plugin  in an other web server application (for example "
@@ -821,7 +843,7 @@ msgstr ""
 "zpracování AJAX volání. To je kvůli zrychlení vykreslování stránky z "
 "dotazovaných dat, takže si budeš muset vybrat klíč a aktivovat jej."
 
-#: includes/nsp_options.php:818
+#: includes/nsp_options.php:820
 msgid ""
 "To retrieve data from Newstatpress plugin, you can generate automatically or "
 "set manually a private key for the external API (used for example from Multi-"
@@ -833,11 +855,11 @@ msgstr ""
 "NewStartPress software) : Dovoleny jsou pouze alfanumerické znaky (A-Z, a-z, "
 "0-9). Délka by měla být mězi 64 a 128 znaky."
 
-#: includes/nsp_options.php:835
+#: includes/nsp_options.php:837
 msgid "Generate new API key"
 msgstr "Vygeneruj nový API klíč"
 
-#: includes/nsp_options.php:845
+#: includes/nsp_options.php:847
 msgid "Save options"
 msgstr "Uložit nastavení"
 
@@ -893,7 +915,7 @@ msgid "Engine"
 msgstr "Internetový vyhledávač"
 
 #: includes/nsp_overview.php:110 includes/nsp_overview.php:136
-#: includes/nsp_tools.php:514
+#: includes/nsp_tools.php:591
 msgid "Result"
 msgstr "Výsledky"
 
@@ -1001,24 +1023,24 @@ msgstr "Počet"
 msgid "IP2nation"
 msgstr "IP2nation"
 
-#: includes/nsp_tools.php:20 includes/nsp_tools.php:462
+#: includes/nsp_tools.php:20 includes/nsp_tools.php:539
 msgid "Update"
 msgstr "Aktualizovat"
 
-#: includes/nsp_tools.php:21 includes/nsp_tools.php:321
+#: includes/nsp_tools.php:21 includes/nsp_tools.php:389
 msgid "Export"
 msgstr "Export"
 
-#: includes/nsp_tools.php:22 includes/nsp_tools.php:764
+#: includes/nsp_tools.php:22 includes/nsp_tools.php:841
 msgid "Optimize"
 msgstr "Optimalizace"
 
-#: includes/nsp_tools.php:23 includes/nsp_tools.php:796
+#: includes/nsp_tools.php:23 includes/nsp_tools.php:873
 msgid "Repair"
 msgstr "Oprava"
 
 #: includes/nsp_tools.php:24 includes/nsp_tools.php:163
-#: includes/nsp_tools.php:376
+#: includes/nsp_tools.php:453
 msgid "Remove"
 msgstr "Odstranit"
 
@@ -1095,48 +1117,92 @@ msgstr "Instalace databáze IP2nation byla úspěšná"
 msgid "IP2nation database was remove successfully"
 msgstr "Odinstalace databáze IP2nation byla úspěšná"
 
+#: includes/nsp_tools.php:292
+msgid ""
+"The export tool allows you to save your statistics in a local file for a "
+"date interval defined by yourself."
+msgstr ""
+
 #: includes/nsp_tools.php:294
-msgid "Export stats to text file"
-msgstr "Exportovat statistiky to textového dokumentu"
+msgid ""
+"You can define the filename and the file extension, and also the fields "
+"delimiter used to separate the data."
+msgstr ""
 
 #: includes/nsp_tools.php:295
-msgid "You should define the stats period you want to export:"
-msgstr "Definujte období, které chcete exportovat."
+msgid ""
+"Note: the parameters chosen will be saved automatically as default values."
+msgstr ""
+
+#: includes/nsp_tools.php:297
+msgid "default value : semicolon"
+msgstr ""
+
+#: includes/nsp_tools.php:298
+msgid "default value : CSV (readable by Excel)"
+msgstr ""
 
 #: includes/nsp_tools.php:299
+msgid ""
+"If the field remain blank, the default value is 'BLOG_TITLE-newstatpress'."
+msgstr ""
+
+#: includes/nsp_tools.php:301
+msgid ""
+"The date interval will be added to the filename (i.e. BLOG_TITLE-"
+"newstatpress_20160229-20160331.csv)."
+msgstr ""
+
+#: includes/nsp_tools.php:315
+msgid "Date interval"
+msgstr ""
+
+#: includes/nsp_tools.php:319
 msgid "From:"
 msgstr "Od:"
 
-#: includes/nsp_tools.php:304 includes/nsp_tools.php:308
+#: includes/nsp_tools.php:324 includes/nsp_tools.php:335
 msgid "YYYYMMDD"
 msgstr "RRRRMMDD"
 
-#: includes/nsp_tools.php:307
+#: includes/nsp_tools.php:331
 msgid "To:"
 msgstr "Komu:"
 
-#: includes/nsp_tools.php:313
-msgid "You should choose a fields delimiter to separate the data:"
-msgstr "Vyberete oddělovat, který bude rozdělí data:"
+#: includes/nsp_tools.php:343
+msgid "Filename"
+msgstr ""
 
-#: includes/nsp_tools.php:365
+#: includes/nsp_tools.php:348
+msgid "enter a filename"
+msgstr ""
+
+#: includes/nsp_tools.php:356
+msgid "File extension"
+msgstr ""
+
+#: includes/nsp_tools.php:374
+msgid "Fields delimiter"
+msgstr ""
+
+#: includes/nsp_tools.php:442
 msgid "All data removed"
 msgstr "Odebrána všechna data"
 
-#: includes/nsp_tools.php:370
+#: includes/nsp_tools.php:447
 msgid "Remove NewStatPress database"
 msgstr "Smazání NewStatPress databáze"
 
-#: includes/nsp_tools.php:374
+#: includes/nsp_tools.php:451
 msgid "To remove the Newstatpress database, just click on the button bellow."
 msgstr ""
 "Chcete-li odebrat databázi newstatpress, stačí kliknout na tlačítko níže."
 
-#: includes/nsp_tools.php:376
+#: includes/nsp_tools.php:453
 msgid "Are you sure?"
 msgstr "Jste si jisti?"
 
-#: includes/nsp_tools.php:381
+#: includes/nsp_tools.php:458
 msgid ""
 "This operation will remove all collected data by NewStatpress. This function "
 "is useful at people who did not want use the plugin any more or who want "
@@ -1145,27 +1211,27 @@ msgstr ""
 "Tato operace  odebere všechna data.  Toto použij v případě, že již nikdy "
 "nechceš použít tento plugin a chceš smazat veškerá data."
 
-#: includes/nsp_tools.php:385
+#: includes/nsp_tools.php:462
 msgid "If you have doubt about this function, don't use it."
 msgstr "Pokud pochybujete, že to chcete udělat. Radši to nedělejte."
 
-#: includes/nsp_tools.php:389
+#: includes/nsp_tools.php:466
 msgid ""
 "Warning: pressing the below button will make all your stored data to be "
 "erased!"
 msgstr "Pozor! Po stisknutí budou všechna data smazána!"
 
-#: includes/nsp_tools.php:455
+#: includes/nsp_tools.php:532
 msgid "Database update"
 msgstr "Aktualizace databáze"
 
-#: includes/nsp_tools.php:456
+#: includes/nsp_tools.php:533
 msgid "To update the newstatpress database, just click on the button bellow."
 msgstr ""
 "Chcete-li aktualizovat databázi newstatpress, stačí klikněte na tlačítko "
 "níže."
 
-#: includes/nsp_tools.php:470
+#: includes/nsp_tools.php:547
 msgid ""
 "Update the database is particularly useful when the ip2nation data and "
 "definitions data (OS, browser, spider) have been updated. An option in "
@@ -1175,61 +1241,61 @@ msgstr ""
 "definicí ip2nation (OS, prohlížeč, spider). Tato volba umožní v  budoucnu "
 "aktualizovat databázi automaticky."
 
-#: includes/nsp_tools.php:473
+#: includes/nsp_tools.php:550
 msgid "Note: The update may take some times to complete."
 msgstr "Poznámka: Aktualizace může chvilku zabrat."
 
-#: includes/nsp_tools.php:512
+#: includes/nsp_tools.php:589
 msgid "Database Update"
 msgstr "Aktualizace databáze"
 
-#: includes/nsp_tools.php:514
+#: includes/nsp_tools.php:591
 msgid "Updating..."
 msgstr "Aktualizuju..."
 
-#: includes/nsp_tools.php:514
+#: includes/nsp_tools.php:591
 msgid "Size"
 msgstr "Velikost"
 
-#: includes/nsp_tools.php:521
+#: includes/nsp_tools.php:598
 msgid "Structure"
 msgstr "Konstruktuji"
 
-#: includes/nsp_tools.php:526
+#: includes/nsp_tools.php:603
 msgid "Index"
 msgstr "Indexuji"
 
-#: includes/nsp_tools.php:725
+#: includes/nsp_tools.php:802
 msgid "Final Structure"
 msgstr "Konstrukce dokončena"
 
-#: includes/nsp_tools.php:729
+#: includes/nsp_tools.php:806
 msgid "Final Index"
 msgstr "Index dokončen"
 
-#: includes/nsp_tools.php:733
+#: includes/nsp_tools.php:810
 msgid "Duration of the update"
 msgstr "Doba trvání aktualizace"
 
-#: includes/nsp_tools.php:737
+#: includes/nsp_tools.php:814
 msgid "This update was done in"
 msgstr "Tato aktualizace byla provedena v"
 
-#: includes/nsp_tools.php:738
+#: includes/nsp_tools.php:815
 msgid "SQL queries"
 msgstr "SQL dotazy"
 
-#: includes/nsp_tools.php:757
+#: includes/nsp_tools.php:834
 msgid "Optimize table"
 msgstr "Optimalizovat tabulku"
 
-#: includes/nsp_tools.php:758
+#: includes/nsp_tools.php:835
 msgid "To optimize the statpress table, just click on the button bellow."
 msgstr ""
 "Chcete-li aktualizovat databázi newstatpress, stačí kliknout na tlačítko "
 "níže."
 
-#: includes/nsp_tools.php:768
+#: includes/nsp_tools.php:845
 msgid ""
 "Optimize a table is an database operation that can free some server space if "
 "you had lot of delation (like with prune activated) in it."
@@ -1237,7 +1303,7 @@ msgstr ""
 "Optimalizace tabulky uvolní místo na serveru, obzvláště v případech velých "
 "prodlev."
 
-#: includes/nsp_tools.php:771 includes/nsp_tools.php:803
+#: includes/nsp_tools.php:848 includes/nsp_tools.php:880
 msgid ""
 "Be aware that this operation may take a lot of server time to finish the "
 "processing (depending on your database size). So so use it only if you know "
@@ -1246,25 +1312,25 @@ msgstr ""
 "Pozor, tato operace zabere hodně času (závisí na velikosti databáze). Takže "
 "to udělej jen pokud víš, co děláš."
 
-#: includes/nsp_tools.php:789
+#: includes/nsp_tools.php:866
 msgid "Repair table"
 msgstr "Oprav tabulku"
 
-#: includes/nsp_tools.php:790
+#: includes/nsp_tools.php:867
 msgid ""
 "To repair the statpress table if damaged, just click on the button bellow."
 msgstr ""
 "Chcete-li opravit databázi newstatpress, stačí kliknout na tlačítko níže."
 
-#: includes/nsp_tools.php:800
+#: includes/nsp_tools.php:877
 msgid "Repair is an database operation that can fix a corrupted table."
 msgstr "Oprava může pomoci napravit poškozenou tabulku."
 
-#: includes/nsp_tools.php:814
+#: includes/nsp_tools.php:891
 msgid "Optimization finished"
 msgstr "Optimalizace dokončena"
 
-#: includes/nsp_tools.php:822
+#: includes/nsp_tools.php:899
 msgid "Repair finished"
 msgstr "Oprava dokončena"
 
@@ -1404,10 +1470,6 @@ msgstr "Toto je test od [%s]"
 msgid "support page"
 msgstr "stránka podpory"
 
-#: newstatpress.php:470
-msgid "the author"
-msgstr "autor"
-
 #: newstatpress.php:472
 msgid ""
 "If you have found this plugin useful and you like it, thank you to take a "
@@ -1415,6 +1477,15 @@ msgid ""
 msgstr ""
 "Pokud se ti zdá, že je plugin užitečný a líbí se Ti, udělej si chvilku a "
 "ohodnoť ho."
+
+#: newstatpress.php:473
+#, php-format
+msgid ""
+"You can help to the plugin development by reporting bugs on the %s or by "
+"adding/updating translation by contacting directly %s."
+msgstr ""
+"Můžeš pomoci s vývojem pluginu už tím, že nahlásíš chyby na %s nebo nahrátím/"
+"aktualizací překladu kontaktováním %s."
 
 #: newstatpress.php:475
 msgid ""
@@ -1505,6 +1576,28 @@ msgstr "Včera"
 #: newstatpress.php:1496
 msgid "Today"
 msgstr "Dnes"
+
+#~ msgid ""
+#~ "This new version integrates a new major function : <strong>Email "
+#~ "Notification</strong> (see Option Page) to get periodic reports of your "
+#~ "statistics. This function remains a bit experimental until it's tested "
+#~ "recursively, thanks to be comprehensive. <br/> <i>Thanks to "
+#~ "<strong>Douglas R.</strong> to support our work with his donation.</i>"
+#~ msgstr ""
+#~ "Tato nová verze obsahuje novou důležitou funkci: <strong> E-mailové "
+#~ "oznámení </strong> (viz stránka Nastavení) - je možno získat pravidelné "
+#~ "zprávy o svých statistikách. Tato funkce zůstává trochu experimentální, "
+#~ "dokud nebude důkladně otestována. Děkujeme za trpělivost <br/> <i> Díky "
+#~ "<strong> Douglas R. </strong> za podporu naší práce svým darem. </i>"
+
+#~ msgid "Export stats to text file"
+#~ msgstr "Exportovat statistiky to textového dokumentu"
+
+#~ msgid "You should define the stats period you want to export:"
+#~ msgstr "Definujte období, které chcete exportovat."
+
+#~ msgid "You should choose a fields delimiter to separate the data:"
+#~ msgstr "Vyberete oddělovat, který bude rozdělí data:"
 
 #~ msgid ""
 #~ "Sum of the distinct IPs of each day (slower than classic method for big "

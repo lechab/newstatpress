@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress v1.1.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 13:11+0100\n"
-"PO-Revision-Date: 2016-03-19 13:12+0100\n"
+"POT-Creation-Date: 2016-03-19 15:21+0100\n"
+"PO-Revision-Date: 2016-03-19 15:21+0100\n"
 "Last-Translator: cHab <chabdev@free.fr>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -286,21 +286,46 @@ msgstr "Actualités NewStatPress"
 
 #: includes/nsp_functions-extra.php:223
 msgid ""
-"This new version integrates a new  function : <strong>Email Notification</"
-"strong> (see Option Page) to get periodic reports of your statistics. This "
-"function remains a bit experimental until it's tested recursively, thanks to "
-"be comprehensive. <br/> <i>Thanks to the donors to support our work with "
-"them donation.</i>"
+"In addition of some fixes and optimizations, several new options in this "
+"version:"
 msgstr ""
+"En plus de quelques corrections et optimisations, plusieurs nouvelles "
+"options dans cette version :"
 
-#: includes/nsp_functions-extra.php:234
+#: includes/nsp_functions-extra.php:225
+msgid "Offsets statistics option (see Option Page>General)."
+msgstr "Option de compensation de statistiques (voir Option page> Général)."
+
+#: includes/nsp_functions-extra.php:226
+msgid ""
+"Sender option for statistics email notification (see Option Page>Email "
+"Notification)."
+msgstr ""
+"Option de l’expéditeur pour la notification des statistiques de courrier "
+"électronique (voir Option page> Notification par email)."
+
+#: includes/nsp_functions-extra.php:227
+msgid "Picker date and new options for export tool (see Tools Page>Export)."
+msgstr ""
+"Sélectionneur de date et de nouvelles options pour l’outil d’exportation "
+"(voir page Outils> Exporter)."
+
+#: includes/nsp_functions-extra.php:229
+msgid ""
+"A big thank you from the team for all those who took the time to evaluate "
+"the plugin and those who have supported our work with their donations."
+msgstr ""
+"Un grand merci de l’équipe pour tous ceux qui ont pris le temps d’évaluer le "
+"Plug-in et ceux qui ont soutenu notre travail avec leurs dons."
+
+#: includes/nsp_functions-extra.php:240
 msgid ""
 "It looks like you've been using NewStatPress for a while now. That's great!"
 msgstr ""
 "On dirait que vous avez utilisé NewStatPress pendant un certain temps "
 "maintenant. C’est super!"
 
-#: includes/nsp_functions-extra.php:235
+#: includes/nsp_functions-extra.php:241
 msgid ""
 "If you find this plugin useful, would you take a moment to give it a rating "
 "on WordPress.org?"
@@ -308,15 +333,15 @@ msgstr ""
 "Si vous trouvez ce plug-in utile, prendriez-vous un moment pour lui donner "
 "une note sur WordPress.org ?"
 
-#: includes/nsp_functions-extra.php:236
+#: includes/nsp_functions-extra.php:242
 msgid "Yes, I'd like to rate it!"
 msgstr "Oui, je tiens à le noter !"
 
-#: includes/nsp_functions-extra.php:238 includes/nsp_functions-extra.php:251
+#: includes/nsp_functions-extra.php:244 includes/nsp_functions-extra.php:257
 msgid "I already did!"
 msgstr "Je l’ai déjà fait !"
 
-#: includes/nsp_functions-extra.php:247
+#: includes/nsp_functions-extra.php:253
 msgid ""
 "You've been using NewStatPress for several months now. We hope that means "
 "you like it and are finding it helpful."
@@ -324,7 +349,7 @@ msgstr ""
 "Vous utilisez NewStatPress depuis plusieurs mois maintenant. Nous espérons "
 "que cela signifie que vous l’aimez et que vous le trouvez utile."
 
-#: includes/nsp_functions-extra.php:248
+#: includes/nsp_functions-extra.php:254
 msgid ""
 "NewStatPress is provided for free and maintained only on free time. If you "
 "like the plugin, consider a donation to help further its development"
@@ -333,12 +358,12 @@ msgstr ""
 "Si vous aimez le plug-in, envisagez un don pour aider à poursuivre son "
 "développement."
 
-#: includes/nsp_functions-extra.php:249
+#: includes/nsp_functions-extra.php:255
 msgid "Yes, I'd like to donate!"
 msgstr "Oui, je voudrais faire un don !"
 
 # @ newstatpress
-#: includes/nsp_functions-extra.php:362
+#: includes/nsp_functions-extra.php:368
 msgid "records"
 msgstr "enregistrements"
 
@@ -1705,6 +1730,13 @@ msgstr "Hier"
 #: newstatpress.php:1496
 msgid "Today"
 msgstr "Aujourd'hui"
+
+#~ msgid ""
+#~ "In addition of some fixes and optimizations, some new options in this "
+#~ "version:"
+#~ msgstr ""
+#~ "En plus de quelques corrections et optimisations, quelques nouvelles "
+#~ "options dans cette version:"
 
 #~ msgid ""
 #~ "If the field remain blank, the default value is 'your_blog_title-"
