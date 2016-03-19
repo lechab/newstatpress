@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-19 15:22+0100\n"
-"PO-Revision-Date: 2016-03-19 17:01+0100\n"
+"PO-Revision-Date: 2016-03-19 17:22+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -719,7 +719,7 @@ msgid ""
 "Sender could be personalized according your website (by default : "
 "'NewStatPress')."
 msgstr ""
-"l mittente può essere personalizzato in accordo col tuo sito web (per "
+"Il mittente può essere personalizzato in accordo col tuo sito web (per "
 "default è 'NewStatPress')."
 
 #: includes/nsp_options.php:725
@@ -748,7 +748,7 @@ msgstr "Seleziona"
 
 #: includes/nsp_options.php:785
 msgid "Sender Description (From)"
-msgstr "Descrizione Mittente (Da)"
+msgstr "Descrizione Mittente (From)"
 
 #: includes/nsp_options.php:794
 msgid "Mailing address"
