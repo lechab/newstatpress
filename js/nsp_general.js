@@ -67,13 +67,6 @@ if ($("#pagecredits").length) {
    var pickerto = new Pikaday({
            field: document.getElementById('dateto'),
            format: 'YYYYMMDD',
-           i18n: {
-                 previousMonth : 'Mois précédent',
-                 nextMonth     : 'Mois suivant',
-                 months        : ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Decembre'],
-                 weekdays      : ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
-                 weekdaysShort : ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam']
-           },
            onSelect: function() {
                  pickerto.gotoToday();
            },
