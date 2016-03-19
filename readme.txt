@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 3.5
 Tested up to: 4.4.1
-Stable Tag: 1.1.7
+Stable Tag: 1.1.8
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -144,6 +144,20 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+= 1.1.8 =
+*Released date: 2016-03-19*
+
+* Add 'from' option in email notification tab
+* Add option for adding a fixed number of visits for how before use another statistic plugin
+* Add pickaday for export tool (https://github.com/dbushell/Pikaday)
+* Add filename field for export tool
+* Add file extension field for export tool
+* Add autosave function for export tool
+* Add ressources tab in Credits page
+* Fix title with spaces visualization in widget
+* Fix wrong display in Credits page
+* Update fr_FR and it_IT translation
+
 = 1.1.7 =
 *Released date: 2016-02-28*
 
@@ -158,7 +172,6 @@ Check at http://newstatpress.altervista.org
 
 * Fix email notification bug
 * [x] Update IT translation
-
 
 = 1.1.5 =
 *Released date: 10/01/2016*
