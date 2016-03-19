@@ -220,7 +220,7 @@ function nsp_CheckNagNotices() {
   if( empty( $status['news'] ) ) {
     $nid = 'n03';
     $style = 'notice';
-    $notice_text=__('Moreover some fixes and optimizations, some additions in this version:','newstatpress');
+    $notice_text=__('In addition of some fixes and optimizations, several new options in this version:','newstatpress');
     $notice_text.="<ul class=\"news\">";
     $notice_text.="<li>".__('Offsets statistics option (see Option Page>General).','newstatpress')."</li>";
     $notice_text.="<li>".__('Sender option for statistics email notification (see Option Page>Email Notification).','newstatpress')."</li>";
