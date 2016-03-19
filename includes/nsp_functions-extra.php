@@ -220,7 +220,15 @@ function nsp_CheckNagNotices() {
   if( empty( $status['news'] ) ) {
     $nid = 'n03';
     $style = 'notice';
-    $notice_text=__('This new version integrates a new major function : <strong>Email Notification</strong> (see Option Page) to get periodic reports of your statistics. This function remains a bit experimental until it\'s tested recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas R.</strong> to support our work with his donation.</i>','newstatpress');
+    $notice_text=__('Some addition in this version:','newstatpress');
+    $notice_text.="<ul>";
+    $notice_text="<li>".__('offsets statistics option (see Option Page>General). Moreover <strong>Email Notification</strong> (see Option Page) .','newstatpress')."</li>";
+    $notice_text.="<li>".__('Sender option for statistics Email Notification (see Option Page>Email Notification).','newstatpress')."</li>";
+    $notice_text.="<li>".__('pickerdate and new options for export tool (see Tools Page>Export).','newstatpress');
+    $notice_text.="</ul>";
+    $notice_text.=__('Moreover some fixes and optimizations of course.','newstatpress');
+    $notice_text.="<br/>";
+    $notice_text.="<i>".__('A big thank you from the team for all those who took the time to evaluate the plugin and those who have supported our work with their donations.','newstatpress')."</i>";
     $status['currentnag'] = TRUE;
     $status['news'] = FALSE;
   }
