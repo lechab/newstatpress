@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-03-19 15:22+0100\n"
-"PO-Revision-Date: 2016-03-19 15:22+0100\n"
+"PO-Revision-Date: 2016-03-19 17:01+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "X-Poedit-SearchPath-0: newstatpress.php\n"
 "X-Poedit-SearchPath-1: includes\n"
 
@@ -125,7 +125,7 @@ msgstr "Sviluppo"
 
 #: includes/nsp_credits.php:15
 msgid "Ressources"
-msgstr ""
+msgstr "Risorse"
 
 #: includes/nsp_credits.php:16
 msgid "Translation"
@@ -137,7 +137,7 @@ msgstr "Donazione"
 
 #: includes/nsp_credits.php:20
 msgid "the support page"
-msgstr ""
+msgstr "la pagina di supporto"
 
 #: includes/nsp_credits.php:21 newstatpress.php:470
 msgid "the author"
@@ -157,6 +157,8 @@ msgid ""
 "You can help to the plugin development by reporting bugs on %s or by adding/"
 "updating translation by contacting directly %s."
 msgstr ""
+"Puoi aiutare lo sviluppo del plugin segnalando errori a %s o aggiungendo/"
+"aggiornando le traduzioni contattando direttamente %s."
 
 #: includes/nsp_credits.php:26
 msgid ""
@@ -181,11 +183,11 @@ msgstr "Fai una donazione"
 
 #: includes/nsp_credits.php:61
 msgid "This plugin is a fork of the plugin"
-msgstr ""
+msgstr "Il plugin è un fork del plugin"
 
 #: includes/nsp_credits.php:61
 msgid "originally developed (and not longer maintened) by"
-msgstr ""
+msgstr "originariamente sviluppato (e attualmente non supportato) da"
 
 #: includes/nsp_credits.php:65 includes/nsp_credits.php:93
 #: includes/nsp_credits.php:106
@@ -198,11 +200,11 @@ msgstr "Descrizione"
 
 #: includes/nsp_credits.php:78
 msgid "Reference"
-msgstr ""
+msgstr "Riferimento"
 
 #: includes/nsp_credits.php:80
 msgid "Website"
-msgstr ""
+msgstr "Sito Web"
 
 #: includes/nsp_credits.php:92 includes/nsp_overview.php:56
 msgid "Language"
@@ -263,26 +265,35 @@ msgid ""
 "In addition of some fixes and optimizations, several new options in this "
 "version:"
 msgstr ""
+"In aggiunta ad alcuni fix e ottimizzazioni, parecchie nuove opzioni sono "
+"presenti in questa versione:"
 
 #: includes/nsp_functions-extra.php:225
 msgid "Offsets statistics option (see Option Page>General)."
-msgstr ""
+msgstr "Opzioni per offset statico (guard Pagina Opzioni>Generale)."
 
 #: includes/nsp_functions-extra.php:226
 msgid ""
 "Sender option for statistics email notification (see Option Page>Email "
 "Notification)."
 msgstr ""
+"Opzione mittente per le notifiche statistiche via mail (guarda Pagina "
+"Opzioni>Notifiche Mail)"
 
 #: includes/nsp_functions-extra.php:227
 msgid "Picker date and new options for export tool (see Tools Page>Export)."
 msgstr ""
+"Selettore date e nuove opzioni per lo strumento di esportazione (guarda "
+"Pagina Strumenti>Esportazione)"
 
 #: includes/nsp_functions-extra.php:229
 msgid ""
 "A big thank you from the team for all those who took the time to evaluate "
 "the plugin and those who have supported our work with their donations."
 msgstr ""
+"Un grande grazie da parte del team a tutti quelli che hanno dedicato tempo "
+"per valutare il plugin e per quelli che ci supportano il nostro lavoro con "
+"le loro donazioni."
 
 #: includes/nsp_functions-extra.php:240
 msgid ""
@@ -433,11 +444,11 @@ msgstr "Semplice somma degli IP distinti (metodo classico)"
 
 #: includes/nsp_options.php:415
 msgid "Sum of the distinct IPs of each day"
-msgstr ""
+msgstr "Somma degli IP distinti per ciascun giorno"
 
 #: includes/nsp_options.php:417
 msgid "(slower than classic method for big database)"
-msgstr ""
+msgstr "(più lenta del metodo classico per grandi database)"
 
 #: includes/nsp_options.php:427
 msgid "Graph"
@@ -458,7 +469,7 @@ msgstr "Numero elementi nel sommario (default %d)"
 
 #: includes/nsp_options.php:443
 msgid "Statistics offsets (Total visits)"
-msgstr ""
+msgstr "Offset statistiche (Visite totali)"
 
 #: includes/nsp_options.php:499
 msgid "Never"
@@ -679,6 +690,9 @@ msgid ""
 "informations). You can customize the frequency and the publishing time of "
 "the reports and also the description of Sender."
 msgstr ""
+"Questa opzione ti permette di ricevere resoconti periodici per mail "
+"(informazioni della dashboard). Puoi cambiare la frequenza e il tempo di "
+"pubblicazionr delle statistiche e anche la descrizione del Mittente."
 
 #: includes/nsp_options.php:686
 msgid ""
@@ -705,6 +719,8 @@ msgid ""
 "Sender could be personalized according your website (by default : "
 "'NewStatPress')."
 msgstr ""
+"l mittente può essere personalizzato in accordo col tuo sito web (per "
+"default è 'NewStatPress')."
 
 #: includes/nsp_options.php:725
 msgid "Statistics notification is"
@@ -732,7 +748,7 @@ msgstr "Seleziona"
 
 #: includes/nsp_options.php:785
 msgid "Sender Description (From)"
-msgstr ""
+msgstr "Descrizione Mittente (Da)"
 
 #: includes/nsp_options.php:794
 msgid "Mailing address"
@@ -1051,40 +1067,48 @@ msgid ""
 "The export tool allows you to save your statistics in a local file for a "
 "date interval defined by yourself."
 msgstr ""
+"Lo strumento di esportazione ti permette di salvare le tue statistiche in un "
+"file locale nell'intervallo di date definite da te stesso."
 
 #: includes/nsp_tools.php:294
 msgid ""
 "You can define the filename and the file extension, and also the fields "
 "delimiter used to separate the data."
 msgstr ""
+"Puoi definire il nome e l'estensione del file, e anche il delimitatore usato "
+"per separare i dati."
 
 #: includes/nsp_tools.php:295
 msgid ""
 "Note: the parameters chosen will be saved automatically as default values."
 msgstr ""
+"Nota: il parametro scelto sarà salvato in automatico come valore di default."
 
 #: includes/nsp_tools.php:297
 msgid "default value : semicolon"
-msgstr ""
+msgstr "valore di default: punto e virgola"
 
 #: includes/nsp_tools.php:298
 msgid "default value : CSV (readable by Excel)"
-msgstr ""
+msgstr "valore di default: CSV (leggibile da Excel)"
 
 #: includes/nsp_tools.php:299
 msgid ""
 "If the field remain blank, the default value is 'BLOG_TITLE-newstatpress'."
 msgstr ""
+"Se il campo rimane bianco, il valore di default è 'BLOG_TITLE-newstatpress'."
 
 #: includes/nsp_tools.php:301
 msgid ""
 "The date interval will be added to the filename (i.e. BLOG_TITLE-"
 "newstatpress_20160229-20160331.csv)."
 msgstr ""
+"L'intervallo di date sarà aggiunto al nome del file (esempio BLOG_TITLE-"
+"newstatpress_20160229-20160331.csv)."
 
 #: includes/nsp_tools.php:315
 msgid "Date interval"
-msgstr ""
+msgstr "Intervallo Date"
 
 #: includes/nsp_tools.php:319
 msgid "From:"
@@ -1100,15 +1124,15 @@ msgstr "A:"
 
 #: includes/nsp_tools.php:343
 msgid "Filename"
-msgstr ""
+msgstr "Nome file"
 
 #: includes/nsp_tools.php:348
 msgid "enter a filename"
-msgstr ""
+msgstr "Intoduci un nome del file"
 
 #: includes/nsp_tools.php:356
 msgid "File extension"
-msgstr ""
+msgstr "Estensione del file"
 
 #: includes/nsp_tools.php:374
 msgid "Fields delimiter"
