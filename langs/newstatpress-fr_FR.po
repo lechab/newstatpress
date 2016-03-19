@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress v1.1.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-17 22:57+0100\n"
-"PO-Revision-Date: 2016-03-17 22:57+0100\n"
+"POT-Creation-Date: 2016-03-19 13:11+0100\n"
+"PO-Revision-Date: 2016-03-19 13:12+0100\n"
 "Last-Translator: cHab <chabdev@free.fr>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -22,12 +22,12 @@ msgstr ""
 "X-Poedit-SearchPath-2: includes\n"
 
 # @ newstatpress
-#: includes/api/nsp_api_dashboard.php:52 includes/nsp_options.php:456
+#: includes/api/nsp_api_dashboard.php:52 includes/nsp_options.php:458
 #: includes/nsp_visits.php:13 newstatpress.php:1539 newstatpress.php:1703
 msgid "Visitors"
 msgstr "Visiteurs"
 
-#: includes/api/nsp_api_dashboard.php:57 includes/nsp_options.php:462
+#: includes/api/nsp_api_dashboard.php:57 includes/nsp_options.php:464
 #: newstatpress.php:1545
 msgid "Visitors through Feeds"
 msgstr "Visiteurs (par le flux RSS)"
@@ -35,19 +35,19 @@ msgstr "Visiteurs (par le flux RSS)"
 # @ newstatpress
 #: includes/api/nsp_api_dashboard.php:62 includes/nsp_core.php:196
 #: includes/nsp_core.php:199 includes/nsp_details.php:45
-#: includes/nsp_details.php:48 includes/nsp_options.php:468
+#: includes/nsp_details.php:48 includes/nsp_options.php:470
 #: newstatpress.php:1551 newstatpress.php:1704
 msgid "Pageviews"
 msgstr "Pages visitées"
 
 # @ newstatpress
 #: includes/api/nsp_api_dashboard.php:67 includes/nsp_core.php:187
-#: includes/nsp_details.php:36 includes/nsp_options.php:480
-#: includes/nsp_tools.php:673 newstatpress.php:1557 newstatpress.php:1705
+#: includes/nsp_details.php:36 includes/nsp_options.php:482
+#: includes/nsp_tools.php:750 newstatpress.php:1557 newstatpress.php:1705
 msgid "Spiders"
 msgstr "Robots"
 
-#: includes/api/nsp_api_dashboard.php:72 includes/nsp_options.php:474
+#: includes/api/nsp_api_dashboard.php:72 includes/nsp_options.php:476
 #: newstatpress.php:1563
 msgid "Pageviews through Feeds"
 msgstr "Pages vues (par le flux RSS)"
@@ -82,25 +82,25 @@ msgstr "Top jours"
 
 # @ newstatpress
 #: includes/nsp_core.php:166 includes/nsp_details.php:15
-#: includes/nsp_tools.php:629
+#: includes/nsp_tools.php:706
 msgid "OSes"
 msgstr "Systèmes"
 
 # @ newstatpress
 #: includes/nsp_core.php:169 includes/nsp_details.php:18
-#: includes/nsp_tools.php:651
+#: includes/nsp_tools.php:728
 msgid "Browsers"
 msgstr "Navigateurs"
 
 # @ newstatpress
 #: includes/nsp_core.php:172 includes/nsp_details.php:21
-#: includes/nsp_tools.php:531 newstatpress.php:1706
+#: includes/nsp_tools.php:608 newstatpress.php:1706
 msgid "Feeds"
 msgstr "Flux"
 
 # @ newstatpress
 #: includes/nsp_core.php:175 includes/nsp_details.php:24
-#: includes/nsp_tools.php:695
+#: includes/nsp_tools.php:772
 msgid "Search engines"
 msgstr "Moteurs de recherche"
 
@@ -139,23 +139,31 @@ msgstr "Visiteurs unique"
 msgid "Top IPs"
 msgstr "Top IPs"
 
-#: includes/nsp_credits.php:16
+#: includes/nsp_credits.php:14
 msgid "Development"
 msgstr "Développement"
 
-#: includes/nsp_credits.php:17
+#: includes/nsp_credits.php:15
 msgid "Ressources"
 msgstr "Ressources"
 
-#: includes/nsp_credits.php:18
+#: includes/nsp_credits.php:16
 msgid "Translation"
 msgstr "Traduction"
 
-#: includes/nsp_credits.php:19
+#: includes/nsp_credits.php:17
 msgid "Donation"
 msgstr "Don"
 
-#: includes/nsp_credits.php:22
+#: includes/nsp_credits.php:20
+msgid "the support page"
+msgstr "la page de support"
+
+#: includes/nsp_credits.php:21 newstatpress.php:470
+msgid "the author"
+msgstr "l'auteur"
+
+#: includes/nsp_credits.php:23
 msgid ""
 "If you have found this plugin usefull and you like it, thank you to take a "
 "moment to rate it."
@@ -163,17 +171,17 @@ msgstr ""
 "Si vous avez trouvé ce plug-in utile et que vous l’appréciez, merci de "
 "prendre le temps de le noter."
 
-#: includes/nsp_credits.php:23 newstatpress.php:473
+#: includes/nsp_credits.php:24
 #, php-format
 msgid ""
-"You can help to the plugin development by reporting bugs on the %s or by "
-"adding/updating translation by contacting directly %s."
+"You can help to the plugin development by reporting bugs on %s or by adding/"
+"updating translation by contacting directly %s."
 msgstr ""
-"Vous pouvez soutenir le développement du plug-in en signalant les bogues sur "
-"le %s ou en ajoutant/mettant à jour la traduction en communiquant "
-"directement avec %s."
+"Vous pouvez soutenir le développement du Plug-in en signalant les bogues sur "
+"%s ou en ajoutant/mettant à jour la traduction en communiquant directement "
+"avec %s."
 
-#: includes/nsp_credits.php:25
+#: includes/nsp_credits.php:26
 msgid ""
 "NewStatPress is provided for free and is maintained only on free time, you "
 "can also consider a donation to support further work."
@@ -183,63 +191,67 @@ msgstr ""
 "travaux."
 
 # @ newstatpress
-#: includes/nsp_credits.php:30 newstatpress.php:292
+#: includes/nsp_credits.php:31 newstatpress.php:292
 msgid "Credits"
 msgstr "Crédits"
 
-#: includes/nsp_credits.php:37
+#: includes/nsp_credits.php:39
 msgid "Rate the plugin"
 msgstr "Notez cette extension"
 
-#: includes/nsp_credits.php:39
+#: includes/nsp_credits.php:41
 msgid "Make a donation"
 msgstr "Faire un don"
 
-#: includes/nsp_credits.php:59
-msgid "This plugin is a fork of"
-msgstr "Ce plugin est un fork de"
+#: includes/nsp_credits.php:61
+msgid "This plugin is a fork of the plugin"
+msgstr "Ce plugin est un fork du Plug-in"
 
-#: includes/nsp_credits.php:63 includes/nsp_credits.php:91
-#: includes/nsp_credits.php:104
+#: includes/nsp_credits.php:61
+msgid "originally developed (and not longer maintened) by"
+msgstr "initialement développé (et plus maintenu) par"
+
+#: includes/nsp_credits.php:65 includes/nsp_credits.php:93
+#: includes/nsp_credits.php:106
 msgid "Contributor"
 msgstr "Contributeur"
 
-#: includes/nsp_credits.php:64 includes/nsp_credits.php:77
+#: includes/nsp_credits.php:66 includes/nsp_credits.php:79
 msgid "Description"
 msgstr "Description"
 
-#: includes/nsp_credits.php:76
+#: includes/nsp_credits.php:78
 msgid "Reference"
 msgstr "Référence"
 
-#: includes/nsp_credits.php:78
+#: includes/nsp_credits.php:80
 msgid "Website"
 msgstr "Site Web"
 
 # @ newstatpress
-#: includes/nsp_credits.php:90 includes/nsp_overview.php:56
+#: includes/nsp_credits.php:92 includes/nsp_overview.php:56
 msgid "Language"
 msgstr "Langue"
 
-#: includes/nsp_credits.php:92
+#: includes/nsp_credits.php:94
 msgid "Status"
 msgstr "Statuts"
 
-#: includes/nsp_credits.php:105 includes/nsp_overview.php:53
+#: includes/nsp_credits.php:107 includes/nsp_overview.php:53
 #: includes/nsp_overview.php:106 includes/nsp_overview.php:133
 #: includes/nsp_overview.php:180 includes/nsp_overview.php:209
 msgid "Date"
 msgstr "Date"
 
-#: includes/nsp_credits.php:121
+#: includes/nsp_credits.php:118
 msgid "Plugin homepage"
 msgstr "Page d'accueil du Plugin"
 
-#: includes/nsp_credits.php:126
+#: includes/nsp_credits.php:123
 msgid "RSS news"
 msgstr "Fil RSS"
 
-#: includes/nsp_credits.php:127
+#: includes/nsp_credits.php:124
 msgid "News"
 msgstr "News"
 
@@ -274,18 +286,12 @@ msgstr "Actualités NewStatPress"
 
 #: includes/nsp_functions-extra.php:223
 msgid ""
-"This new version integrates a new major function : <strong>Email "
-"Notification</strong> (see Option Page) to get periodic reports of your "
-"statistics. This function remains a bit experimental until it's tested "
-"recursively, thanks to be comprehensive. <br/> <i>Thanks to <strong>Douglas "
-"R.</strong> to support our work with his donation.</i>"
+"This new version integrates a new  function : <strong>Email Notification</"
+"strong> (see Option Page) to get periodic reports of your statistics. This "
+"function remains a bit experimental until it's tested recursively, thanks to "
+"be comprehensive. <br/> <i>Thanks to the donors to support our work with "
+"them donation.</i>"
 msgstr ""
-"Cette nouvelle version d’intègre une nouvelle fonction majeure de "
-"<strong>notification par courrier électronique</strong> (voir page Options) "
-"pour obtenir des rapports périodiques de vos statistiques. Cette fonction "
-"demeure un peu expérimentale jusqu’à ce qu’elle soit testée de manière "
-"récursive, merci d’être compréhensif. <br/> <i>Merci à <strong>Douglas R.</"
-"strong> Pour soutenir notre travail avec son don.</i>"
 
 #: includes/nsp_functions-extra.php:234
 msgid ""
@@ -498,106 +504,106 @@ msgstr "Méthode de comptage des visites"
 msgid "Simple sum of distinct IPs (Classic method)"
 msgstr "Somme des IPs distinctes (méthode classique)"
 
-#: includes/nsp_options.php:414
+#: includes/nsp_options.php:415
 msgid "Sum of the distinct IPs of each day"
 msgstr "Somme de l’IPs distinctes de chaque jour"
 
-#: includes/nsp_options.php:414
+#: includes/nsp_options.php:417
 msgid "(slower than classic method for big database)"
 msgstr "(Plus lent que la méthode classique pour la grande base de données)"
 
-#: includes/nsp_options.php:425
+#: includes/nsp_options.php:427
 msgid "Graph"
 msgstr "Graphique"
 
-#: includes/nsp_options.php:430
+#: includes/nsp_options.php:432
 msgid "Days number in Overview graph"
 msgstr "Nombre de jours dans l'aperçu graphique"
 
-#: includes/nsp_options.php:436 newstatpress.php:286 newstatpress.php:1485
+#: includes/nsp_options.php:438 newstatpress.php:286 newstatpress.php:1485
 msgid "Overview"
 msgstr "Vue générale"
 
-#: includes/nsp_options.php:438
+#: includes/nsp_options.php:440
 #, php-format
 msgid "Elements in Overview (default %d)"
 msgstr "Nombre d'éléments dans la vue d'ensemble (%d par défaut)"
 
-#: includes/nsp_options.php:441
+#: includes/nsp_options.php:443
 msgid "Statistics offsets (Total visits)"
 msgstr "Compensations des statistiques (visites totales)"
 
-#: includes/nsp_options.php:497
+#: includes/nsp_options.php:499
 msgid "Never"
 msgstr "Jamais"
 
-#: includes/nsp_options.php:498
+#: includes/nsp_options.php:500
 msgid "All"
 msgstr "Tout"
 
 # @ newstatpress
-#: includes/nsp_options.php:499
+#: includes/nsp_options.php:501
 msgid "month"
 msgstr "mois"
 
 # @ newstatpress
-#: includes/nsp_options.php:500
+#: includes/nsp_options.php:502
 msgid "months"
 msgstr "mois"
 
 # @ newstatpress
-#: includes/nsp_options.php:501
+#: includes/nsp_options.php:503
 msgid "week"
 msgstr "semaine"
 
 # @ newstatpress
-#: includes/nsp_options.php:502
+#: includes/nsp_options.php:504
 msgid "weeks"
 msgstr "semaines"
 
-#: includes/nsp_options.php:504
+#: includes/nsp_options.php:506
 msgid "Data collection"
 msgstr "Collecte de données"
 
 # @ newstatpress
-#: includes/nsp_options.php:506
+#: includes/nsp_options.php:508
 msgid "Crypt IP addresses"
 msgstr "Crypter les adresses IP"
 
 # @ newstatpress
-#: includes/nsp_options.php:510
+#: includes/nsp_options.php:512
 msgid "Collect data about logged users, too."
 msgstr "Intégrer les utilisateurs enregistrés aux statistiques."
 
 # @ newstatpress
-#: includes/nsp_options.php:514
+#: includes/nsp_options.php:516
 msgid "Do not collect spiders visits"
 msgstr "Exclure les robots des statistiques"
 
-#: includes/nsp_options.php:521
+#: includes/nsp_options.php:523
 msgid "Data purge"
 msgstr "Purge des données"
 
-#: includes/nsp_options.php:526
+#: includes/nsp_options.php:528
 msgid "Automatically delete all visits older than"
 msgstr "Supprimer automatiquement les visites antérieures à"
 
 # @ newstatpress
-#: includes/nsp_options.php:532
+#: includes/nsp_options.php:534
 msgid "Automatically delete only spiders visits older than"
 msgstr ""
 "Supprimer automatiquement et seulement les visites des robots antérieures à"
 
-#: includes/nsp_options.php:540 includes/nsp_options.php:589
+#: includes/nsp_options.php:542 includes/nsp_options.php:591
 msgid "Parameters to ignore"
 msgstr "Paramètres à ignorer"
 
 # @ newstatpress
-#: includes/nsp_options.php:545
+#: includes/nsp_options.php:547
 msgid "Logged users"
 msgstr "Utilisateurs connectés"
 
-#: includes/nsp_options.php:547
+#: includes/nsp_options.php:549
 msgid ""
 "Enter a list of users you don't want to track, separated by commas, even if "
 "collect data about logged users is on"
@@ -607,11 +613,11 @@ msgstr ""
 "active"
 
 # @ newstatpress
-#: includes/nsp_options.php:550
+#: includes/nsp_options.php:552
 msgid "IP addresses"
 msgstr "adresses IP"
 
-#: includes/nsp_options.php:552
+#: includes/nsp_options.php:554
 msgid ""
 "Enter a list of networks you don't want to track, separated by commas. Each "
 "network <strong>must</strong> be defined using the CIDR notation (i.e. "
@@ -624,11 +630,11 @@ msgstr ""
 "incorrect, NewStatPress peut ne pas suivre correctement les pages vues."
 
 # @ newstatpress
-#: includes/nsp_options.php:555
+#: includes/nsp_options.php:557
 msgid "Pages and posts"
 msgstr "Pages et articles"
 
-#: includes/nsp_options.php:557
+#: includes/nsp_options.php:559
 msgid ""
 "Enter a list of permalinks you don't want to track, separated by commas. You "
 "should omit the domain name from these resources: <em>/about, p=1</em>, etc. "
@@ -641,104 +647,104 @@ msgstr ""
 "dont le permalien <strong>contient</strong> au moins un d'entre eux."
 
 # @ newstatpress
-#: includes/nsp_options.php:568
+#: includes/nsp_options.php:570
 msgid "Visitors by Spy"
 msgstr "Visiteurs"
 
 # @ newstatpress
-#: includes/nsp_options.php:572
+#: includes/nsp_options.php:574
 msgid "number of IP per page"
 msgstr "nombre d’IP par page"
 
-#: includes/nsp_options.php:579
+#: includes/nsp_options.php:581
 msgid "number of visits for IP"
 msgstr "Nombre de visites par IP"
 
 # @ newstatpress
-#: includes/nsp_options.php:592
+#: includes/nsp_options.php:594
 msgid "number of bot per page"
 msgstr "nombre de robots par page"
 
 # @ newstatpress
-#: includes/nsp_options.php:599
+#: includes/nsp_options.php:601
 msgid "number of bot for IP"
 msgstr "nombre de robots par IP"
 
-#: includes/nsp_options.php:611
+#: includes/nsp_options.php:613
 msgid "Element numbers to display in"
 msgstr "Nombre d'éléments à afficher dans"
 
-#: includes/nsp_options.php:614
+#: includes/nsp_options.php:616
 #, php-format
 msgid "Top days (default %d)"
 msgstr "Top jours - Pages visitées (%d par défaut)"
 
-#: includes/nsp_options.php:617
+#: includes/nsp_options.php:619
 #, php-format
 msgid "O.S. (default %d)"
 msgstr "liste des systèmes (%d par défaut)"
 
-#: includes/nsp_options.php:620
+#: includes/nsp_options.php:622
 #, php-format
 msgid "Browser (default %d)"
 msgstr "liste des navigateurs (%d par défaut)"
 
-#: includes/nsp_options.php:623
+#: includes/nsp_options.php:625
 #, php-format
 msgid "Feed (default %d)"
 msgstr "liste des flux RSS (%d par défaut)"
 
-#: includes/nsp_options.php:626
+#: includes/nsp_options.php:628
 #, php-format
 msgid "Search Engines (default %d)"
 msgstr "liste des moteurs de recherche (%d par défaut)"
 
-#: includes/nsp_options.php:629
+#: includes/nsp_options.php:631
 #, php-format
 msgid "Top Search Terms (default %d)"
 msgstr "Top termes recherchés (%d par défaut)"
 
-#: includes/nsp_options.php:632
+#: includes/nsp_options.php:634
 #, php-format
 msgid "Top Referrer (default %d)"
 msgstr "Top Origine (%d par défaut)"
 
-#: includes/nsp_options.php:635
+#: includes/nsp_options.php:637
 #, php-format
 msgid "Countries/Languages (default %d)"
 msgstr "liste des pays ou langues (%d par défaut)"
 
-#: includes/nsp_options.php:638
+#: includes/nsp_options.php:640
 #, php-format
 msgid "Spiders (default %d)"
 msgstr "liste des robots (%d par défaut)"
 
-#: includes/nsp_options.php:641
+#: includes/nsp_options.php:643
 #, php-format
 msgid "Top Pages (default %d)"
 msgstr "Top pages (%d par défaut)"
 
-#: includes/nsp_options.php:644
+#: includes/nsp_options.php:646
 #, php-format
 msgid "Top Days - Unique visitors (default %d)"
 msgstr "Top jours - Visiteurs uniques (%d par défaut)"
 
-#: includes/nsp_options.php:647
+#: includes/nsp_options.php:649
 #, php-format
 msgid "Top Days - Pageviews (default %d)"
 msgstr "Top jours - Pages visitées (%d par défaut)"
 
-#: includes/nsp_options.php:650
+#: includes/nsp_options.php:652
 #, php-format
 msgid "Top IPs - Pageviews (default %d)"
 msgstr "Top IPs - Pages visitées (%d par défaut)"
 
 # @ newstatpress
-#: includes/nsp_options.php:658
+#: includes/nsp_options.php:660
 msgid "Database update option"
 msgstr "Option de mise à jour de la Base de Données"
 
-#: includes/nsp_options.php:663
+#: includes/nsp_options.php:665
 msgid ""
 "Select the interval of date from today you want to use for updating your "
 "database with new definitions. "
@@ -747,7 +753,7 @@ msgstr ""
 "utiliser pour mettre à jour votre base de données avec de nouvelles "
 "définitions."
 
-#: includes/nsp_options.php:664
+#: includes/nsp_options.php:666
 msgid ""
 "Be aware, larger is the interval, longer is the update and bigger are the "
 "resources required."
@@ -756,11 +762,11 @@ msgstr ""
 "longue et plus les ressources nécessaires sont importantes. "
 
 # @ newstatpress
-#: includes/nsp_options.php:672
+#: includes/nsp_options.php:674
 msgid "Update data in the given period"
 msgstr "Mettre à jour les données dans une période donnée"
 
-#: includes/nsp_options.php:683
+#: includes/nsp_options.php:685
 msgid ""
 "This option allows you to get periodic reports by email (dashboard "
 "informations). You can customize the frequency and the publishing time of "
@@ -770,7 +776,7 @@ msgstr ""
 "(informations du tableau de bord). Vous pouvez personnaliser la fréquence et "
 "l’heure de publication des rapports ainsi que la description de l’expéditeur."
 
-#: includes/nsp_options.php:684
+#: includes/nsp_options.php:686
 msgid ""
 "Note: WP Cron job need to be operational in aim to schedule Email "
 "Notification."
@@ -778,7 +784,7 @@ msgstr ""
 "Remarque: WP Cron besoin d’être opérationnel en vue de planifier la "
 "Notification par email."
 
-#: includes/nsp_options.php:685
+#: includes/nsp_options.php:687
 msgid ""
 "Mailing address accept only one email address, check is well valid before "
 "reporting issues."
@@ -786,11 +792,11 @@ msgstr ""
 "Le champs adresse de messagerie n’accepte qu’une seule adresse courriel, "
 "vérifier la validité de celle-ci avant de signaler un problème."
 
-#: includes/nsp_options.php:686
+#: includes/nsp_options.php:688
 msgid "Notification will be sent at UTC time."
 msgstr "Notification sera envoyée à l’heure UTC."
 
-#: includes/nsp_options.php:687
+#: includes/nsp_options.php:689
 msgid ""
 "Sender could be personalized according your website (by default : "
 "'NewStatPress')."
@@ -798,51 +804,51 @@ msgstr ""
 "L’expéditeur peut être personnalisé en fonction de votre site Web (par "
 "défaut: ‘NewStatPress’)."
 
-#: includes/nsp_options.php:723
+#: includes/nsp_options.php:725
 msgid "Statistics notification is"
 msgstr "Notification des statistiques"
 
-#: includes/nsp_options.php:734
+#: includes/nsp_options.php:736
 msgid "Disabled"
 msgstr "Désactivé"
 
-#: includes/nsp_options.php:737
+#: includes/nsp_options.php:739
 msgid "Enabled"
 msgstr "Activé"
 
-#: includes/nsp_options.php:744
+#: includes/nsp_options.php:746
 msgid "Event schedule"
 msgstr "Fréquence"
 
-#: includes/nsp_options.php:755
+#: includes/nsp_options.php:757
 msgid "Publishing time"
 msgstr "Heure de publication"
 
-#: includes/nsp_options.php:760
+#: includes/nsp_options.php:762
 msgid "Select"
 msgstr "Sélectionner"
 
-#: includes/nsp_options.php:783
+#: includes/nsp_options.php:785
 msgid "Sender Description (From)"
 msgstr "Description Expéditeur (From)"
 
-#: includes/nsp_options.php:792
+#: includes/nsp_options.php:794
 msgid "Mailing address"
 msgstr "Adresse de messagerie"
 
-#: includes/nsp_options.php:797
+#: includes/nsp_options.php:799
 msgid "Email Test"
 msgstr "Test de l’email"
 
-#: includes/nsp_options.php:810
+#: includes/nsp_options.php:812
 msgid "Enable External API"
 msgstr "Activer l'API externe"
 
-#: includes/nsp_options.php:814
+#: includes/nsp_options.php:816
 msgid "API key"
 msgstr "Clef API"
 
-#: includes/nsp_options.php:816
+#: includes/nsp_options.php:818
 msgid ""
 "The external access API is build to let you to use the collected data from "
 "your Newstatpress plugin  in an other web server application (for example "
@@ -868,7 +874,7 @@ msgstr ""
 "même lorsque sont traités les appels AJAX pour l’amélioration du rendu des "
 "données interrogées, ainsi vous devrez choisir une clé et l’activer."
 
-#: includes/nsp_options.php:818
+#: includes/nsp_options.php:820
 msgid ""
 "To retrieve data from Newstatpress plugin, you can generate automatically or "
 "set manually a private key for the external API (used for example from Multi-"
@@ -880,12 +886,12 @@ msgstr ""
 "pour logiciel Multi-Newstatpress): seuls les caractères alphanumériques sont "
 "autorisés (A-Z, a-z, 0-9), la longueur doit être de 64 à 128 caractères."
 
-#: includes/nsp_options.php:835
+#: includes/nsp_options.php:837
 msgid "Generate new API key"
 msgstr "Générer une nouvelle clef API"
 
 # @ newstatpress
-#: includes/nsp_options.php:845
+#: includes/nsp_options.php:847
 msgid "Save options"
 msgstr "Sauvegarder les options"
 
@@ -953,7 +959,7 @@ msgstr "Moteur"
 
 # @ newstatpress
 #: includes/nsp_overview.php:110 includes/nsp_overview.php:136
-#: includes/nsp_tools.php:514
+#: includes/nsp_tools.php:591
 msgid "Result"
 msgstr "Résultat"
 
@@ -1083,26 +1089,26 @@ msgstr "Compte"
 msgid "IP2nation"
 msgstr "IP2nation"
 
-#: includes/nsp_tools.php:20 includes/nsp_tools.php:462
+#: includes/nsp_tools.php:20 includes/nsp_tools.php:539
 msgid "Update"
 msgstr "Mise à jour"
 
 # @ newstatpress
-#: includes/nsp_tools.php:21 includes/nsp_tools.php:321
+#: includes/nsp_tools.php:21 includes/nsp_tools.php:389
 msgid "Export"
 msgstr "Exporter"
 
-#: includes/nsp_tools.php:22 includes/nsp_tools.php:764
+#: includes/nsp_tools.php:22 includes/nsp_tools.php:841
 msgid "Optimize"
 msgstr "Optimiser"
 
-#: includes/nsp_tools.php:23 includes/nsp_tools.php:796
+#: includes/nsp_tools.php:23 includes/nsp_tools.php:873
 msgid "Repair"
 msgstr "Réparer"
 
 # @ newstatpress
 #: includes/nsp_tools.php:24 includes/nsp_tools.php:163
-#: includes/nsp_tools.php:376
+#: includes/nsp_tools.php:453
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -1187,53 +1193,105 @@ msgid "IP2nation database was remove successfully"
 msgstr ""
 "L'installation de la base de données IP2nation s'est effectuée avec succès."
 
-# @ newstatpress
+#: includes/nsp_tools.php:292
+msgid ""
+"The export tool allows you to save your statistics in a local file for a "
+"date interval defined by yourself."
+msgstr ""
+"L’outil d’exportation vous permet de sauvegarder vos statistiques dans un "
+"fichier local pour un intervalle de date définie par vous-même."
+
 #: includes/nsp_tools.php:294
-msgid "Export stats to text file"
-msgstr "Exporter les statistiques dans un fichier texte"
+msgid ""
+"You can define the filename and the file extension, and also the fields "
+"delimiter used to separate the data."
+msgstr ""
+"Vous pouvez définir le nom du fichier et l’extension du fichier, ainsi que "
+"le délimiteur de champs utilisé pour séparer les données."
 
 #: includes/nsp_tools.php:295
-msgid "You should define the stats period you want to export:"
-msgstr "Vous devez définir la période des Stats à exporter :"
+msgid ""
+"Note: the parameters chosen will be saved automatically as default values."
+msgstr ""
+"Note: les paramètres choisis seront sauvegardés automatiquement comme "
+"valeurs par défaut."
+
+#: includes/nsp_tools.php:297
+msgid "default value : semicolon"
+msgstr "valeur par défaut: point-virgule"
+
+#: includes/nsp_tools.php:298
+msgid "default value : CSV (readable by Excel)"
+msgstr "valeur par défaut: CSV (lisible par Excel)"
 
 #: includes/nsp_tools.php:299
+msgid ""
+"If the field remain blank, the default value is 'BLOG_TITLE-newstatpress'."
+msgstr ""
+"Si le champ reste vide, la valeur par défaut est «BLOG_TITLE-newstatpress ‘."
+
+#: includes/nsp_tools.php:301
+msgid ""
+"The date interval will be added to the filename (i.e. BLOG_TITLE-"
+"newstatpress_20160229-20160331.csv)."
+msgstr ""
+"L’intervalle de date sera ajouté au nom du fichier (ie BLOG_TITLE-"
+"newstatpress_20160229-20160331.csv)."
+
+#: includes/nsp_tools.php:315
+msgid "Date interval"
+msgstr "Intervalle de date"
+
+#: includes/nsp_tools.php:319
 msgid "From:"
 msgstr "Du :"
 
-#: includes/nsp_tools.php:304 includes/nsp_tools.php:308
+#: includes/nsp_tools.php:324 includes/nsp_tools.php:335
 msgid "YYYYMMDD"
 msgstr "AAAAMMJJ"
 
-#: includes/nsp_tools.php:307
+#: includes/nsp_tools.php:331
 msgid "To:"
 msgstr "Au :"
 
-#: includes/nsp_tools.php:313
-msgid "You should choose a fields delimiter to separate the data:"
-msgstr "Vous devez choisir un délimiter de champs pour séparer les données :"
+#: includes/nsp_tools.php:343
+msgid "Filename"
+msgstr "Nom du fichier"
+
+#: includes/nsp_tools.php:348
+msgid "enter a filename"
+msgstr "Saisissez un nom de fichier"
+
+#: includes/nsp_tools.php:356
+msgid "File extension"
+msgstr "Extension du fichier"
+
+#: includes/nsp_tools.php:374
+msgid "Fields delimiter"
+msgstr "Délimiteur de champs"
 
 # @ newstatpress
-#: includes/nsp_tools.php:365
+#: includes/nsp_tools.php:442
 msgid "All data removed"
 msgstr "Toutes les données ont été supprimées"
 
-#: includes/nsp_tools.php:370
+#: includes/nsp_tools.php:447
 msgid "Remove NewStatPress database"
 msgstr "Supprimer la base de données NewStatPress"
 
-#: includes/nsp_tools.php:374
+#: includes/nsp_tools.php:451
 msgid "To remove the Newstatpress database, just click on the button bellow."
 msgstr ""
 "Pour mettre à jour la base de données Newstatpress, il suffit de cliquer sur "
 "le bouton ci-dessous."
 
 # @ newstatpress
-#: includes/nsp_tools.php:376
+#: includes/nsp_tools.php:453
 msgid "Are you sure?"
 msgstr "Êtes-vous sûr ?"
 
 # @ newstatpress
-#: includes/nsp_tools.php:381
+#: includes/nsp_tools.php:458
 msgid ""
 "This operation will remove all collected data by NewStatpress. This function "
 "is useful at people who did not want use the plugin any more or who want "
@@ -1244,29 +1302,29 @@ msgstr ""
 "stockées."
 
 # @ newstatpress
-#: includes/nsp_tools.php:385
+#: includes/nsp_tools.php:462
 msgid "If you have doubt about this function, don't use it."
 msgstr "Si vous avez un doute sur cette fonction, ne l'utilisez pas."
 
 # @ newstatpress
-#: includes/nsp_tools.php:389
+#: includes/nsp_tools.php:466
 msgid ""
 "Warning: pressing the below button will make all your stored data to be "
 "erased!"
 msgstr ""
 "Attention : un appui sur le bouton ci-dessous effacera toutes vos données !"
 
-#: includes/nsp_tools.php:455
+#: includes/nsp_tools.php:532
 msgid "Database update"
 msgstr "Mise à jour de la base de données"
 
-#: includes/nsp_tools.php:456
+#: includes/nsp_tools.php:533
 msgid "To update the newstatpress database, just click on the button bellow."
 msgstr ""
 "Pour mettre à jour la base de données Newstatpress, il suffit de cliquer sur "
 "le bouton ci-dessous."
 
-#: includes/nsp_tools.php:470
+#: includes/nsp_tools.php:547
 msgid ""
 "Update the database is particularly useful when the ip2nation data and "
 "definitions data (OS, browser, spider) have been updated. An option in "
@@ -1277,70 +1335,70 @@ msgstr ""
 "été mises à jour. Une option permettra plus tard une mise à jour automatique "
 "de la base de données."
 
-#: includes/nsp_tools.php:473
+#: includes/nsp_tools.php:550
 msgid "Note: The update may take some times to complete."
 msgstr "Note: La mise à jour peut prendre plusieurs secondes pour se terminer."
 
-#: includes/nsp_tools.php:512
+#: includes/nsp_tools.php:589
 msgid "Database Update"
 msgstr "Mise à jour de la base de données"
 
 # @ newstatpress
-#: includes/nsp_tools.php:514
+#: includes/nsp_tools.php:591
 msgid "Updating..."
 msgstr "Mise à jour..."
 
 # @ newstatpress
-#: includes/nsp_tools.php:514
+#: includes/nsp_tools.php:591
 msgid "Size"
 msgstr "Taille"
 
 # @ newstatpress
-#: includes/nsp_tools.php:521
+#: includes/nsp_tools.php:598
 msgid "Structure"
 msgstr "Structure"
 
 # @ newstatpress
-#: includes/nsp_tools.php:526
+#: includes/nsp_tools.php:603
 msgid "Index"
 msgstr "Index"
 
 # @ newstatpress
-#: includes/nsp_tools.php:725
+#: includes/nsp_tools.php:802
 msgid "Final Structure"
 msgstr "Structure finale"
 
 # @ newstatpress
-#: includes/nsp_tools.php:729
+#: includes/nsp_tools.php:806
 msgid "Final Index"
 msgstr "Index final"
 
 # @ newstatpress
-#: includes/nsp_tools.php:733
+#: includes/nsp_tools.php:810
 msgid "Duration of the update"
 msgstr "Durée de cette mise à jour"
 
 # @ newstatpress
-#: includes/nsp_tools.php:737
+#: includes/nsp_tools.php:814
 msgid "This update was done in"
 msgstr "Cette mise à jour a été faite en"
 
 # @ newstatpress
-#: includes/nsp_tools.php:738
+#: includes/nsp_tools.php:815
 msgid "SQL queries"
 msgstr "requêtes SQL"
 
-#: includes/nsp_tools.php:757
+#: includes/nsp_tools.php:834
 msgid "Optimize table"
 msgstr "Optimiser la table"
 
-#: includes/nsp_tools.php:758
+#: includes/nsp_tools.php:835
 msgid "To optimize the statpress table, just click on the button bellow."
 msgstr ""
 "Pour optimiser la base de données Newstatpress, il suffit de cliquer sur le "
 "bouton ci-dessous."
 
-#: includes/nsp_tools.php:768
+#: includes/nsp_tools.php:845
 msgid ""
 "Optimize a table is an database operation that can free some server space if "
 "you had lot of delation (like with prune activated) in it."
@@ -1348,7 +1406,7 @@ msgstr ""
 "Optimiser une table est une opération de base données qui peut libérer de "
 "l'espace sur le serveur."
 
-#: includes/nsp_tools.php:771 includes/nsp_tools.php:803
+#: includes/nsp_tools.php:848 includes/nsp_tools.php:880
 msgid ""
 "Be aware that this operation may take a lot of server time to finish the "
 "processing (depending on your database size). So so use it only if you know "
@@ -1358,28 +1416,28 @@ msgstr ""
 "serveur pour achever le traitement (selon la taille de votre base de "
 "données). Par conséquent, utilisez cette option en connaissance de cause."
 
-#: includes/nsp_tools.php:789
+#: includes/nsp_tools.php:866
 msgid "Repair table"
 msgstr "Réparer la table"
 
-#: includes/nsp_tools.php:790
+#: includes/nsp_tools.php:867
 msgid ""
 "To repair the statpress table if damaged, just click on the button bellow."
 msgstr ""
 "Pour réparer la base de données Newstatpress, il suffit de cliquer sur le "
 "bouton ci-dessous."
 
-#: includes/nsp_tools.php:800
+#: includes/nsp_tools.php:877
 msgid "Repair is an database operation that can fix a corrupted table."
 msgstr ""
 "Réparer est une opération sur la base de données pouvant corriger une table "
 "corrompue"
 
-#: includes/nsp_tools.php:814
+#: includes/nsp_tools.php:891
 msgid "Optimization finished"
 msgstr "Optimisation effectuée"
 
-#: includes/nsp_tools.php:822
+#: includes/nsp_tools.php:899
 msgid "Repair finished"
 msgstr "Réparation effectuée"
 
@@ -1530,10 +1588,6 @@ msgstr "Ceci est un test de [%s]"
 msgid "support page"
 msgstr "page de support"
 
-#: newstatpress.php:470
-msgid "the author"
-msgstr "l'auteur"
-
 #: newstatpress.php:472
 msgid ""
 "If you have found this plugin useful and you like it, thank you to take a "
@@ -1541,6 +1595,16 @@ msgid ""
 msgstr ""
 "Si vous avez trouvé ce plug-in utile et que vous l’appréciez, merci de "
 "prendre le temps de le noter."
+
+#: newstatpress.php:473
+#, php-format
+msgid ""
+"You can help to the plugin development by reporting bugs on the %s or by "
+"adding/updating translation by contacting directly %s."
+msgstr ""
+"Vous pouvez soutenir le développement du plug-in en signalant les bogues sur "
+"le %s ou en ajoutant/mettant à jour la traduction en communiquant "
+"directement avec %s."
 
 #: newstatpress.php:475
 msgid ""
@@ -1641,6 +1705,64 @@ msgstr "Hier"
 #: newstatpress.php:1496
 msgid "Today"
 msgstr "Aujourd'hui"
+
+#~ msgid ""
+#~ "If the field remain blank, the default value is 'your_blog_title-"
+#~ "newstatpress'."
+#~ msgstr ""
+#~ "Si le champ reste vide, la valeur par défaut est « your_blog_title-"
+#~ "newstatpress »."
+
+#~ msgid ""
+#~ "The date interval will be added to the filename (i.e. blog_title-"
+#~ "newstatpress_20160229-20160331.csv)."
+#~ msgstr ""
+#~ "L’intervalle de date sera ajouté au nom du fichier (ie BLOG_TITLE-"
+#~ "newstatpress_20160229-20160331.csv)."
+
+#~ msgid ""
+#~ "The date period will be added to the filename (i.e. blog_title-"
+#~ "newstatpress_20160229-20160331.csv)."
+#~ msgstr ""
+#~ "La période de date sera ajouté au nom du fichier (ie BLOG_TITLE-"
+#~ "newstatpress_20160229-20160331.csv)."
+
+#~ msgid ""
+#~ "This new version integrates a new major function : <strong>Email "
+#~ "Notification</strong> (see Option Page) to get periodic reports of your "
+#~ "statistics. This function remains a bit experimental until it's tested "
+#~ "recursively, thanks to be comprehensive. <br/> <i>Thanks to "
+#~ "<strong>Douglas R.</strong> to support our work with his donation.</i>"
+#~ msgstr ""
+#~ "Cette nouvelle version d’intègre une nouvelle fonction majeure de "
+#~ "<strong>notification par courrier électronique</strong> (voir page "
+#~ "Options) pour obtenir des rapports périodiques de vos statistiques. Cette "
+#~ "fonction demeure un peu expérimentale jusqu’à ce qu’elle soit testée de "
+#~ "manière récursive, merci d’être compréhensif. <br/> <i>Merci à "
+#~ "<strong>Douglas R.</strong> Pour soutenir notre travail avec son don.</i>"
+
+# @ newstatpress
+#~ msgid "Export stats to text file"
+#~ msgstr "Exporter les statistiques dans un fichier texte"
+
+#~ msgid "You should define the stats period you want to export:"
+#~ msgstr "Vous devez définir la période des Stats à exporter :"
+
+#~ msgid "You should choose a fields delimiter to separate the data:"
+#~ msgstr ""
+#~ "Vous devez choisir un délimiter de champs pour séparer les données :"
+
+#~ msgid "originally developed and not longer maintened by"
+#~ msgstr "initialement développé et plus maintenu par"
+
+#~ msgid "originally developed by"
+#~ msgstr "initialement développé par"
+
+#~ msgid "and not longer maintened"
+#~ msgstr "et n’est plus maintenu"
+
+#~ msgid "This plugin is a fork of"
+#~ msgstr "Ce plugin est un fork de"
 
 #~ msgid ""
 #~ "Sum of the distinct IPs of each day (slower than classic method for big "

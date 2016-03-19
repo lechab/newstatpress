@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: statpress-pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-01-17 14:02+0100\n"
-"PO-Revision-Date: 2016-03-17 23:05+0100\n"
+"PO-Revision-Date: 2016-03-18 22:58+0100\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: Damian Dąbrowski <contact@codester.pl>\n"
 "Language: pl_PL\n"
@@ -271,10 +271,10 @@ msgstr[0] "Bieżący miesiąc"
 msgstr[1] "Bieżący miesiąc"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:104
-#, fuzzy, php-format
+#, php-format
 msgid "%s week"
 msgid_plural "%s weeks"
-msgstr[0] "tydzień"
+msgstr[0] "Tydzień %s"
 msgstr[1] "tydzień"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:105
@@ -306,9 +306,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:112
-#, fuzzy
 msgid "now"
-msgstr "nieznane"
+msgstr "teraz"
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:239
 msgid "NewStatPress Settings"
@@ -720,9 +719,8 @@ msgstr ""
 
 # @ newstatpress
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:726
-#, fuzzy
 msgid "Mailing address"
-msgstr "Adres IP"
+msgstr ""
 
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:741
 #: /mnt/new/home/ice/SRC/cvsroot/newstatpress/trunk/includes/nsp_options.php:743
