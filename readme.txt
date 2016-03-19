@@ -145,7 +145,7 @@ Check at http://newstatpress.altervista.org
 == Changelog ==
 
 = 1.1.7 =
-*Released date: 2016-02-28
+*Released date: 2016-02-28*
 
 * Added Icons on database tools
 * Update CZ translation thanks to Petr Janda
@@ -154,7 +154,7 @@ Check at http://newstatpress.altervista.org
 * Fix Export dysfunction in database tools ('date' issue)
 
 =  1.1.6 =
-*Released date: 23/02/2016
+*Released date: 23/02/2016*
 
 * Fix email notification bug
 * [x] Update IT translation
