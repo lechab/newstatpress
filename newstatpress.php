@@ -16,7 +16,7 @@ if( !defined( 'ABSPATH' ) ) {
 	die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-$_NEWSTATPRESS['version']='1.1.7';
+$_NEWSTATPRESS['version']='1.1.8';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir,

@@ -318,7 +318,13 @@ line-height: 0.5em;
   color: #222;
 }
 
-
+.news {
+       list-style-position: inside;
+}
+.news li {
+  list-style-type: disc;
+  padding-left: 20px;
+}
 
 
 .icon-ph {
