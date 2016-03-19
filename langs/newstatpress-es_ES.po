@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Newstatpress 1.1.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-19 15:46+0100\n"
+"POT-Creation-Date: 2016-03-19 19:24+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: cHab <chabdev@free.fr>\n"
@@ -301,20 +301,27 @@ msgid ""
 msgstr ""
 
 #: includes/nsp_functions-extra.php:242
+msgid ""
+"NB: please open a ticket on the support page instead of adding it to your "
+"rating commentaries if you wish to report an issue with the plugin, it will "
+"be processed more quickly by the team."
+msgstr ""
+
+#: includes/nsp_functions-extra.php:243
 msgid "Yes, I'd like to rate it!"
 msgstr "Sí, me gustaría votar!"
 
-#: includes/nsp_functions-extra.php:244 includes/nsp_functions-extra.php:257
+#: includes/nsp_functions-extra.php:245 includes/nsp_functions-extra.php:258
 msgid "I already did!"
 msgstr "Ya lo hice"
 
-#: includes/nsp_functions-extra.php:253
+#: includes/nsp_functions-extra.php:254
 msgid ""
 "You've been using NewStatPress for several months now. We hope that means "
 "you like it and are finding it helpful."
 msgstr ""
 
-#: includes/nsp_functions-extra.php:254
+#: includes/nsp_functions-extra.php:255
 msgid ""
 "NewStatPress is provided for free and maintained only on free time. If you "
 "like the plugin, consider a donation to help further its development"
@@ -322,11 +329,11 @@ msgstr ""
 "NewStatPress es gratuito y mantenido sólo en tiempo libre. Si te gusta el "
 "plugin, considere una donación para ayudar a su desarrollo"
 
-#: includes/nsp_functions-extra.php:255
+#: includes/nsp_functions-extra.php:256
 msgid "Yes, I'd like to donate!"
 msgstr ""
 
-#: includes/nsp_functions-extra.php:368
+#: includes/nsp_functions-extra.php:369
 msgid "records"
 msgstr ""
 
