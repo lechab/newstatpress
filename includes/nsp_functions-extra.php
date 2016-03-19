@@ -314,7 +314,7 @@ function nsp_HideNagNotices() {
 
 function nsp_load_time()
 {
-	echo "<font size='1'>Page generated in " . timer_stop(0,2) . "s</font>";
+	echo "<font size='1'>Page generated in " . timer_stop(0,2) . "s ".get_num_queries()." SQL queries</font>";
 }
 
 
