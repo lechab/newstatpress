@@ -7,8 +7,6 @@
 function nsp_DisplayCreditsPage() {
 
   global $pagenow;
-  global $support_pluginpage;
-  global $author_linkpage;
   global $credits_introduction;
 
   $page='nsp_credits';
@@ -19,8 +17,11 @@ function nsp_DisplayCreditsPage() {
                              'donation' => __('Donation','newstatpress')
   );
 
-  $credits_introduction=__('If you have found this plugin usefull and you like it, thank you to take a moment to rate it.',nsp_TEXTDOMAIN);
-  $credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on the %s or by adding/updating translation by contacting directly %s.',nsp_TEXTDOMAIN), $support_pluginpage, $author_linkpage);
+  $support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('the support page','newstatpress')."</a>";
+  $author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
+
+  $credits_introduction=__('If you have found this plugin usefull and you like it, thank you to take a moment to rate it.','newstatpress');
+  $credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on %s or by adding/updating translation by contacting directly %s.','newstatpress'), $support_pluginpage, $author_linkpage);
   $credits_introduction.='<br />';
   $credits_introduction.=__('NewStatPress is provided for free and is maintained only on free time, you can also consider a donation to support further work.','newstatpress');
 
@@ -34,9 +35,10 @@ function nsp_DisplayCreditsPage() {
           <?php echo $credits_introduction; ?>
         </td>
         <td class='don'>
-          <a class="button button-primary" href='<?php echo nsp_RATING_URL ?>' target='_blank'><?php _e('Rate the plugin',nsp_TEXTDOMAIN); ?></a>
           <br/>
-          <a class="button button-primary" href='<?php echo nsp_DONATE_URL ?>' target='_blank'><?php _e('Make a donation',nsp_TEXTDOMAIN); ?></a>
+          <a class="button button-primary rate" href='<?php echo nsp_RATING_URL ?>' target='_blank'><?php _e('Rate the plugin',nsp_TEXTDOMAIN); ?></a>
+          <br/>
+          <a class="button button-primary donate" href='<?php echo nsp_DONATE_URL ?>' target='_blank'><?php _e('Make a donation',nsp_TEXTDOMAIN); ?></a>
         </td>
       </tr>
     </table>
@@ -56,7 +58,7 @@ function nsp_DisplayCreditsPage() {
 
     <!-- tab 'development' -->
     <div id='development'>
-      <p class="dev_intro"><?php _e('This plugin is a fork of','newstatpress'); ?><span>Statpress</span> plugin, originaly develop by <span>Daniele Lippi</span> and not anymore maintened.</p>
+      <p class="dev_intro"><?php _e('This plugin is a fork of the plugin','newstatpress'); ?><span> Statpress, </span><?php _e('originally developed (and not longer maintened) by','newstatpress'); ?><span class="strong"> Daniele Lippi </span>.</p>
       <table class='credit'>
         <thead>
           <tr>
@@ -111,11 +113,6 @@ function nsp_DisplayCreditsPage() {
 
   </div>
 
-  <script type="text/javascript">
-    jQuery("#usual1 ul").idTabs(development);
-  </script>
-
-
   <table class='credit-footer'>
     <tr>
       <td> <?php _e('Plugin homepage','newstatpress'); ?>
@@ -127,9 +124,14 @@ function nsp_DisplayCreditsPage() {
         <a target='_blank' href='http://newstatpress.altervista.org/?feed=rss2'> <?php _e('News','newstatpress'); ?></a>
       </td>
     </tr>
-
   </table>
-    <!-- </table> -->
+
+</div>
+
+    <script type="text/javascript">
+      jQuery("#usual1 ul").idTabs(development);
+    </script>
+
     <?php
   }
 }
