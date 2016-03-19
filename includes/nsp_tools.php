@@ -288,34 +288,102 @@ function nsp_IP2nationRemove() {
 /**
  * Export form function
  */
-function nsp_Export() {
+ function nsp_Export() {
+   $export_description=__('The export tool allows you to save your statistics in a local file for a date interval defined by yourself.','newstatpress');
+   $export_description.="<br />";
+   $export_description.=__('You can define the filename and the file extension, and also the fields delimiter used to separate the data.','newstatpress');
+   $export_description2=__('Note: the parameters chosen will be saved automatically as default values.','newstatpress');
+
+   $delimiter_description=__('default value : semicolon','newstatpress');
+   $extension_description=__('default value : CSV (readable by Excel)','newstatpress');
+   $filename_description=__('If the field remain blank, the default value is \'BLOG_TITLE-newstatpress\'.','newstatpress');
+   $filename_description.="<br />";
+   $filename_description.=__('The date interval will be added to the filename (i.e. BLOG_TITLE-newstatpress_20160229-20160331.csv).','newstatpress');
+
+   $export_option=get_option('newstatpress_exporttool');
 ?>
 <!--TODO chab, check if the input format is ok  -->
-  <div class='wrap'><h3><?php _e('Export stats to text file','newstatpress'); ?> (csv)</h3>
-    <p><?php _e('You should define the stats period you want to export:','newstatpress'); ?><p>
+  <div class='wrap'>
+    <!-- <h3><?php //_e('Export stats to text file','newstatpress'); ?> (csv)</h3> -->
+    <p><?php echo $export_description; ?></p>
+    <p><i><?php echo $export_description2; ?></i></p>
+
     <form method=get>
-    <table>
+    <table class='form-tableH'>
+      <tr>
+        <th class='padd' scope='row' rowspan='3'>
+          <?php _e('Date interval','newstatpress'); ?>
+        </th>
+      </tr>
       <tr>
         <td><?php _e('From:','newstatpress'); ?> </td>
         <td>
-          <span class="input-group-addon">
-          <span class="glyphicon glyphicon-calendar"></span>
-          </span>
-          <input id="datefrom" type="text" size="10" maxlength="8" name="from" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+          <div class="input-container">
+          <div class="icon-ph"><span class="dashicons dashicons-calendar-alt"></span>        </div>
+
+          <input class="pik" id="datefrom" type="text" size="10" required maxlength="8" minlength="8" name="from" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'>
+          <!-- <input type="submit" class="search" value="\f145" /> -->
+          </div>
+
+        </td>
       </tr>
       <tr>
         <td><?php _e('To:','newstatpress'); ?> </td>
-        <td><input id="dateto" type="text" size="10" maxlength="8" name="to" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+        <td>
+          <div class="input-container">
+          <div class="icon-ph"><span class="dashicons dashicons-calendar-alt"></span>        </div>
+          <input class="pik" id="dateto" type="text" size="10" required maxlength="8" minlength="8" name="to" placeholder='<?php _e('YYYYMMDD','newstatpress');?>'></td>
+        </div>
+
       </tr>
     </table>
-    <table>
+    <table class='form-tableH'>
       <tr>
-        <td><?php _e('You should choose a fields delimiter to separate the data:','newstatpress'); ?> </td>
+            <th class='padd' scope='row' rowspan='2'>
+              <?php _e('Filename','newstatpress'); ?>
+            </th>
+          </tr>
+      <tr>
+        <td>
+          <input class="" id="filename" type="text" size="30" maxlength="30" name="filename" placeholder='<?php _e('enter a filename','newstatpress');?>' value="<?php echo $export_option['filename'];?>">
+          <p class="description"><?php echo $filename_description ?></p>
+        </td>
+      </tr>
+    </table>
+    <table class='form-tableH'>
+      <tr>
+            <th class='padd' scope='row' rowspan='2'>
+              <?php _e('File extension','newstatpress'); ?>
+            </th>
+          </tr>
+      <tr>
+        <td>
+          <select name=ext>
+            <option <?php if($export_option['ext']=='csv') echo 'selected';?>
+>csv</option>
+            <option <?php if($export_option['ext']=='txt') echo 'selected';?>
+>txt</option>
+          </select>
+          <p class="description"><?php echo $extension_description ?></p>
+        </td>
+      </tr>
+    </table>
+    <table class='form-tableH'>
+      <tr>
+            <th class='padd' scope='row' rowspan='2'>
+              <?php _e('Fields delimiter','newstatpress'); ?>
+            </th>
+          </tr>
+      <tr>
         <td><select name=del>
-          <option>,</option>
-          <option>tab</option>
-          <option selected>;</option>
-          <option>|</option></select>
+          <option <?php if($export_option['del']==',') echo 'selected';?>
+>,</option>
+          <option <?php if($export_option['del']=='tab') echo 'selected';?>>tab</option>
+          <option <?php if($export_option['del']==';') echo 'selected';?>>;</option>
+          <option <?php if($export_option['del']=='|') echo 'selected';?>>|</option></select>
+          <p class="description"><?php echo $delimiter_description ?></p>
+
+        </td>
       </tr>
     </table>
     <input class='button button-primary' type=submit value=<?php _e('Export','newstatpress'); ?>>
@@ -331,7 +399,16 @@ function nsp_Export() {
 function nsp_ExportNow() {
   global $wpdb;
   $table_name = nsp_TABLENAME;
-  $filename=get_bloginfo('title' )."-newstatpress_".$_GET['from']."-".$_GET['to'].".csv";
+  if($_GET['filename']=='')
+    $filename=get_bloginfo('title' )."-newstatpress_".$_GET['from']."-".$_GET['to'].".".$_GET['ext'];
+  else
+    $filename=$_GET['filename']."_".$_GET['from']."-".$_GET['to'].".".$_GET['ext'];
+
+  $ti['filename']=$_GET['filename'];
+  $ti['del']=$_GET['del'];
+  $ti['ext']=$_GET['ext'];
+  update_option('newstatpress_exporttool', $ti);
+
   header('Content-Description: File Transfer');
   header("Content-Disposition: attachment; filename=$filename");
   header('Content-Type: text/plain charset=' . get_option('blog_charset'), true);
