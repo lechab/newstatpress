@@ -447,7 +447,7 @@ function nsp_stat_by_email($arg='') {
 
   $userna = get_option('newstatpress_mail_notification_info');
 
-  $headers= 'From:NewStatPress';
+  //$headers= 'From:NewStatPress';
   $blog_title = get_bloginfo('name');
   $subject=sprintf(__('Visits statistics from [%s]','newstatpress'), $blog_title);
   if($arg=='test')
