@@ -238,7 +238,8 @@ function nsp_CheckNagNotices() {
       $style = 'notice';
 
       $notice_text = '<p>'. __( 'It looks like you\'ve been using NewStatPress for a while now. That\'s great!', 'newstatpress' ).'</p>';
-      $notice_text.= '<p>'. __( 'If you find this plugin useful, would you take a moment to give it a rating on WordPress.org?', 'newstatpress' ).'</p>';
+      $notice_text.= '<p>'. __( 'If you find this plugin useful, would you take a moment to give it a rating on WordPress.org?', 'newstatpress' );
+      $notice_text.='<br /><i> ('.__( 'NB: please open a ticket on the support page instead of adding it to your rating commentaries if you wish to report an issue with the plugin, it will be processed more quickly by the team.', 'newstatpress' ).')</i></p>';
       $notice_text.= '<a class=\"button button-primary\" href=\"'.nsp_RATING_URL.'\" target=\"_blank\" rel=\"external\">'. __( 'Yes, I\'d like to rate it!', 'newstatpress' ) .'</a>';
       $notice_text.= ' &nbsp; ';
       $notice_text.= '<a class=\"button button-default\" href=\"'.$query_str_con.'\" target=\"_self\" rel=\"external\">'. __( 'I already did!', 'newstatpress' ) .'</a>';
