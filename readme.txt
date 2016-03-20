@@ -145,7 +145,7 @@ Check at http://newstatpress.altervista.org
 == Changelog ==
 
 = 1.1.8 =
-*Released date: 2016-03-19*
+*Released date: 2016-03-20*
 
 * Add 'from' option in email notification tab
 * Add option for adding a fixed number of visits for how before use another statistic plugin

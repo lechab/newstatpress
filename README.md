@@ -35,7 +35,7 @@
 - [ ] Change the email notification activation control (according enabled/disabled)
 
 ## 1.1.8
-*Released date: 2016-03-*
+*Released date: 2016-03-20
 - [x] Add 'from' option in email notification tab
 - [x] Add option for adding a fixed number of visits for how before use another statistic plugin
 - [x] Add pickaday for export tool (https://github.com/dbushell/Pikaday)
