@@ -212,8 +212,7 @@ function nsp_Activation($arg='') {
 
 
    // JS and jQuery
-   $scripts=array('jQuery'=>plugins_url('./js/jquery.min.js', __FILE__),
-		 							'idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
+   $scripts=array('idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
 									'moment'=>plugins_url('./js/moment.min.js', __FILE__),
 									'pikaday'=>plugins_url('./js/pikaday.js', __FILE__),
                   'NewStatPressJs'=>plugins_url('./js/nsp_general.js', __FILE__));
