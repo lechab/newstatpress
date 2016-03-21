@@ -26,13 +26,18 @@
 - [ ] Add SQL format for export function
 - [ ] Add export data to PDF for export function
 
-## 1.1.9
+## 1.2.0
 *Released date: 2016-04-*
 
 - [ ] Change overview loading: used the external api
 - [ ] Add monthly overview
 - [ ] Add number of visitors online in the overview page
 - [ ] Change the email notification activation control (according enabled/disabled)
+
+## 1.1.9
+*Released date: 2016-03-21
+
+- [ ] Avoid the use of JQuery to prevent conflict with other themes/plugin
 
 ## 1.1.8
 *Released date: 2016-03-20
