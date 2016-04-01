@@ -37,7 +37,7 @@
 ## 1.1.9
 *Released date: 2016-03-21
 
-- [ ] Avoid the use of JQuery to prevent conflict with other themes/plugin
+- [x] Avoid the use of JQuery to prevent conflict with other themes/plugin
 
 ## 1.1.8
 *Released date: 2016-03-20
