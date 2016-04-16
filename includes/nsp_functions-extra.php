@@ -113,7 +113,8 @@ function nsp_GetDaysInstalled() {
  * @return the extracted url
  *************************************/
 function nsp_ExtractFeedFromUrl($url) {
-  list($null,$q)=explode("?",$url);
+  //list($null,$q)=explode("?",$url); old def before PHP7, to delete if no pb.
+  list($null,$q)=array_pad(explode("?",$url,2), 2, null);
 
   if (strpos($q, "&")!== false)
     list($res,$null)=explode("&",$q);
