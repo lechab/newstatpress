@@ -53,6 +53,12 @@ iPad|iPad|
 Java Platform 2 Micro Edition|J2ME/MIDP|
 Amiga|Amiga|
 Android Linux 1|Android1|
+Android Gingerbread (2.3.x)|Android2.3|
+Android Gingerbread (2.3.x)|Gingerbread|
+Android FroYo (2.2.x)|Android2.2|
+Android FroYo (2.2.x)|FroYo|
+Android Eclair (2.1)|Android2.1|
+Android Eclair (2.0)|Android2.0|
 Android Linux 2|Android2|
 Android Linux 3|Android3|
 Android Ice cream sandwich (4.0.x)|Android4.0|
@@ -75,8 +81,10 @@ BlackBerry 4.6|BlackBerry8520/4.6|
 BlackBerry|BlackBerry|
 Mac OS X Cheetah|MacOSX10.0|
 Mac OS X Cheetah|MacOSX10_0|
-Mac OS X Yosemite|MacOSX10.10|
-Mac OS X Yosemite|MacOSX10_10|
+OS X El Capitan|MacOSX10.11|
+OS X El Capitan|MacOSX10_11|
+OS X Yosemite|MacOSX10.10|
+OS X Yosemite|MacOSX10_10|
 Mac OS X Puma|MacOSX10.1|
 Mac OS X Puma|MacOSX10_1|
 Mac OS X Jaguar|MacOSX10.2|
@@ -91,8 +99,8 @@ Mac OS X Snow Leopard|MacOSX10.6|
 Mac OS X Snow Leopard|MacOSX10_6|
 Mac OS X Lion|MacOSX10.7|
 Mac OS X Lion|MacOSX10_7|
-Mac OS X Mountain Lion|MacOSX10.8|
-Mac OS X Mountain Lion|MacOSX10_8|
+OS X Mountain Lion|MacOSX10.8|
+OS X Mountain Lion|MacOSX10_8|
 Mac OS X Maverics|MacOSX10.9|
 Mac OS X Maverics|MacOSX10_9|
 Mac OS X|MacOSX|
