@@ -13,8 +13,8 @@ function nsp_NewStatPressMain() {
   echo "<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
 
   $api_key=get_option('newstatpress_apikey');
-  $newstatpress_url=PluginUrl();
-  $url=$newstatpress_url."/includes/api/external.php";
+  $_newstatpress_url=PluginUrl();
+  $url=$_newstatpress_url."/includes/api/external.php";
 
   wp_register_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
   wp_enqueue_script('jquery');
@@ -24,7 +24,7 @@ function nsp_NewStatPressMain() {
     'Key' => md5(gmdate('m-d-y H i').$api_key)
   ));
 
-  echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$newstatpress_url/images/ajax-loader.gif\"></div>";
+  echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"></div>";
   
 
 
