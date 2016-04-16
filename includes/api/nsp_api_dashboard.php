@@ -159,7 +159,7 @@ function nsp_ApiDashboard($typ) {
     $overview_table.="</tr>";
   }
 
-  $overview_table.="</tr></table>";
+  $overview_table.="</tr></table>\n";
 
   $resultH=$overview_table;  
   return $resultH;

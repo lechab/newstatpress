@@ -7,11 +7,26 @@
 function nsp_NewStatPressMain() {
   global $wpdb;
   $table_name = nsp_TABLENAME;
+  
+  global $newstatpress_dir;
+  
+  echo "<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
 
-  //nsp_NoticeNew(1);
-  nsp_MakeOverview('main');
+  $api_key=get_option('newstatpress_apikey');
+  $newstatpress_url=PluginUrl();
+  $url=$newstatpress_url."/includes/api/external.php";
 
-  $_newstatpress_url=PluginUrl();
+  wp_register_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
+  wp_enqueue_script('jquery');
+  wp_enqueue_script('wp_ajax_nsp_js_overview');
+  wp_localize_script( 'wp_ajax_nsp_js_overview', 'ExtData', array(
+    'Url' => $url,
+    'Key' => md5(gmdate('m-d-y H i').$api_key)
+  ));
+
+  echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$newstatpress_url/images/ajax-loader.gif\"></div>";
+  
+
 
   // determine the structure to use for URL
   $permalink_structure = get_option('permalink_structure');

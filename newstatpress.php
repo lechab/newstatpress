@@ -1608,25 +1608,23 @@ function nsp_MakeOverview($print ='dashboard') {
 
     $calculated_result=nsp_CalculateVariation($qry_tmonth->$row, $qry_lmonth->$row);
 
-			switch($row) {
-
-				case 'visitors' :
-												$qry_total->$row=$qry_total->$row+$offsets['alltotalvisits'];
-												break;
-				case 'visitors_feeds' :
-												$qry_total->$row=$qry_total->$row+$offsets['visitorsfeeds'];
-												break;
-				case 'pageview' :
-												$qry_total->$row=$qry_total->$row+$offsets['pageviews'];
-												break;
-
-				case 'spiders' :
-												$qry_total->$row=$qry_total->$row+$offsets['spy'];
-												break;
-				case 'feeds' :
-												$qry_total->$row=$qry_total->$row+$offsets['pageviewfeeds'];
-												break;
-			}
+    switch($row) {
+      case 'visitors' :
+        $qry_total->$row=$qry_total->$row+$offsets['alltotalvisits'];
+        break;
+      case 'visitors_feeds' :
+        $qry_total->$row=$qry_total->$row+$offsets['visitorsfeeds'];
+        break;
+      case 'pageview' :
+        $qry_total->$row=$qry_total->$row+$offsets['pageviews'];
+        break;
+      case 'spiders' :
+        $qry_total->$row=$qry_total->$row+$offsets['spy'];
+        break;
+      case 'feeds' :
+        $qry_total->$row=$qry_total->$row+$offsets['pageviewfeeds'];
+        break;
+    }
 
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>$row_title</td>";

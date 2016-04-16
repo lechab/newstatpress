@@ -7,6 +7,7 @@ header('Access-Control-Allow-Origin: *');
 require_once('../../../../../wp-load.php');
 require('nsp_api_version.php');
 require('nsp_api_dashboard.php');
+require('nsp_api_overview.php');
 
 $var;
 $key; 
@@ -85,6 +86,9 @@ function body() {
     case 'dashboard':
       $result=nsp_ApiDashboard($typ);
       break;
+    case 'overview':
+      $result=nsp_ApiOverview($typ, $par);
+      break;          
     default: 
       header('HTTP/1.0 403 Forbidden'); 
       die("Not recognized API.");
