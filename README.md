@@ -25,22 +25,27 @@
 - [ ] Add option (limit results) for export function (for small memory server)
 - [ ] Add SQL format for export function
 - [ ] Add export data to PDF for export function
-
-## 1.2.0
-*Released date: 2016-04-*
-
 - [ ] Change overview loading: used the external api
 - [ ] Add monthly overview
 - [ ] Add number of visitors online in the overview page
 - [ ] Change the email notification activation control (according enabled/disabled)
 
-## 1.1.9
-*Released date: 2016-03-21
+## 1.2.0
+*Released date: 2016-04-*
 
-- [ ] Avoid the use of JQuery to prevent conflict with other themes/plugin
+- [x] Fix wrong calculation of statistics variation
+- [x] Update 'Notification boxes' behavior  
+- [x] Added OS definitions
+
+
+## 1.1.9
+*Released date: 2016-03-21*
+
+- [x] Avoid the use of JQuery to prevent conflict with other themes/plugin
 
 ## 1.1.8
-*Released date: 2016-03-20
+*Released date: 2016-03-20*
+
 - [x] Add 'from' option in email notification tab
 - [x] Add option for adding a fixed number of visits for how before use another statistic plugin
 - [x] Add pickaday for export tool (https://github.com/dbushell/Pikaday)
@@ -54,6 +59,7 @@
 
 ## 1.1.7
 *Released date: 2016-02-28*
+
 - [x] Added Icons on database tools
 - [x] Update CZ translation thanks to Petr Janda
 - [x] Update FR translation
