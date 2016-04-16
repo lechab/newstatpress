@@ -16,7 +16,7 @@ if( !defined( 'ABSPATH' ) ) {
 	die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-$_NEWSTATPRESS['version']='1.1.9';
+$_NEWSTATPRESS['version']='1.2.0';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir,
@@ -27,7 +27,7 @@ global $newstatpress_dir,
 define('nsp_TEXTDOMAIN', 'newstatpress');
 define('nsp_PLUGINNAME', 'NewStatPress');
 define('nsp_REQUIRED_WP_VERSION','3.5');
-define('nsp_NOTICENEWS', TRUE);
+define('nsp_NOTICENEWS', FALSE);
 define('nsp_TABLENAME', $wpdb->prefix . 'statpress');
 define('nsp_BASENAME', dirname(plugin_basename(__FILE__)));
 define('nsp_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -1429,7 +1429,7 @@ function nsp_CalculateVariation($month,$lmonth) {
     $percent_target = round( 100 * ($target / $lmonth ) - 100,1);
 
     if($percent_change >= 0) {
-      $percent_change=sprintf("+%'04.1f", $percent_target);
+      $percent_change=sprintf("+%'04.1f", $percent_change);
       $monthchange = "<td class='coll'><code style='color:green'>($percent_change%)</code></td>";
     }
     else {

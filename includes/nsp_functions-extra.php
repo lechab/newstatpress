@@ -191,17 +191,51 @@ function nsp_AdminNagNotices() {
 		$query_str_con	= 'QUERYSTRING';
 		$notice			= str_replace( array( $query_str_con ), array( $query_str ), $nag_notices['notice'] );
 		// echo '<div class="'.$style.'"><p>'.$notice.'</p></div>';
+
+    global $pagenow;
+    $page_nsp=0;
+    switch ($_GET['page']) {
+      case 'nsp-main':
+                          $page_nsp=1;
+                          break;
+      case 'nsp_details':
+                          $page_nsp=1;
+                          break;
+      case 'nsp_visits':
+                          $page_nsp=1;
+                          break;
+      case 'nsp_search':
+                          $page_nsp=1;
+                          break;
+      case 'nsp_tools':
+                          $page_nsp=1;
+                          break;
+      case 'nsp_options':
+                          $page_nsp=1;
+                          break;
+      case 'nsp_credits':
+                          $page_nsp=1;
+                          break;
+
+      default:
+                          $page_nsp=0;
+                          break;
+    }
+
+    //Display NSP box if user are in plugins page or nsp plugins
+    if ( ($nid!="n03" && $page_nsp==1) || ($nid=="n03" && $pagenow=="plugins.php") ) {
     ?>
       <div id="nspnotice" class="<?php echo $style; ?>" style="padding:10px">
-        <?php if ($nid=="n03") {
-        echo "<a id=\"close\" class=\"close\" href=\"$query_str\" target=\"_self\" rel=\"external\"><span class=\"dashicons dashicons-no\"></span>close</a>";
-        echo '<h4>'.__('NewStatPress News','newstatpress').'</h4>';
-        }
+        <?php
+          if ($nid=="n03") {
+            echo "<a id=\"close\" class=\"close\" href=\"$query_str\" target=\"_self\" rel=\"external\"><span class=\"dashicons dashicons-no\"></span>close</a>";
+            echo '<h4>'.__('NewStatPress News','newstatpress').'</h4>';
+          }
+          echo $notice
         ?>
-        <!-- <a  id="close" class="close"><span class="dashicons dashicons-no"></span>close</a> -->
-        <p><?php echo $notice ?></p>
       </div>
     <?php
+    }
 	}
 }
 
@@ -214,13 +248,12 @@ function nsp_CheckNagNotices() {
 	$num_days_inst	= nsp_GetDaysInstalled();
   $votedate=14;
   $donatedate=90;
-  $num_days_inst=95; //debug
 	$query_str_con	= 'QUERYSTRING';
 	/* Notices (Positive Nags) */
   if( empty( $status['news'] ) ) {
     $nid = 'n03';
     $style = 'notice';
-    $notice_text=__('In addition of some fixes and optimizations, several new options in this version:','newstatpress');
+    $notice_text='<p>'.__('In addition of some fixes and optimizations, several new options in this version:','newstatpress').'</p>';
     $notice_text.="<ul class=\"news\">";
     $notice_text.="<li>".__('Offsets statistics option (see Option Page>General).','newstatpress')."</li>";
     $notice_text.="<li>".__('Sender option for statistics email notification (see Option Page>Email Notification).','newstatpress')."</li>";

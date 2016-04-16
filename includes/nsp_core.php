@@ -76,6 +76,7 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
     }
 
     $text .= "<tr><td colspan=2 style='width:50%;'>
+    <div id=\"placeholder\" style=\"width:600px;height:300px\"></div>
         <iframe src='".$charts."' class='framebox'>
           <p>[_e('This section requires a browser that supports iframes.]','newstatpress')</p>
         </iframe></td></tr>";
