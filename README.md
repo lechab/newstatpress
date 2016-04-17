@@ -34,8 +34,9 @@
 *Released date: 2016-04-*
 
 - [x] Fix wrong calculation of statistics variation
-- [x] Update 'Notification boxes' behavior  
+- [x] Update 'Notification boxes' behavior
 - [x] Added OS definitions
+- [x] Add Browsers (+20)
 
 
 ## 1.1.9

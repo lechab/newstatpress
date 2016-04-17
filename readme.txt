@@ -144,6 +144,15 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+
+= 1.2.0 =
+*Released date: 2016-04-xx*
+
+* Fix wrong calculation of statistics variation
+* Update 'Notification boxes' behavior
+* Added OS definitions
+* Add Browsers (+20)
+
 = 1.1.9 =
 *Released date: 2016-03-19*
 
