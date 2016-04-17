@@ -73,7 +73,9 @@ Android Linux 5|Android5|
 Android Marshmallow (6.0.x)|Android6.0|
 Android Linux 6|Android6|
 Android Linux|Android|
+Bada 2|Bada/2|
 Bada 1.2|Bada/1.2|
+Bada 1.0|Bada/1.0|
 Bada|Bada|
 BlackBerry 5.0|BlackBerry9300/5.0.0.845|
 BlackBerry 5.0|BlackBerry8520/5.0|
@@ -101,16 +103,30 @@ Mac OS X Lion|MacOSX10.7|
 Mac OS X Lion|MacOSX10_7|
 OS X Mountain Lion|MacOSX10.8|
 OS X Mountain Lion|MacOSX10_8|
-Mac OS X Maverics|MacOSX10.9|
-Mac OS X Maverics|MacOSX10_9|
+OS X Mavericks|MacOSX10.9|
+OS X Mavericks|MacOSX10_9|
 Mac OS X|MacOSX|
 Mac OS X|Vienna|
 Mac OS X|Ensemble2|
 Mac|Mac|
+Gentoo Linux|gentoo|
 FreeBSD|FreeBSD|
 OpenBSD|OpenBSD|
 Debian Linux|Debian|
+Arch Linux|ArchLinux|
+Arch Linux|Arch|
+Mageia|mageia|
+Linux Mandriva|Mandriva|
+Ubuntu Warty Warthog|ubuntu/4.10|
+Ubuntu Hoary Hedgehog|ubuntu/5.04|
+Ubuntu Breezy Badger|ubuntu/5.10|
+Ubuntu Dapper Drake|ubuntu/6.06|
+Ubuntu Edgy|ubuntu/6.10|
+Ubuntu Feisty Fawn|Ubuntu/7.04|
+Ubuntu Gutsy Gibbon|Ubuntu/7.10|
 Ubuntu Hardy|Ubuntu/8.04|
+Ubuntu Intrepid Ibex|Ubuntu/8.10|
+Ubuntu Jaunty Jackalope|Ubuntu/9.04|
 Ubuntu Jaunty|Ubuntu/9.25|
 Ubuntu Maverick|Ubuntu/10.10| 
 Ubuntu Lucid Lynx|Ubuntu/10.04|
@@ -124,7 +140,9 @@ Ubuntu Trusty Tahr|Ubuntu/14.04|
 Ubuntu Utopic Unicorn|Ubuntu/14.10|
 Ubuntu Vivid Vervet|Ubuntu/15.04|
 Ubuntu Wily Werewolf|Ubuntu/15.10|
+Ubuntu Xenial Xerus|Ubuntu/16.04| 
 Ubuntu Linux|Ubuntu|
+Kubuntu|Kubuntu|
 Suse Linux|Suse|
 Suse Linux|SUSE|
 Fedora Linux|Fedora|
