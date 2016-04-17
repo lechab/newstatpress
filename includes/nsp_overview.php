@@ -10,6 +10,7 @@ function nsp_NewStatPressMain() {
   
   global $newstatpress_dir;
   
+/*  
   echo "<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
 
   $api_key=get_option('newstatpress_apikey');
@@ -25,8 +26,11 @@ function nsp_NewStatPressMain() {
   ));
 
   echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"></div>";
-  
+ */ 
 
+  nsp_MakeOverview('main');
+  $_newstatpress_url=PluginUrl();
+  
 
   // determine the structure to use for URL
   $permalink_structure = get_option('permalink_structure');
