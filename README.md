@@ -31,11 +31,12 @@
 - [ ] Change the email notification activation control (according enabled/disabled)
 
 ## 1.2.0
-*Released date: 2016-04-*
+*Released date: 2016-04-17*
 
 - [x] Fix wrong calculation of statistics variation
-- [x] Update 'Notification boxes' behavior  
+- [x] Update 'Notification boxes' behavior
 - [x] Added OS definitions
+- [x] Add Browsers (+20)
 
 
 ## 1.1.9
