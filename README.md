@@ -35,9 +35,8 @@
 
 - [x] Fix wrong calculation of statistics variation
 - [x] Update 'Notification boxes' behavior
-- [x] Added OS definitions
+- [x] Add OS (+34)
 - [x] Add Browsers (+20)
-
 
 ## 1.1.9
 *Released date: 2016-03-21*

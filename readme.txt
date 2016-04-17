@@ -150,7 +150,7 @@ Check at http://newstatpress.altervista.org
 
 * Fix wrong calculation of statistics variation
 * Update 'Notification boxes' behavior
-* Added OS definitions
+* Add OS (+34)
 * Add Browsers (+20)
 
 = 1.1.9 =
