@@ -520,13 +520,12 @@ else {
   if ($status=='disabled')
      nsp_mail_notification_deactivate();
   elseif ($status=='enabled') {
-    if(isset($_POST['saveit']) && $_POST['saveit'] == 'yes') {
+    if(isset($_POST['saveit']) && $_POST['saveit'] == 'all') {
       $name=$nsp_option_vars['mail_notification_freq']['name'];
       $freq=get_option($name);
       $name=$nsp_option_vars['mail_notification_time']['name'];
       $timeuser=get_option($name);
       $crontime_offest=nsp_calculationOffsetTime($t=time(),$timeuser);
-      // $crontime_offest=0;
       $crontime = time() + $crontime_offest ;
       remove_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
       $timestamp = wp_next_scheduled( 'nsp_mail_notification' );
