@@ -9,7 +9,7 @@
  * @param par the number of days for the graph (20 default, if 0 use the one in NewStatPress option)
  * @return the result
  */
-function nsp_ApiOverwiew($typ, $par) {
+function nsp_ApiOverview($typ, $par) {
   global $wpdb;
   global $nsp_option_vars;
   
