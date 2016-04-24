@@ -23,12 +23,27 @@
 - [ ] Add database migration -> nsp_database (unique name)
 - [ ] Export database > dump sql (bkp)
 - [ ] Add option (limit results) for export function (for small memory server)
-- [ ] Add SQL format for export function
+- [ ] Add SQL format for export function ?
 - [ ] Add export data to PDF for export function
 - [ ] Change overview loading: used the external api
 - [ ] Add monthly overview
 - [ ] Add number of visitors online in the overview page
 - [ ] Change the email notification activation control (according enabled/disabled)
+
+## 1.2.1
+*Released date: 2016-04-*
+
+- [x] Add Overview Meta-boxes (free ordination + open/close)
+- [x] Add OS (+76)
+- [x] Add Browsers (+57)
+- [x] Add Spiders (+25)
+- [x] Fix email notification bug (wrong schedule)
+- [x] Fix get_currentuserinfo() depricated function since WP4.5
+- [x] Change img display method of OS & Browser definitions
+- [x] Add spiders colored agent
+- [ ] Add Hide/show spiders function in agent
+- [ ] Add message to notificate def update
+
 
 ## 1.2.0
 *Released date: 2016-04-17*
@@ -60,16 +75,16 @@
 ## 1.1.7
 *Released date: 2016-02-28*
 
-- [x] Added Icons on database tools
-- [x] Update CZ translation thanks to Petr Janda
-- [x] Update FR translation
+- [x] Add Icons on database tools
+- [x] Update cz_CZ translation thanks to Petr Janda
+- [x] Update fr_FR translation
 - [x] Fix Export dysfunction in database tools ('right' issue)
 - [x] Fix Export dysfunction in database tools ('date' issue)
 
 ## 1.1.6
 *Released date: 2016-02-23*
 - [x] Fix email notification bug
-- [x] Update IT translation
+- [x] Update it_IT translation
 
 ## 1.1.5
 *Released date: 2016-02-10*
