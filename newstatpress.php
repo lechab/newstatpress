@@ -161,7 +161,8 @@ add_action( 'admin_init', 'nsp_UpdateCheck' );
 function nsp_checkExport() {
 	global $nsp_option_vars;
 	global $current_user;
-	get_currentuserinfo();
+	wp_get_current_user();
+
   if (isset($_GET['newstatpress_action']) && $_GET['newstatpress_action'] == 'exportnow') {
 		$tools_capability=get_option('newstatpress_menutools_cap') ;
 		if(!$tools_capability) //default value
@@ -252,7 +253,8 @@ function nsp_BuildPluginMenu() {
   global $nsp_option_vars;
   global $current_user;
 	global $nsp_overview_screen;
-  get_currentuserinfo();
+  wp_get_current_user();
+
 
   // Fix capability if it's not defined
   // $capability=get_option('newstatpress_mincap') ;
@@ -983,7 +985,8 @@ function nsp_StatAppend() {
   global $userdata;
   global $_STATPRESS;
 
-  get_currentuserinfo();
+
+	wp_get_current_user();
   $feed='';
 
   // Time
