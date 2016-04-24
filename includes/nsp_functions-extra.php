@@ -255,8 +255,8 @@ function nsp_CheckNagNotices() {
   if( empty( $status['news'] ) ) {
     $nid = 'n03';
     $style = 'updated ';
-    $notice_text='<p>'.__('OSes (+110), Browsers (+160) and Spiders (+45) definitions had been updated, therefore it is recommandated to update the database (see Tools>Update).','newstatpress').'</p>';
-    $notice_text.='<p>'.__('Remember to backup sometimes your website\'s database especially if you have a lot of data.','newstatpress').'</p>';
+    $notice_text='<p>'.__('Among of news and fixes, OSes (+110), Browsers (+160) and Spiders (+45) definitions had been updated. Therefore it is recommandated to update the database (see Tools>Update).','newstatpress').'</p>';
+    $notice_text.='<i>'.__('Remember to backup sometimes your website\'s database especially if you have a lot of data.','newstatpress').'</i>';
     $status['currentnag'] = TRUE;
     $status['news'] = FALSE;
   }
