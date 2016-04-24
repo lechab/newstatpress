@@ -77,13 +77,18 @@ if ($("#pagecredits").length) {
    });
 
 
-		// $('.sidebar').hide();
-    $( "#hider" ).click(function() {
-      $('.spiderhide').hide();
-    });
-    $( "#shower" ).click(function() {
-      $('.spiderhide').show();
-    });
+   // Toogle spider in overview agent
+   $('#hider').click(function () {
+       if ($('#hider').text()===("Hide Spiders")) {
+         $('#hider').text("Show Spiders");
+         $('.spiderhide').hide();
+       }
+       else {
+         $('#hider').text("Hide Spiders");
+         $('.spiderhide').show();
+       }
+   });
+
 
 
   //  $('#myoptions').get(0).reset();

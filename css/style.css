@@ -53,6 +53,9 @@
   background-color:#FAFAFA;
 }
 
+.hider {
+  font-size:12px;
+}
 .inside .nsp th {
   /*font-size: 13px;*/
 /*line-height: 1.5em !important*/
