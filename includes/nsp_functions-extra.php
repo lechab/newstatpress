@@ -254,14 +254,9 @@ function nsp_CheckNagNotices() {
 	/* Notices (Positive Nags) */
   if( empty( $status['news'] ) ) {
     $nid = 'n03';
-    $style = 'notice';
-    $notice_text='<p>'.__('In addition of some fixes and optimizations, several new options in this version:','newstatpress').'</p>';
-    $notice_text.="<ul class=\"news\">";
-    $notice_text.="<li>".__('Offsets statistics option (see Option Page>General).','newstatpress')."</li>";
-    $notice_text.="<li>".__('Sender option for statistics email notification (see Option Page>Email Notification).','newstatpress')."</li>";
-    $notice_text.="<li>".__('Picker date and new options for export tool (see Tools Page>Export).','newstatpress')."</li>";
-    $notice_text.="</ul>";
-    $notice_text.="<i>".__('A big thank you from the team for all those who took the time to evaluate the plugin and those who have supported our work with their donations.','newstatpress')."</i>";
+    $style = 'updated ';
+    $notice_text='<p>'.__('OSes (+110), Browsers (+160) and Spiders (+45) definitions had been updated, therefore it is recommandated to update the database (see Tools>Update).','newstatpress').'</p>';
+    $notice_text.='<p>'.__('Remember to backup sometimes your website\'s database especially if you have a lot of data.','newstatpress').'</p>';
     $status['currentnag'] = TRUE;
     $status['news'] = FALSE;
   }
