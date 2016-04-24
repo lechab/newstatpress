@@ -16,18 +16,19 @@ if( !defined( 'ABSPATH' ) ) {
 	die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-$_NEWSTATPRESS['version']='1.2.0';
+$_NEWSTATPRESS['version']='1.2.1';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir,
 			 $wpdb,
 			 $nsp_option_vars,
+			 $nsp_overview_screen,
 			 $nsp_widget_vars;
 
 define('nsp_TEXTDOMAIN', 'newstatpress');
 define('nsp_PLUGINNAME', 'NewStatPress');
 define('nsp_REQUIRED_WP_VERSION','3.5');
-define('nsp_NOTICENEWS', FALSE);
+define('nsp_NOTICENEWS', TRUE);
 define('nsp_TABLENAME', $wpdb->prefix . 'statpress');
 define('nsp_BASENAME', dirname(plugin_basename(__FILE__)));
 define('nsp_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
@@ -210,6 +211,10 @@ function nsp_Activation($arg='') {
 
    wp_enqueue_style( 'NewStatPressStyles', get_stylesheet_uri(), array( 'dashicons' ), '1.0' );
 
+	 // Load the postbox script that provides the widget style boxes.
+	 wp_enqueue_script('common');
+	 wp_enqueue_script('wp-lists');
+	 wp_enqueue_script('postbox'); //meta box
 
    // JS and jQuery
    $scripts=array('idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
@@ -246,6 +251,7 @@ function nsp_BuildPluginMenu() {
 
   global $nsp_option_vars;
   global $current_user;
+	global $nsp_overview_screen;
   get_currentuserinfo();
 
   // Fix capability if it's not defined
@@ -282,20 +288,42 @@ function nsp_BuildPluginMenu() {
   // Display menu with personalized capabilities if user IS NOT "subscriber"
   if ( user_can( $current_user, "edit_posts" ) ) {
     add_menu_page('NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'nsp_NewStatPressMainC', plugins_url('newstatpress/images/stat.png',nsp_BASENAME));
-    add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $overview_capability, 'nsp-main', 'nsp_NewStatPressMainC');
+    $nsp_overview_screen=add_submenu_page('nsp-main', __('Overview','newstatpress'), __('Overview','newstatpress'), $overview_capability, 'nsp-main', 'nsp_NewStatPressMainC');
     add_submenu_page('nsp-main', __('Details','newstatpress'), __('Details','newstatpress'), $details_capability, 'nsp_details', 'nsp_DisplayDetailsC');
     add_submenu_page('nsp-main', __('Visits','newstatpress'), __('Visits','newstatpress'), $visits_capability, 'nsp_visits', 'nsp_DisplayVisitsPageC');
     add_submenu_page('nsp-main', __('Search','newstatpress'), __('Search','newstatpress'), $search_capability, 'nsp_search', 'nsp_DatabaseSearchC');
     add_submenu_page('nsp-main', __('Tools','newstatpress'), __('Tools','newstatpress'), $tools_capability, 'nsp_tools', 'nsp_DisplayToolsPageC');
     add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $options_capability, 'nsp_options', 'nsp_OptionsC');
     add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $credits_capability, 'nsp_credits', 'nsp_DisplayCreditsPageC');
+
+		// Add action to load the meta boxes to the overview page.
+		add_action('load-' . $nsp_overview_screen, 'nsp_statistics_load_overview_page');
+		add_action('admin_footer-'.$nsp_overview_screen,'wptuts_print_script_in_footer');
   }
 }
 add_action('admin_menu', 'nsp_BuildPluginMenu');
 
+/* Prints script in footer to 'initialises' the meta boxes */
+function wptuts_print_script_in_footer() {
+		?>
+		<script>jQuery(document).ready(function(){ postboxes.add_postbox_toggles(pagenow);jQuery('.postbox h3').prepend('<a class="togbox">+</a> '); });</script>
+		<?php
+}
+
+
+function nsp_statistics_load_overview_page() {
+	global $nsp_overview_screen;
+  add_meta_box( 'nsp_lasthits_postbox', __('Last hits',nsp_TEXTDOMAIN), 'nsp_generate_overview_lasthits', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lasthits' )  );
+	add_meta_box( 'nsp_lastsearchterms_postbox', __('Last search terms',nsp_TEXTDOMAIN), 'nsp_generate_overview_lastsearchterms', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lastsearchterms' )  );
+	add_meta_box( 'nsp_lastreferrers_postbox', __('Last referrers',nsp_TEXTDOMAIN), 'nsp_generate_overview_lastreferrers', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lastreferrers' )  );
+	add_meta_box( 'nsp_agents_postbox', __('Last agents',nsp_TEXTDOMAIN), 'nsp_generate_overview_agents', $nsp_overview_screen, 'normal', null, array( 'widget' => 'agents' )  );
+	add_meta_box( 'nsp_pages_postbox', __('Last pages',nsp_TEXTDOMAIN), 'nsp_generate_overview_pages', $nsp_overview_screen, 'normal', null, array( 'widget' => 'pages' )  );
+	add_meta_box( 'nsp_spiders_postbox', __('Last spiders',nsp_TEXTDOMAIN), 'nsp_generate_overview_spiders', $nsp_overview_screen, 'normal', null, array( 'widget' => 'spiders' )  );
+}
+
 function nsp_NewStatPressMainC() {
   require ('includes/nsp_overview.php');
-  nsp_NewStatPressMain();
+	nsp_NewStatPressMain();
 }
 
 function nsp_DisplayDetailsC() {
@@ -710,6 +738,23 @@ function nsp_GetOs($arg) {
 }
 
 /**
+ * Get OS logo from the given argument
+ *
+ * @param arg the argument to parse for OS
+ * @return the OS find in configuration file
+ *******************************************/
+function nsp_GetOsImg($arg) {
+  global $newstatpress_dir;
+  $lines = file($newstatpress_dir.'/def/os.dat');
+  foreach($lines as $line_num => $os) {
+    list($name_os,$id_os,$img_os)=explode("|",$os);
+    if(strcmp($name_os,$arg)==0)
+    	return $img_os;
+  }
+  return '';
+}
+
+/**
  * Get Browser from the given argument
  *
  * @param arg the argument to parse for Brower
@@ -724,6 +769,24 @@ function nsp_GetBrowser($arg) {
     list($nome,$id)=explode("|",$browser);
     if(strpos($arg,$id)===FALSE) continue;
     return $nome;     // fount
+  }
+  return '';
+}
+
+/**
+ * Get Browser from the given argument
+ *
+ * @param arg the argument to parse for Brower
+ * @return the Browser find in configuration file
+ ************************************************/
+function nsp_GetBrowserImg($arg) {
+  global $newstatpress_dir;
+  $lines = file($newstatpress_dir.'/def/browser.dat');
+  foreach($lines as $line_num => $browser) {
+    list($name_browser,$id,$img_browser)=explode("|",$browser);
+		//echo $name_browser;
+		if(strcmp($name_browser,$arg)==0)
+			return $img_browser;
   }
   return '';
 }
@@ -1462,7 +1525,7 @@ function nsp_MakeOverview($print ='dashboard') {
   $overview_table='';
 	global $nsp_option_vars;
 	$offsets = get_option($nsp_option_vars['stats_offsets']['name']);
-	//$offsets['alltotalvisits']=1000;
+
   // $since = NewStatPress_Print('%since%');
   $since = nsp_ExpandVarsInsideCode('%since%');
   $lastmonth = nsp_Lastmonth();
@@ -1480,7 +1543,7 @@ function nsp_MakeOverview($print ='dashboard') {
 
   // build head table overview
   if ($print=='main') {
-    $overview_table.="<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
+    //$overview_table.="<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
     $overview_table.="<table class='widefat center nsp'>
               <thead>
               <tr class='sup'>
@@ -1705,7 +1768,7 @@ function nsp_MakeOverview($print ='dashboard') {
         else $overview_graph.="<div class='legend'>";
         $overview_graph.=gmdate('d', current_time('timestamp')-86400*$gg) . ' ' . gmdate('M', current_time('timestamp')-86400*$gg) .     "</div></div></td>\n";
     }
-    $overview_graph.="</tr></table></div>";
+    $overview_graph.="</tr></table>";
 
     $overview_table=$overview_table.$overview_graph;
   }
