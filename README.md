@@ -39,14 +39,14 @@
 
 - [x] Add Overview Meta-boxes (free ordination + open/close)
 - [x] Add OS (+76)
-- [x] Add Browsers (+57)
+- [x] Add Browsers (+160)
 - [x] Add Spiders (+25)
 - [x] Fix email notification bug (wrong schedule)
 - [x] Fix get_currentuserinfo() deprecated function since WP4.5
 - [x] Change img display method of OS & Browser definitions
 - [x] Add spiders colored agent
-- [ ] Add Hide/show spiders function in agent
-- [ ] Add message to notificate def update
+- [x] Add Hide/show spiders function in agent
+- [x] Add message to news box when def update
 
 ## 1.2.0
 *Released date: 2016-04-17*
