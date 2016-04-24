@@ -29,10 +29,9 @@ function nsp_generate_overview_agents(){
   <table class='widefat nsp'>
     <thead>
       <tr>
-        <th scope='col'><?php _e('Agent',nsp_TEXTDOMAIN) ?></th>
+        <th scope='col'><?php _e('Agent',nsp_TEXTDOMAIN) ?> (<button id="hider">Hide</button> <button id="shower">Show</button> <?php _e('Spider',nsp_TEXTDOMAIN) ?>)</th>
         <th scope='col'></th><th style='width:140px;'><?php _e('OS',nsp_TEXTDOMAIN) ?></th>
-        <th scope='col'></th><th style='width:120px;'><?php _e('Browser',nsp_TEXTDOMAIN); echo '/'; _e('Spider',nsp_TEXTDOMAIN) ?>
-          <!-- <button id="hider">Hide</button><button id="shower">Show</button> --></th>
+        <th scope='col'></th><th style='width:120px;'><?php _e('Browser',nsp_TEXTDOMAIN); echo '/'; _e('Spider',nsp_TEXTDOMAIN) ?></th>
       </tr>
     </thead>
     <tbody id='the-list'>
