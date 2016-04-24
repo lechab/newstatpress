@@ -38,7 +38,7 @@
 - [x] Add Browsers (+57)
 - [x] Add Spiders (+25)
 - [x] Fix email notification bug (wrong schedule)
-- [x] Fix get_currentuserinfo() depricated function since WP4.5
+- [x] Fix get_currentuserinfo() deprecated function since WP4.5
 - [x] Change img display method of OS & Browser definitions
 - [x] Add spiders colored agent
 - [ ] Add Hide/show spiders function in agent
