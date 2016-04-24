@@ -5,12 +5,13 @@
  * Version : 0.2                    *
  * (Need from 0.8.9 Plugin Version) *
  ************************************/
-
-
-/* Table NSP style */
-.nsp thead {
-  background-color:#FAFAFA;
+.inside {
+  padding: 0 !important;
+  margin-top: 0 !important;
+  border-top: 0;
 }
+
+
 
 /*----------------------------------*/
 /* Overview Page                    */
@@ -21,6 +22,7 @@
 .center th {
   text-align:center;
 }
+
 
 .widefat .inf th {
   padding:0;
@@ -41,6 +43,21 @@
 .dashboard {
   border-top:0;
   padding:0;
+}
+
+/* Table NSP style */
+.nsp {
+  border:0 !important;
+}
+.nsp thead {
+  background-color:#FAFAFA;
+}
+
+.inside .nsp th {
+  /*font-size: 13px;*/
+/*line-height: 1.5em !important*/
+font-weight: 600;
+color: #666 !important;
 }
 
 /*Table body*/
@@ -182,6 +199,16 @@ code {
   height: 16px;
 }
 
+.nospace-l {
+  margin-left: 0;
+  padding-left: 0 !important;
+}
+
+.nospace-r {
+  margin-right: 0;
+  padding-right: 4 !important;
+}
+
 /*----------------------------------*/
 /* Update page                      */
 /*----------------------------------*/
@@ -236,7 +263,8 @@ table.table-option td:first-child {
 .tabdata:before,
 .donate:before,
 .rate:before,
-.tabapi:before {
+.tabapi:before,
+.urlicon:before {
 
 
  font-family: dashicons;
@@ -255,6 +283,12 @@ table.table-option td:first-child {
  padding-right: 2px;
 
 }
+.urlicon:before {
+content: "\f103";
+font-size: 16px;
+
+}
+
 .tabdata:before {
 content: "\f536";
 }
