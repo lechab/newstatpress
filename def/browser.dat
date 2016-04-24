@@ -266,6 +266,58 @@ NewsCopier|NewsCopier|NewsCopier|
 K-Meleon|K-Meleon|K-Meleon|
 iCab|iCab|iCab|
 Swiftweasel|Swiftweasel|Swiftweasel|
+Safari Mobile 9.1|Version/9.1Mobile|Safari8|
+Safari Mobile 9.0|Version/9.0.3Mobile|Safari8|
+Safari Mobile 9.0|Version/9.0.2Mobile|Safari8|
+Safari Mobile 9.0|Version/9.0.1Mobile|Safari8|
+Safari Mobile 9.0|Version/9.0Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0.8Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0.7Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0.6Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0.5Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0.4Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0.3Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0.2Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0.1Mobile|Safari8|
+Safari Mobile 8.0|Version/8.0Mobile|Safari8|
+Safari Mobile 7.1|Version/7.1.8Mobile|SafariMobile|
+Safari Mobile 7.1|Version/7.1.7Mobile|SafariMobile|
+Safari Mobile 7.1|Version/7.1.6Mobile|SafariMobile|
+Safari Mobile 7.1|Version/7.1.5Mobile|SafariMobile|
+Safari Mobile 7.1|Version/7.1.4Mobile|SafariMobile|
+Safari Mobile 7.1|Version/7.1.3Mobile|SafariMobile|
+Safari Mobile 7.1|Version/7.1.2Mobile|SafariMobile|
+Safari Mobile 7.1|Version/7.1.1Mobile|SafariMobile|
+Safari Mobile 7.1|Version/7.1Mobile|SafariMobile|
+Safari Mobile 7.0|Version/7.0.6Mobile|SafariMobile|
+Safari Mobile 7.0|Version/7.0.5Mobile|SafariMobile|
+Safari Mobile 7.0|Version/7.0.4Mobile|SafariMobile|
+Safari Mobile 7.0|Version/7.0.3Mobile|SafariMobile|
+Safari Mobile 7.0|Version/7.0.2Mobile|SafariMobile|
+Safari Mobile 7.0|Version/7.0.1Mobile|SafariMobile|
+Safari Mobile 7.0|Version/7.0Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2.8Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2.7Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2.6Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2.5Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2.4Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2.3Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2.2Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2.1Mobile|SafariMobile|
+Safari Mobile 6.2|Version/6.2Mobile|SafariMobile|
+Safari Mobile 6.1|Version/6.1.6Safari/|SafariMobile|
+Safari Mobile 6.1|Version/6.1.5Safari/|SafariMobile|
+Safari Mobile 6.1|Version/6.1.4Mobile|SafariMobile|
+Safari Mobile 6.1|Version/6.1.3Safari/|SafariMobile|
+Safari Mobile 6.1|Version/6.1.2Mobile|SafariMobile|
+Safari Mobile 6.1|Version/6.1.1Mobile|SafariMobile|
+Safari Mobile 6.1|Version/6.1Mobile|SafariMobile|
+Safari Mobile 6.0|Version/6.0.5Mobile|SafariMobile|
+Safari Mobile 6.0|Version/6.0.4Mobile|SafariMobile|
+Safari Mobile 6.0|Version/6.0.3Mobile|SafariMobile|
+Safari Mobile 6.0|Version/6.0.2Mobile|SafariMobile|
+Safari Mobile 6.0|Version/6.0.1Mobile|SafariMobile|
+Safari Mobile 6.0|Version/6.0Mobile|SafariMobile|
 Safari Mobile 6.0|6.0 Mobile/10A5355d Safari/8536.25|SafariMobile|
 Safari Mobile 5.0|Version/5.0.2Mobile/8J2Safari/6533.18.5|SafariMobile|
 Safari Mobile 5.0|Version/5.0.2Mobile/8C148Safari/6533.18.5|SafariMobile|
@@ -284,10 +336,61 @@ Safari Mobile 3|Version/3.0Mobile/1A543aSafari/419.3|SafariMobile|
 Safari Mobile 3|MobileSafari/525.20.1|SafariMobile|
 Safari Mobile 3|MobileSafari/533.1|SafariMobile|
 Safari Mobile|MobileSafari|SafariMobile|
-Safari 7.0|Version/7.0.3 Safari/7046A194A|Safari|
-Safari 5.2|Version/5.2 Safari/535.18.5|Safari|
-Safari 5.1|Version/5.1.7 Safari/534.57.2|Safari|
-Safari 5.1|Version/5.1.3 Safari/534.53.10|Safari|
+Safari 9.1|Version/9.1Safari/|Safari8|
+Safari 9.0|Version/9.0.3Safari/|Safari8|
+Safari 9.0|Version/9.0.2Safari/|Safari8|
+Safari 9.0|Version/9.0.1Safari/|Safari8|
+Safari 9.0|Version/9.0Safari/|Safari8|
+Safari 8.0|Version/8.0.8Safari/|Safari8|
+Safari 8.0|Version/8.0.7Safari/|Safari8|
+Safari 8.0|Version/8.0.6Safari/|Safari8|
+Safari 8.0|Version/8.0.5Safari/|Safari8|
+Safari 8.0|Version/8.0.4Safari/|Safari8|
+Safari 8.0|Version/8.0.3Safari/|Safari8|
+Safari 8.0|Version/8.0.2Safari/|Safari8|
+Safari 8.0|Version/8.0.1Safari/|Safari8|
+Safari 8.0|Version/8.0Safari/|Safari8|
+Safari 7.1|Version/7.1.8Safari/|Safari|
+Safari 7.1|Version/7.1.7Safari/|Safari|
+Safari 7.1|Version/7.1.6Safari/|Safari|
+Safari 7.1|Version/7.1.5Safari/|Safari|
+Safari 7.1|Version/7.1.4Safari/|Safari|
+Safari 7.1|Version/7.1.3Safari/|Safari|
+Safari 7.1|Version/7.1.2Safari/|Safari|
+Safari 7.1|Version/7.1.1Safari/|Safari|
+Safari 7.1|Version/7.1Safari/|Safari|
+Safari 7.0|Version/7.0.6Safari/|Safari|
+Safari 7.0|Version/7.0.5Safari/|Safari|
+Safari 7.0|Version/7.0.4Safari/|Safari|
+Safari 7.0|Version/7.0.3Safari/|Safari|
+Safari 7.0|Version/7.0.2Safari/|Safari|
+Safari 7.0|Version/7.0.1Safari/|Safari|
+Safari 7.0|Version/7.0Safari/|Safari|
+Safari 6.2|Version/6.2.8Safari/|Safari|
+Safari 6.2|Version/6.2.7Safari/|Safari|
+Safari 6.2|Version/6.2.6Safari/|Safari|
+Safari 6.2|Version/6.2.5Safari/|Safari|
+Safari 6.2|Version/6.2.4Safari/|Safari|
+Safari 6.2|Version/6.2.3Safari/|Safari|
+Safari 6.2|Version/6.2.2Safari/|Safari|
+Safari 6.2|Version/6.2.1Safari/|Safari|
+Safari 6.2|Version/6.2Safari/|Safari|
+Safari 6.1|Version/6.1.6Safari/|Safari|
+Safari 6.1|Version/6.1.5Safari/|Safari|
+Safari 6.1|Version/6.1.4Safari/|Safari|
+Safari 6.1|Version/6.1.3Safari/|Safari|
+Safari 6.1|Version/6.1.2Safari/|Safari|
+Safari 6.1|Version/6.1.1Safari/|Safari|
+Safari 6.1|Version/6.1Safari/|Safari|
+Safari 6.0|Version/6.0.5Safari/|Safari|
+Safari 6.0|Version/6.0.4Safari/|Safari|
+Safari 6.0|Version/6.0.3Safari/|Safari|
+Safari 6.0|Version/6.0.2Safari/|Safari|
+Safari 6.0|Version/6.0.1Safari/|Safari|
+Safari 6.0|Version/6.0Safari/|Safari|
+Safari 5.2|Version/5.2Safari/535.18.5|Safari|
+Safari 5.1|Version/5.1.7Safari/534.57.2|Safari|
+Safari 5.1|Version/5.1.3Safari/534.53.10|Safari|
 Safari 5.1|Version/5.1Safari/534.50|Safari|
 Safari 5.1|Version/5.1Safari/534.48.3|Safari|
 Safari 5.0|Version/5.0.6Safari/533.22.3|Safari|
@@ -317,3 +420,4 @@ Netscape|Netscape|Netscape
 Vivaldi 1.1|Vivaldi/1.1|Vivaldi|
 Vivaldi 1.0|Vivaldi/1.0|Vivaldi|
 Vivaldi|Vivaldi|Vivaldi|
+ldi|
