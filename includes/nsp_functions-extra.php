@@ -250,6 +250,7 @@ function nsp_CheckNagNotices() {
   $votedate=14;
   $donatedate=90;
 	$query_str_con	= 'QUERYSTRING';
+  //$num_days_inst=95; //debug
 	/* Notices (Positive Nags) */
   if( empty( $status['news'] ) ) {
     $nid = 'n03';
