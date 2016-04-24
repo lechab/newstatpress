@@ -21,6 +21,9 @@ Apercite|apercite.fr/robot|
 Applebot|www.apple.com/go/applebot|
 Apple PubSub|Apple-PubSub|
 Apple Syndication|AppleSyndication|
+Applebot|compatible;Fetcher/0.1|
+Applebot|Applebot/0.1|
+Applebot|Applebot/0.3|
 AraTurka|Bot.AraTurka.com|
 Archive.org|archive.org_bot|
 Ask.com/Teoma|Jeeves/Teoma|
@@ -42,7 +45,8 @@ Blogged|blogged_crawl|
 Bloggsi|Bloggsi|
 Bloggsi|http://bloggsi.com/|
 Bloglines|Bloglines|
-bloglovin|Bloglovin/1.0|
+Bloglovin|Bloglovin/1.0|
+Bloglovin|bloglovin/metadataparser|
 BlogPulse|BlogPulse|
 BlogScope|BlogScope|
 BlogScope|www.blogscope.net|
@@ -50,9 +54,11 @@ BlogShares.com|Zipping Along V|
 BlogsNow|BlogsNowBot|
 Bluecoat proxy|Bluecoat|
 Bookmark Sync2it|sync2it.com|
+BotProoXi|BotProoXi|
 Brandwatch Magpie-Crawler|brandwatch.net|
 Browsershots|Browsershots|
 Browsershots|Browsershots.org|
+BUbiNG|BUbiNG|
 BuzzLogic|BuzzLogic|
 BuzzLogic|www.buzzlogic.com|
 Camdiscover|Camcrawler|
@@ -108,6 +114,9 @@ Exabot|Exabot|
 Exalead|NG/2.0|
 Ezooms|ezooms.bot@gmail.com|
 Everyfeed-spider|everyfeed)|
+EveryoneSocialBot|EveryoneSocialBot|
+Facebook|Facebot|
+Facebook|facebookexternalhit/|
 Fastsearch|FASTMetaWebCrawler|
 Fastsearch|fastsearch|
 FeedBot|FeedBot|
@@ -115,10 +124,12 @@ Feedspot|feedspot.palkeo.com|
 FeedBurner|FeedBurner|
 Feed::Find|Feed::Find|
 Feedly|Feedly/1.0|
+Feedly|FeedlyApp/1.0|
 Flipboard RSS Crawler|FlipboardRSS|
 FlipBoard|flipboard.com/crawler|
 Feedster|Feedster|
 Feedster|Feedster Crawler|
+Feedzirra|feedzirra|
 Findxbot|Findxbot|
 flipboard|http://flipboard.com/browserproxy
 FriendFeed|FriendFeedBot|
@@ -209,10 +220,11 @@ McBot|McBot|
 Megite|Megite2.0|
 metager2|metager2|
 METASpider|METASpider|
-MetaURI|MetaURI API/2.0|
+MetaURI|MetaURIAPI/2.0|
 Micosi JP|micosi.jp|
 Micro$oft Bot |MSRBOT|
 Microsoft URL Control|MicrosoftURLControl|
+Microsoft Office |Microsoft Office Protocol Discovery|
 MLBot|metadatalabs.com|
 Mojeek|MojeekBot|
 Moreover|Moreoverbot|
@@ -220,6 +232,7 @@ MOZ|rogerbot|
 MP3 Bot|mp3realm.org|
 MSN Mobile|MSMOBOT|
 MSN|msnbot|
+My Nutch Spider|My Nutch Spider|
 Naver|Cowbot|
 Naver|naver.com|
 Naver|NaverBot|
@@ -254,13 +267,15 @@ Picsearch|www.picsearch.com|
 Ping.Blo.gs|ping.blo.gs|
 Pingdom|Pingdom.com_bot|
 Pinterest|Pinterest|
+Pi-Monster|Pi-Monster;https://pricepi.com/|
 PlantyNet|PlantyNet|
 PostRank|PostRank|
 PostRank|postrank.com|
 ProCog|ProCogBot|
 Prlog|Prlog|
 Proximic|www.proximic|
-Python|Python-urllib/2.6|
+Python Bot|Python-urllib/2.6|
+Python Bot|python-requests/2.5.1|
 QuerySeeker|QuerySeekerSpider|
 Qwant|qwantify|
 Qwant|Qwantify/|
@@ -314,6 +329,7 @@ Spinn3r|Spinn3r|
 Spinn3r|Tailrank|
 Spinn3r|www.tailrank.com|
 SpokeSpider|SpokeSpider|
+SputnikBot|SputnikBot|
 Steeler|Steeler|
 Summify|Summify|
 Superfeedr|http://superfeedr.com|
@@ -322,6 +338,7 @@ Spinn3r|Tailrank|
 Statsbot|Statsbot|
 Symfony|SymfonySpider|
 Technorati|Technoratibot|
+TestBot|TestBot|
 The Old Reader|theoldreader|
 Thumbshots|thumbshots|
 TinEye|TinEye|
@@ -411,9 +428,9 @@ WSowner|bot.wsowner|
 Xenu Link Sleuth|XenuLink|
 xMind|xMind|
 XOVI|XoviBot|
+x100bot|x100bot|
 YaCy|yacybot|
 Yahoo FeedSeeker|YahooFeedSeeker|
-Yahoo FeedSeeker|YahooFeedSeeker/|
 Yahoo|Yahoo-Yahoo-YSM|
 Yahoo Japan|Y!J-|
 Yahoo|MMCrawler|
@@ -425,3 +442,9 @@ Yandex|Yandex|
 Yanga|Yanga|
 Yanga WorldSearch Bot|Yanga|
 YodaoBot|YodaoBot|
+ZemlyaCrawl|ZemlyaCrawl|
+Zerbynet|zerbybot|
+Zite|zitebot|
+Zooka|Zookabot|
+Zum|ZumBot|
+ZyBorg|ZyBorg|
