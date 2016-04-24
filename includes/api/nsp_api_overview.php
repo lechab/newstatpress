@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 /**
  * API: Overview
  *
@@ -9,13 +12,20 @@
  * @param par the number of days for the graph (20 default, if 0 use the one in NewStatPress option)
  * @return the result
  */
-function nsp_ApiOverwiew($typ, $par) {
+function nsp_ApiOverview($typ, $par) {
   global $wpdb;
   global $nsp_option_vars;
   
   $table_name = nsp_TABLENAME;
   
   $since = nsp_ExpandVarsInsideCode('%since%');
+  $lastmonth = nsp_Lastmonth();
+  $thisyear = gmdate('Y', current_time('timestamp'));
+  $thismonth = gmdate('Ym', current_time('timestamp'));
+  $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
+  $today = gmdate('Ymd', current_time('timestamp'));
+  
+  $tlm[0]=substr($lastmonth,0,4); $tlm[1]=substr($lastmonth,4,2);
   $thisyearHeader = gmdate('Y', current_time('timestamp'));
   $lastmonthHeader = gmdate('M, Y',gmmktime(0,0,0,$tlm[1],1,$tlm[0]));
   $thismonthHeader = gmdate('M, Y', current_time('timestamp'));
@@ -29,7 +39,7 @@ function nsp_ApiOverwiew($typ, $par) {
   if($gdays == 0) { $gdays=20; }
   
   // get result of dashboard as some date is shared with this
-  $result=nsp_ApiDashboard("JSON");
+  $resultJ=nsp_ApiDashboard("JSON");
   
   
   
@@ -64,6 +74,9 @@ function nsp_ApiOverwiew($typ, $par) {
                       </tr>
                      </thead>
                     <tbody class='overview-list'>";
+                    
+  // build body table overview
+  $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');                  
 
   foreach ($overview_rows as $row) {
     $result=nsp_CalculateVariation($resultJ[$row.'_tmonth'],$resultJ[$row.'_lmonth']);
@@ -72,7 +85,7 @@ function nsp_ApiOverwiew($typ, $par) {
     $overview_table.="<tr><td class='row_title $row'>".$resultJ[$row.'_title']."</td>";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_lmonth']."</td>\n";
     $overview_table.="<td class='colr'>".$resultJ[$row.'_tmonth'].$result[0] ."</td>\n";
-    $overview_table.="<td class='colr'> $calculated_result[1] $calculated_result[2] </td>\n";
+    $overview_table.="<td class='colr'> $result[1] $result[2] </td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_qry_y']."</td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_qry_t']."</td>\n";
     $overview_table.="</tr>";

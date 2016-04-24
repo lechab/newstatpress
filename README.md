@@ -25,10 +25,14 @@
 - [ ] Add option (limit results) for export function (for small memory server)
 - [ ] Add SQL format for export function ?
 - [ ] Add export data to PDF for export function
-- [ ] Change overview loading: used the external api
 - [ ] Add monthly overview
 - [ ] Add number of visitors online in the overview page
 - [ ] Change the email notification activation control (according enabled/disabled)
+
+## 1.2.2
+*Released date: 2016-05-*
+
+- [ ] Change overview loading: used the external api
 
 ## 1.2.1
 *Released date: 2016-04-*
@@ -43,7 +47,6 @@
 - [x] Add spiders colored agent
 - [ ] Add Hide/show spiders function in agent
 - [ ] Add message to notificate def update
-
 
 ## 1.2.0
 *Released date: 2016-04-17*
