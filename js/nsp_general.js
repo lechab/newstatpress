@@ -76,6 +76,16 @@ if ($("#pagecredits").length) {
            }
    });
 
+
+		// $('.sidebar').hide();
+    $( "#hider" ).click(function() {
+      $('.spiderhide').hide();
+    });
+    $( "#shower" ).click(function() {
+      $('.spiderhide').show();
+    });
+
+
   //  $('#myoptions').get(0).reset();
 
   // $("#myform input[type='radio']:checked").val();
