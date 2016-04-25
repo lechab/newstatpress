@@ -35,7 +35,7 @@
 - [ ] Change overview loading: used the external api
 
 ## 1.2.1
-*Released date: 2016-04-*
+*Released date: 2016-04-25*
 
 - [x] Add Overview Meta-boxes (free ordination + open/close)
 - [x] Add OS (+76)
@@ -47,6 +47,7 @@
 - [x] Add spiders colored agent
 - [x] Add Hide/show spiders function in agent
 - [x] Add message to news box when def update
+- [x] Add technical document about External API inside "doc" folder
 
 ## 1.2.0
 *Released date: 2016-04-17*

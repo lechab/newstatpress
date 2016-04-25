@@ -3,7 +3,7 @@ Contributors: ice00, cHab
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F5S5PF4QBWU7E
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 3.5
-Tested up to: 4.4.1
+Tested up to: 4.5
 Stable Tag: 1.2.1
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
@@ -144,6 +144,20 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+= 1.2.1 =
+*Released date: 2016-04-25*
+
+* Add Overview Meta-boxes (free ordination + open/close)
+* Add OS (+76)
+* Add Browsers (+160)
+* Add Spiders (+25)
+* Fix email notification bug (wrong schedule)
+* Fix get_currentuserinfo() deprecated function since WP4.5
+* Change img display method of OS & Browser definitions
+* Add spiders colored agent
+* Add Hide/show spiders function in agent
+* Add message to news box when def update
+* Add technical document about External API inside "doc" folder
 
 = 1.2.0 =
 *Released date: 2016-04-17*
