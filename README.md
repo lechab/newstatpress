@@ -33,6 +33,7 @@
 *Released date: 2016-05-*
 
 - [ ] Change overview loading: used the external api
+- [x] Add wpversion extenal API function
 
 ## 1.2.1
 *Released date: 2016-04-25*
