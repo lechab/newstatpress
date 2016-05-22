@@ -15,37 +15,37 @@ ini_set('display_errors', 1);
 function nsp_ApiOverview($typ, $par) {
   global $wpdb;
   global $nsp_option_vars;
-  
+
   $table_name = nsp_TABLENAME;
-  
+
   $since = nsp_ExpandVarsInsideCode('%since%');
   $lastmonth = nsp_Lastmonth();
   $thisyear = gmdate('Y', current_time('timestamp'));
   $thismonth = gmdate('Ym', current_time('timestamp'));
   $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
   $today = gmdate('Ymd', current_time('timestamp'));
-  
+
   $tlm[0]=substr($lastmonth,0,4); $tlm[1]=substr($lastmonth,4,2);
   $thisyearHeader = gmdate('Y', current_time('timestamp'));
   $lastmonthHeader = gmdate('M, Y',gmmktime(0,0,0,$tlm[1],1,$tlm[0]));
   $thismonthHeader = gmdate('M, Y', current_time('timestamp'));
   $yesterdayHeader = gmdate('d M', current_time('timestamp')-86400);
   $todayHeader = gmdate('d M', current_time('timestamp'));
-  
-  
+
+
   // get the days of the graph
-  $gdays=intval($par);  
-  if($gdays == 0) { $gdays=get_option('newstatpress_daysinoverviewgraph'); } 
+  $gdays=intval($par);
+  if($gdays == 0) { $gdays=get_option('newstatpress_daysinoverviewgraph'); }
   if($gdays == 0) { $gdays=20; }
-  
+
   // get result of dashboard as some date is shared with this
   $resultJ=nsp_ApiDashboard("JSON");
-  
-  
-  
- 
+
+
+
+
   // output an HTML representation of the collected data
-  
+
 
   $overview_table='';
 
@@ -74,9 +74,9 @@ function nsp_ApiOverview($typ, $par) {
                       </tr>
                      </thead>
                     <tbody class='overview-list'>";
-                    
+
   // build body table overview
-  $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');                  
+  $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');
 
   foreach ($overview_rows as $row) {
     $result=nsp_CalculateVariation($resultJ[$row.'_tmonth'],$resultJ[$row.'_lmonth']);
@@ -93,8 +93,7 @@ function nsp_ApiOverview($typ, $par) {
 
   $overview_table.="</tr></table>";
 
-  $resultH=$overview_table;  
-  return $resultH;                   
-                      
-}
-?>  
+  $resultH=$overview_table;
+  return $resultH;
+
+}?>
