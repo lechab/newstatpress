@@ -6,6 +6,7 @@ header('Access-Control-Allow-Origin: *');
 
 require_once('../../../../../wp-load.php');
 require('nsp_api_version.php');
+require('nsp_api_wpversion.php');
 require('nsp_api_dashboard.php');
 require('nsp_api_overview.php');
 
@@ -83,6 +84,9 @@ function body() {
     case 'version':
       $result=nsp_ApiVersion($typ);
       break;
+    case 'wpversion':
+      $result=nsp_ApiWpVersion($typ);
+      break;           
     case 'dashboard':
       $result=nsp_ApiDashboard($typ);
       break;
