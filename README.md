@@ -15,8 +15,6 @@
 - [ ] Generate external API interfaces
 - [ ] Add 'version' in external API
 - [ ] OPTIMIZATION : Serialize some NewStatPress options
-
-
 - [ ] Add dialog box 'database update' when plugin is updated
 - [ ] Change graph system on 'details' page
 - [ ] Add JS/Jquery on 'overview' page
@@ -28,11 +26,16 @@
 - [ ] Add monthly overview
 - [ ] Add number of visitors online in the overview page
 - [ ] Change the email notification activation control (according enabled/disabled)
+- [ ] Add https://github.com/piwik/referrer-spam-blacklist
+- [ ] Add jQuery Vector Maps v1.5.0
+- [ ] Change overview loading: used the external api
+
 
 ## 1.2.2
 *Released date: 2016-05-*
 
-- [ ] Change overview loading: used the external api
+- [x] Fix Warning message in Dashboard
+- [x] Update readme info
 
 ## 1.2.1
 *Released date: 2016-04-*

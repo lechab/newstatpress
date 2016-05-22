@@ -1,10 +1,10 @@
 === Plugin Name ===
-Contributors: ice00, cHab
+Contributors: ice00, lechab
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F5S5PF4QBWU7E
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 3.5
 Tested up to: 4.4.1
-Stable Tag: 1.2.1
+Stable Tag: 1.2.2
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -19,12 +19,9 @@ Using NewStatPress you could spy your visitors while they are surfing your blog 
 In the Dashboard menu you will find the NewStatPress page where you could look up the statistics (overview or detailed).
 NewStatPress also includes a widget one can possibly add to a sidebar (or easy PHP code if you can't use widgets!).
 
-Note: you must disable the original StatPress plugin (or other plugins still based onto Statpress) when activating this, as it use the same table of StatPress for storing data in DB (copy the data to another table will be very space consuming for your site, so it was better to use the same table)
+With the new ajax/javascript usage for variables in widget, the plugin is faster for a user being visit your site even with 1GB or more of database to use! (requires the External API be enabled in NewStatPress>Options>API)
 
-With the new ajax/javascript usage for variables in widget, the plugin is faster for a user being visit your site even with 1GB or more of database to use!
-
-IMPORTANT: all previous versions from 1.0.4 are subject to XSS and SQL injection from an old Statpress routine. You have to use at least version 1.0.6.
-Unfortunately actually 75% of people still use versions before 1.0.0!!!!
+IMPORTANT: all previous versions from 1.0.4 are subject to XSS and SQL injection from an old Statpress routine. You have to use at least version 1.0.6 to avoid security issue.
 PLEASE UPDATE always to the latest version available.
 
 = Support =
@@ -120,6 +117,8 @@ Available functions are:
 
 Upload "newstatpress" directory in wp-content/plugins/ . Then just activate it on your plugin management page.
 You are ready!!!
+
+Note: you must disable the original StatPress plugin (or other plugins still based onto StatPress) when activating this, as it still use or now the same table of StatPress for storing data in DB (copy the data to another table will be very space consuming for your site, so it was better to use the same table)
 
 
 = Update =
