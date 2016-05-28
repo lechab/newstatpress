@@ -146,9 +146,11 @@ Check at http://newstatpress.altervista.org
 = 1.2.2 =
 *Released date: 2016-05-28*
 
-* Fix Warning message in Dashboard
-* Update readme info
 * Add "wpversion" into External API
+* Add Information DB in tool menu
+* Update Screenshot
+* Update readme info
+* Fix Warning message in Dashboard
 * Remove "Empty needle" warning
 
 = 1.2.1 =

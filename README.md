@@ -34,9 +34,11 @@
 ## 1.2.2
 *Released date: 2016-05-28*
 
-- [x] Fix Warning message in Dashboard
-- [x] Update readme info
 - [x] Add "wpversion" into External API
+- [x] Add Information DB in tool menu
+- [x] Update Screenshot
+- [x] Update readme info
+- [x] Fix Warning message in Dashboard
 - [x] Remove "Empty needle" warning
 
 ## 1.2.1
