@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-05-28 16:20+0200\n"
-"PO-Revision-Date: 2016-05-28 16:20+0200\n"
+"PO-Revision-Date: 2016-05-28 18:34+0200\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: newstatpress.php\n"
 "X-Poedit-SearchPath-1: includes\n"
@@ -300,12 +300,17 @@ msgid ""
 "definitions had been updated. Therefore it is recommandated to update the "
 "database (see Tools>Update)."
 msgstr ""
+"Inserite nuove definizioni di Os (+110), Browser (+160) e Spider (+45). E' "
+"raccomandto perciò di aggiornare il database (guarda "
+"Strumenti>Aggiornamento)."
 
 #: includes/nsp_functions-extra.php:259
 msgid ""
 "Remember to backup sometimes your website's database especially if you have "
 "a lot of data."
 msgstr ""
+"Ricordati di are qualche volta un backtp del database specialmente se hai "
+"paracchi dati."
 
 #: includes/nsp_functions-extra.php:270
 msgid ""
@@ -365,7 +370,7 @@ msgstr "record"
 
 #: includes/nsp_functions-extra.php:409
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: includes/nsp_options.php:90
 #, php-format
@@ -1080,7 +1085,7 @@ msgstr "Rimozione"
 
 #: includes/nsp_tools.php:25
 msgid "Informations"
-msgstr ""
+msgstr "Informazioni"
 
 #: includes/nsp_tools.php:30
 msgid "Database Tools"
@@ -1294,6 +1299,8 @@ msgid ""
 "This tool display basic informations about the newstatpress database. It "
 "should be usefull to check the functionning of the plugin."
 msgstr ""
+"Questo strumento mostra informazioni di base relative al database di "
+"newstatpress. Può essere utile per verificare la funzionalità del plugin."
 
 #: includes/nsp_tools.php:595 includes/nsp_tools.php:649
 msgid "Size"
@@ -1301,7 +1308,7 @@ msgstr "Dimensione"
 
 #: includes/nsp_tools.php:596
 msgid "Number of Records"
-msgstr ""
+msgstr "Numero di record"
 
 #: includes/nsp_tools.php:602 includes/nsp_tools.php:656
 msgid "Structure"

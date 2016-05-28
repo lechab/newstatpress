@@ -141,6 +141,11 @@ Check at http://newstatpress.altervista.org
 
 Check at http://newstatpress.altervista.org
 
+screenshot-1.jpg
+screenshot-2.jpg
+screenshot-3.jpg
+screenshot-4.jpg
+
 == Changelog ==
 
 = 1.2.2 =
@@ -152,6 +157,7 @@ Check at http://newstatpress.altervista.org
 * Update readme info
 * Fix Warning message in Dashboard
 * Remove "Empty needle" warning
+* Add spider (+1)
 
 = 1.2.1 =
 *Released date: 2016-04-25*

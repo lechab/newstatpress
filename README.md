@@ -40,6 +40,7 @@
 - [x] Update readme info
 - [x] Fix Warning message in Dashboard
 - [x] Remove "Empty needle" warning
+- [x] Add spider (+1)
 
 ## 1.2.1
 *Released date: 2016-04-25*
