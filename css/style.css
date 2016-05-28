@@ -267,6 +267,7 @@ table.table-option td:first-child {
 .donate:before,
 .rate:before,
 .tabapi:before,
+.tabinfo:before,
 .urlicon:before {
 
 
@@ -327,6 +328,9 @@ line-height: 0.5em;
 }
 .tabrepair:before {
   content: "\f107";
+}
+.tabinfo:before {
+  content: "\f223";
 }
 
 .donate:before {

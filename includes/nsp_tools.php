@@ -17,11 +17,12 @@ function nsp_DisplayToolsPage() {
   global $pagenow;
   $page='nsp_tools';
   $ToolsPage_tabs = array( 'IP2nation' => __('IP2nation','newstatpress'),
-                            'update' => __('Update','newstatpress'),
-                            'export' => __('Export','newstatpress'),
-                            'optimize' => __('Optimize','newstatpress'),
-                            'repair' => __('Repair','newstatpress'),
-                            'remove' => __('Remove','newstatpress')
+                           'update' => __('Update','newstatpress'),
+                           'export' => __('Export','newstatpress'),
+                           'optimize' => __('Optimize','newstatpress'),
+                           'repair' => __('Repair','newstatpress'),
+                           'remove' => __('Remove','newstatpress'),
+                           'info' => __('Informations','newstatpress')
                           );
 
   $default_tab='IP2nation';
@@ -60,6 +61,10 @@ function nsp_DisplayToolsPage() {
 
       case 'remove' :
       nsp_RemovePluginDatabase();
+      break;
+
+      case 'info' :
+      nsp_DisplayDatabaseInfo();
       break;
     }
   }
@@ -554,6 +559,59 @@ function nsp_Update() {
   </div>
 
   <?php
+}
+
+function nsp_DisplayDatabaseInfo() {
+  global $wpdb;
+  global $newstatpress_dir;
+
+  $table_name = nsp_TABLENAME;
+
+  $wpdb->flush();     // flush for counting right the queries
+  $start_time = microtime(true);
+
+  $days=nsp_DurationToDays();  // get the number of days for the update
+
+  $to_date  = gmdate("Ymd",current_time('timestamp'));
+
+  if ($days==-1)
+    $from_date= "19990101";   // use a date where this plugin was not present
+  else
+    $from_date = gmdate('Ymd', current_time('timestamp')-86400*$days);
+
+  $_newstatpress_url=PluginUrl();
+
+  $wpdb->show_errors();
+
+?>
+  <div class='wrap'>
+       <?php _e('This tool display basic informations about the newstatpress database. It should be usefull to check the functionning of the plugin.','newstatpress');?>
+   <br /><br />
+
+   <table class='widefat nsp'>
+     <thead>
+       <tr>
+        <th scope='col'><?php _e('Database','newstatpress')?></th>
+        <th scope='col'><?php _e('Size','newstatpress')?></th>
+        <th scope='col'><?php _e('Number of Records','newstatpress')?></th>
+
+       </tr>
+     </thead>
+     <tbody id='the-list'>
+       <tr>
+         <td><?php _e('Structure','newstatpress'); echo " $table_name";?></td>
+         <td><?php echo nsp_TableSize2($wpdb->prefix."statpress");?></td>
+         <td><?php echo nsp_Tablerecords($wpdb->prefix."statpress");?></td>
+       </tr>
+       <tr>
+         <td><?php _e('Index','newstatpress'); echo " $table_name";?></td>
+         <td><?php echo nsp_IndexTableSize($wpdb->prefix."statpress"); ?></td>
+         <td></td>
+       </tr>
+     </tbody>
+  </div>
+
+<?php
 }
 
 /**

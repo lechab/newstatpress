@@ -399,5 +399,25 @@ function nsp_TableSize($table) {
   return number_format(($data_lenght/1024/1024), 2, ",", " ")." Mb ($data_rows ". __('records','newstatpress').")";
 }
 
+function nsp_TableSize2($table) {
+  global $wpdb;
+  $res = $wpdb->get_results("SHOW TABLE STATUS LIKE '$table'");
+  foreach ($res as $fstatus) {
+    $data_lenght = $fstatus->Data_length;
+    $data_rows = $fstatus->Rows;
+  }
+    return number_format(($data_lenght/1024/1024), 2, ",", " ")."  ". __('Mb','newstatpress');
+}
+
+function nsp_TableRecords($table) {
+  global $wpdb;
+  $res = $wpdb->get_results("SHOW TABLE STATUS LIKE '$table'");
+  foreach ($res as $fstatus) {
+    $data_lenght = $fstatus->Data_length;
+    $data_rows = $fstatus->Rows;
+  }
+  return $data_rows;
+}
+
 
 ?>
