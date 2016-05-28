@@ -144,11 +144,12 @@ Check at http://newstatpress.altervista.org
 == Changelog ==
 
 = 1.2.2 =
-*Released date: 2016-05-xx*
+*Released date: 2016-05-28*
 
 * Fix Warning message in Dashboard
 * Update readme info
 * Add "wpversion" into External API
+* Remove "Empty needle" warning
 
 = 1.2.1 =
 *Released date: 2016-04-25*

@@ -963,17 +963,41 @@ function nsp_Lastmonth() {
  * @return the kind of feed that is found
  *****************************************/
 function nsp_IsFeed($url) {
-  if (stristr($url,get_bloginfo('rdf_url')) != FALSE) { return 'RDF'; }
-  if (stristr($url,get_bloginfo('rss2_url')) != FALSE) { return 'RSS2'; }
-  if (stristr($url,get_bloginfo('rss_url')) != FALSE) { return 'RSS'; }
-  if (stristr($url,get_bloginfo('atom_url')) != FALSE) { return 'ATOM'; }
-  if (stristr($url,get_bloginfo('comments_rss2_url')) != FALSE) { return 'COMMENT'; }
-  if (stristr($url,get_bloginfo('comments_atom_url')) != FALSE) { return 'COMMENT'; }
-  if (stristr($url,'wp-feed.php') != FALSE) { return 'RSS2'; }
-  if (stristr($url,'/feed/') != FALSE) { return 'RSS2'; }
+  $tmp=get_bloginfo('rdf_url');
+  if ($tmp) {
+    if (stristr($url,$tmp) != FALSE) { return 'RDF'; }
+  }  
+  
+  $tmp=get_bloginfo('rss2_url');  
+  if ($tmp) { 
+    if (stristr($url,$tmp) != FALSE) { return 'RSS2'; }
+  }  
+  
+  $tmp=get_bloginfo('rss_url');  
+  if ($tmp) {  
+    if (stristr($url,$tmp) != FALSE) { return 'RSS'; }
+  }   
+  
+  $tmp=get_bloginfo('atom_url');  
+  if ($tmp) {   
+    if (stristr($url,$tmp) != FALSE) { return 'ATOM'; }
+  }      
+  
+  $tmp=get_bloginfo('comments_rss2_url');  
+  if ($tmp) {    
+    if (stristr($url,$tmp) != FALSE) { return 'COMMENT'; }
+  }   
+  
+  $tmp=get_bloginfo('comments_atom_url');  
+  if ($tmp) {  
+    if (stristr($url,$tmp) != FALSE) { return 'COMMENT'; }
+  }   
+  
+  if (stristr($url,'wp-feed.php') != FALSE) { return 'RSS2'; }  
+  if (stristr($url,'/feed/') != FALSE) { return 'RSS2'; }  
   return '';
 }
-
+  
 /**
  * Insert statistic into the database
  *
