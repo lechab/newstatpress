@@ -32,14 +32,15 @@
 
 
 ## 1.2.2
-*Released date: 2016-05-*
+*Released date: 2016-05-28*
 
 - [x] Fix Warning message in Dashboard
 - [x] Update readme info
 - [x] Add "wpversion" into External API
+- [x] Remove "Empty needle" warning
 
 ## 1.2.1
-*Released date: 2016-04-*
+*Released date: 2016-04-25*
 
 - [x] Add Overview Meta-boxes (free ordination + open/close)
 - [x] Add OS (+76)
