@@ -23,7 +23,9 @@
       },
       {
         "donator": "Douglas R.",
-        "date": "09/01/2016"
+        "date": [ "09/01/2016",
+                  "<br />17/05/2016"
+        ]
       },
       {
         "donator": "Holger S.",
@@ -80,6 +82,10 @@
       {
         "donator": "Francis J L.",
         "date": "04/04/2016"
-      }            
+      },
+      {
+        "donator": "Pétur K.",
+        "date": "16/05/2016"
+      }              
    ]
 }
