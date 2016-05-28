@@ -36,6 +36,7 @@
 
 - [x] Fix Warning message in Dashboard
 - [x] Update readme info
+- [x] Add "wpversion" into External API
 
 ## 1.2.1
 *Released date: 2016-04-*

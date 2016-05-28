@@ -143,6 +143,27 @@ Check at http://newstatpress.altervista.org
 
 == Changelog ==
 
+= 1.2.2 =
+*Released date: 2016-05-xx*
+
+* Fix Warning message in Dashboard
+* Update readme info
+* Add "wpversion" into External API
+
+= 1.2.1 =
+*Released date: 2016-04-25*
+
+* Add Overview Meta-boxes (free ordination + open/close)
+* Add OS (+76)
+* Add Browsers (+160)
+* Add Spiders (+25)
+* Fix email notification bug (wrong schedule)
+* Fix get_currentuserinfo() deprecated function since WP4.5
+* Change img display method of OS & Browser definitions
+* Add spiders colored agent
+* Add Hide/show spiders function in agent
+* Add message to news box when def update
+* Add technical document about External API inside "doc" folder
 
 = 1.2.0 =
 *Released date: 2016-04-17*
