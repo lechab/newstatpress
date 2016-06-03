@@ -28,7 +28,10 @@
 - [ ] Change the email notification activation control (according enabled/disabled)
 - [ ] Add https://github.com/piwik/referrer-spam-blacklist
 - [ ] Add jQuery Vector Maps v1.5.0
-- [ ] Change overview loading: used the external api
+
+## 1.2.3
+*Released date: 2016-06-xx*
+- [x] Change overview loading: used the external api
 
 
 ## 1.2.2
