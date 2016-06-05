@@ -377,7 +377,25 @@ function nsp_generate_overview_spiders() {
                  <div id="post-body" class="metabox-holder columns-1">
 
                    <div id="post-body-content">
-                       <?php nsp_MakeOverview('main'); ?>
+                       <?php 
+                       
+                           echo "<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
+
+    $api_key=get_option('newstatpress_apikey');
+    $_newstatpress_url=PluginUrl();
+    $url=$_newstatpress_url."/includes/api/external.php";
+
+    wp_register_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('wp_ajax_nsp_js_overview');
+    wp_localize_script( 'wp_ajax_nsp_js_overview', 'ExtData', array(
+      'Url' => $url,
+      'Key' => md5(gmdate('m-d-y H i').$api_key)
+    ));
+
+    echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"></div>";
+                       
+                       ?>
                    </div>
 
                    <div id="postbox-container-1" class="postbox-container">
@@ -402,7 +420,7 @@ function nsp_NewStatPressMain3() {
 
   global $newstatpress_dir;
 
-  /*
+
     echo "<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
 
     $api_key=get_option('newstatpress_apikey');
@@ -418,9 +436,9 @@ function nsp_NewStatPressMain3() {
     ));
 
     echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"></div>";
-   */
+   
 
-  nsp_MakeOverview('main');
+ /// nsp_MakeOverview('main');
   $_newstatpress_url=PluginUrl();
 
 

@@ -1,7 +1,7 @@
 <?php
 
-#error_reporting(E_ALL);
-#ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 /**
  * API: Overview
@@ -15,6 +15,8 @@
 function nsp_ApiOverview($typ, $par) {
   global $wpdb;
   global $nsp_option_vars;
+
+  $offsets = get_option($nsp_option_vars['stats_offsets']['name']);
 
   $table_name = nsp_TABLENAME;
 
@@ -40,9 +42,94 @@ function nsp_ApiOverview($typ, $par) {
 
   // get result of dashboard as some date is shared with this
   $resultJ=nsp_ApiDashboard("JSON");
+  
+  $resultJ['days']=$gdays;  // export
 
 
+  $overview_rows=array('visitors','visitors_feeds','pageview','feeds','spiders');
 
+  foreach ($overview_rows as $row) {
+
+    switch($row) {
+      case 'visitors' :
+        $row2='DISTINCT ip';
+        $row_title=__('Visitors','newstatpress');
+        $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
+        break;
+      case 'visitors_feeds' :
+        $row2='DISTINCT ip';
+        $row_title=__('Visitors through Feeds','newstatpress');
+        $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider='' AND agent<>''";
+        break;
+      case 'pageview' :
+        $row2='date';
+        $row_title=__('Pageviews','newstatpress');
+        $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
+        break;
+      case 'spiders' :
+        $row2='date';
+        $row_title=__('Spiders','newstatpress');
+        $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider<>''";
+        break;
+      case 'feeds' :
+        $row2='date';
+        $row_title=__('Pageviews through Feeds','newstatpress');
+        $sql_QueryTotal="SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider=''";
+        break;
+    }
+    
+    $resultJ[$row.'_total'] = $wpdb->get_row($sql_QueryTotal)->$row;  // export
+    $resultJ[$row.'_tyear'] = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'")->$row;  // export
+    
+    switch($row) {
+      case 'visitors' :
+        $resultJ[$row.'_total']+=$offsets['alltotalvisits'];
+        break;
+      case 'visitors_feeds' :
+        $resultJ[$row.'_total']+=$offsets['visitorsfeeds'];
+        break;
+      case 'pageview' :
+        $resultJ[$row.'_total']+=$offsets['pageviews'];
+        break;
+      case 'spiders' :
+        $resultJ[$row.'_total']+=$offsets['spy'];
+        break;
+      case 'feeds' :
+        $resultJ[$row.'_total']+=$offsets['pageviewfeeds'];
+        break;
+    }
+    
+  }
+  
+  // make graph
+  
+  $maxxday = 0;
+  for($gg=$gdays-1;$gg>=0;$gg--) {
+
+    $date=gmdate('Ymd', current_time('timestamp')-86400*$gg);
+
+    $qry_visitors  = $wpdb->get_row("SELECT count(DISTINCT ip) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
+    $visitors[$gg] = $qry_visitors->total;
+
+    $qry_pageviews = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
+    $pageviews[$gg]= $qry_pageviews->total;
+
+    $qry_spiders   = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider<>'' AND date = '$date'");
+    $spiders[$gg]  = $qry_spiders->total;
+
+    $qry_feeds     = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed<>'' AND spider='' AND date = '$date'");
+    $feeds[$gg]    = $qry_feeds->total;
+
+    $total= $visitors[$gg] + $pageviews[$gg] + $spiders[$gg] + $feeds[$gg];
+    if ($total > $maxxday) $maxxday= $total;
+  }
+  if($maxxday == 0) { $maxxday = 1; }
+  
+  $resultJ['visitors']  = $visitors;  //export
+  $resultJ['pageviews'] = $pageviews; //export
+  $resultJ['spiders']   = $spiders;   //export
+  $resultJ['feeds']     = $feeds;     //export
+  $resultJ['max']       = $maxxday;   // export
 
   // output an HTML representation of the collected data
 
@@ -83,6 +170,8 @@ function nsp_ApiOverview($typ, $par) {
 
     // build full current row
     $overview_table.="<tr><td class='row_title $row'>".$resultJ[$row.'_title']."</td>";
+    $overview_table.="<td class='colc'>".$resultJ[$row.'_total']."</td>\n";
+    $overview_table.="<td class='colc'>".$resultJ[$row.'_tyear']."</td>\n";
     $overview_table.="<td class='colc'>".$resultJ[$row.'_lmonth']."</td>\n";
     $overview_table.="<td class='colr'>".$resultJ[$row.'_tmonth'].$result[0] ."</td>\n";
     $overview_table.="<td class='colr'> $result[1] $result[2] </td>\n";
@@ -92,6 +181,42 @@ function nsp_ApiOverview($typ, $par) {
   }
 
   $overview_table.="</tr></table>";
+  
+  $start_of_week = get_option('start_of_week');
+  $gd=(90/$gdays).'%';
+
+  $overview_graph="<table class='graph'><tr>";
+  
+  for($gg=$gdays-1;$gg>=0;$gg--) {
+
+    $scale_factor=2; //2 : 200px in CSS
+
+    $date=gmdate('Ymd', current_time('timestamp')-86400*$gg);
+
+    $px_visitors = $scale_factor*(round($resultJ['visitors'][ $gg]*100/$maxxday));
+    $px_pageviews= $scale_factor*(round($resultJ['pageviews'][$gg]*100/$maxxday));
+    $px_spiders  = $scale_factor*(round($resultJ['spiders'][$gg]*100/$maxxday));
+    $px_feeds    = $scale_factor*(round($resultJ['feeds'][$gg]*100/$maxxday));
+
+    $px_white = $scale_factor*100 - $px_feeds - $px_spiders - $px_pageviews - $px_visitors;
+
+    $overview_graph.="<td width='$gd' valign='bottom'>";
+
+    $overview_graph.="<div class='overview-graph'>
+      <div style='border-left:1px; background:#ffffff;width:100%;height:".$px_white."px;'></div>
+        <div class='visitors_bar' style='height:".$px_visitors."px;' title='".$resultJ['visitors'][$gg]." ".__('Visitors','newstatpress')."'></div>
+        <div class='web_bar' style='height:".$px_pageviews."px;' title='".$resultJ['pageviews'][$gg]." ".__('Pageviews','newstatpress')."'></div>
+        <div class='spiders_bar' style='height:".$px_spiders."px;' title='".$resultJ['spiders'][$gg]." ".__('Spiders','newstatpress')."'></div>
+        <div class='feeds_bar' style='height:".$px_feeds."px;' title='".$resultJ['feeds'][$gg]." ".__('Feeds','newstatpress')."'></div>
+        <div style='background:gray;width:100%;height:1px;'></div>";
+      if($start_of_week == gmdate('w',current_time('timestamp')-86400*$gg)) $overview_graph.="<div class='legend-W'>";
+      else $overview_graph.="<div class='legend'>";
+      $overview_graph.=gmdate('d', current_time('timestamp')-86400*$gg) . ' ' . gmdate('M', current_time('timestamp')-86400*$gg) .     "</div></div></td>\n";
+  }
+  $overview_graph.="</tr></table>";
+
+  $overview_table=$overview_table.$overview_graph;
+  
 
   $resultH=$overview_table;
   return $resultH;
