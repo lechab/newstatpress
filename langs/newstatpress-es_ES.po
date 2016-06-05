@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Newstatpress 1.1.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-28 16:20+0200\n"
+"POT-Creation-Date: 2016-06-05 12:40+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: cHab <chabdev@free.fr>\n"
@@ -757,41 +757,64 @@ msgstr "Correo electrónico"
 msgid "Email Test"
 msgstr "Prueba de correo electrÃ³nico"
 
-#: includes/nsp_options.php:810
+#: includes/nsp_options.php:811
+msgid ""
+"The external API is build to let you to use the collected data from your "
+"Newstatpress plugin in an other web server application (for example you can "
+"show data relative to your Wordpress blog, inside a Drupal site that run "
+"since an another server)."
+msgstr ""
+
+#: includes/nsp_options.php:812
+msgid ""
+"However the external API is also used by Newstatpress itself for speedup "
+"page rendering of queried data (when are processed AJAX calls), so 'overview "
+"page & widget dashboard' will be not working if you not activate it."
+msgstr ""
+
+#: includes/nsp_options.php:813
+msgid ""
+"To use it, a key is needed to allow NewStatpress to recognize that you and "
+"only you want the data and not the not authorized people (Let the input form "
+"blank means that you allow everyone to get data without authorization if "
+"external API is activated)."
+msgstr ""
+
+#: includes/nsp_options.php:814
+msgid "Full documentation (PDF)"
+msgstr ""
+
+#: includes/nsp_options.php:815
+msgid ""
+"Please be aware that the external API is also used by Newstatpress itself "
+"when are processed AJAX calls for speedup page rendering of queried data, so "
+"you will need to choose an key and activate it."
+msgstr ""
+
+#: includes/nsp_options.php:817
+msgid ""
+"You must generate or set manually a private key for the external API : only "
+"alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be "
+"between 64 and 128 characters."
+msgstr ""
+
+#: includes/nsp_options.php:819
 msgid "Enable External API"
 msgstr "Habilitar la API externa"
 
-#: includes/nsp_options.php:814
+#: includes/nsp_options.php:831
+msgid "Extern API"
+msgstr ""
+
+#: includes/nsp_options.php:836
 msgid "API key"
 msgstr "Clave API"
 
-#: includes/nsp_options.php:816
-msgid ""
-"The external access API is build to let you to use the collected data from "
-"your Newstatpress plugin  in an other web server application (for example "
-"you can show data relative to your Wordpress blog, inside a Drupal site that "
-"run in another server). This key allows Newstatpress to recognize that you "
-"and only you want the data and not the not authorized people. Let the input "
-"form blank means that you allow everyone to get data without authorization "
-"if external API is activated. The API should be activated with the flag box. "
-"Please be aware that the external API will be also used by Newstatpress "
-"itself when are processed AJAX calls for speedup page rendering of queried "
-"data, so you will need to choose an key and activate it."
-msgstr ""
-
-#: includes/nsp_options.php:818
-msgid ""
-"To retrieve data from Newstatpress plugin, you can generate automatically or "
-"set manually a private key for the external API (used for example from Multi-"
-"Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, "
-"0-9), length should be between 64 and 128 characters."
-msgstr ""
-
-#: includes/nsp_options.php:835
+#: includes/nsp_options.php:861
 msgid "Generate new API key"
 msgstr "Generar nueva clave API"
 
-#: includes/nsp_options.php:845
+#: includes/nsp_options.php:872
 msgid "Save options"
 msgstr "Guardar opciones"
 

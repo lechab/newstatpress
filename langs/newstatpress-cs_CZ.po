@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress\n"
-"POT-Creation-Date: 2016-05-28 16:20+0200\n"
-"PO-Revision-Date: 2016-05-28 16:20+0200\n"
+"POT-Creation-Date: 2016-06-05 12:40+0200\n"
+"PO-Revision-Date: 2016-06-05 12:40+0200\n"
 "Last-Translator: Jiří Borový <jborovy@seznam.cz>\n"
 "Language-Team: Jiří Borový <jborovy@seznam.cz>\n"
 "Language: cs_CZ\n"
@@ -842,55 +842,64 @@ msgstr "Poštovní adresa"
 msgid "Email Test"
 msgstr "Test emailu"
 
-#: includes/nsp_options.php:810
+#: includes/nsp_options.php:811
+msgid ""
+"The external API is build to let you to use the collected data from your "
+"Newstatpress plugin in an other web server application (for example you can "
+"show data relative to your Wordpress blog, inside a Drupal site that run "
+"since an another server)."
+msgstr ""
+
+#: includes/nsp_options.php:812
+msgid ""
+"However the external API is also used by Newstatpress itself for speedup "
+"page rendering of queried data (when are processed AJAX calls), so 'overview "
+"page & widget dashboard' will be not working if you not activate it."
+msgstr ""
+
+#: includes/nsp_options.php:813
+msgid ""
+"To use it, a key is needed to allow NewStatpress to recognize that you and "
+"only you want the data and not the not authorized people (Let the input form "
+"blank means that you allow everyone to get data without authorization if "
+"external API is activated)."
+msgstr ""
+
+#: includes/nsp_options.php:814
+msgid "Full documentation (PDF)"
+msgstr ""
+
+#: includes/nsp_options.php:815
+msgid ""
+"Please be aware that the external API is also used by Newstatpress itself "
+"when are processed AJAX calls for speedup page rendering of queried data, so "
+"you will need to choose an key and activate it."
+msgstr ""
+
+#: includes/nsp_options.php:817
+msgid ""
+"You must generate or set manually a private key for the external API : only "
+"alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be "
+"between 64 and 128 characters."
+msgstr ""
+
+#: includes/nsp_options.php:819
 msgid "Enable External API"
 msgstr "Povolení externího API"
 
-#: includes/nsp_options.php:814
+#: includes/nsp_options.php:831
+msgid "Extern API"
+msgstr ""
+
+#: includes/nsp_options.php:836
 msgid "API key"
 msgstr "Klíč API"
 
-#: includes/nsp_options.php:816
-msgid ""
-"The external access API is build to let you to use the collected data from "
-"your Newstatpress plugin  in an other web server application (for example "
-"you can show data relative to your Wordpress blog, inside a Drupal site that "
-"run in another server). This key allows Newstatpress to recognize that you "
-"and only you want the data and not the not authorized people. Let the input "
-"form blank means that you allow everyone to get data without authorization "
-"if external API is activated. The API should be activated with the flag box. "
-"Please be aware that the external API will be also used by Newstatpress "
-"itself when are processed AJAX calls for speedup page rendering of queried "
-"data, so you will need to choose an key and activate it."
-msgstr ""
-"Externí přístup k API je postaven tak, aby shromažďoval data z Tvého "
-"Newstatpress pluginu, a to i v jiné aplikaci na webovém serveru (například "
-"můžete zobrazit data týkající se blogu Wordpress nebo Drupal, které pracují "
-"na jiném serveru). Tento klíč umožňí Newstatpressu uvědomit si, že pouze Ty "
-"jsi oprávněná osoba a nebude poskytovat data lidem bez pověření. Necháš-li "
-"vstupní formulář prázdný, znamená to, že každému je umožněn přes API zisk "
-"dat zcela volně. API by mělo být aktivováno s příznakem pole. Uvědom si, že "
-"externí rozhraní API bude také používat pro vlastní potřebu Newstatpress při "
-"zpracování AJAX volání. To je kvůli zrychlení vykreslování stránky z "
-"dotazovaných dat, takže si budeš muset vybrat klíč a aktivovat jej."
-
-#: includes/nsp_options.php:818
-msgid ""
-"To retrieve data from Newstatpress plugin, you can generate automatically or "
-"set manually a private key for the external API (used for example from Multi-"
-"Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, "
-"0-9), length should be between 64 and 128 characters."
-msgstr ""
-"Pro získání dat z NewStartPress pluginu můžete vygenerovat automatický nebo "
-"nastavit manuálně soukromý klíč pro rozhraní API (využito například u Multi-"
-"NewStartPress software) : Dovoleny jsou pouze alfanumerické znaky (A-Z, a-z, "
-"0-9). Délka by měla být mězi 64 a 128 znaky."
-
-#: includes/nsp_options.php:835
+#: includes/nsp_options.php:861
 msgid "Generate new API key"
 msgstr "Vygeneruj nový API klíč"
 
-#: includes/nsp_options.php:845
+#: includes/nsp_options.php:872
 msgid "Save options"
 msgstr "Uložit nastavení"
 
@@ -1605,6 +1614,42 @@ msgstr "Statistiky jsou dostupné:"
 #: newstatpress.php:1476
 msgid "Title"
 msgstr "Název"
+
+#~ msgid ""
+#~ "The external access API is build to let you to use the collected data "
+#~ "from your Newstatpress plugin  in an other web server application (for "
+#~ "example you can show data relative to your Wordpress blog, inside a "
+#~ "Drupal site that run in another server). This key allows Newstatpress to "
+#~ "recognize that you and only you want the data and not the not authorized "
+#~ "people. Let the input form blank means that you allow everyone to get "
+#~ "data without authorization if external API is activated. The API should "
+#~ "be activated with the flag box. Please be aware that the external API "
+#~ "will be also used by Newstatpress itself when are processed AJAX calls "
+#~ "for speedup page rendering of queried data, so you will need to choose an "
+#~ "key and activate it."
+#~ msgstr ""
+#~ "Externí přístup k API je postaven tak, aby shromažďoval data z Tvého "
+#~ "Newstatpress pluginu, a to i v jiné aplikaci na webovém serveru "
+#~ "(například můžete zobrazit data týkající se blogu Wordpress nebo Drupal, "
+#~ "které pracují na jiném serveru). Tento klíč umožňí Newstatpressu uvědomit "
+#~ "si, že pouze Ty jsi oprávněná osoba a nebude poskytovat data lidem bez "
+#~ "pověření. Necháš-li vstupní formulář prázdný, znamená to, že každému je "
+#~ "umožněn přes API zisk dat zcela volně. API by mělo být aktivováno s "
+#~ "příznakem pole. Uvědom si, že externí rozhraní API bude také používat pro "
+#~ "vlastní potřebu Newstatpress při zpracování AJAX volání. To je kvůli "
+#~ "zrychlení vykreslování stránky z dotazovaných dat, takže si budeš muset "
+#~ "vybrat klíč a aktivovat jej."
+
+#~ msgid ""
+#~ "To retrieve data from Newstatpress plugin, you can generate automatically "
+#~ "or set manually a private key for the external API (used for example from "
+#~ "Multi-Newstatpress software) : only alphanumeric characters are allowed "
+#~ "(A-Z, a-z, 0-9), length should be between 64 and 128 characters."
+#~ msgstr ""
+#~ "Pro získání dat z NewStartPress pluginu můžete vygenerovat automatický "
+#~ "nebo nastavit manuálně soukromý klíč pro rozhraní API (využito například "
+#~ "u Multi-NewStartPress software) : Dovoleny jsou pouze alfanumerické znaky "
+#~ "(A-Z, a-z, 0-9). Délka by měla být mězi 64 a 128 znaky."
 
 #~ msgid ""
 #~ "This new version integrates a new major function : <strong>Email "
