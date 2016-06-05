@@ -805,35 +805,62 @@ function nsp_Options() {
 
       <!-- tab 'API' -->
       <div id='api'>
-        <table class='form-tableH'>
         <?php
+          $newstatpress_url=PluginUrl();
+          $url2=$newstatpress_url."doc/external_api.pdf";
+          $option_description=__('The external API is build to let you to use the collected data from your Newstatpress plugin in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run since an another server).',nsp_TEXTDOMAIN);
+          $option_description.=' <strong>'.__('However the external API is also used by Newstatpress itself for speedup page rendering of queried data (when are processed AJAX calls), so \'overview page & widget dashboard\' will be not working if you not activate it.',nsp_TEXTDOMAIN);
+          $option_description.='</strong><br /> '.__('To use it, a key is needed to allow NewStatpress to recognize that you and only you want the data and not the not authorized people (Let the input form blank means that you allow everyone to get data without authorization if external API is activated).',nsp_TEXTDOMAIN);
+          $option_description.="<br/><a target=\'_blank\' href='$url2'>". __('Full documentation (PDF)',nsp_TEXTDOMAIN) ."</a><br />";
+          $option_description2=' '.__('Please be aware that the external API is also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data, so you will need to choose an key and activate it.',nsp_TEXTDOMAIN);
+
+          $option_description3=__('You must generate or set manually a private key for the external API : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.',nsp_TEXTDOMAIN);
+
           $option_title=__('Enable External API',nsp_TEXTDOMAIN);
           $option_var='newstatpress_externalapi';
-          nsp_PrintChecked($option_title,$option_var);
-
-          $option_title=__('API key',nsp_TEXTDOMAIN);
-          $option_var='newstatpress_apikey';
-          $option_description=__('The external access API is build to let you to use the collected data from your Newstatpress plugin  in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run in another server). This key allows Newstatpress to recognize that you and only you want the data and not the not authorized people. Let the input form blank means that you allow everyone to get data without authorization if external API is activated. The API should be activated with the flag box. Please be aware that the external API will be also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data, so you will need to choose an key and activate it.',nsp_TEXTDOMAIN);
-          $option_description.='<br/><br/>';
-          $option_description.=__('To retrieve data from Newstatpress plugin, you can generate automatically or set manually a private key for the external API (used for example from Multi-Newstatpress software) : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.',nsp_TEXTDOMAIN);
         ?>
+        <div class="optiondescription">
+          <p>
+            <?php echo $option_description ?>
+            <!-- <br /> -->
+            <span><i><strong><?php //echo $option_description2 ?></strong></i></span>
+          </p>
+        </div>
+        <table class='form-tableH'>
           <tr>
-            <td>
+            <th scope='row' rowspan='2'><?php _e('Extern API',nsp_TEXTDOMAIN); ?></th>
+          </tr>
+          <?php
+            nsp_PrintChecked($option_title,$option_var);
+
+            $option_title=__('API key',nsp_TEXTDOMAIN);
+            $option_var='newstatpress_apikey';
+          ?>
+          <tr>
+            <th scope='row' rowspan='2'>
               <p class='ign'>
                 <label for=<?php echo $option_var; ?>><?php echo $option_title; ?></label>
-              </p>
-              <p><?php echo $option_description ?></p>
-              <div class='justified'>
+              <!-- </p> -->
+
+              <?php //echo $option_description3 ?>
+            </p>
+          </th>
+         </tr>
+
+
+          <tr>
+            <td>
+              <div class='left'>
                 <p>
                   <textarea class='large-text code api' minlength='64' maxlength='128' cols='50' rows='3' name='<?php echo $option_var; ?>' id='<?php echo $option_var; ?>'><?php echo get_option($option_var);?></textarea>
                 </p>
+                <p class="description"><?php echo $option_description3 ?></p>
               </div>
-            </td>
-          <tr>
-            <td>
-            <div class='justified'>
+
+            <div class='left'>
               <div class='button' type='button' onClick='nspGenerateAPIKey()'><?php _e('Generate new API key',nsp_TEXTDOMAIN); ?></div>
             </div>
+<br/>
           </td>
         </tr>
         </table>
