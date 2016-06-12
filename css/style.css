@@ -23,6 +23,13 @@
   text-align:center;
 }
 
+.testnsp {
+  /*margin:0 !important;*/
+  margin-left: 0;
+  margin-right: 0;
+  padding-bottom: 15px;
+
+}
 
 .widefat .inf th {
   padding:0;
@@ -73,14 +80,13 @@ color: #666 !important;
   color:#f6ed8e;
   margin-right: 5px;
   font-size:12pt;
-
 }
+
 .overview-list .visitors_feeds::before {
   content: "\25a9";
   color:#83b4d8;
   margin-right: 5px;
   font-size:12pt;
-
 }
 
 .overview-list .spiders::before {

@@ -374,12 +374,13 @@ function nsp_generate_overview_spiders() {
 
            <div id="poststuff">
 
-                 <div id="post-body" class="metabox-holder columns-1">
+                 <!-- <div id="post-body" class="metabox-holder columns-1"> -->
 
                    <div id="post-body-content">
-                       <?php 
-                       
-                           echo "<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
+                       <?php
+
+                           echo "<div class='wrap testnsp'>";
+                          //  echo "<h2>". __('Overview','newstatpress'). "</h2>";
 
     $api_key=get_option('newstatpress_apikey');
     $_newstatpress_url=PluginUrl();
@@ -394,7 +395,7 @@ function nsp_generate_overview_spiders() {
     ));
 
     echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"></div>";
-                       
+
                        ?>
                    </div>
 
@@ -436,7 +437,7 @@ function nsp_NewStatPressMain3() {
     ));
 
     echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"></div>";
-   
+
 
  /// nsp_MakeOverview('main');
   $_newstatpress_url=PluginUrl();
