@@ -30,7 +30,8 @@
 - [ ] Add jQuery Vector Maps v1.5.0
 
 ## 1.2.3
-*Released date: 2016-06-xx*
+*Released date: 2016-06-12*
+
 - [x] Change overview loading: used the external api
 
 
