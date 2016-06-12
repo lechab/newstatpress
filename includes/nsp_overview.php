@@ -394,7 +394,7 @@ function nsp_generate_overview_spiders() {
       'Key' => md5(gmdate('m-d-y H i').$api_key)
     ));
 
-    echo "<div id=\"nsp_result-overview\" class=\"centerbis testff\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"> ". __('Loading... (refresh the page if no information is displayed).','newstatpress')."</div>";
+    echo "<div id=\"nsp_result-overview\" class=\"centerbis testff\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"> ". __('Loading... (activate the external api and/or refresh the page if no information is displayed).','newstatpress')."</div>";
 
                        ?>
                    </div>
