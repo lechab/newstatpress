@@ -149,7 +149,7 @@ screenshot-4.jpg
 == Changelog ==
 
 = 1.2.3 =
-*Released date: 2016-06-xx*
+*Released date: 2016-06-12*
 
 * Change overview loading: used the external api
 
