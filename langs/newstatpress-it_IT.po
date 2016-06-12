@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-05 12:40+0200\n"
-"PO-Revision-Date: 2016-06-05 12:40+0200\n"
+"PO-Revision-Date: 2016-06-12 10:03+0200\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: newstatpress.php\n"
 "X-Poedit-SearchPath-1: includes\n"
@@ -300,12 +300,17 @@ msgid ""
 "definitions had been updated. Therefore it is recommandated to update the "
 "database (see Tools>Update)."
 msgstr ""
+"Aggiornate le definizioni: OS (+110), Browser (+160) e Spider (+45). E' "
+"raccomandato di effettuare l'update del database (guarda "
+"Strumenti>Aggiornamento)."
 
 #: includes/nsp_functions-extra.php:259
 msgid ""
 "Remember to backup sometimes your website's database especially if you have "
 "a lot of data."
 msgstr ""
+"Ricordati qualche volta di effettuare un backup del database dal sito "
+"specialmente se hai molti dati."
 
 #: includes/nsp_functions-extra.php:270
 msgid ""
@@ -365,7 +370,7 @@ msgstr "record"
 
 #: includes/nsp_functions-extra.php:409
 msgid "Mb"
-msgstr ""
+msgstr "Mb"
 
 #: includes/nsp_options.php:90
 #, php-format
@@ -840,6 +845,10 @@ msgid ""
 "show data relative to your Wordpress blog, inside a Drupal site that run "
 "since an another server)."
 msgstr ""
+"L'API esterna è costruita per permetterti di usare i dati collezionati dal "
+"plugin Newstatpress  all'interno di una applicazione web su un altro server "
+"(per esempio puoi mostrare i dati relativi al tuo blog Wordress dentro a un "
+"sito Drupal che gira su di un altro server)."
 
 #: includes/nsp_options.php:812
 msgid ""
@@ -847,6 +856,9 @@ msgid ""
 "page rendering of queried data (when are processed AJAX calls), so 'overview "
 "page & widget dashboard' will be not working if you not activate it."
 msgstr ""
+"Comunque l'API esterna è anche usata da Newstatpress stesso per velocizzare "
+"il rendering dei dati ottenuti dal DB (tramite chiamate AJAX), perciò "
+"'pagina Sommario e dashboard widget' non funzioneranno se non la attivi."
 
 #: includes/nsp_options.php:813
 msgid ""
@@ -855,10 +867,14 @@ msgid ""
 "blank means that you allow everyone to get data without authorization if "
 "external API is activated)."
 msgstr ""
+"Per usarlo, una chiave è necessaria per permettere a Newstatpress di "
+"riconoscere che tu e solo tu vuoi accedere ai dati e non a persone non "
+"autorizzate (lasciando il campo vuoto significa permettere a tutti di "
+"ottenere dati se l'API esterna è attivata)."
 
 #: includes/nsp_options.php:814
 msgid "Full documentation (PDF)"
-msgstr ""
+msgstr "Documenazione completa (PDF)"
 
 #: includes/nsp_options.php:815
 msgid ""
@@ -866,6 +882,9 @@ msgid ""
 "when are processed AJAX calls for speedup page rendering of queried data, so "
 "you will need to choose an key and activate it."
 msgstr ""
+"Tieni presente che l'API esterna è anche usata da Newstatpress stesso quando "
+"processa chiamate AJAX per acellerare la generazione delle pagine da dati de "
+"DB, perciò devi scegliere una chiave e attivarlo."
 
 #: includes/nsp_options.php:817
 msgid ""
@@ -873,6 +892,9 @@ msgid ""
 "alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be "
 "between 64 and 128 characters."
 msgstr ""
+"Devi geenerare o mettere manualmente una chiave privata per l'API esterna: "
+"solo caratteri alfanumerici sono permessi (A-Z, a-z, 0-9), la lunghezza "
+"dovrebbe essere tra 64 e 128 caratteri."
 
 #: includes/nsp_options.php:819
 msgid "Enable External API"
@@ -880,7 +902,7 @@ msgstr "Abilita l'API esterna"
 
 #: includes/nsp_options.php:831
 msgid "Extern API"
-msgstr ""
+msgstr "External API"
 
 #: includes/nsp_options.php:836
 msgid "API key"
@@ -1089,7 +1111,7 @@ msgstr "Rimozione"
 
 #: includes/nsp_tools.php:25
 msgid "Informations"
-msgstr ""
+msgstr "Informazioni"
 
 #: includes/nsp_tools.php:30
 msgid "Database Tools"
@@ -1303,6 +1325,8 @@ msgid ""
 "This tool display basic informations about the newstatpress database. It "
 "should be usefull to check the functionning of the plugin."
 msgstr ""
+"Questo strumento mostra informazioni base circa il database di Newstatpress. "
+"Può essere utile per verificare il funzionamento del plugin."
 
 #: includes/nsp_tools.php:595 includes/nsp_tools.php:649
 msgid "Size"
@@ -1310,7 +1334,7 @@ msgstr "Dimensione"
 
 #: includes/nsp_tools.php:596
 msgid "Number of Records"
-msgstr ""
+msgstr "Numeri di record"
 
 #: includes/nsp_tools.php:602 includes/nsp_tools.php:656
 msgid "Structure"
