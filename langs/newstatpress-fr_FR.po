@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress v1.1.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-18 12:21+0200\n"
-"PO-Revision-Date: 2016-06-18 12:21+0200\n"
+"POT-Creation-Date: 2016-06-18 12:35+0200\n"
+"PO-Revision-Date: 2016-06-18 12:35+0200\n"
 "Last-Translator: cHab <chabdev@free.fr>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -1710,13 +1710,13 @@ msgstr "Outils"
 
 #: newstatpress.php:481
 #, php-format
-msgid "Visits statistics from [%s]"
-msgstr "Statistiques de visites de %s"
+msgid "[%s] Visits statistics"
+msgstr "[%s] Statistiques des visites"
 
 #: newstatpress.php:483
 #, php-format
-msgid "This is a test from [%s]"
-msgstr "Ceci est un test de [%s]"
+msgid "[%s] Visits statistics : test of email address"
+msgstr "[%s] Statistiques des visites: test de l’adresse e-mail"
 
 #: newstatpress.php:498
 msgid "support page"
@@ -1805,6 +1805,12 @@ msgstr "Statistiques disponibles :"
 #: newstatpress.php:1476
 msgid "Title"
 msgstr "Titre"
+
+#~ msgid "Visits statistics from [%s]"
+#~ msgstr "Statistiques de visites de %s"
+
+#~ msgid "This is a test from [%s]"
+#~ msgstr "Ceci est un test de [%s]"
 
 #~ msgid ""
 #~ "The external access API is build to let you to use the collected data "

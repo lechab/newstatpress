@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress\n"
-"POT-Creation-Date: 2016-06-18 12:21+0200\n"
-"PO-Revision-Date: 2016-06-18 12:21+0200\n"
+"POT-Creation-Date: 2016-06-18 12:35+0200\n"
+"PO-Revision-Date: 2016-06-18 12:35+0200\n"
 "Last-Translator: Jiří Borový <jborovy@seznam.cz>\n"
 "Language-Team: Jiří Borový <jborovy@seznam.cz>\n"
 "Language: cs_CZ\n"
@@ -1539,13 +1539,13 @@ msgstr "Nástroje"
 
 #: newstatpress.php:481
 #, php-format
-msgid "Visits statistics from [%s]"
-msgstr "Návštěvní statistiky od [%s]"
+msgid "[%s] Visits statistics"
+msgstr ""
 
 #: newstatpress.php:483
 #, php-format
-msgid "This is a test from [%s]"
-msgstr "Toto je test od [%s]"
+msgid "[%s] Visits statistics : test of email address"
+msgstr ""
 
 #: newstatpress.php:498
 msgid "support page"
@@ -1629,6 +1629,12 @@ msgstr "Statistiky jsou dostupné:"
 #: newstatpress.php:1476
 msgid "Title"
 msgstr "Název"
+
+#~ msgid "Visits statistics from [%s]"
+#~ msgstr "Návštěvní statistiky od [%s]"
+
+#~ msgid "This is a test from [%s]"
+#~ msgstr "Toto je test od [%s]"
 
 #~ msgid ""
 #~ "The external access API is build to let you to use the collected data "
