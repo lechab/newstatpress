@@ -141,12 +141,12 @@ Check at http://newstatpress.altervista.org
 
 Check at http://newstatpress.altervista.org for more details
 
-1.jpg
-2.jpg
-3.jpg
-4.jpg
-5.jpg
-6.jpg
+1.
+2.
+3.
+4.
+5.
+6.
 
 == Changelog ==
 
@@ -160,6 +160,7 @@ Check at http://newstatpress.altervista.org for more details
 * Update fr_FR, it_IT, es_ES translation
 * Remove "Creating default object from empty value" warming
 * Add error images for an Ajax failure
+* Fix sender display bug (email notification)
 
 = 1.2.3 =
 *Released date: 2016-06-12*
