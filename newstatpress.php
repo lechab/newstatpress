@@ -478,9 +478,9 @@ function nsp_stat_by_email($arg='') {
 
   //$headers= 'From:NewStatPress';
   $blog_title = get_bloginfo('name');
-  $subject=sprintf(__('Visits statistics from [%s]','newstatpress'), $blog_title);
+  $subject=sprintf(__('[%s] Visits statistics','newstatpress'), $blog_title);
   if($arg=='test')
-    $subject=sprintf(__('This is a test from [%s]','newstatpress'), $blog_title);
+    $subject=sprintf(__('[%s] Visits statistics : test of email address','newstatpress'), $blog_title);
 
   require_once ('includes/api/nsp_api_dashboard.php');
   $resultH=nsp_ApiDashboard("HTML");
@@ -966,38 +966,38 @@ function nsp_IsFeed($url) {
   $tmp=get_bloginfo('rdf_url');
   if ($tmp) {
     if (stristr($url,$tmp) != FALSE) { return 'RDF'; }
-  }  
-  
-  $tmp=get_bloginfo('rss2_url');  
-  if ($tmp) { 
+  }
+
+  $tmp=get_bloginfo('rss2_url');
+  if ($tmp) {
     if (stristr($url,$tmp) != FALSE) { return 'RSS2'; }
-  }  
-  
-  $tmp=get_bloginfo('rss_url');  
-  if ($tmp) {  
+  }
+
+  $tmp=get_bloginfo('rss_url');
+  if ($tmp) {
     if (stristr($url,$tmp) != FALSE) { return 'RSS'; }
-  }   
-  
-  $tmp=get_bloginfo('atom_url');  
-  if ($tmp) {   
+  }
+
+  $tmp=get_bloginfo('atom_url');
+  if ($tmp) {
     if (stristr($url,$tmp) != FALSE) { return 'ATOM'; }
-  }      
-  
-  $tmp=get_bloginfo('comments_rss2_url');  
-  if ($tmp) {    
+  }
+
+  $tmp=get_bloginfo('comments_rss2_url');
+  if ($tmp) {
     if (stristr($url,$tmp) != FALSE) { return 'COMMENT'; }
-  }   
-  
-  $tmp=get_bloginfo('comments_atom_url');  
-  if ($tmp) {  
+  }
+
+  $tmp=get_bloginfo('comments_atom_url');
+  if ($tmp) {
     if (stristr($url,$tmp) != FALSE) { return 'COMMENT'; }
-  }   
-  
-  if (stristr($url,'wp-feed.php') != FALSE) { return 'RSS2'; }  
-  if (stristr($url,'/feed/') != FALSE) { return 'RSS2'; }  
+  }
+
+  if (stristr($url,'wp-feed.php') != FALSE) { return 'RSS2'; }
+  if (stristr($url,'/feed/') != FALSE) { return 'RSS2'; }
   return '';
 }
-  
+
 /**
  * Insert statistic into the database
  *
