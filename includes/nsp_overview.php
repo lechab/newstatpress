@@ -394,8 +394,8 @@ function nsp_generate_overview_spiders() {
                    'Key' => md5(gmdate('m-d-y H i').$api_key)
                  ));
 
+                 echo "<img id=\"nsp_error-overview\" class=\"imgerror\" src=\"$_newstatpress_url/images/error.png\">";
                  echo "<img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"> ".$message;
-                 echo "<img id=\"nsp_error-overview\" src=\"$_newstatpress_url/images/error.png\">";
                  ?>
                </div>
              </div>

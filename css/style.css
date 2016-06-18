@@ -34,7 +34,9 @@
   padding-bottom: 15px;
 }
 
-
+.imgerror {
+  width: 16px;
+}
 .widefat .inf th {
   padding:0;
 }
