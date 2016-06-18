@@ -25,7 +25,7 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
 						<thead>
 							<tr>
 								<th scope='col' class='keytab-head'><h2>$fldtitle</h2></th>
-								<th scope='col' style='width:20%;text-align:center;'>".__('Visits','newstatpress')."</th>
+								<th scope='col' style='width:10%;text-align:center;'>".__('Visits','newstatpress')."</th>
 							</tr>
 						</thead>\n";
 
@@ -76,8 +76,7 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
     }
 
     $text .= "<tr><td colspan=2 style='width:50%;'>
-    <div id=\"placeholder\" style=\"width:600px;height:300px\"></div>
-        <iframe src='".$charts."' class='framebox'>
+              <iframe src='".$charts."' class='framebox'>
           <p>[_e('This section requires a browser that supports iframes.]','newstatpress')</p>
         </iframe></td></tr>";
   }
