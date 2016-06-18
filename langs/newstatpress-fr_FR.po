@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress v1.1.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-18 14:28+0200\n"
-"PO-Revision-Date: 2016-06-18 14:29+0200\n"
+"POT-Creation-Date: 2016-06-18 15:06+0200\n"
+"PO-Revision-Date: 2016-06-18 15:06+0200\n"
 "Last-Translator: cHab <chabdev@free.fr>\n"
 "Language-Team: cHab <chabdev@free.fr>\n"
 "Language: fr_FR\n"
@@ -24,12 +24,12 @@ msgstr ""
 # @ newstatpress
 #: includes/api/nsp_api_dashboard.php:52 includes/api/nsp_api_overview.php:56
 #: includes/api/nsp_api_overview.php:207 includes/nsp_options.php:464
-#: includes/nsp_visits.php:13 newstatpress.php:1627 newstatpress.php:1789
+#: includes/nsp_visits.php:13 newstatpress.php:1626 newstatpress.php:1788
 msgid "Visitors"
 msgstr "Visiteurs"
 
 #: includes/api/nsp_api_dashboard.php:57 includes/api/nsp_api_overview.php:61
-#: includes/nsp_options.php:469 newstatpress.php:1633
+#: includes/nsp_options.php:469 newstatpress.php:1632
 msgid "Visitors through Feeds"
 msgstr "Visiteurs (par le flux RSS)"
 
@@ -38,7 +38,7 @@ msgstr "Visiteurs (par le flux RSS)"
 #: includes/api/nsp_api_overview.php:208 includes/nsp_core.php:197
 #: includes/nsp_core.php:200 includes/nsp_details.php:45
 #: includes/nsp_details.php:48 includes/nsp_options.php:474
-#: newstatpress.php:1639 newstatpress.php:1790
+#: newstatpress.php:1638 newstatpress.php:1789
 msgid "Pageviews"
 msgstr "Pages visitées"
 
@@ -46,73 +46,73 @@ msgstr "Pages visitées"
 #: includes/api/nsp_api_dashboard.php:67 includes/api/nsp_api_overview.php:71
 #: includes/api/nsp_api_overview.php:209 includes/nsp_core.php:188
 #: includes/nsp_details.php:36 includes/nsp_options.php:484
-#: includes/nsp_tools.php:808 newstatpress.php:1645 newstatpress.php:1791
+#: includes/nsp_tools.php:808 newstatpress.php:1644 newstatpress.php:1790
 msgid "Spiders"
 msgstr "Robots"
 
 #: includes/api/nsp_api_dashboard.php:72 includes/api/nsp_api_overview.php:76
-#: includes/nsp_options.php:479 newstatpress.php:1651
+#: includes/nsp_options.php:479 newstatpress.php:1650
 msgid "Pageviews through Feeds"
 msgstr "Pages vues (par le flux RSS)"
 
-#: includes/api/nsp_api_dashboard.php:136 newstatpress.php:1603
+#: includes/api/nsp_api_dashboard.php:136 newstatpress.php:1602
 msgid "M-1"
 msgstr "M-1"
 
-#: includes/api/nsp_api_dashboard.php:137 newstatpress.php:1604
+#: includes/api/nsp_api_dashboard.php:137 newstatpress.php:1603
 msgid "M"
 msgstr "M"
 
-#: includes/api/nsp_api_dashboard.php:138 newstatpress.php:1605
+#: includes/api/nsp_api_dashboard.php:138 newstatpress.php:1604
 msgid "Y"
 msgstr "H"
 
-#: includes/api/nsp_api_dashboard.php:139 newstatpress.php:1606
+#: includes/api/nsp_api_dashboard.php:139 newstatpress.php:1605
 msgid "T"
 msgstr "A"
 
 # @ newstatpress
-#: includes/api/nsp_api_overview.php:144 newstatpress.php:1578
+#: includes/api/nsp_api_overview.php:144 newstatpress.php:1577
 msgid "Total since"
 msgstr "Total depuis"
 
-#: includes/api/nsp_api_overview.php:145 newstatpress.php:1579
+#: includes/api/nsp_api_overview.php:145 newstatpress.php:1578
 msgid "This year"
 msgstr "Année en cours"
 
 # @ newstatpress
-#: includes/api/nsp_api_overview.php:146 newstatpress.php:1580
+#: includes/api/nsp_api_overview.php:146 newstatpress.php:1579
 msgid "Last month"
 msgstr "Mois précédent"
 
 # @ newstatpress
-#: includes/api/nsp_api_overview.php:147 newstatpress.php:1581
+#: includes/api/nsp_api_overview.php:147 newstatpress.php:1580
 msgid "This month"
 msgstr "Mois en cours"
 
 # @ newstatpress
-#: includes/api/nsp_api_overview.php:148 newstatpress.php:1582
+#: includes/api/nsp_api_overview.php:148 newstatpress.php:1581
 msgid "Target This month"
 msgstr "Cible de ce mois-ci"
 
 # @ newstatpress
-#: includes/api/nsp_api_overview.php:149 newstatpress.php:1583
+#: includes/api/nsp_api_overview.php:149 newstatpress.php:1582
 msgid "Yesterday"
 msgstr "Hier"
 
 # @ newstatpress
-#: includes/api/nsp_api_overview.php:150 newstatpress.php:1584
+#: includes/api/nsp_api_overview.php:150 newstatpress.php:1583
 msgid "Today"
 msgstr "Aujourd'hui"
 
 # @ newstatpress
 #: includes/api/nsp_api_overview.php:210 includes/nsp_core.php:173
-#: includes/nsp_details.php:21 includes/nsp_tools.php:666 newstatpress.php:1792
+#: includes/nsp_details.php:21 includes/nsp_tools.php:666 newstatpress.php:1791
 msgid "Feeds"
 msgstr "Flux"
 
 #: includes/nsp_core.php:28 includes/nsp_dashboard.php:29
-#: includes/nsp_visits.php:18 newstatpress.php:295 newstatpress.php:1485
+#: includes/nsp_visits.php:18 newstatpress.php:295 newstatpress.php:1484
 msgid "Visits"
 msgstr "Visites"
 
@@ -196,7 +196,7 @@ msgstr "Don"
 msgid "the support page"
 msgstr "la page de support"
 
-#: includes/nsp_credits.php:21 newstatpress.php:499
+#: includes/nsp_credits.php:21 newstatpress.php:498
 msgid "the author"
 msgstr "l'auteur"
 
@@ -327,21 +327,23 @@ msgstr "Actualités NewStatPress"
 
 #: includes/nsp_functions-extra.php:258
 msgid ""
-"Among of news and fixes, OSes (+110), Browsers (+160) and Spiders (+45) "
-"definitions had been updated. Therefore it is recommandated to update the "
-"database (see Tools>Update)."
+"Since the introduction of new method for speed up the display (needed for "
+"dashboard and overview), you must activate the external API in Options>Api "
+"page."
 msgstr ""
-"Parmi de nouvelles et de corrections, OSes ( 110), Browsers ( 160) et "
-"Spiders ( 45) définitions ont été mises à jour. Par conséquent, il est "
-"recommandated de mettre à jour la base de données (voir Outils> Mise à jour)."
+"Depuis l’introduction de la nouvelle méthode pour accélérer l’affichage "
+"(nécessaire pour le tableau de bord et vue d’ensemble), vous devez activer "
+"l’API externe dans Options> page Api."
 
 #: includes/nsp_functions-extra.php:259
 msgid ""
-"Remember to backup sometimes your website's database especially if you have "
-"a lot of data."
+"This major change was necessary in aim to improve the plugin for users with "
+"big database. In addition, it will allow to be more flexible about the "
+"graphical informations in next versions."
 msgstr ""
-"Rappelez-vous de sauvegarder parfois la base de données de votre site Web, "
-"surtout si vous avez beaucoup de données."
+"Ce changement majeur a été nécessaire afin d’améliorer le plugin pour les "
+"utilisateurs avec la grande base de données. En outre, il permettra d’être "
+"plus flexible sur les informations graphiques dans les prochaines versions."
 
 #: includes/nsp_functions-extra.php:270
 msgid ""
@@ -1036,8 +1038,8 @@ msgstr "Pays"
 #: includes/nsp_overview.php:101 includes/nsp_overview.php:267
 #: includes/nsp_overview.php:506 includes/nsp_overview.php:654
 #: includes/nsp_visits.php:453 includes/nsp_visits.php:465
-#: includes/nsp_visits.php:468 includes/nsp_visits.php:480 newstatpress.php:639
-#: newstatpress.php:651
+#: includes/nsp_visits.php:468 includes/nsp_visits.php:480 newstatpress.php:638
+#: newstatpress.php:650
 msgid "Page"
 msgstr "Page"
 
@@ -1148,7 +1150,7 @@ msgstr "Système d'exploitation"
 
 #: includes/nsp_search.php:16 includes/nsp_search.php:63
 #: includes/nsp_visits.php:456 includes/nsp_visits.php:470 newstatpress.php:296
-#: newstatpress.php:642
+#: newstatpress.php:641
 msgid "Search"
 msgstr "Recherche"
 
@@ -1187,7 +1189,7 @@ msgid "include feed"
 msgstr "Inclure les flux"
 
 # @ newstatpress
-#: includes/nsp_search.php:57 newstatpress.php:1481
+#: includes/nsp_search.php:57 newstatpress.php:1480
 msgid "Limit results to"
 msgstr "Limiter les résultats à"
 
@@ -1608,12 +1610,12 @@ msgid "Hostip country"
 msgstr "Pays de l'adresse IP"
 
 # @ newstatpress
-#: includes/nsp_visits.php:454 includes/nsp_visits.php:469 newstatpress.php:640
+#: includes/nsp_visits.php:454 includes/nsp_visits.php:469 newstatpress.php:639
 msgid "Category"
 msgstr "Categorie"
 
 # @ newstatpress
-#: includes/nsp_visits.php:455 newstatpress.php:641
+#: includes/nsp_visits.php:455 newstatpress.php:640
 msgid "Calendar"
 msgstr "Calendrier"
 
@@ -1717,11 +1719,11 @@ msgstr "[%s] Statistiques des visites"
 msgid "[%s] Visits statistics : test of email address"
 msgstr "[%s] Statistiques des visites: test de l’adresse e-mail"
 
-#: newstatpress.php:498
+#: newstatpress.php:497
 msgid "support page"
 msgstr "page de support"
 
-#: newstatpress.php:501
+#: newstatpress.php:500
 msgid ""
 "If you have found this plugin useful and you like it, thank you to take a "
 "moment to rate it."
@@ -1729,7 +1731,7 @@ msgstr ""
 "Si vous avez trouvé ce plug-in utile et que vous l’appréciez, merci de "
 "prendre le temps de le noter."
 
-#: newstatpress.php:502
+#: newstatpress.php:501
 #, php-format
 msgid ""
 "You can help to the plugin development by reporting bugs on the %s or by "
@@ -1739,7 +1741,7 @@ msgstr ""
 "le %s ou en ajoutant/mettant à jour la traduction en communiquant "
 "directement avec %s."
 
-#: newstatpress.php:504
+#: newstatpress.php:503
 msgid ""
 "NewStatPress is provided for free and is maintained only on free time, you "
 "can also consider a donation to support further work, directly on the plugin "
@@ -1750,7 +1752,7 @@ msgstr ""
 "travaux, directement sur le site du plug-in ou via le plug-in (Page de "
 "crédits)."
 
-#: newstatpress.php:506
+#: newstatpress.php:505
 msgid ""
 "This option is yet experimental, please report bugs or improvement (see link "
 "on the bottom)"
@@ -1758,7 +1760,7 @@ msgstr ""
 "Cette option est encore expérimentale, merci de rapporter un bogue ou  des "
 "améliorations (voir le lien en bas)"
 
-#: newstatpress.php:507
+#: newstatpress.php:506
 msgid ""
 "You receive this email because you have enabled the statistics notification "
 "in the NewStatpress plugin (option menu) from your WP website "
@@ -1766,44 +1768,89 @@ msgstr ""
 "Vous recevez cet e-mail parce que vous avez activé la notification de "
 "statistiques dans le plugin NewStatpress (menu option) de votre site Web WP"
 
-#: newstatpress.php:508
+#: newstatpress.php:507
 msgid "Dear"
 msgstr "Cher"
 
-#: newstatpress.php:512
+#: newstatpress.php:511
 msgid "Statistics at"
 msgstr "Statistiques à"
 
-#: newstatpress.php:512
+#: newstatpress.php:511
 msgid "server time"
 msgstr "heure serveur"
 
-#: newstatpress.php:514
+#: newstatpress.php:513
 msgid "Best Regards from"
 msgstr "Salutations de "
 
-#: newstatpress.php:591
+#: newstatpress.php:590
 msgid "Settings"
 msgstr "Réglages"
 
 # @ newstatpress
-#: newstatpress.php:1427
+#: newstatpress.php:1426
 msgid "Title:"
 msgstr "Titre :"
 
 # @ newstatpress
-#: newstatpress.php:1431
+#: newstatpress.php:1430
 msgid "Body:"
 msgstr "Corps :"
 
-#: newstatpress.php:1435
+#: newstatpress.php:1434
 msgid "Stats available: "
 msgstr "Statistiques disponibles :"
 
 # @ newstatpress
-#: newstatpress.php:1476
+#: newstatpress.php:1475
 msgid "Title"
 msgstr "Titre"
+
+#~ msgid ""
+#~ "This major change was necessary in aim to improve the plugin for users "
+#~ "with big database. In addition, it will allow to be more flexible about "
+#~ "the graphical informations in next version."
+#~ msgstr ""
+#~ "Ce changement majeur a été nécessaire afin d’améliorer le plugin pour les "
+#~ "utilisateurs avec la grande base de données. En outre, il permettra "
+#~ "d’être plus flexible sur les informations graphiques dans la version "
+#~ "suivante."
+
+#~ msgid ""
+#~ "This major change was necessary in aim to improve the plugin for users "
+#~ "with big database. In addition, it will allow to be more flexible about "
+#~ "graph information in next version."
+#~ msgstr ""
+#~ "Ce changement majeur a été nécessaire afin d’améliorer le plug-in pour "
+#~ "les utilisateurs avec la grande base de données. En outre, il permettra "
+#~ "d’être plus flexible sur le graphique dans la prochaine version."
+
+#~ msgid ""
+#~ "Since the introduction of new method for speedup the display (needed for "
+#~ "dashboard and overview), you must activate the external API in "
+#~ "Options>Api page."
+#~ msgstr ""
+#~ "Depuis l’introduction de la nouvelle méthode de speedup l’affichage "
+#~ "(nécessaire pour le tableau de bord et vue d’ensemble), vous devez "
+#~ "activer l’API externe dans Options> page Api."
+
+#~ msgid ""
+#~ "Among of news and fixes, OSes (+110), Browsers (+160) and Spiders (+45) "
+#~ "definitions had been updated. Therefore it is recommandated to update the "
+#~ "database (see Tools>Update)."
+#~ msgstr ""
+#~ "Parmi de nouvelles et de corrections, OSes ( 110), Browsers ( 160) et "
+#~ "Spiders ( 45) définitions ont été mises à jour. Par conséquent, il est "
+#~ "recommandated de mettre à jour la base de données (voir Outils> Mise à "
+#~ "jour)."
+
+#~ msgid ""
+#~ "Remember to backup sometimes your website's database especially if you "
+#~ "have a lot of data."
+#~ msgstr ""
+#~ "Rappelez-vous de sauvegarder parfois la base de données de votre site "
+#~ "Web, surtout si vous avez beaucoup de données."
 
 # @ newstatpress
 #~ msgid "Database update option"
