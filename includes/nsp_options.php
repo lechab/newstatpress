@@ -811,7 +811,7 @@ function nsp_Options() {
           $option_description=__('The external API is build to let you to use the collected data from your Newstatpress plugin in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run since an another server).',nsp_TEXTDOMAIN);
           $option_description.=' <strong>'.__('However the external API is also used by Newstatpress itself for speedup page rendering of queried data (when are processed AJAX calls), so \'overview page & widget dashboard\' will be not working if you not activate it.',nsp_TEXTDOMAIN);
           $option_description.='</strong><br /> '.__('To use it, a key is needed to allow NewStatpress to recognize that you and only you want the data and not the not authorized people (Let the input form blank means that you allow everyone to get data without authorization if external API is activated).',nsp_TEXTDOMAIN);
-          $option_description.="<br/><a target=\'_blank\' href='$url2'>". __('Full documentation (PDF)',nsp_TEXTDOMAIN) ."</a><br />";
+          $option_description.="<br/><br/><a target=\'_blank\' href='$url2'>". __('Full documentation (PDF)',nsp_TEXTDOMAIN) ."</a><br />";
           $option_description2=' '.__('Please be aware that the external API is also used by Newstatpress itself when are processed AJAX calls for speedup page rendering of queried data, so you will need to choose an key and activate it.',nsp_TEXTDOMAIN);
 
           $option_description3=__('You must generate or set manually a private key for the external API : only alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be between 64 and 128 characters.',nsp_TEXTDOMAIN);
