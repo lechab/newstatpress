@@ -98,6 +98,8 @@ function nsp_ApiDashboard($typ) {
 
       }
       // echo $totlm." ,";
+      $qry_tmonth=new stdClass();
+      $qry_lmonth=new stdClass();
       $qry_tmonth->$row=$tot;
       $qry_lmonth->$row=$totlm;
 

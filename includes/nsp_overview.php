@@ -395,6 +395,7 @@ function nsp_generate_overview_spiders() {
                  ));
 
                  echo "<img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"> ".$message;
+                 echo "<img id=\"nsp_error-overview\" src=\"$_newstatpress_url/images/error.png\">";
                  ?>
                </div>
              </div>

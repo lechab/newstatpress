@@ -37,6 +37,8 @@
 - [x] Update Screenshot
 - [x] Update Ip2nation definitions (16/16/2016)
 - [x] Update fr_FR,it_IT, es_ES translation
+- [x] Remove "Creating default object from empty value" warming
+- [x] Add error images for an Ajax failure
 
 ## 1.2.3
 *Released date: 2016-06-12*
