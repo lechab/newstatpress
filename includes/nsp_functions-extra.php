@@ -255,8 +255,8 @@ function nsp_CheckNagNotices() {
   if( empty( $status['news'] ) ) {
     $nid = 'n03';
     $style = 'updated ';
-    $notice_text='<p>'.__('Among of news and fixes, OSes (+110), Browsers (+160) and Spiders (+45) definitions had been updated. Therefore it is recommandated to update the database (see Tools>Update).','newstatpress').'</p>';
-    $notice_text.='<i>'.__('Remember to backup sometimes your website\'s database especially if you have a lot of data.','newstatpress').'</i>';
+    $notice_text='<p>'.__('Since the introduction of new method for speed up the display (needed for dashboard and overview), you must activate the external API in Options>Api page.','newstatpress').'</p>';
+    $notice_text.= __('This major change was necessary in aim to improve the plugin for users with big database. In addition, it will allow to be more flexible about the graphical informations in next versions.', 'newstatpress' ).'</p>';
     $status['currentnag'] = TRUE;
     $status['news'] = FALSE;
   }
