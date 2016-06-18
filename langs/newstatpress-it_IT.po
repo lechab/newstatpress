@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-18 12:35+0200\n"
-"PO-Revision-Date: 2016-06-18 12:35+0200\n"
+"POT-Creation-Date: 2016-06-18 14:28+0200\n"
+"PO-Revision-Date: 2016-06-18 14:28+0200\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -19,33 +19,33 @@ msgstr ""
 "X-Poedit-SearchPath-1: includes\n"
 
 #: includes/api/nsp_api_dashboard.php:52 includes/api/nsp_api_overview.php:56
-#: includes/api/nsp_api_overview.php:207 includes/nsp_options.php:462
+#: includes/api/nsp_api_overview.php:207 includes/nsp_options.php:464
 #: includes/nsp_visits.php:13 newstatpress.php:1627 newstatpress.php:1789
 msgid "Visitors"
 msgstr "Visitatori"
 
 #: includes/api/nsp_api_dashboard.php:57 includes/api/nsp_api_overview.php:61
-#: includes/nsp_options.php:467 newstatpress.php:1633
+#: includes/nsp_options.php:469 newstatpress.php:1633
 msgid "Visitors through Feeds"
 msgstr "Visitatori tramite Feeds"
 
 #: includes/api/nsp_api_dashboard.php:62 includes/api/nsp_api_overview.php:66
 #: includes/api/nsp_api_overview.php:208 includes/nsp_core.php:197
 #: includes/nsp_core.php:200 includes/nsp_details.php:45
-#: includes/nsp_details.php:48 includes/nsp_options.php:472
+#: includes/nsp_details.php:48 includes/nsp_options.php:474
 #: newstatpress.php:1639 newstatpress.php:1790
 msgid "Pageviews"
 msgstr "Pagine viste"
 
 #: includes/api/nsp_api_dashboard.php:67 includes/api/nsp_api_overview.php:71
 #: includes/api/nsp_api_overview.php:209 includes/nsp_core.php:188
-#: includes/nsp_details.php:36 includes/nsp_options.php:482
+#: includes/nsp_details.php:36 includes/nsp_options.php:484
 #: includes/nsp_tools.php:808 newstatpress.php:1645 newstatpress.php:1791
 msgid "Spiders"
 msgstr "Spider"
 
 #: includes/api/nsp_api_dashboard.php:72 includes/api/nsp_api_overview.php:76
-#: includes/nsp_options.php:477 newstatpress.php:1651
+#: includes/nsp_options.php:479 newstatpress.php:1651
 msgid "Pageviews through Feeds"
 msgstr "Pagine viste tramite Feeds"
 
@@ -240,7 +240,7 @@ msgid "Website"
 msgstr "Sito Web"
 
 #: includes/nsp_credits.php:92 includes/nsp_overview.php:100
-#: includes/nsp_overview.php:508
+#: includes/nsp_overview.php:505
 msgid "Language"
 msgstr "Lingua"
 
@@ -251,9 +251,9 @@ msgstr "Stato"
 #: includes/nsp_credits.php:107 includes/nsp_overview.php:97
 #: includes/nsp_overview.php:170 includes/nsp_overview.php:219
 #: includes/nsp_overview.php:265 includes/nsp_overview.php:325
-#: includes/nsp_overview.php:505 includes/nsp_overview.php:558
-#: includes/nsp_overview.php:585 includes/nsp_overview.php:655
-#: includes/nsp_overview.php:691
+#: includes/nsp_overview.php:502 includes/nsp_overview.php:555
+#: includes/nsp_overview.php:582 includes/nsp_overview.php:652
+#: includes/nsp_overview.php:688
 msgid "Date"
 msgstr "Data"
 
@@ -476,146 +476,146 @@ msgstr "Notifica Email"
 msgid "API"
 msgstr "API"
 
-#: includes/nsp_options.php:328
+#: includes/nsp_options.php:329
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: includes/nsp_options.php:329
+#: includes/nsp_options.php:330
 msgid "Enable NewStatPress widget"
 msgstr "Abilita il widget di NewStatPress "
 
-#: includes/nsp_options.php:333
+#: includes/nsp_options.php:334
 msgid "Minimum capability to display each specific menu"
 msgstr "Privilegi minimi per visualizzare ciascun menu specifico"
 
-#: includes/nsp_options.php:333 includes/nsp_visits.php:253
+#: includes/nsp_options.php:334 includes/nsp_visits.php:253
 #: includes/nsp_visits.php:393
 msgid "more info"
 msgstr "dettagli"
 
-#: includes/nsp_options.php:335
+#: includes/nsp_options.php:336
 msgid "Overview menu"
 msgstr "Menu Sommario"
 
-#: includes/nsp_options.php:343
+#: includes/nsp_options.php:344
 msgid "Detail menu"
 msgstr "Menu Dettagli"
 
-#: includes/nsp_options.php:352
+#: includes/nsp_options.php:353
 msgid "Visits menu"
 msgstr "Menu Visite"
 
-#: includes/nsp_options.php:360
+#: includes/nsp_options.php:361
 msgid "Search menu"
 msgstr "Menu di Ricerca"
 
-#: includes/nsp_options.php:368
+#: includes/nsp_options.php:369
 msgid "Tools menu"
 msgstr "Menu Strumenti"
 
-#: includes/nsp_options.php:376
+#: includes/nsp_options.php:377
 msgid "Options menu"
 msgstr "Menu Opzioni"
 
-#: includes/nsp_options.php:390
+#: includes/nsp_options.php:392
 msgid "Visits calculation method"
 msgstr "Metodo calcolo delle visite"
 
-#: includes/nsp_options.php:406
+#: includes/nsp_options.php:408
 msgid "Simple sum of distinct IPs (Classic method)"
 msgstr "Semplice somma degli IP distinti (metodo classico)"
 
-#: includes/nsp_options.php:418
+#: includes/nsp_options.php:420
 msgid "Sum of the distinct IPs of each day"
 msgstr "Somma degli IP distinti per ciascun giorno"
 
-#: includes/nsp_options.php:420
+#: includes/nsp_options.php:422
 msgid "(slower than classic method for big database)"
 msgstr "(più lenta del metodo classico per grandi database)"
 
-#: includes/nsp_options.php:429
+#: includes/nsp_options.php:431
 msgid "Graph"
 msgstr "Grafico"
 
-#: includes/nsp_options.php:434
+#: includes/nsp_options.php:436
 msgid "Days number in Overview graph"
 msgstr "Giorni nel grafico del sommario"
 
-#: includes/nsp_options.php:440 includes/nsp_overview.php:426
+#: includes/nsp_options.php:442 includes/nsp_overview.php:423
 #: newstatpress.php:293
 msgid "Overview"
 msgstr "Sommario"
 
-#: includes/nsp_options.php:444
+#: includes/nsp_options.php:446
 #, php-format
 msgid "Elements in Overview (default %d)"
 msgstr "Numero elementi nel sommario (default %d)"
 
-#: includes/nsp_options.php:447
+#: includes/nsp_options.php:449
 msgid "Statistics offsets (Total visits)"
 msgstr "Offset statistiche (Visite totali)"
 
-#: includes/nsp_options.php:497
+#: includes/nsp_options.php:499
 msgid "Never"
 msgstr "Nessuno"
 
-#: includes/nsp_options.php:498
+#: includes/nsp_options.php:500
 msgid "All"
 msgstr "Tutti"
 
-#: includes/nsp_options.php:499
+#: includes/nsp_options.php:501
 msgid "month"
 msgstr "mese"
 
-#: includes/nsp_options.php:500
+#: includes/nsp_options.php:502
 msgid "months"
 msgstr "mesi"
 
-#: includes/nsp_options.php:501
+#: includes/nsp_options.php:503
 msgid "week"
 msgstr "settimana"
 
-#: includes/nsp_options.php:502
+#: includes/nsp_options.php:504
 msgid "weeks"
 msgstr "settimane"
 
-#: includes/nsp_options.php:504
+#: includes/nsp_options.php:506
 msgid "Data collection"
 msgstr "Raccolta dati"
 
-#: includes/nsp_options.php:506
+#: includes/nsp_options.php:508
 msgid "Crypt IP addresses"
 msgstr "Crypta gli indirizzi IP"
 
-#: includes/nsp_options.php:510
+#: includes/nsp_options.php:512
 msgid "Collect data about logged users, too."
 msgstr "Registra anche i dati degli utenti autenticati."
 
-#: includes/nsp_options.php:514
+#: includes/nsp_options.php:516
 msgid "Do not collect spiders visits"
 msgstr "Non registrare le visite degli spider"
 
-#: includes/nsp_options.php:521
+#: includes/nsp_options.php:523
 msgid "Data purge"
 msgstr "Cancella dati"
 
-#: includes/nsp_options.php:526
+#: includes/nsp_options.php:528
 msgid "Automatically delete all visits older than"
 msgstr "Automaticamente cancella tutte le visite più vecchie di"
 
-#: includes/nsp_options.php:532
+#: includes/nsp_options.php:534
 msgid "Automatically delete only spiders visits older than"
 msgstr "Automaticamente cancella le visite dei soli spider più vecchie di"
 
-#: includes/nsp_options.php:540 includes/nsp_options.php:589
+#: includes/nsp_options.php:542 includes/nsp_options.php:591
 msgid "Parameters to ignore"
 msgstr "Parametri da ignorare"
 
-#: includes/nsp_options.php:545
+#: includes/nsp_options.php:547
 msgid "Logged users"
 msgstr "Utenti autenticati"
 
-#: includes/nsp_options.php:547
+#: includes/nsp_options.php:549
 msgid ""
 "Enter a list of users you don't want to track, separated by commas, even if "
 "collect data about logged users is on"
@@ -623,11 +623,11 @@ msgstr ""
 "Inserisci una lista di utenti che non vuoi tracciare, separati da virgole, "
 "anche se hai abilitato di registrare anche i dati di utenti autenticati."
 
-#: includes/nsp_options.php:550
+#: includes/nsp_options.php:552
 msgid "IP addresses"
 msgstr "Indirizzi IP"
 
-#: includes/nsp_options.php:552
+#: includes/nsp_options.php:554
 msgid ""
 "Enter a list of networks you don't want to track, separated by commas. Each "
 "network <strong>must</strong> be defined using the CIDR notation (i.e. "
@@ -639,11 +639,11 @@ msgstr ""
 "(ad esempio <em>192.168.1.1/24</em>). <br />Se il formato non è corretto,  "
 "NewStatPress potrebbe non funzionare correttamente."
 
-#: includes/nsp_options.php:555
+#: includes/nsp_options.php:557
 msgid "Pages and posts"
 msgstr "Pagine e post"
 
-#: includes/nsp_options.php:557
+#: includes/nsp_options.php:559
 msgid ""
 "Enter a list of permalinks you don't want to track, separated by commas. You "
 "should omit the domain name from these resources: <em>/about, p=1</em>, etc. "
@@ -655,120 +655,116 @@ msgstr ""
 "<br />NewStatPress ignorerà tutte le richieste il cui permalink "
 "<strong>contiene</strong> uno di quelli indicati."
 
-#: includes/nsp_options.php:568
+#: includes/nsp_options.php:570
 msgid "Visitors by Spy"
 msgstr "Visitatori tramite Spia"
 
-#: includes/nsp_options.php:572
+#: includes/nsp_options.php:574
 msgid "number of IP per page"
 msgstr "numero di IP per pagina"
 
-#: includes/nsp_options.php:579
+#: includes/nsp_options.php:581
 msgid "number of visits for IP"
 msgstr "numero di visite per IP"
 
-#: includes/nsp_options.php:592
+#: includes/nsp_options.php:594
 msgid "number of bot per page"
 msgstr "numero di bot per pagina"
 
-#: includes/nsp_options.php:599
+#: includes/nsp_options.php:601
 msgid "number of bot for IP"
 msgstr "numero di bot per IP"
 
-#: includes/nsp_options.php:611
+#: includes/nsp_options.php:613
 msgid "Element numbers to display in"
 msgstr "Numero elementi da mostrare in"
 
-#: includes/nsp_options.php:614
+#: includes/nsp_options.php:616
 #, php-format
 msgid "Top days (default %d)"
 msgstr "Top days (default %d)"
 
-#: includes/nsp_options.php:617
+#: includes/nsp_options.php:619
 #, php-format
 msgid "O.S. (default %d)"
 msgstr "O.S. (default %d)"
 
-#: includes/nsp_options.php:620
+#: includes/nsp_options.php:622
 #, php-format
 msgid "Browser (default %d)"
 msgstr "Browser (default %d)"
 
-#: includes/nsp_options.php:623
+#: includes/nsp_options.php:625
 #, php-format
 msgid "Feed (default %d)"
 msgstr "Feed (default %d)"
 
-#: includes/nsp_options.php:626
+#: includes/nsp_options.php:628
 #, php-format
 msgid "Search Engines (default %d)"
 msgstr "Motori di ricerca (default %d)"
 
-#: includes/nsp_options.php:629
+#: includes/nsp_options.php:631
 #, php-format
 msgid "Top Search Terms (default %d)"
 msgstr "Top termini ricerca (default %d)"
 
-#: includes/nsp_options.php:632
+#: includes/nsp_options.php:634
 #, php-format
 msgid "Top Referrer (default %d)"
 msgstr "Top Refferer (default %d)"
 
-#: includes/nsp_options.php:635
+#: includes/nsp_options.php:637
 #, php-format
 msgid "Countries/Languages (default %d)"
 msgstr "Nazioni/Lingue (default %d)"
 
-#: includes/nsp_options.php:638
+#: includes/nsp_options.php:640
 #, php-format
 msgid "Spiders (default %d)"
 msgstr "Spiders (default %d)"
 
-#: includes/nsp_options.php:641
+#: includes/nsp_options.php:643
 #, php-format
 msgid "Top Pages (default %d)"
 msgstr "Top Pagine (default %d)"
 
-#: includes/nsp_options.php:644
+#: includes/nsp_options.php:646
 #, php-format
 msgid "Top Days - Unique visitors (default %d)"
 msgstr "Top Days - Visitatori unici (default %d)"
 
-#: includes/nsp_options.php:647
+#: includes/nsp_options.php:649
 #, php-format
 msgid "Top Days - Pageviews (default %d)"
 msgstr "Top Days - Pagine viste (default %d)"
 
-#: includes/nsp_options.php:650
+#: includes/nsp_options.php:652
 #, php-format
 msgid "Top IPs - Pageviews (default %d)"
 msgstr "Top IPs - Pagine viste (default %d)"
 
-#: includes/nsp_options.php:658
-msgid "Database update option"
-msgstr "Opzioni aggiornamento database"
-
-#: includes/nsp_options.php:663
+#: includes/nsp_options.php:661
 msgid ""
 "Select the interval of date from today you want to use for updating your "
-"database with new definitions. "
+"database with new definitions"
 msgstr ""
-"Selezionare l'intervallo di date a partire da oggi che deve essere usato per "
-"aggiornare il database con le nuove definizioni. "
 
-#: includes/nsp_options.php:664
+#: includes/nsp_options.php:663
+msgid "(To update your database, go to Tools page)"
+msgstr ""
+
+#: includes/nsp_options.php:665
 msgid ""
-"Be aware, larger is the interval, longer is the update and bigger are the "
-"resources required."
+"Note: Be aware, larger is the interval, longer is the update and bigger are "
+"the resources required."
 msgstr ""
-"Attenzione, maggiore è l'intervallo, più lungo è l'aggiornamento e maggiori "
-"sono le risorse necessarie"
 
-#: includes/nsp_options.php:672
+#: includes/nsp_options.php:677
 msgid "Update data in the given period"
 msgstr "Aggiorna i dati nel periodo dato"
 
-#: includes/nsp_options.php:683
+#: includes/nsp_options.php:689
 msgid ""
 "This option allows you to get periodic reports by email (dashboard "
 "informations). You can customize the frequency and the publishing time of "
@@ -778,7 +774,7 @@ msgstr ""
 "(informazioni della dashboard). Puoi cambiare la frequenza e il tempo di "
 "pubblicazionr delle statistiche e anche la descrizione del Mittente."
 
-#: includes/nsp_options.php:684
+#: includes/nsp_options.php:690
 msgid ""
 "Note: WP Cron job need to be operational in aim to schedule Email "
 "Notification."
@@ -786,7 +782,7 @@ msgstr ""
 "Nota: WP Cron necessita di essere operativo per poter schedulare le "
 "notifiche via email."
 
-#: includes/nsp_options.php:685
+#: includes/nsp_options.php:691
 msgid ""
 "Mailing address accept only one email address, check is well valid before "
 "reporting issues."
@@ -794,11 +790,11 @@ msgstr ""
 "Solo un indirizzo è accettato; assicurati che sia valido prima di riportare "
 "malfunzionamenti."
 
-#: includes/nsp_options.php:686
+#: includes/nsp_options.php:692
 msgid "Notification will be sent at UTC time."
 msgstr "Le notifiche saranno inviate col tempo UTC."
 
-#: includes/nsp_options.php:687
+#: includes/nsp_options.php:693
 msgid ""
 "Sender could be personalized according your website (by default : "
 "'NewStatPress')."
@@ -806,43 +802,43 @@ msgstr ""
 "Il mittente può essere personalizzato in accordo col tuo sito web (per "
 "default è 'NewStatPress')."
 
-#: includes/nsp_options.php:723
+#: includes/nsp_options.php:729
 msgid "Statistics notification is"
 msgstr "La notifica statistiche è"
 
-#: includes/nsp_options.php:734
+#: includes/nsp_options.php:740
 msgid "Disabled"
 msgstr "Disabilitato"
 
-#: includes/nsp_options.php:737
+#: includes/nsp_options.php:743
 msgid "Enabled"
 msgstr "Abilitato"
 
-#: includes/nsp_options.php:744
+#: includes/nsp_options.php:750
 msgid "Event schedule"
 msgstr "Schedula evanto"
 
-#: includes/nsp_options.php:755
+#: includes/nsp_options.php:761
 msgid "Publishing time"
 msgstr "Orario pubblicazione"
 
-#: includes/nsp_options.php:760
+#: includes/nsp_options.php:766
 msgid "Select"
 msgstr "Seleziona"
 
-#: includes/nsp_options.php:783
+#: includes/nsp_options.php:789
 msgid "Sender Description (From)"
 msgstr "Descrizione Mittente (From)"
 
-#: includes/nsp_options.php:792
+#: includes/nsp_options.php:798
 msgid "Mailing address"
 msgstr "Indirizzo postale"
 
-#: includes/nsp_options.php:797
+#: includes/nsp_options.php:803
 msgid "Email Test"
 msgstr "Test Email"
 
-#: includes/nsp_options.php:811
+#: includes/nsp_options.php:817
 msgid ""
 "The external API is build to let you to use the collected data from your "
 "Newstatpress plugin in an other web server application (for example you can "
@@ -854,7 +850,7 @@ msgstr ""
 "(per esempio puoi mostrare i dati relativi al tuo blog Wordress dentro a un "
 "sito Drupal che gira su di un altro server)."
 
-#: includes/nsp_options.php:812
+#: includes/nsp_options.php:818
 msgid ""
 "However the external API is also used by Newstatpress itself for speedup "
 "page rendering of queried data (when are processed AJAX calls), so 'overview "
@@ -864,7 +860,7 @@ msgstr ""
 "il rendering dei dati ottenuti dal DB (tramite chiamate AJAX), perciò "
 "'pagina Sommario e dashboard widget' non funzioneranno se non la attivi."
 
-#: includes/nsp_options.php:813
+#: includes/nsp_options.php:819
 msgid ""
 "To use it, a key is needed to allow NewStatpress to recognize that you and "
 "only you want the data and not the not authorized people (Let the input form "
@@ -876,11 +872,11 @@ msgstr ""
 "autorizzate (lasciando il campo vuoto significa permettere a tutti di "
 "ottenere dati se l'API esterna è attivata)."
 
-#: includes/nsp_options.php:814
+#: includes/nsp_options.php:820
 msgid "Full documentation (PDF)"
 msgstr "Documenazione completa (PDF)"
 
-#: includes/nsp_options.php:815
+#: includes/nsp_options.php:821
 msgid ""
 "Please be aware that the external API is also used by Newstatpress itself "
 "when are processed AJAX calls for speedup page rendering of queried data, so "
@@ -890,7 +886,7 @@ msgstr ""
 "processa chiamate AJAX per acellerare la generazione delle pagine da dati de "
 "DB, perciò devi scegliere una chiave e attivarlo."
 
-#: includes/nsp_options.php:817
+#: includes/nsp_options.php:823
 msgid ""
 "You must generate or set manually a private key for the external API : only "
 "alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be "
@@ -900,100 +896,100 @@ msgstr ""
 "solo caratteri alfanumerici sono permessi (A-Z, a-z, 0-9), la lunghezza "
 "dovrebbe essere tra 64 e 128 caratteri."
 
-#: includes/nsp_options.php:819
+#: includes/nsp_options.php:825
 msgid "Enable External API"
 msgstr "Abilita l'API esterna"
 
-#: includes/nsp_options.php:831
+#: includes/nsp_options.php:837
 msgid "Extern API"
 msgstr "External API"
 
-#: includes/nsp_options.php:836
+#: includes/nsp_options.php:842
 msgid "API key"
 msgstr "Chiave dell'API"
 
-#: includes/nsp_options.php:861
+#: includes/nsp_options.php:867
 msgid "Generate new API key"
 msgstr "Genera una nuova chiave dell'API"
 
-#: includes/nsp_options.php:872
+#: includes/nsp_options.php:878
 msgid "Save options"
 msgstr "Salva le opzioni"
 
-#: includes/nsp_overview.php:32 includes/nsp_overview.php:608
-#: includes/nsp_overview.php:691 includes/nsp_search.php:7
+#: includes/nsp_overview.php:32 includes/nsp_overview.php:605
+#: includes/nsp_overview.php:688 includes/nsp_search.php:7
 msgid "Agent"
 msgstr "Agent"
 
 #: includes/nsp_overview.php:33 includes/nsp_overview.php:104
-#: includes/nsp_overview.php:269 includes/nsp_overview.php:512
-#: includes/nsp_overview.php:609 includes/nsp_overview.php:659
+#: includes/nsp_overview.php:269 includes/nsp_overview.php:509
+#: includes/nsp_overview.php:606 includes/nsp_overview.php:656
 msgid "OS"
 msgstr "Sistema Operativo"
 
 #: includes/nsp_overview.php:34 includes/nsp_overview.php:106
-#: includes/nsp_overview.php:271 includes/nsp_overview.php:514
-#: includes/nsp_overview.php:611 includes/nsp_overview.php:661
+#: includes/nsp_overview.php:271 includes/nsp_overview.php:511
+#: includes/nsp_overview.php:608 includes/nsp_overview.php:658
 #: includes/nsp_search.php:12
 msgid "Browser"
 msgstr "Browser"
 
-#: includes/nsp_overview.php:34 includes/nsp_overview.php:611
-#: includes/nsp_overview.php:691 includes/nsp_search.php:13
+#: includes/nsp_overview.php:34 includes/nsp_overview.php:608
+#: includes/nsp_overview.php:688 includes/nsp_search.php:13
 msgid "Spider"
 msgstr "Spider"
 
 #: includes/nsp_overview.php:98 includes/nsp_overview.php:171
 #: includes/nsp_overview.php:220 includes/nsp_overview.php:266
-#: includes/nsp_overview.php:326 includes/nsp_overview.php:506
-#: includes/nsp_overview.php:559 includes/nsp_overview.php:586
-#: includes/nsp_overview.php:656 includes/nsp_overview.php:691
+#: includes/nsp_overview.php:326 includes/nsp_overview.php:503
+#: includes/nsp_overview.php:556 includes/nsp_overview.php:583
+#: includes/nsp_overview.php:653 includes/nsp_overview.php:688
 msgid "Time"
 msgstr "Ora"
 
-#: includes/nsp_overview.php:99 includes/nsp_overview.php:507
+#: includes/nsp_overview.php:99 includes/nsp_overview.php:504
 #: includes/nsp_search.php:14
 msgid "IP"
 msgstr "IP"
 
-#: includes/nsp_overview.php:100 includes/nsp_overview.php:508
+#: includes/nsp_overview.php:100 includes/nsp_overview.php:505
 msgid "Country"
 msgstr "Nazione"
 
 #: includes/nsp_overview.php:101 includes/nsp_overview.php:267
-#: includes/nsp_overview.php:509 includes/nsp_overview.php:657
+#: includes/nsp_overview.php:506 includes/nsp_overview.php:654
 #: includes/nsp_visits.php:453 includes/nsp_visits.php:465
 #: includes/nsp_visits.php:468 includes/nsp_visits.php:480 newstatpress.php:639
 #: newstatpress.php:651
 msgid "Page"
 msgstr "Pagina"
 
-#: includes/nsp_overview.php:102 includes/nsp_overview.php:510
+#: includes/nsp_overview.php:102 includes/nsp_overview.php:507
 msgid "Feed"
 msgstr "Feed"
 
 #: includes/nsp_overview.php:172 includes/nsp_overview.php:327
-#: includes/nsp_overview.php:560
+#: includes/nsp_overview.php:557
 msgid "Terms"
 msgstr "Termini"
 
 #: includes/nsp_overview.php:173 includes/nsp_overview.php:328
-#: includes/nsp_overview.php:561
+#: includes/nsp_overview.php:558
 msgid "Engine"
 msgstr "Motore"
 
 #: includes/nsp_overview.php:174 includes/nsp_overview.php:222
-#: includes/nsp_overview.php:329 includes/nsp_overview.php:562
-#: includes/nsp_overview.php:588 includes/nsp_tools.php:649
+#: includes/nsp_overview.php:329 includes/nsp_overview.php:559
+#: includes/nsp_overview.php:585 includes/nsp_tools.php:649
 msgid "Result"
 msgstr "Risultato"
 
 #: includes/nsp_overview.php:183 includes/nsp_overview.php:232
-#: includes/nsp_overview.php:571 includes/nsp_overview.php:594
+#: includes/nsp_overview.php:568 includes/nsp_overview.php:591
 msgid "page viewed"
 msgstr "pagina vista"
 
-#: includes/nsp_overview.php:221 includes/nsp_overview.php:587
+#: includes/nsp_overview.php:221 includes/nsp_overview.php:584
 msgid "URL"
 msgstr "URL"
 
@@ -1009,28 +1005,28 @@ msgstr ""
 msgid "You must activate the external api first (Page Option>Api)"
 msgstr ""
 
-#: includes/nsp_overview.php:501 newstatpress.php:318
+#: includes/nsp_overview.php:498 newstatpress.php:318
 msgid "Last hits"
 msgstr "Ultimi accessi"
 
-#: includes/nsp_overview.php:554 newstatpress.php:319
+#: includes/nsp_overview.php:551 newstatpress.php:319
 msgid "Last search terms"
 msgstr "Ultimi termini di ricerca"
 
-#: includes/nsp_overview.php:581 newstatpress.php:320
+#: includes/nsp_overview.php:578 newstatpress.php:320
 msgid "Last referrers"
 msgstr "Ultime provenienze"
 
-#: includes/nsp_overview.php:603 includes/nsp_overview.php:605
+#: includes/nsp_overview.php:600 includes/nsp_overview.php:602
 #: newstatpress.php:321
 msgid "Last agents"
 msgstr "Ultimi agent"
 
-#: includes/nsp_overview.php:651 newstatpress.php:322
+#: includes/nsp_overview.php:648 newstatpress.php:322
 msgid "Last pages"
 msgstr "Ultime pagine"
 
-#: includes/nsp_overview.php:691 newstatpress.php:323
+#: includes/nsp_overview.php:688 newstatpress.php:323
 msgid "Last spiders"
 msgstr "Ultimi spider"
 
@@ -1655,6 +1651,23 @@ msgstr "Statistiche disponibili:"
 #: newstatpress.php:1476
 msgid "Title"
 msgstr "Titolo:"
+
+#~ msgid "Database update option"
+#~ msgstr "Opzioni aggiornamento database"
+
+#~ msgid ""
+#~ "Select the interval of date from today you want to use for updating your "
+#~ "database with new definitions. "
+#~ msgstr ""
+#~ "Selezionare l'intervallo di date a partire da oggi che deve essere usato "
+#~ "per aggiornare il database con le nuove definizioni. "
+
+#~ msgid ""
+#~ "Be aware, larger is the interval, longer is the update and bigger are the "
+#~ "resources required."
+#~ msgstr ""
+#~ "Attenzione, maggiore è l'intervallo, più lungo è l'aggiornamento e "
+#~ "maggiori sono le risorse necessarie"
 
 #~ msgid "Visits statistics from [%s]"
 #~ msgstr "Statistiche visite da  [%s]"
