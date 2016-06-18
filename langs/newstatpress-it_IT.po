@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-05 12:40+0200\n"
-"PO-Revision-Date: 2016-06-12 10:03+0200\n"
+"POT-Creation-Date: 2016-06-18 12:21+0200\n"
+"PO-Revision-Date: 2016-06-18 12:21+0200\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -13,36 +13,39 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.8.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: newstatpress.php\n"
 "X-Poedit-SearchPath-1: includes\n"
 
-#: includes/api/nsp_api_dashboard.php:52 includes/nsp_options.php:462
+#: includes/api/nsp_api_dashboard.php:52 includes/api/nsp_api_overview.php:56
+#: includes/api/nsp_api_overview.php:207 includes/nsp_options.php:462
 #: includes/nsp_visits.php:13 newstatpress.php:1627 newstatpress.php:1789
 msgid "Visitors"
 msgstr "Visitatori"
 
-#: includes/api/nsp_api_dashboard.php:57 includes/nsp_options.php:467
-#: newstatpress.php:1633
+#: includes/api/nsp_api_dashboard.php:57 includes/api/nsp_api_overview.php:61
+#: includes/nsp_options.php:467 newstatpress.php:1633
 msgid "Visitors through Feeds"
 msgstr "Visitatori tramite Feeds"
 
-#: includes/api/nsp_api_dashboard.php:62 includes/nsp_core.php:197
+#: includes/api/nsp_api_dashboard.php:62 includes/api/nsp_api_overview.php:66
+#: includes/api/nsp_api_overview.php:208 includes/nsp_core.php:197
 #: includes/nsp_core.php:200 includes/nsp_details.php:45
 #: includes/nsp_details.php:48 includes/nsp_options.php:472
 #: newstatpress.php:1639 newstatpress.php:1790
 msgid "Pageviews"
 msgstr "Pagine viste"
 
-#: includes/api/nsp_api_dashboard.php:67 includes/nsp_core.php:188
+#: includes/api/nsp_api_dashboard.php:67 includes/api/nsp_api_overview.php:71
+#: includes/api/nsp_api_overview.php:209 includes/nsp_core.php:188
 #: includes/nsp_details.php:36 includes/nsp_options.php:482
 #: includes/nsp_tools.php:808 newstatpress.php:1645 newstatpress.php:1791
 msgid "Spiders"
 msgstr "Spider"
 
-#: includes/api/nsp_api_dashboard.php:72 includes/nsp_options.php:477
-#: newstatpress.php:1651
+#: includes/api/nsp_api_dashboard.php:72 includes/api/nsp_api_overview.php:76
+#: includes/nsp_options.php:477 newstatpress.php:1651
 msgid "Pageviews through Feeds"
 msgstr "Pagine viste tramite Feeds"
 
@@ -62,33 +65,38 @@ msgstr "I"
 msgid "T"
 msgstr "T"
 
-#: includes/api/nsp_api_overview.php:57 newstatpress.php:1578
+#: includes/api/nsp_api_overview.php:144 newstatpress.php:1578
 msgid "Total since"
 msgstr "Totale dal"
 
-#: includes/api/nsp_api_overview.php:58 newstatpress.php:1579
+#: includes/api/nsp_api_overview.php:145 newstatpress.php:1579
 msgid "This year"
 msgstr "Questo anno"
 
-#: includes/api/nsp_api_overview.php:59 newstatpress.php:1580
+#: includes/api/nsp_api_overview.php:146 newstatpress.php:1580
 msgid "Last month"
 msgstr "Mese precedente"
 
-#: includes/api/nsp_api_overview.php:60 newstatpress.php:1581
+#: includes/api/nsp_api_overview.php:147 newstatpress.php:1581
 msgid "This month"
 msgstr "Mese corrente"
 
-#: includes/api/nsp_api_overview.php:61 newstatpress.php:1582
+#: includes/api/nsp_api_overview.php:148 newstatpress.php:1582
 msgid "Target This month"
 msgstr "Obiettivo Mese corrente"
 
-#: includes/api/nsp_api_overview.php:62 newstatpress.php:1583
+#: includes/api/nsp_api_overview.php:149 newstatpress.php:1583
 msgid "Yesterday"
 msgstr "Ieri"
 
-#: includes/api/nsp_api_overview.php:63 newstatpress.php:1584
+#: includes/api/nsp_api_overview.php:150 newstatpress.php:1584
 msgid "Today"
 msgstr "Oggi"
+
+#: includes/api/nsp_api_overview.php:210 includes/nsp_core.php:173
+#: includes/nsp_details.php:21 includes/nsp_tools.php:666 newstatpress.php:1792
+msgid "Feeds"
+msgstr "Feeds"
 
 #: includes/nsp_core.php:28 includes/nsp_dashboard.php:29
 #: includes/nsp_visits.php:18 newstatpress.php:295 newstatpress.php:1485
@@ -110,11 +118,6 @@ msgstr "OS"
 #: includes/nsp_tools.php:786
 msgid "Browsers"
 msgstr "Browser"
-
-#: includes/nsp_core.php:173 includes/nsp_details.php:21
-#: includes/nsp_tools.php:666 newstatpress.php:1792
-msgid "Feeds"
-msgstr "Feeds"
 
 #: includes/nsp_core.php:176 includes/nsp_details.php:24
 #: includes/nsp_tools.php:830
@@ -237,7 +240,7 @@ msgid "Website"
 msgstr "Sito Web"
 
 #: includes/nsp_credits.php:92 includes/nsp_overview.php:100
-#: includes/nsp_overview.php:488
+#: includes/nsp_overview.php:508
 msgid "Language"
 msgstr "Lingua"
 
@@ -248,9 +251,9 @@ msgstr "Stato"
 #: includes/nsp_credits.php:107 includes/nsp_overview.php:97
 #: includes/nsp_overview.php:170 includes/nsp_overview.php:219
 #: includes/nsp_overview.php:265 includes/nsp_overview.php:325
-#: includes/nsp_overview.php:485 includes/nsp_overview.php:538
-#: includes/nsp_overview.php:565 includes/nsp_overview.php:635
-#: includes/nsp_overview.php:671
+#: includes/nsp_overview.php:505 includes/nsp_overview.php:558
+#: includes/nsp_overview.php:585 includes/nsp_overview.php:655
+#: includes/nsp_overview.php:691
 msgid "Date"
 msgstr "Data"
 
@@ -538,7 +541,8 @@ msgstr "Grafico"
 msgid "Days number in Overview graph"
 msgstr "Giorni nel grafico del sommario"
 
-#: includes/nsp_options.php:440 newstatpress.php:293
+#: includes/nsp_options.php:440 includes/nsp_overview.php:426
+#: newstatpress.php:293
 msgid "Overview"
 msgstr "Sommario"
 
@@ -916,105 +920,117 @@ msgstr "Genera una nuova chiave dell'API"
 msgid "Save options"
 msgstr "Salva le opzioni"
 
-#: includes/nsp_overview.php:32 includes/nsp_overview.php:588
-#: includes/nsp_overview.php:671 includes/nsp_search.php:7
+#: includes/nsp_overview.php:32 includes/nsp_overview.php:608
+#: includes/nsp_overview.php:691 includes/nsp_search.php:7
 msgid "Agent"
 msgstr "Agent"
 
 #: includes/nsp_overview.php:33 includes/nsp_overview.php:104
-#: includes/nsp_overview.php:269 includes/nsp_overview.php:492
-#: includes/nsp_overview.php:589 includes/nsp_overview.php:639
+#: includes/nsp_overview.php:269 includes/nsp_overview.php:512
+#: includes/nsp_overview.php:609 includes/nsp_overview.php:659
 msgid "OS"
 msgstr "Sistema Operativo"
 
 #: includes/nsp_overview.php:34 includes/nsp_overview.php:106
-#: includes/nsp_overview.php:271 includes/nsp_overview.php:494
-#: includes/nsp_overview.php:591 includes/nsp_overview.php:641
+#: includes/nsp_overview.php:271 includes/nsp_overview.php:514
+#: includes/nsp_overview.php:611 includes/nsp_overview.php:661
 #: includes/nsp_search.php:12
 msgid "Browser"
 msgstr "Browser"
 
-#: includes/nsp_overview.php:34 includes/nsp_overview.php:591
-#: includes/nsp_overview.php:671 includes/nsp_search.php:13
+#: includes/nsp_overview.php:34 includes/nsp_overview.php:611
+#: includes/nsp_overview.php:691 includes/nsp_search.php:13
 msgid "Spider"
 msgstr "Spider"
 
 #: includes/nsp_overview.php:98 includes/nsp_overview.php:171
 #: includes/nsp_overview.php:220 includes/nsp_overview.php:266
-#: includes/nsp_overview.php:326 includes/nsp_overview.php:486
-#: includes/nsp_overview.php:539 includes/nsp_overview.php:566
-#: includes/nsp_overview.php:636 includes/nsp_overview.php:671
+#: includes/nsp_overview.php:326 includes/nsp_overview.php:506
+#: includes/nsp_overview.php:559 includes/nsp_overview.php:586
+#: includes/nsp_overview.php:656 includes/nsp_overview.php:691
 msgid "Time"
 msgstr "Ora"
 
-#: includes/nsp_overview.php:99 includes/nsp_overview.php:487
+#: includes/nsp_overview.php:99 includes/nsp_overview.php:507
 #: includes/nsp_search.php:14
 msgid "IP"
 msgstr "IP"
 
-#: includes/nsp_overview.php:100 includes/nsp_overview.php:488
+#: includes/nsp_overview.php:100 includes/nsp_overview.php:508
 msgid "Country"
 msgstr "Nazione"
 
 #: includes/nsp_overview.php:101 includes/nsp_overview.php:267
-#: includes/nsp_overview.php:489 includes/nsp_overview.php:637
+#: includes/nsp_overview.php:509 includes/nsp_overview.php:657
 #: includes/nsp_visits.php:453 includes/nsp_visits.php:465
 #: includes/nsp_visits.php:468 includes/nsp_visits.php:480 newstatpress.php:639
 #: newstatpress.php:651
 msgid "Page"
 msgstr "Pagina"
 
-#: includes/nsp_overview.php:102 includes/nsp_overview.php:490
+#: includes/nsp_overview.php:102 includes/nsp_overview.php:510
 msgid "Feed"
 msgstr "Feed"
 
 #: includes/nsp_overview.php:172 includes/nsp_overview.php:327
-#: includes/nsp_overview.php:540
+#: includes/nsp_overview.php:560
 msgid "Terms"
 msgstr "Termini"
 
 #: includes/nsp_overview.php:173 includes/nsp_overview.php:328
-#: includes/nsp_overview.php:541
+#: includes/nsp_overview.php:561
 msgid "Engine"
 msgstr "Motore"
 
 #: includes/nsp_overview.php:174 includes/nsp_overview.php:222
-#: includes/nsp_overview.php:329 includes/nsp_overview.php:542
-#: includes/nsp_overview.php:568 includes/nsp_tools.php:649
+#: includes/nsp_overview.php:329 includes/nsp_overview.php:562
+#: includes/nsp_overview.php:588 includes/nsp_tools.php:649
 msgid "Result"
 msgstr "Risultato"
 
 #: includes/nsp_overview.php:183 includes/nsp_overview.php:232
-#: includes/nsp_overview.php:551 includes/nsp_overview.php:574
+#: includes/nsp_overview.php:571 includes/nsp_overview.php:594
 msgid "page viewed"
 msgstr "pagina vista"
 
-#: includes/nsp_overview.php:221 includes/nsp_overview.php:567
+#: includes/nsp_overview.php:221 includes/nsp_overview.php:587
 msgid "URL"
 msgstr "URL"
 
-#: includes/nsp_overview.php:481 newstatpress.php:318
+#: includes/nsp_overview.php:384
+msgid "Loading... (Refresh page if no information is displayed)."
+msgstr ""
+
+#: includes/nsp_overview.php:385
+msgid "Impossible to load the overview:"
+msgstr ""
+
+#: includes/nsp_overview.php:385
+msgid "You must activate the external api first (Page Option>Api)"
+msgstr ""
+
+#: includes/nsp_overview.php:501 newstatpress.php:318
 msgid "Last hits"
 msgstr "Ultimi accessi"
 
-#: includes/nsp_overview.php:534 newstatpress.php:319
+#: includes/nsp_overview.php:554 newstatpress.php:319
 msgid "Last search terms"
 msgstr "Ultimi termini di ricerca"
 
-#: includes/nsp_overview.php:561 newstatpress.php:320
+#: includes/nsp_overview.php:581 newstatpress.php:320
 msgid "Last referrers"
 msgstr "Ultime provenienze"
 
-#: includes/nsp_overview.php:583 includes/nsp_overview.php:585
+#: includes/nsp_overview.php:603 includes/nsp_overview.php:605
 #: newstatpress.php:321
 msgid "Last agents"
 msgstr "Ultimi agent"
 
-#: includes/nsp_overview.php:631 newstatpress.php:322
+#: includes/nsp_overview.php:651 newstatpress.php:322
 msgid "Last pages"
 msgstr "Ultime pagine"
 
-#: includes/nsp_overview.php:671 newstatpress.php:323
+#: includes/nsp_overview.php:691 newstatpress.php:323
 msgid "Last spiders"
 msgstr "Ultimi spider"
 
