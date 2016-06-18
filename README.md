@@ -33,12 +33,13 @@
 *Released date: 2016-06-18*
 
 - [x] Add user message about overview loading (regarding the external api)
-- [x] Fix display tab in Option page
+- [x] Add User information and fix display tab in Options page
 - [x] Update Screenshot
 - [x] Update Ip2nation definitions (16/16/2016)
 - [x] Update fr_FR,it_IT, es_ES translation
 - [x] Remove "Creating default object from empty value" warming
 - [x] Add error images for an Ajax failure
+- [x] Fix sender display bug (email notification)
 
 ## 1.2.3
 *Released date: 2016-06-12*

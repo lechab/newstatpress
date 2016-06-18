@@ -318,6 +318,7 @@ function nsp_Options() {
       <div id='general'>
         <table class='form-tableH'>
           <tr>
+
           <?php
             global $nsp_option_vars;
 
@@ -330,10 +331,10 @@ function nsp_Options() {
             $option_var='newstatpress_dashboard';
             nsp_PrintChecked($option_title,$option_var);
 
-            echo "<tr><th scope='row' rowspan='1'>".__("Minimum capability to display each specific menu",nsp_TEXTDOMAIN)."(<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",nsp_TEXTDOMAIN)."</a>)</th></tr>";
+            echo "<tr><th scope='row' rowspan='1'>".__("Minimum capability to display each specific menu",nsp_TEXTDOMAIN)."(<a href='http://codex.wordpress.org/Roles_and_Capabilities' target='_blank'>".__("more info",nsp_TEXTDOMAIN)."</a>)</th><td colspan='2'><span class=\"dashicons dashicons-editor-help\"></span>Reminder: manage_network = Super Admin, manage_options = Administrator, edit_others_posts = Editor, publish_posts = Author, edit_posts = Contributor, Read = Everybody.</td></tr>";
 
             $option_title=__('Overview menu',nsp_TEXTDOMAIN);
-            echo "<tr><th scope='row' rowspan='1' class='tab'>"; echo $option_title."</th>";
+            echo "<tr><th scope='row' rowspan='1' class='tab tab2'>"; echo $option_title."</th>";
             $option_var='newstatpress_menuoverview_cap';
             $val=get_option($option_var);
             nsp_PrintOption('',$option_var,$val);
@@ -341,7 +342,7 @@ function nsp_Options() {
             echo "</tr>";
             echo "<tr>";
             $option_title=__('Detail menu',nsp_TEXTDOMAIN);
-            echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
+            echo "<tr><th scope='row' rowspan='2' class='tab tab2'>"; echo $option_title."</th>";
             // $option_var=$nsp_option_vars['menudetails_cap']['name'];
             $option_var='newstatpress_menudetails_cap';
             $val=get_option($option_var);
@@ -350,7 +351,7 @@ function nsp_Options() {
             echo "<tr>";
 
             $option_title=__('Visits menu',nsp_TEXTDOMAIN);
-            echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
+            echo "<tr><th scope='row' rowspan='2' class='tab tab2'>"; echo $option_title."</th>";
             $option_var='newstatpress_menuvisits_cap';
             $val=get_option($option_var);
             nsp_PrintOption('',$option_var,$val);
@@ -358,7 +359,7 @@ function nsp_Options() {
             echo "<tr>";
 
             $option_title=__('Search menu',nsp_TEXTDOMAIN);
-            echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
+            echo "<tr><th scope='row' rowspan='2' class='tab tab2'>"; echo $option_title."</th>";
             $option_var='newstatpress_menusearch_cap';
             $val=get_option($option_var);
             nsp_PrintOption('',$option_var,$val);
@@ -366,7 +367,7 @@ function nsp_Options() {
             echo "<tr>\n";
 
             $option_title=__('Tools menu',nsp_TEXTDOMAIN);
-            echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
+            echo "<tr><th scope='row' rowspan='2' class='tab tab2'>"; echo $option_title."</th>";
             $option_var='newstatpress_menutools_cap';
             $val=get_option($option_var);
             nsp_PrintOption('',$option_var,$val);
@@ -374,13 +375,14 @@ function nsp_Options() {
             echo "<tr>\n";
 
             $option_title=__('Options menu',nsp_TEXTDOMAIN);
-            echo "<tr><th scope='row' rowspan='2' class='tab'>"; echo $option_title."</th>";
+            echo "<tr><th scope='row' rowspan='2' class='tab tab2'>"; echo $option_title."</th>";
             $option_var='newstatpress_menuvisits_cap';
             $val=get_option($option_var);
             nsp_PrintOption('',$option_var,$val);
           ?>
           </tr>
         </table>
+        <br/>
       </div>
 
       <!-- tab 'overview' -->
@@ -655,18 +657,21 @@ function nsp_Options() {
 
       <!-- tab 'database'  -->
       <div id='database'>
-        <h3><?php _e('Database update option',nsp_TEXTDOMAIN); ?></h3>
-        <table>
-          <tr>
-            <td>
-              <?php
-              _e('Select the interval of date from today you want to use for updating your database with new definitions. ',nsp_TEXTDOMAIN);
-              _e('Be aware, larger is the interval, longer is the update and bigger are the resources required.',nsp_TEXTDOMAIN);
-              // _e('You can choose to not update some fields if you want.',nsp_TEXTDOMAIN)
-              ?>
-            </td>
-          </tr>
-          <tr>
+        <?php
+          $option_description=__('Select the interval of date from today you want to use for updating your database with new definitions',nsp_TEXTDOMAIN);
+          $option_description.=" ";
+          $option_description.=__('(To update your database, go to Tools page)',nsp_TEXTDOMAIN);
+          $option_description.=".";
+          $option_description2=__('Note: Be aware, larger is the interval, longer is the update and bigger are the resources required.',nsp_TEXTDOMAIN);
+        ?>
+
+
+        <p><?php echo $option_description ?></p>
+        <p><span class="dashicons dashicons-warning"></span><i><?php echo $option_description2 ?></i></p>
+
+        <table class='form-tableH'>
+
+          <tr >
            <?php
              $val= array(array('', 'All'),array(1, 'week'),array(2, 'weeks'),array(3, 'weeks'),array(1, 'month'),array(2, 'months'),array(3, 'months'),array(6, 'months'),array(9, 'months'),array(12, 'months'));
              $option_title=__('Update data in the given period',nsp_TEXTDOMAIN);
@@ -675,6 +680,7 @@ function nsp_Options() {
            ?>
           </tr>
         </table>
+        <br />
       </div>
 
       <!-- tab 'mail'  -->
@@ -716,7 +722,7 @@ function nsp_Options() {
         ?>
 
         <p><?php echo $option_description ?></p>
-        <p><i><?php echo $option_description2 ?></i></p>
+        <p><span class="dashicons dashicons-warning"></span><i><?php echo $option_description2 ?></i></p>
 
         <table class='form-tableH'>
           <tr>
@@ -850,17 +856,17 @@ function nsp_Options() {
 
           <tr>
             <td>
-              <div class='left'>
-                <p>
+              <div class='center'>
+                <p class="textarealimited">
                   <textarea class='large-text code api' minlength='64' maxlength='128' cols='50' rows='3' name='<?php echo $option_var; ?>' id='<?php echo $option_var; ?>'><?php echo get_option($option_var);?></textarea>
                 </p>
-                <p class="description"><?php echo $option_description3 ?></p>
+                <p class="description textarealimited"><?php echo $option_description3 ?></p>
               </div>
 
             <div class='left'>
               <div class='button' type='button' onClick='nspGenerateAPIKey()'><?php _e('Generate new API key',nsp_TEXTDOMAIN); ?></div>
             </div>
-<br/>
+            <br/>
           </td>
         </tr>
         </table>
