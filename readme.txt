@@ -145,6 +145,8 @@ Check at http://newstatpress.altervista.org for more details
 2.jpg
 3.jpg
 4.jpg
+5.jpg
+6.jpg
 
 == Changelog ==
 
@@ -153,9 +155,9 @@ Check at http://newstatpress.altervista.org for more details
 
 * Add user message about overview loading (regarding the external api)
 * Fix display tab in Option page
-* Update Screenshot
+* Update Screenshot in en_EN
 * Update Ip2nation definitions (16/16/2016)
-* Update fr_FR,it_IT, es_ES translation
+* Update fr_FR, it_IT, es_ES translation
 * Remove "Creating default object from empty value" warming
 * Add error images for an Ajax failure
 
