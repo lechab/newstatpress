@@ -362,42 +362,43 @@ function nsp_generate_overview_spiders() {
    ?>
 
    <div class="wrap">
-       <h2><?php esc_html_e('Overview','newstatpress') ?></h2>
+     <h2><?php esc_html_e('Overview','newstatpress') ?></h2>
 
-       <!-- <form name="my_form" method="post"> -->
-           <!-- <input type="hidden" name="action" value="some-action"> -->
-           <?php wp_nonce_field( 'some-action-nonce' );
+     <?php wp_nonce_field( 'some-action-nonce' );
 
-           /* Used to save closed meta boxes and their order */
-           wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
-           wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
+     /* Used to save closed meta boxes and their order */
+     wp_nonce_field( 'meta-box-order', 'meta-box-order-nonce', false );
+     wp_nonce_field( 'closedpostboxes', 'closedpostboxesnonce', false ); ?>
 
-           <div id="poststuff">
+     <div id="poststuff">
+       <div id="post-body" class="metabox-holder columns-1">
+         <div id="post-body-content">
+           <div class='wrap testnsp'>
+             <div id="nsp_result-overview">
+               <div class="loadAJAX">
+                 <?php
+                 $api_key=get_option('newstatpress_apikey');
+                 $_newstatpress_url=PluginUrl();
+                 $url=$_newstatpress_url."/includes/api/external.php";
 
-                 <div id="post-body" class="metabox-holder columns-1">
+                 $msg_activated=__('Loading... (Refresh page if no information is displayed).','newstatpress');
+                 $msg_not_activated='<span class=\'bold\'>'.__('Impossible to load the overview:','newstatpress').'</span> '.__('You must activate the external api first (Page Option>Api)','newstatpress');
 
-                   <div id="post-body-content">
-                     <div class='wrap testnsp'>
-                       <?php
+                 get_option('newstatpress_externalapi')=='checked' ? $message=$msg_activated:$message=$msg_not_activated;
 
-                          //  echo "<h2>". __('Overview','newstatpress'). "</h2>";
+                 wp_register_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
+                 wp_enqueue_script('jquery');
+                 wp_enqueue_script('wp_ajax_nsp_js_overview');
+                 wp_localize_script( 'wp_ajax_nsp_js_overview', 'ExtData', array(
+                   'Url' => $url,
+                   'Key' => md5(gmdate('m-d-y H i').$api_key)
+                 ));
 
-    $api_key=get_option('newstatpress_apikey');
-    $_newstatpress_url=PluginUrl();
-    $url=$_newstatpress_url."/includes/api/external.php";
-
-    wp_register_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('wp_ajax_nsp_js_overview');
-    wp_localize_script( 'wp_ajax_nsp_js_overview', 'ExtData', array(
-      'Url' => $url,
-      'Key' => md5(gmdate('m-d-y H i').$api_key)
-    ));
-
-    echo "<div id=\"nsp_result-overview\" class=\"centerbis testff\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"> ". __('Loading... (activate the external api and/or refresh the page if no information is displayed).','newstatpress')."</div>";
-
-                       ?>
-                   </div>
+                 echo "<img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"> ".$message;
+                 ?>
+               </div>
+             </div>
+           </div>
 
                    <div id="postbox-container-1" class="postbox-container">
                        <?php do_meta_boxes('','normal',null); ?>

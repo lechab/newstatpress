@@ -1,10 +1,10 @@
-/************************************
- * NewStatsPress CSS Basic style    *
- ************************************
- * Author : ice00 and cHab          *
- * Version : 0.2                    *
- * (Need from 0.8.9 Plugin Version) *
- ************************************/
+/**************************************
+ * NewStatsPress CSS Basic style      *
+ **************************************
+ * Author : ice00 and cHab            *
+ * Version : 0.2                      *
+ * (Needed from 0.8.9 Plugin Version) *
+ **************************************/
 .inside {
   padding: 0 !important;
   margin-top: 0 !important;
@@ -23,6 +23,10 @@
   text-align:center;
 }
 
+.bold {
+  font-weight: bold;
+  color: #e94242;
+}
 .testnsp {
   /*border:1px !important;*/
   margin-left: 0;
@@ -95,7 +99,6 @@ color: #666 !important;
   color:#219315;
   margin-right: 5px;
   font-size:12pt;
-
 }
 
 .overview-list .pageview::before {
@@ -231,17 +234,8 @@ code {
 /*----------------------------------*/
 /* Option page                      */
 /*----------------------------------*/
-#settings h3 {
-  margin-top: 40px;
-}
-
-#settings h4 {
-  margin-bottom: -10px;
-}
-
 .table-option {
   border: 0 solid;
-  /*width:100%;*/
 }
 
 
@@ -256,8 +250,8 @@ table.table-option td:first-child {
   text-align: right !important;
 }
 
-.center {
-  /*text-align: center;*/
+.loadAJAX {
+  text-align: center;
 }
 
 .tab {
@@ -280,24 +274,22 @@ table.table-option td:first-child {
 .tabapi:before,
 .tabinfo:before,
 .urlicon:before {
+  font-family: dashicons;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
 
-
- font-family: dashicons;
-      -moz-osx-font-smoothing: grayscale;
- display: inline-block;
-
- font-size: 20px;
- font-style: normal;
- font-weight: 400;
- height: 22px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  height: 22px;
   width: 20px;
- line-height: 1;
- text-align: center;
- text-decoration: inherit;
- vertical-align: bottom;
- padding-right: 2px;
-
+  line-height: 1;
+  text-align: center;
+  text-decoration: inherit;
+  vertical-align: bottom;
+  padding-right: 2px;
 }
+
 .urlicon:before {
 content: "\f103";
 font-size: 16px;
