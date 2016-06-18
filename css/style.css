@@ -254,12 +254,19 @@ table.table-option td:first-child {
   text-align: center;
 }
 
-.tab {
+tr .tab {
   padding-left: 45px !important;
+/*padding: 0;*/
 }
 
-.tab2 {
-  padding-left: 0px !important;
+tr .tab2 {
+  padding-bottom: 0 !important;
+  padding-right: 0 !important;
+/*padding: 0;*/
+}
+
+.textarealimited {
+  width: 50%;
 }
 
 .tabmail:before,
@@ -563,8 +570,8 @@ font-size: 15px;
 
 .api {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
     resize: none;
 }
 
