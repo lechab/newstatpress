@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-18 15:06+0200\n"
-"PO-Revision-Date: 2016-06-18 15:32+0200\n"
-"Last-Translator: ice00 <ice00@libero.it>\n"
+"PO-Revision-Date: 2016-06-18 16:12+0200\n"
+"Last-Translator: ice00@libero.it\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -259,7 +259,7 @@ msgstr "Data"
 
 #: includes/nsp_credits.php:118
 msgid "Plugin homepage"
-msgstr "homepage Plugin"
+msgstr "Homepage plugin"
 
 #: includes/nsp_credits.php:123
 msgid "RSS news"
@@ -313,13 +313,13 @@ msgid ""
 "graphical informations in next versions."
 msgstr ""
 "Questo cambiamento maggiore è stato necessario per migliorare il plugin con "
-"grandi dataabse perchè permette maggiore flessibilità sulle informazioni "
+"grandi database perché permette maggiore flessibilità sulle informazioni "
 "grafiche nelle prossime versioni."
 
 #: includes/nsp_functions-extra.php:270
 msgid ""
 "It looks like you've been using NewStatPress for a while now. That's great!"
-msgstr "Sembra che stai usando NewStaPress da un pò. Fantastico!"
+msgstr "Sembra che stai usando NewStaPress da un po. Fantastico!"
 
 #: includes/nsp_functions-extra.php:271
 msgid ""
@@ -337,7 +337,7 @@ msgid ""
 msgstr ""
 "NB: per favore aprite un ticket nella pagina di supporto invece di "
 "aggiungerla al commento della tua valutazione se vuoi riportare un problema "
-"con il plugin, perchè sarà processato più velocemente dal team."
+"con il plugin, perché sarà processato più velocemente dal team."
 
 #: includes/nsp_functions-extra.php:273
 msgid "Yes, I'd like to rate it!"
@@ -352,7 +352,7 @@ msgid ""
 "You've been using NewStatPress for several months now. We hope that means "
 "you like it and are finding it helpful."
 msgstr ""
-"Stai usando NewStatPrss da parecchi mesi ormai. Speriamo che questo "
+"Stai usando NewStatPress da parecchi mesi ormai. Speriamo che questo "
 "significhi che ti piace e lo trovi utile."
 
 #: includes/nsp_functions-extra.php:285
@@ -360,7 +360,7 @@ msgid ""
 "NewStatPress is provided for free and maintained only on free time. If you "
 "like the plugin, consider a donation to help further its development"
 msgstr ""
-"NewStatPress è disponiible gratuitamente e sviluppato solo nel tempo libero. "
+"NewStatPress è disponibile gratuitamente e sviluppato solo nel tempo libero. "
 "Se ti piace il plugin, considera l'idea di una donazione per aiutare lo "
 "sviluppo."
 
@@ -431,7 +431,7 @@ msgstr "adesso"
 
 #: includes/nsp_options.php:239
 msgid "NewStatPress Settings"
-msgstr "Settaggi NewStatpress"
+msgstr "Settaggio NewStatpress"
 
 #: includes/nsp_options.php:280
 msgid "Options saved!"
@@ -586,7 +586,7 @@ msgstr "Raccolta dati"
 
 #: includes/nsp_options.php:508
 msgid "Crypt IP addresses"
-msgstr "Crypta gli indirizzi IP"
+msgstr "Cripta gli indirizzi IP"
 
 #: includes/nsp_options.php:512
 msgid "Collect data about logged users, too."
@@ -750,6 +750,8 @@ msgid ""
 "Select the interval of date from today you want to use for updating your "
 "database with new definitions"
 msgstr ""
+"Seleziona l'intervallo delle date da oggi che vuoi usare per aggiornare il "
+"tuo database con le nuove definizioni"
 
 #: includes/nsp_options.php:663
 msgid "(To update your database, go to Tools page)"
@@ -775,7 +777,7 @@ msgid ""
 msgstr ""
 "Questa opzione ti permette di ricevere resoconti periodici per mail "
 "(informazioni della dashboard). Puoi cambiare la frequenza e il tempo di "
-"pubblicazionr delle statistiche e anche la descrizione del Mittente."
+"pubblicazione delle statistiche e anche la descrizione del Mittente."
 
 #: includes/nsp_options.php:690
 msgid ""
@@ -850,7 +852,7 @@ msgid ""
 msgstr ""
 "L'API esterna è costruita per permetterti di usare i dati collezionati dal "
 "plugin Newstatpress  all'interno di una applicazione web su un altro server "
-"(per esempio puoi mostrare i dati relativi al tuo blog Wordress dentro a un "
+"(per esempio puoi mostrare i dati relativi al tuo blog Wordpress dentro a un "
 "sito Drupal che gira su di un altro server)."
 
 #: includes/nsp_options.php:818
@@ -877,7 +879,7 @@ msgstr ""
 
 #: includes/nsp_options.php:820
 msgid "Full documentation (PDF)"
-msgstr "Documenazione completa (PDF)"
+msgstr "Documentazione completa (PDF)"
 
 #: includes/nsp_options.php:821
 msgid ""
@@ -886,7 +888,7 @@ msgid ""
 "you will need to choose an key and activate it."
 msgstr ""
 "Tieni presente che l'API esterna è anche usata da Newstatpress stesso quando "
-"processa chiamate AJAX per acellerare la generazione delle pagine da dati de "
+"processa chiamate AJAX per accelerare la generazione delle pagine da dati de "
 "DB, perciò devi scegliere una chiave e attivarlo."
 
 #: includes/nsp_options.php:823
@@ -895,7 +897,7 @@ msgid ""
 "alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be "
 "between 64 and 128 characters."
 msgstr ""
-"Devi geenerare o mettere manualmente una chiave privata per l'API esterna: "
+"Devi generare o mettere manualmente una chiave privata per l'API esterna: "
 "solo caratteri alfanumerici sono permessi (A-Z, a-z, 0-9), la lunghezza "
 "dovrebbe essere tra 64 e 128 caratteri."
 
@@ -998,11 +1000,11 @@ msgstr "URL"
 
 #: includes/nsp_overview.php:384
 msgid "Loading... (Refresh page if no information is displayed)."
-msgstr "Caricamento... (Ricarica la pagina se non di visualizza nulla)."
+msgstr "Caricamento... (Ricarica la pagina se non si visualizza nulla)."
 
 #: includes/nsp_overview.php:385
 msgid "Impossible to load the overview:"
-msgstr ""
+msgstr "Impossibile caricate il sommario:"
 
 #: includes/nsp_overview.php:385
 msgid "You must activate the external api first (Page Option>Api)"
@@ -1175,13 +1177,13 @@ msgid ""
 msgstr ""
 "ip2nation è un database MySQL gratuito  che offre un veloce modo per mappare "
 "gli IP alle nazioni. Il database è ottimizzato per assicurare una ricerca "
-"veloce and è basato sulle informazioni di ARIN, APNIC, RIPE etc. Puoi "
+"veloce ed è basato sulle informazioni di ARIN, APNIC, RIPE etc. Puoi "
 "installare il database usando il link sulla sinistra. (vedi <a href=\"http://"
 "www.ip2nation.com/\">http://www.ip2nation.com</a>)"
 
 #: includes/nsp_tools.php:181
 msgid "Note: The installation may take some times to complete."
-msgstr "Nota: L'installazione può richiedere un pò di tempo per completarsi."
+msgstr "Nota: L'installazione può richiedere un po di tempo per completarsi."
 
 #: includes/nsp_tools.php:225
 msgid "Failure to save content locally, please try to re-install."
@@ -1265,7 +1267,7 @@ msgstr "Nome file"
 
 #: includes/nsp_tools.php:353
 msgid "enter a filename"
-msgstr "Intoduci un nome del file"
+msgstr "Introduci un nome del file"
 
 #: includes/nsp_tools.php:361
 msgid "File extension"
@@ -1328,12 +1330,12 @@ msgid ""
 "future will allow an automatic update of the database.."
 msgstr ""
 "Aggiornare il database è particolarmente utile quando i dati di ip2nation e "
-"le definzioni (OS, browser, spider) sono stati aggiornati. Una opzione in "
+"le definizioni (OS, browser, spider) sono stati aggiornati. Una opzione in "
 "futuro permetterà un aggiornamento automatico dei dati..."
 
 #: includes/nsp_tools.php:555
 msgid "Note: The update may take some times to complete."
-msgstr "Nota: L'aggiornamento può richiedere un pò di tempo per completarsi."
+msgstr "Nota: L'aggiornamento può richiedere un po di tempo per completarsi."
 
 #: includes/nsp_tools.php:588
 msgid ""
@@ -1385,7 +1387,7 @@ msgstr "L'aggiornamento è stato eseguito in"
 
 #: includes/nsp_tools.php:873
 msgid "SQL queries"
-msgstr "Numero queries SQL"
+msgstr "Numero query SQL"
 
 #: includes/nsp_tools.php:892
 msgid "Optimize table"
@@ -1555,7 +1557,7 @@ msgid ""
 "Plugin %s deactivated. WordPress Version %s required. Please upgrade "
 "WordPress to the latest version."
 msgstr ""
-"Plugin %s disattivato. Richiesa la versione %s di Wordpess. Per favore "
+"Plugin %s disattivato. Richiesta la versione %s di Wordpess. Per favore "
 "aggiorna Wordpress all'ultima versione."
 
 #: newstatpress.php:297
@@ -1600,7 +1602,7 @@ msgid ""
 "website or through the plugin (Credits Page)."
 msgstr ""
 "NewStatPress è fornito gratuitamente e sviluppato solo nel tempo libero; poi "
-"considera di effettuare una donazione per supportare il lavoro fututo, "
+"considera di effettuare una donazione per supportare il lavoro futuro, "
 "direttamente nella pagina del plugin o da dentro il plugin (Pagina crediti)."
 
 #: newstatpress.php:505
@@ -1616,7 +1618,7 @@ msgid ""
 "You receive this email because you have enabled the statistics notification "
 "in the NewStatpress plugin (option menu) from your WP website "
 msgstr ""
-"Ricevi questa mail perchè hai abilitato la notifica delle statistiche "
+"Ricevi questa mail perché hai abilitato la notifica delle statistiche "
 "all'interno del plugin NewStatpress (nel menu opzioni) dal tuo sito WP"
 
 #: newstatpress.php:507
@@ -1649,7 +1651,7 @@ msgstr "Corpo:"
 
 #: newstatpress.php:1434
 msgid "Stats available: "
-msgstr "Statistiche disponibili:"
+msgstr "Statistiche disponibili: "
 
 #: newstatpress.php:1475
 msgid "Title"
