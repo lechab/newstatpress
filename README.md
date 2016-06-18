@@ -1,6 +1,6 @@
 # Newstatpress development roadmap
 
-**USELESS IDEA**
+**SOME IDEA**
 - [ ] add a page help somewhere (the help for the different %variable%,...)
 - [ ] tab construction for overview page
 - [ ] irihdate function in double with newstatpress_hdate => to clean
@@ -29,11 +29,19 @@
 - [ ] Add https://github.com/piwik/referrer-spam-blacklist
 - [ ] Add jQuery Vector Maps v1.5.0
 
+## 1.2.4
+*Released date: 2016-06-18*
+
+- [x] Add user message about overview loading (regarding the external api)
+- [x] Fix display tab in Option page
+- [x] Update Screenshot
+- [x] Update Ip2nation definitions (16/16/2016)
+- [x] Update fr_FR,it_IT, es_ES translation
+
 ## 1.2.3
 *Released date: 2016-06-12*
 
 - [x] Change overview loading: used the external api
-
 
 ## 1.2.2
 *Released date: 2016-05-28*
@@ -122,7 +130,7 @@
 - [x] Change 'Options' Page code : major improvements
 - [x] Change 'Credits' Page code : use of json
 - [x] Update Spiders images (+3)
-- [x] Update locale fr_FR,  it_IT, pl-PL, es_ES
+- [x] Update locale fr_FR, it_IT, pl-PL, es_ES
 - [x] Fix bug for shortcode [NewStatPress: Top days]
 - [x] Fix Memory size : >0.5 Mb free
 - [x] Fix HTML cleanup

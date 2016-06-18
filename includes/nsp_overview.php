@@ -398,20 +398,17 @@ function nsp_generate_overview_spiders() {
                  ?>
                </div>
              </div>
+           </div> <!-- .wrap -->
+
+           <div id="postbox-container-1" class="postbox-container">
+               <?php do_meta_boxes('','normal',null); ?>
+               <?php do_meta_boxes('','advanced',null); ?>
            </div>
 
-                   <div id="postbox-container-1" class="postbox-container">
-                       <?php do_meta_boxes('','normal',null); ?>
-                       <?php do_meta_boxes('','advanced',null); ?>
-                   </div>
-
-                 </div> <!-- #post-body -->
-
-           </div> <!-- #poststuff -->
-
-       <!-- </form> -->
-
-   </div><!-- .wrap -->
+         </div> <!-- #post-body content-->
+        </div> <!-- #post-body -->
+      </div> <!-- #poststuff -->
+   </div> <!-- .wrap -->
 
    <?php
 

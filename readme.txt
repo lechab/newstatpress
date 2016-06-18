@@ -115,11 +115,11 @@ Available functions are:
 
 == Installation ==
 
+= Fresh Install =
 Upload "newstatpress" directory in wp-content/plugins/ . Then just activate it on your plugin management page.
 You are ready!!!
 
 Note: you must disable the original StatPress plugin (or other plugins still based onto StatPress) when activating this, as it still use or now the same table of StatPress for storing data in DB (copy the data to another table will be very space consuming for your site, so it was better to use the same table)
-
 
 = Update =
 
@@ -139,12 +139,12 @@ Check at http://newstatpress.altervista.org
 
 == Screenshots ==
 
-Check at http://newstatpress.altervista.org
+Check at http://newstatpress.altervista.org for more details
 
-screenshot-1.jpg
-screenshot-2.jpg
-screenshot-3.jpg
-screenshot-4.jpg
+1.jpg
+2.jpg
+3.jpg
+4.jpg
 
 == Changelog ==
 
