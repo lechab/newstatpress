@@ -494,7 +494,6 @@ function nsp_stat_by_email($arg='') {
 	if($sender=='')
 	 $sender=$nsp_option_vars['mail_notification_sender']['value'];
 
-
 	$support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
 	$author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
 
@@ -516,7 +515,7 @@ function nsp_stat_by_email($arg='') {
              <br />
              -- <br />
              $credits_introduction";
-  $headers = "From: " . $sender . "<newstatpress@altervista.org> \r\n";
+  $headers = "From: " . $sender . " <newstatpress@altervista.org> \r\n";
   $email_confirmation = wp_mail($email_address, $subject, $message, $headers);
 
   remove_filter('wp_mail_content_type','nsp_Set_mail_content_type');
