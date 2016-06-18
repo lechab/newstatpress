@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: newstatpress\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-06-18 15:06+0200\n"
-"PO-Revision-Date: 2016-06-18 15:06+0200\n"
+"PO-Revision-Date: 2016-06-18 15:32+0200\n"
 "Last-Translator: ice00 <ice00@libero.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
 "_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: newstatpress.php\n"
 "X-Poedit-SearchPath-1: includes\n"
@@ -303,6 +303,8 @@ msgid ""
 "dashboard and overview), you must activate the external API in Options>Api "
 "page."
 msgstr ""
+"Dall'introduzione del nuovo metodo per velocizzare le pagine (usata dalla "
+"dashboard e sommario), devi attivare l'API esterna nella pagina Opzioni>Api."
 
 #: includes/nsp_functions-extra.php:259
 msgid ""
@@ -310,6 +312,9 @@ msgid ""
 "big database. In addition, it will allow to be more flexible about the "
 "graphical informations in next versions."
 msgstr ""
+"Questo cambiamento maggiore è stato necessario per migliorare il plugin con "
+"grandi dataabse perchè permette maggiore flessibilità sulle informazioni "
+"grafiche nelle prossime versioni."
 
 #: includes/nsp_functions-extra.php:270
 msgid ""
@@ -748,13 +753,15 @@ msgstr ""
 
 #: includes/nsp_options.php:663
 msgid "(To update your database, go to Tools page)"
-msgstr ""
+msgstr "(Per aggiornare il database vai sulla pagina Strumenti)"
 
 #: includes/nsp_options.php:665
 msgid ""
 "Note: Be aware, larger is the interval, longer is the update and bigger are "
 "the resources required."
 msgstr ""
+"Nota: Tieni presente, più largo e' l'intervallo, più tempo richiede "
+"l'aggiornamento e più risorse consuma."
 
 #: includes/nsp_options.php:677
 msgid "Update data in the given period"
@@ -991,7 +998,7 @@ msgstr "URL"
 
 #: includes/nsp_overview.php:384
 msgid "Loading... (Refresh page if no information is displayed)."
-msgstr ""
+msgstr "Caricamento... (Ricarica la pagina se non di visualizza nulla)."
 
 #: includes/nsp_overview.php:385
 msgid "Impossible to load the overview:"
@@ -999,7 +1006,7 @@ msgstr ""
 
 #: includes/nsp_overview.php:385
 msgid "You must activate the external api first (Page Option>Api)"
-msgstr ""
+msgstr "Devi attivare l'API Esterna per iniziare (Pagina Opzioni>Api)"
 
 #: includes/nsp_overview.php:498 newstatpress.php:318
 msgid "Last hits"
@@ -1558,12 +1565,12 @@ msgstr "Strumenti"
 #: newstatpress.php:481
 #, php-format
 msgid "[%s] Visits statistics"
-msgstr ""
+msgstr "[%s] Statistiche visite"
 
 #: newstatpress.php:483
 #, php-format
 msgid "[%s] Visits statistics : test of email address"
-msgstr ""
+msgstr "[%s] Statistiche visite: test dell'indirizzo email"
 
 #: newstatpress.php:497
 msgid "support page"
