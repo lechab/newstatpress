@@ -268,9 +268,16 @@ table.table-option td:first-child {
 .tabremove:before,
 .tabrepair:before,
 .taboptimize:before,
-.tabdata:before,
+
 .donate:before,
 .rate:before,
+
+.tabgeneral:before,
+.tabdata:before,
+.taboverview:before,
+.tabdetails:before,
+.tabvisits:before,
+.tabdatabase:before,
 .tabapi:before,
 .tabinfo:before,
 .urlicon:before {
@@ -302,9 +309,27 @@ content: "\f536";
 .tabmail:before {
   content: "\f465";
 }
+
+/* TAB OPTION*/
 .tabapi:before {
   content: "\f541";
 }
+.tabgeneral:before {
+  content: "\f111";
+}
+.taboverview:before {
+  content: "\f108";
+}
+.tabdetails:before {
+  content: "\f108";
+}
+.tabvisits:before {
+  content: "\f108";
+}
+.tabdatabase:before {
+  content: "\f480";
+}
+
 /*.tabmail:after {
   content: "(New)";
   color: red;
