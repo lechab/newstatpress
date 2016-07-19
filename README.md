@@ -29,6 +29,14 @@
 - [ ] Add https://github.com/piwik/referrer-spam-blacklist
 - [ ] Add jQuery Vector Maps v1.5.0
 
+## 1.2.5
+*Released date: 2016-07-xx*
+
+IMPORTANT CRITICAL UPDATE
+-[x] Fix Stored cross-site scripting vulnerabilities, find by Han Sahin of www.SumOfPwn.nl @sumofpwn
+
+PLEASE
+
 ## 1.2.4
 *Released date: 2016-06-18*
 
