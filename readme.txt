@@ -155,6 +155,11 @@ Check at http://newstatpress.altervista.org for more details
 
 IMPORTANT CRITICAL UPDATE
 * Fix Stored cross-site scripting vulnerabilities, find by Han Sahin of www.SumOfPwn.nl @sumofpwn
+* Avoid direct access to pages 
+* Changing path detections (not support anymore WordPress 2.x or lower)
+* Remove the usage of wp_load
+* Complete name conversion
+* Rewrite API authentication
 
 = 1.2.4 =
 *Released date: 2016-06-18*

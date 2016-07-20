@@ -33,7 +33,12 @@
 *Released date: 2016-07-xx*
 
 IMPORTANT CRITICAL UPDATE
--[x] Fix Stored cross-site scripting vulnerabilities, find by Han Sahin of www.SumOfPwn.nl @sumofpwn
+-[ ] Fix Stored cross-site scripting vulnerabilities, find by Han Sahin of www.SumOfPwn.nl @sumofpwn
+-[ ] Avoid direct access to pages
+-[ ] Changing path detections (not support anymore WordPress 2.x or lower)
+-[ ] Remove the usage of wp_load
+-[ ] Complete name conversion
+-[ ] Rewrite API authentication
 
 PLEASE
 
