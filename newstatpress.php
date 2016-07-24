@@ -660,6 +660,11 @@ function nsp_URL() {
   }
   if(substr($urlRequested,0,2) == '/?') { $urlRequested=substr($urlRequested,2); }
   if($urlRequested == '/') { $urlRequested=''; }
+  
+  // sanitize urldecode
+  $urlRequested = filter_var($urlRequested, FILTER_SANITIZE_URL);
+  if (!filter_var($urlRequested, FILTER_VALIDATE_URL)) return "";
+  
   return $urlRequested;
 }
 
