@@ -1,5 +1,11 @@
 <?php
 
+// Make sure plugin remains secure if called directly
+if( !defined( 'ABSPATH' ) ) {
+  if( !headers_sent() ) { header('HTTP/1.1 403 Forbidden'); }
+  die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
+}
+
 /**
  * Display data in table extracted from the given query
  *
@@ -21,13 +27,13 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
   }
 
   $text .= "<div class='wrap'>
-						<table class='widefat'>
-						<thead>
-							<tr>
-								<th scope='col' class='keytab-head'><h2>$fldtitle</h2></th>
-								<th scope='col' style='width:10%;text-align:center;'>".__('Visits','newstatpress')."</th>
-							</tr>
-						</thead>\n";
+             <table class='widefat'>
+              <thead>
+                <tr>
+                 <th scope='col' class='keytab-head'><h2>$fldtitle</h2></th>
+                 <th scope='col' style='width:10%;text-align:center;'>".__('Visits','newstatpress')."</th>
+                </tr>
+              </thead>\n";
 
   $rks = $wpdb->get_var("
      SELECT count($param $queryfld) as rks
@@ -152,14 +158,14 @@ function nsp_Shortcode($content = '') {
   $TYPE = preg_match_all('/\[NewStatPress: (.*)\]/Ui', $content, $TYPEs);
 
   foreach ($TYPEs[1] as $k => $TYPE) {
-					echo $TYPE;
+    echo $TYPE;
     switch ($TYPE) {
       case "Overview":
-				require_once ('api/nsp_api_dashboard.php');
-				$replacement=nsp_ApiDashboard("HTML");
+        require_once ('api/nsp_api_dashboard.php');
+        $replacement=nsp_ApiDashboard("HTML");
         break;
       case "Top days":
-				$replacement=nsp_GetDataQuery2("date", __('Top days','newstatpress') ,(get_option('newstatpress_el_top_days')=='') ? 5:get_option('newstatpress_el_top_days'), FALSE);
+        $replacement=nsp_GetDataQuery2("date", __('Top days','newstatpress') ,(get_option('newstatpress_el_top_days')=='') ? 5:get_option('newstatpress_el_top_days'), FALSE);
         // $replacement=nsp_GetDataQuery2("date","Top days", (get_option('newstatpress_el_top_days')=='') ? 5:get_option('newstatpress_el_top_days'), FALSE);
         break;
       case "O.S.":

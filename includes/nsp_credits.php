@@ -1,5 +1,11 @@
 <?php
 
+// Make sure plugin remains secure if called directly
+if( !defined( 'ABSPATH' ) ) {
+  if( !headers_sent() ) { header('HTTP/1.1 403 Forbidden'); }
+  die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
+}
+
 /**
  * Display the page with credits (contributors, translators, donors)
  * added by cHab
