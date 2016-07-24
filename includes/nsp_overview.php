@@ -119,7 +119,7 @@ function nsp_generate_overview_lasthits() {
                     <td>$fivesdraft->time</td>
                     <td>$fivesdraft->ip</td>
                     <td>$fivesdraft->nation</td>
-                    <td>".nsp_Abbreviate(nsp_DecodeURL($fivesdraft->urlrequested),30)."</td>
+                    <td>".nsp_Abbreviate(nsp_DecodeURL(filter_var($fivesdraft->urlrequested, FILTER_SANITIZE_URL)),30)."</td>
                     <td>$fivesdraft->feed</td>";
 
             if($fivesdraft->os != '') {
@@ -185,7 +185,7 @@ function nsp_generate_overview_lastsearchterms() {
         print "<tr>
                 <td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td>
                 <td><a href='".$rk->referrer."' target='_blank'>".$rk->search."</a></td>
-                <td>".$rk->searchengine."</td><td><a href='".get_bloginfo('url').$extra.$rk->urlrequested."' target='_blank'>". __('page viewed',nsp_TEXTDOMAIN). "</a></td>
+                <td>".$rk->searchengine."</td><td><a href='".get_bloginfo('url').$extra.filter_var($rk->urlrequested, FILTER_SANITIZE_URL)."' target='_blank'>". __('page viewed',nsp_TEXTDOMAIN). "</a></td>
               </tr>\n";
       }
     ?>
@@ -234,7 +234,7 @@ function nsp_generate_overview_lastreferrers() {
                 <td>".nsp_hdate($rk->date)."</td>
                 <td>$rk->time</td>
                 <td ><a class='urlicon' href='".$rk->referrer."' target='_blank'>".nsp_Abbreviate($rk->referrer,80)."</a></td>
-                <td><a href='".get_bloginfo('url').$extra.$rk->urlrequested."'  target='_blank'>". __('page viewed',nsp_TEXTDOMAIN). "</a></td>
+                <td><a href='".get_bloginfo('url').filter_var($extra.$rk->urlrequested, FILTER_SANITIZE_URL)."'  target='_blank'>". __('page viewed',nsp_TEXTDOMAIN). "</a></td>
               </tr>\n";
       }
     ?>
@@ -279,7 +279,7 @@ function nsp_generate_overview_pages() {
     <tbody id='the-list'>
     <?php
       foreach ($pages as $rk) {
-        print "<tr><td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td>\n<td>".nsp_Abbreviate(nsp_DecodeURL($rk->urlrequested),60)."</td>";
+        print "<tr><td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td>\n<td>".nsp_Abbreviate(nsp_DecodeURL(filter_var($rk->urlrequested, FILTER_SANITIZE_URL)),60)."</td>";
         if($rk->os != '') {
           $val=nsp_GetOsImg($rk->os);
           $img=str_replace(" ","_",strtolower($val)).".png";
@@ -525,7 +525,7 @@ function nsp_NewStatPressMain3() {
           print "<td>". $fivesdraft->time ."</td>";
           print "<td>". $fivesdraft->ip ."</td>";
           print "<td>". $fivesdraft->nation ."</td>";
-          print "<td>". nsp_Abbreviate(nsp_DecodeURL($fivesdraft->urlrequested),30) ."</td>";
+          print "<td>". nsp_Abbreviate(nsp_DecodeURL(filter_var($fivesdraft->urlrequested, FILTER_SANITIZE_URL)),30) ."</td>";
           print "<td>". $fivesdraft->feed . "</td>";
 
           if($fivesdraft->os != '') {
@@ -571,7 +571,7 @@ function nsp_NewStatPressMain3() {
           print "<tr>
                   <td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td>
                   <td><a href='".$rk->referrer."' target='_blank'>".$rk->search."</a></td>
-                  <td>".$rk->searchengine."</td><td><a href='".get_bloginfo('url').$extra.$rk->urlrequested."' target='_blank'>". __('page viewed',nsp_TEXTDOMAIN). "</a></td>
+                  <td>".$rk->searchengine."</td><td><a href='".get_bloginfo('url').$extra.filter_var($rk->urlrequested, FILTER_SANITIZE_URL)."' target='_blank'>". __('page viewed',nsp_TEXTDOMAIN). "</a></td>
                 </tr>\n";
         }
       ?>
@@ -594,7 +594,7 @@ function nsp_NewStatPressMain3() {
       <tbody id='the-list'>
       <?php
         foreach ($lastreferrers as $rk) {
-          print "<tr><td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td><td><a href='".$rk->referrer."' target='_blank'>".nsp_Abbreviate($rk->referrer,80)."</a></td><td><a href='".get_bloginfo('url').$extra.$rk->urlrequested."'  target='_blank'>". __('page viewed',nsp_TEXTDOMAIN). "</a></td></tr>\n";
+          print "<tr><td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td><td><a href='".$rk->referrer."' target='_blank'>".nsp_Abbreviate($rk->referrer,80)."</a></td><td><a href='".get_bloginfo('url').$extra.filter_var($rk->urlrequested, FILTER_SANITIZE_URL)."'  target='_blank'>". __('page viewed',nsp_TEXTDOMAIN). "</a></td></tr>\n";
         }
       ?>
       </tbody>
@@ -667,7 +667,7 @@ function nsp_NewStatPressMain3() {
       <tbody id='the-list'>
       <?php
         foreach ($pages as $rk) {
-          print "<tr><td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td>\n<td>".nsp_Abbreviate(nsp_DecodeURL($rk->urlrequested),60)."</td>";
+          print "<tr><td>".nsp_hdate($rk->date)."</td><td>".$rk->time."</td>\n<td>".nsp_Abbreviate(nsp_DecodeURL(filter_var($rk->urlrequested, FILTER_SANITIZE_URL)),60)."</td>";
           if($rk->os != '') {
             $img=str_replace(" ","_",strtolower($rk->os)).".png";
             print "<td><IMG class='img_browser' SRC='".$_newstatpress_url."/images/os/$img'> </td>";

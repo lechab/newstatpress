@@ -281,7 +281,10 @@ document.getElementById(thediv).style.display="none"
     foreach ($qry2 as $details) {
       print "<tr>";
       print "<td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>".nsp_hdate($details->date)." ".$details->time."</strong></font></div></td>";
-      print "<td><div><a href='".get_bloginfo('url')."/?".$details->urlrequested."' target='_blank'>".nsp_DecodeURL($details->urlrequested)."</a>";
+      print "<td><div><a href='".get_bloginfo('url')."/?".filter_var($details->urlrequested, FILTER_SANITIZE_URL)."' target='_blank'>".nsp_DecodeURL($details->urlrequested)."</a>";
+      
+      $details->referrer= filter_var($details->referrer, FILTER_SANITIZE_URL);
+      
       if($details->searchengine != '') {
         print "<br><small>".__('arrived from','newstatpress')." <b>".$details->searchengine."</b> ".__('searching','newstatpress')." <a href='".$details->referrer."' target='_blank'>".$details->search."</a></small>";
       } elseif($details->referrer != '' && strpos($details->referrer,get_option('home'))===FALSE) {
@@ -411,6 +414,9 @@ document.getElementById(thediv).style.display="none"
         print "<script>document.getElementById('".$rk->ip."').style.display='none';</script>";
         print "</td></tr>";
 
+        
+        // sanitize if present javascript in DB
+        $rk->referrer = filter_var($rk->referrer, FILTER_SANITIZE_URL);
 
         echo "<td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>" . newstatpress_hdate($rk->date) . " " . $rk->time . "</strong></font></div></td>
               <td>" . newstatpress_Decode($rk->urlrequested) ."";
@@ -420,6 +426,10 @@ document.getElementById(thediv).style.display="none"
         $ip=$rk->ip;
         $num_row = 1;
     } elseif ($num_row < $LIMIT_PROOF) {
+    
+        // sanitize if present javascript in DB
+        $rk->referrer = filter_var($rk->referrer, FILTER_SANITIZE_URL);
+    
         echo "<tr><td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>" . newstatpress_hdate($rk->date) . " " . $rk->time . "</strong></font></div></td>
               <td><div>" . newstatpress_Decode($rk->urlrequested) . "";
         if ($rk->searchengine != '') print "<br><small>".__('arrived from','newstatpress')." <b>" . $rk->searchengine . "</b> ".__('searching','newstatpress')." <a href='" . $rk->referrer . "' target=_blank>" . urldecode($rk->search) . "</a></small>";
@@ -456,6 +466,8 @@ function nsp_PermalinksEnabled() {
  * @return url decoded
  ************************************/
 function newstatpress_Decode($out_url) {
+  $out_url=filter_var($out_url, FILTER_SANITIZE_URL);
+
   if(!nsp_PermalinksEnabled()) {
     if ($out_url == '') $out_url = __('Page', nsp_TEXTDOMAIN) . ": Home";
     if (nsp_MySubstr($out_url, 0, 4) == "cat=") $out_url = __('Category', nsp_TEXTDOMAIN) . ": " . get_cat_name(nsp_MySubstr($out_url, 4));

@@ -635,6 +635,8 @@ function nsp_MySubstr($str, $x, $y = 0) {
  * @return the decoded url
  ****************************************/
 function nsp_DecodeURL($out_url) {
+  $out_url=filter_var($out_url, FILTER_SANITIZE_URL);
+
   if($out_url == '') { $out_url=__('Page','newstatpress').": Home"; }
   if(substr($out_url,0,4)=="cat=") { $out_url=__('Category','newstatpress').": ".get_cat_name(substr($out_url,4)); }
   if(substr($out_url,0,2)=="m=") { $out_url=__('Calendar','newstatpress').": ".substr($out_url,6,2)."/".substr($out_url,2,4); }
