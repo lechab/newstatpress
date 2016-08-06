@@ -205,28 +205,40 @@ function nsp_Activation($arg='') {
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
 
-	 $style_path2=plugins_url('./css/pikaday.css', __FILE__);
+   $style_path2=plugins_url('./css/pikaday.css', __FILE__);
 
-	 wp_register_style('pikaday', $style_path2);
+   wp_register_style('pikaday', $style_path2);
    wp_enqueue_style('pikaday');
 
    wp_enqueue_style( 'NewStatPressStyles', get_stylesheet_uri(), array( 'dashicons' ), '1.0' );
 
-	 // Load the postbox script that provides the widget style boxes.
-	 wp_enqueue_script('common');
-	 wp_enqueue_script('wp-lists');
-	 wp_enqueue_script('postbox'); //meta box
+   // Load the postbox script that provides the widget style boxes.
+   wp_enqueue_script('common');
+   wp_enqueue_script('wp-lists');
+   wp_enqueue_script('postbox'); //meta box
 
    // JS and jQuery
    $scripts=array('idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
-									'moment'=>plugins_url('./js/moment.min.js', __FILE__),
-									'pikaday'=>plugins_url('./js/pikaday.js', __FILE__),
+                  'moment'=>plugins_url('./js/moment.min.js', __FILE__),
+                  'pikaday'=>plugins_url('./js/pikaday.js', __FILE__),
                   'NewStatPressJs'=>plugins_url('./js/nsp_general.js', __FILE__));
    foreach($scripts as $key=>$sc)
    {
        wp_register_script( $key, $sc );
+       
+       if ($key=='NewStatPressJs') {
+         wp_localize_script( 'NewStatPressJs', 'ExtData', array(
+           'Credit' => plugins_url( 'newstatpress/includes/json/credit.json', __FILE__ ),
+           'Lang' => plugins_url( 'newstatpress/includes/json/lang.json', __FILE__ ),
+           'Resources' => plugins_url( 'newstatpress/includes/json/ressources.json', __FILE__ ),
+           'Donation' => plugins_url( 'newstatpress/includes/json/donation.json', __FILE__ )
+         ));       
+       }
+       
        wp_enqueue_script( $key );
    }
+   
+
 
  }
  add_action( 'admin_enqueue_scripts', 'nsp_RegisterPluginStylesAndScripts' );
@@ -1053,10 +1065,9 @@ function nsp_StatAppend() {
   if (preg_match("/.ico$/i", $urlRequested)) { return ''; }
   if (preg_match("/favicon.ico/i", $urlRequested)) { return ''; }
   if (preg_match("/.css$/i", $urlRequested)) { return ''; }
-  if (preg_match("/.js$/i", $urlRequested)) { return ''; }
-  if (stristr($urlRequested,"/wp-content/plugins") != FALSE) { return ''; }
-  if (stristr($urlRequested,"/wp-content/themes") != FALSE) { return ''; }
-  if (stristr($urlRequested,"/wp-admin/") != FALSE) { return ''; }
+  if (preg_match("/.js$/i", $urlRequested)) { return ''; }  
+  if (stristr($urlRequested, content_url()) != FALSE) { return ''; }
+  if (stristr($urlRequested, admin_url()) != FALSE) { return ''; }
   $urlRequested=esc_sql($urlRequested);
 
   // Is a given permalink blacklisted?

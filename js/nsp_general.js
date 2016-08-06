@@ -1,14 +1,14 @@
 jQuery(document).ready(function($){
 
 if ($("#pagecredits").length) {
-  $.getJSON('../wp-content/plugins/newstatpress/includes/json/credit.json', function(data) {
+  $.getJSON(ExtData.Credit, function(data) {
    $.each(data.contacts, function(keyp, valp) {
      var addressr="<tr>\n<td class='cell-l'>" + valp.name + "</td>\n<td class='cell-r'>" + valp.properties + "</td>\n</tr>\n";
      $(addressr).appendTo("#addresses");
 
    });
   });
-  $.getJSON('../wp-content/plugins/newstatpress/includes/json/lang.json', function(data) {
+  $.getJSON(ExtData.Lang, function(data) {
    $.each(data.translation, function(keyp, valp) {
      var addressr="<tr>"+
                   "<td class='cell-l'>" +
@@ -19,7 +19,7 @@ if ($("#pagecredits").length) {
 
    });
   });
-  $.getJSON('../wp-content/plugins/newstatpress/includes/json/ressources.json', function(data) {
+  $.getJSON(ExtData.Resources, function(data) {
    $.each(data.ressources, function(keyp, valp) {
      var row="<tr>"+
              "<td class='cell-l'>" + valp.ref + "</td>\n" +
@@ -29,7 +29,7 @@ if ($("#pagecredits").length) {
      $(row).appendTo("#ressourceslist");
    });
   });
-  $.getJSON('../wp-content/plugins/newstatpress/includes/json/donation.json', function(data) {
+  $.getJSON(ExtData.Donation, function(data) {
    $.each(data.donation, function(keyp, valp) {
      var row="<tr>\n<td class='cell-l'>" + valp.donator + "</td>\n<td class='cell-r'>" + valp.date + "</td>\n</tr>\n";
      $(row).appendTo("#donatorlist");
