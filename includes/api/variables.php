@@ -9,10 +9,14 @@ if( !defined( 'ABSPATH' ) ) {
 /**
  * Ajax routine fro getting variables values
  */
-nsp_variablesAjax() {
+function nsp_variablesAjax() {
   global $wpdb;
   global $nsp_option_vars;
   $table_name = $wpdb->prefix . "statpress";
+  
+  // response output
+  header( "Content-Type: application/json" );
+
 
   // get the submitted parameters
   $var = $_POST['VAR'];
@@ -30,7 +34,7 @@ nsp_variablesAjax() {
       urlrequested!='';
      ");
      if ($qry != null) {
-       echo $qry[0]->pageview+$offsets['alltotalvisits'];
+       echo json_encode($qry[0]->pageview+$offsets['alltotalvisits']);
      }
   } elseif ($var=='visits') {
       $qry = $wpdb->get_results(
@@ -41,7 +45,7 @@ nsp_variablesAjax() {
           spider='' and feed='';
         ");
      if ($qry != null) {
-       echo $qry[0]->pageview;
+       echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='yvisits') {
       $qry = $wpdb->get_results(
@@ -52,7 +56,7 @@ nsp_variablesAjax() {
           spider='' and feed='';
         ");
      if ($qry != null) {
-       echo $qry[0]->pageview;
+       echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='mvisits') {
       if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
@@ -76,7 +80,7 @@ nsp_variablesAjax() {
           ");
         }
       if ($qry != null) {
-        echo $qry[0]->pageview;
+        echo json_encode($qry[0]->pageview);
       }
   } elseif ($var=='wvisits') {
       if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
@@ -100,7 +104,7 @@ nsp_variablesAjax() {
            ");
        }
      if ($qry != null) {
-       echo $qry[0]->pageview;
+       echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='totalvisits') {
       if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
@@ -124,7 +128,7 @@ nsp_variablesAjax() {
           ");
         }
      if ($qry != null) {
-       echo $qry[0]->pageview;
+       echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='totalpageviews') {
       $qry = $wpdb->get_results(
@@ -135,7 +139,7 @@ nsp_variablesAjax() {
            feed='';
         ");
      if ($qry != null) {
-       echo $qry[0]->pageview+$offsets['pageviews'];;
+       echo json_encode($qry[0]->pageview+$offsets['pageviews']);
      }
   } elseif ($var=='todaytotalpageviews') {
       $qry = $wpdb->get_results(
@@ -147,7 +151,7 @@ nsp_variablesAjax() {
            feed='';
         ");
      if ($qry != null) {
-       echo $qry[0]->pageview;
+       echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='thistotalvisits') {
       $url = esc_sql($_REQUEST["URL"]);
@@ -161,7 +165,7 @@ nsp_variablesAjax() {
            urlrequested='".$url."';
         ");
      if ($qry != null) {
-       echo $qry[0]->pageview;
+       echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='monthtotalpageviews'){
       $qry = $wpdb->get_results(
@@ -172,7 +176,7 @@ nsp_variablesAjax() {
           spider='' and feed='';
         "); 
      if ($qry != null) {
-       echo $qry[0]->pageview;
+       echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='widget_topposts') {
       $limit = intval($_REQUEST["LIMIT"]);
@@ -193,7 +197,9 @@ nsp_variablesAjax() {
        $res.="<li><a href='?".$rk->urlrequested."' target='_blank'>".nsp_DecodeURL($rk->urlrequested)."</a></li>\n";
        if(strtolower($showcounts) == 'checked') { $res.=" (".$rk->totale.")"; }
      }
-     echo "$res</ul>\n";
+     echo json_encode("$res</ul>\n");
   }
+  
+  exit;
 }
 ?>

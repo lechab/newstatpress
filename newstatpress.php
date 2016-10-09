@@ -83,9 +83,9 @@ $nsp_option_vars=array( // list of option variable name, with default value asso
                         'mail_notification_address'=>array('name'=>'newstatpress_mail_notification_emailaddress','value'=>''),
                         'mail_notification_time'=>array('name'=>'newstatpress_mail_notification_time','value'=>''),
                         'mail_notification_info'=>array('name'=>'newstatpress_mail_notification_info','value'=>''),
-												'mail_notification_sender'=>array('name'=>'newstatpress_mail_notification_sender','value'=>'NewsStatPress'),
-												'settings'=>array('name'=>'newstatpress_settings','value'=>''),
-												'stats_offsets'=>array('name'=>'newstatpress_stats_offsets','value'=>'0')
+                        'mail_notification_sender'=>array('name'=>'newstatpress_mail_notification_sender','value'=>'NewsStatPress'),
+                        'settings'=>array('name'=>'newstatpress_settings','value'=>''),
+                        'stats_offsets'=>array('name'=>'newstatpress_stats_offsets','value'=>'0')
                       );
 
 $nsp_widget_vars=array( // list of widget variables name, with description associated
@@ -105,8 +105,7 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
                        array('visitorsonline',__('Counts all online visitors', 'newstatpress')),
                        array('usersonline',__('Counts logged online visitors', 'newstatpress')),
                        array('toppost',__('The most viewed Post', 'newstatpress'))
-                      );
-
+                      );                                
 
 /**
  * Check to update of the plugin
@@ -126,28 +125,27 @@ function nsp_UpdateCheck() {
   if (version_compare( $active_version, $_NEWSTATPRESS['version'], '<' )) {
     if (version_compare( $active_version, '1.1.0', '<' ))
       nsp_Activation('old'); // for old installation > 14 days since nsp 1.1.4
-		if(nsp_NOTICENEWS) {
-			global $current_user;
-			$status = get_user_meta( $current_user->ID, 'newstatpress_nag_status', TRUE );
-			$status['news'] = FALSE ;
-			update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status );
-		}
-		update_option('newstatpress_version', $_NEWSTATPRESS['version']);
+      if(nsp_NOTICENEWS) {
+        global $current_user;
+        $status = get_user_meta( $current_user->ID, 'newstatpress_nag_status', TRUE );
+        $status['news'] = FALSE ;
+        update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status );
+      }
+    update_option('newstatpress_version', $_NEWSTATPRESS['version']);
   }
 
   //check if is compatible with WP Version
-	global $wp_version;
+  global $wp_version;
   if( version_compare( $wp_version, nsp_REQUIRED_WP_VERSION, '<' ) ) {
     deactivate_plugins( nsp_PLUGIN_BASENAME );
-  $notice_text = sprintf( __( 'Plugin %s deactivated. WordPress Version %s required. Please upgrade WordPress to the latest version.', 'newstatpress' ), nsp_PLUGINNAME, nsp_REQUIRED_WP_VERSION );
- 	$new_admin_notice = array( 'style' => 'error', 'notice' => $notice_text );
-  update_option( 'newstatpress_admin_notices', $new_admin_notice );
-	add_action( 'admin_notices', 'nsp_AdminNotices' );
-
-	return FALSE;
+    $notice_text = sprintf( __( 'Plugin %s deactivated. WordPress Version %s required. Please upgrade WordPress to the latest version.', 'newstatpress' ), nsp_PLUGINNAME, nsp_REQUIRED_WP_VERSION );
+    $new_admin_notice = array( 'style' => 'error', 'notice' => $notice_text );
+    update_option( 'newstatpress_admin_notices', $new_admin_notice );
+    add_action( 'admin_notices', 'nsp_AdminNotices' );
+    return FALSE;
   }
 
-	nsp_CheckNagNotices();
+  nsp_CheckNagNotices();
 
 }
 add_action( 'admin_init', 'nsp_UpdateCheck' );
@@ -159,19 +157,20 @@ add_action( 'admin_init', 'nsp_UpdateCheck' );
  *
  ***************************************************/
 function nsp_checkExport() {
-	global $nsp_option_vars;
-	global $current_user;
-	wp_get_current_user();
+  global $nsp_option_vars;
+  global $current_user;
+  wp_get_current_user();
 
   if (isset($_GET['newstatpress_action']) && $_GET['newstatpress_action'] == 'exportnow') {
-		$tools_capability=get_option('newstatpress_menutools_cap') ;
-		if(!$tools_capability) //default value
-			$tools_capability=$nsp_option_vars['menutools_cap']['value'];
-		if ( user_can( $current_user, $tools_capability ) ) {
-			require ('includes/nsp_tools.php');
-    	nsp_ExportNow();
-  	}
-	}
+    $tools_capability=get_option('newstatpress_menutools_cap') ;
+    if(!$tools_capability) { //default value
+      $tools_capability=$nsp_option_vars['menutools_cap']['value'];
+    }  
+    if ( user_can( $current_user, $tools_capability ) ) {
+      require ('includes/nsp_tools.php');
+      nsp_ExportNow();
+    }
+  }
 }
 add_action('init','nsp_checkExport');
 
@@ -220,7 +219,7 @@ function nsp_Activation($arg='') {
    // JS and jQuery
    $scripts=array('idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
                   'moment'=>plugins_url('./js/moment.min.js', __FILE__),
-                  'pikaday'=>plugins_url('./js/pikaday.js', __FILE__),
+                  'pikaday'=>plugins_url('./js/pikaday.js', __FILE__),                  
                   'NewStatPressJs'=>plugins_url('./js/nsp_general.js', __FILE__));
    foreach($scripts as $key=>$sc)
    {
@@ -236,9 +235,7 @@ function nsp_Activation($arg='') {
        }
        
        wp_enqueue_script( $key );
-   }
-   
-
+   }   
 
  }
  add_action( 'admin_enqueue_scripts', 'nsp_RegisterPluginStylesAndScripts' );
@@ -254,7 +251,7 @@ function nsp_Activation($arg='') {
    require ('includes/nsp_dashboard.php');
 
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
- }
+ } else require ('includes/api/variables.php');
 
 require ('includes/nsp_core.php');
 /*************************************
@@ -326,13 +323,13 @@ function wptuts_print_script_in_footer() {
 
 
 function nsp_statistics_load_overview_page() {
-	global $nsp_overview_screen;
+  global $nsp_overview_screen;
   add_meta_box( 'nsp_lasthits_postbox', __('Last hits',nsp_TEXTDOMAIN), 'nsp_generate_overview_lasthits', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lasthits' )  );
-	add_meta_box( 'nsp_lastsearchterms_postbox', __('Last search terms',nsp_TEXTDOMAIN), 'nsp_generate_overview_lastsearchterms', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lastsearchterms' )  );
-	add_meta_box( 'nsp_lastreferrers_postbox', __('Last referrers',nsp_TEXTDOMAIN), 'nsp_generate_overview_lastreferrers', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lastreferrers' )  );
-	add_meta_box( 'nsp_agents_postbox', __('Last agents',nsp_TEXTDOMAIN), 'nsp_generate_overview_agents', $nsp_overview_screen, 'normal', null, array( 'widget' => 'agents' )  );
-	add_meta_box( 'nsp_pages_postbox', __('Last pages',nsp_TEXTDOMAIN), 'nsp_generate_overview_pages', $nsp_overview_screen, 'normal', null, array( 'widget' => 'pages' )  );
-	add_meta_box( 'nsp_spiders_postbox', __('Last spiders',nsp_TEXTDOMAIN), 'nsp_generate_overview_spiders', $nsp_overview_screen, 'normal', null, array( 'widget' => 'spiders' )  );
+  add_meta_box( 'nsp_lastsearchterms_postbox', __('Last search terms',nsp_TEXTDOMAIN), 'nsp_generate_overview_lastsearchterms', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lastsearchterms' )  );
+  add_meta_box( 'nsp_lastreferrers_postbox', __('Last referrers',nsp_TEXTDOMAIN), 'nsp_generate_overview_lastreferrers', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lastreferrers' )  );
+  add_meta_box( 'nsp_agents_postbox', __('Last agents',nsp_TEXTDOMAIN), 'nsp_generate_overview_agents', $nsp_overview_screen, 'normal', null, array( 'widget' => 'agents' )  );
+  add_meta_box( 'nsp_pages_postbox', __('Last pages',nsp_TEXTDOMAIN), 'nsp_generate_overview_pages', $nsp_overview_screen, 'normal', null, array( 'widget' => 'pages' )  );
+  add_meta_box( 'nsp_spiders_postbox', __('Last spiders',nsp_TEXTDOMAIN), 'nsp_generate_overview_spiders', $nsp_overview_screen, 'normal', null, array( 'widget' => 'spiders' )  );
 }
 
 function nsp_NewStatPressMainC() {
@@ -391,12 +388,12 @@ function PluginUrl() {
 }
 
 function nsp_GetServerName() {
-	$server_name = '';
-	if(		!empty( $_SERVER['HTTP_HOST'] ) )		{ $server_name = $_SERVER['HTTP_HOST']; }
-	elseif(	!empty( $_NEWSTATPRESS_ENV['HTTP_HOST'] ) )		{ $server_name = $_NEWSTATPRESS_ENV['HTTP_HOST']; }
-	elseif(	!empty( $_SERVER['SERVER_NAME'] ) )		{ $server_name = $_SERVER['SERVER_NAME']; }
-	elseif(	!empty( $_NEWSTATPRESS_ENV['SERVER_NAME'] ) )	{ $server_name = $_NEWSTATPRESS_ENV['SERVER_NAME']; }
-	return nsp_CaseTrans( 'lower', $server_name );
+  $server_name = '';
+  if(     !empty( $_SERVER['HTTP_HOST'] ) )             { $server_name = $_SERVER['HTTP_HOST']; }
+  elseif( !empty( $_NEWSTATPRESS_ENV['HTTP_HOST'] ) )   { $server_name = $_NEWSTATPRESS_ENV['HTTP_HOST']; }
+  elseif( !empty( $_SERVER['SERVER_NAME'] ) )           { $server_name = $_SERVER['SERVER_NAME']; }
+  elseif( !empty( $_NEWSTATPRESS_ENV['SERVER_NAME'] ) ) { $server_name = $_NEWSTATPRESS_ENV['SERVER_NAME']; }
+  return nsp_CaseTrans( 'lower', $server_name );
 }
 
 /***TODO rsfb_strlen
@@ -404,28 +401,29 @@ function nsp_GetServerName() {
 ***/
 function nsp_CaseTrans( $type, $string ) {
 
-	switch ($type) {
-		case 'upper':
-			return function_exists( 'mb_strtoupper' ) ? mb_strtoupper( $string, 'UTF-8' ) : strtoupper( $string );
-		case 'lower':
-			return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string, 'UTF-8' ) : strtolower( $string );
-		case 'ucfirst':
-			if( function_exists( 'mb_strtoupper' ) && function_exists( 'mb_substr' ) ) {
-				$strtmp = mb_strtoupper( mb_substr( $string, 0, 1, 'UTF-8' ), 'UTF-8' ) . mb_substr( $string, 1, NULL, 'UTF-8' );
-				/* Added workaround for strange PHP bug in mb_substr() on some servers */
-				return rsfb_strlen( $string ) === rsfb_strlen( $strtmp ) ? $strtmp : ucfirst( $string );
-			}
-			else { return ucfirst( $string ); }
-		case 'ucwords':
-			return function_exists( 'mb_convert_case' ) ? mb_convert_case( $string, MB_CASE_TITLE, 'UTF-8' ) : ucwords( $string );
-			/***
-			* Note differences in results between ucwords() and this.
-			* ucwords() will capitalize first characters without altering other characters, whereas this will lowercase everything, but capitalize the first character of each word.
-			* This works better for our purposes, but be aware of differences.
-			***/
-		default:
-			return $string;
-	}
+  switch ($type) {
+    case 'upper':
+      return function_exists( 'mb_strtoupper' ) ? mb_strtoupper( $string, 'UTF-8' ) : strtoupper( $string );
+    case 'lower':
+      return function_exists( 'mb_strtolower' ) ? mb_strtolower( $string, 'UTF-8' ) : strtolower( $string );
+    case 'ucfirst':
+       if( function_exists( 'mb_strtoupper' ) && function_exists( 'mb_substr' ) ) {
+         $strtmp = mb_strtoupper( mb_substr( $string, 0, 1, 'UTF-8' ), 'UTF-8' ) . mb_substr( $string, 1, NULL, 'UTF-8' );
+         /* Added workaround for strange PHP bug in mb_substr() on some servers */
+         return rsfb_strlen( $string ) === rsfb_strlen( $strtmp ) ? $strtmp : ucfirst( $string );
+       } else { 
+           return ucfirst( $string ); 
+         }
+    case 'ucwords':
+      return function_exists( 'mb_convert_case' ) ? mb_convert_case( $string, MB_CASE_TITLE, 'UTF-8' ) : ucwords( $string );
+      /***
+       * Note differences in results between ucwords() and this.
+       * ucwords() will capitalize first characters without altering other characters, whereas this will lowercase everything, but capitalize the first character of each word.
+       This works better for our purposes, but be aware of differences.
+       ***/
+    default:
+      return $string;
+  }
 }
 
 
@@ -500,19 +498,20 @@ function nsp_stat_by_email($arg='') {
   $name=$nsp_option_vars['mail_notification_address']['name'];
   $email_address=get_option($name);
 
-	$name=$nsp_option_vars['mail_notification_sender']['name'];
-	$sender=get_option($name);
-	//$sender=get_option($nsp_option_vars['name']);
-	if($sender=='')
-	 $sender=$nsp_option_vars['mail_notification_sender']['value'];
+  $name=$nsp_option_vars['mail_notification_sender']['name'];
+  $sender=get_option($name);
+  //$sender=get_option($nsp_option_vars['name']);
+  if($sender=='') {
+    $sender=$nsp_option_vars['mail_notification_sender']['value'];
+  } 
 
-	$support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
-	$author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
+  $support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
+  $author_linkpage="<a href='".nsp_PLUGIN_URL."/?page_id=2' target='_blank'>".__('the author','newstatpress')."</a>";
 
-	$credits_introduction=__('If you have found this plugin useful and you like it, thank you to take a moment to rate it.','newstatpress');
-	$credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on the %s or by adding/updating translation by contacting directly %s.','newstatpress'), $support_pluginpage, $author_linkpage);
-	$credits_introduction.='<br />';
-	$credits_introduction.=__('NewStatPress is provided for free and is maintained only on free time, you can also consider a donation to support further work, directly on the plugin website or through the plugin (Credits Page).','newstatpress');
+  $credits_introduction=__('If you have found this plugin useful and you like it, thank you to take a moment to rate it.','newstatpress');
+  $credits_introduction.=' '.sprintf(__('You can help to the plugin development by reporting bugs on the %s or by adding/updating translation by contacting directly %s.','newstatpress'), $support_pluginpage, $author_linkpage);
+  $credits_introduction.='<br />';
+  $credits_introduction.=__('NewStatPress is provided for free and is maintained only on free time, you can also consider a donation to support further work, directly on the plugin website or through the plugin (Credits Page).','newstatpress');
 
   $warning=__('This option is yet experimental, please report bugs or improvement (see link on the bottom)','newstatpress');
   $advising=__('You receive this email because you have enabled the statistics notification in the NewStatpress plugin (option menu) from your WP website ','newstatpress');
@@ -614,13 +613,13 @@ function nsp_AddSettingsLink( $links, $file ) {
  * (taken in statpress-visitors)
  */
 function nsp_MySubstr($str, $x, $y = 0) {
-	if($y == 0)
-		$y = strlen($str) - $x;
+  if($y == 0)
+    $y = strlen($str) - $x;
 
-	if(function_exists('mb_substr'))
-		return mb_substr($str, $x, $y);
-	else
-		return substr($str, $x, $y);
+  if(function_exists('mb_substr'))
+    return mb_substr($str, $x, $y);
+  else
+    return substr($str, $x, $y);
 }
 
 
@@ -804,9 +803,8 @@ function nsp_GetBrowserImg($arg) {
   $lines = file($newstatpress_dir.'/def/browser.dat');
   foreach($lines as $line_num => $browser) {
     list($name_browser,$id,$img_browser)=explode("|",$browser);
-		//echo $name_browser;
-		if(strcmp($name_browser,$arg)==0)
-			return $img_browser;
+    //echo $name_browser;
+    if(strcmp($name_browser,$arg)==0) return $img_browser;
   }
   return '';
 }
@@ -1219,7 +1217,19 @@ add_action('send_headers', 'nsp_StatAppend');
  ************************************************/
 function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
   global $newstatpress_dir;
-
+  
+  wp_enqueue_script('wp_ajax_nsp_variables', plugins_url('./includes/js/nsp_variables.js', __FILE__), array('jquery'));
+  wp_localize_script('wp_ajax_nsp_variables', 'ExtData', array(
+    'VAR' => $var,
+    'URL' => $url,
+    'FLAG' => $flag,
+    'LIMIT' => $limit    
+  ));
+  //wp_register_script('wp_ajax_nsp_variables', plugins_url('./includes/js/nsp_variables.js', __FILE__), array('jquery')); 
+  add_action( 'wp_ajax_nsp_variables', 'nsp_variablesAjax' );
+  //add_action( 'wp_ajax_nopriv_nsp_variables', 'nsp_variablesAjax' ); // need this to serve non logged in users
+  
+/*
   $res = "<span id=\"".$var."\">_</span>
           <script type=\"text/javascript\">
 
@@ -1237,6 +1247,7 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
             xmlhttp_".$var.".send();
           </script>
          ";
+         */
   return $res;
 }
 
