@@ -7,7 +7,7 @@ if( !defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Ajax routine fro getting variables values
+ * Ajax routine for getting variables values
  */
 function nsp_variablesAjax() {
   global $wpdb;
@@ -200,6 +200,6 @@ function nsp_variablesAjax() {
      echo json_encode("$res</ul>\n");
   }
   
-  exit;
+  wp_die();
 }
 ?>

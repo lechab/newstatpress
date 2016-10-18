@@ -105,7 +105,10 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
                        array('visitorsonline',__('Counts all online visitors', 'newstatpress')),
                        array('usersonline',__('Counts logged online visitors', 'newstatpress')),
                        array('toppost',__('The most viewed Post', 'newstatpress'))
-                      );                                
+                      );
+                      
+                     
+
 
 /**
  * Check to update of the plugin
@@ -1218,36 +1221,18 @@ add_action('send_headers', 'nsp_StatAppend');
 function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
   global $newstatpress_dir;
   
-  wp_enqueue_script('wp_ajax_nsp_variables', plugins_url('./includes/js/nsp_variables.js', __FILE__), array('jquery'));
-  wp_localize_script('wp_ajax_nsp_variables', 'ExtData', array(
+  wp_enqueue_script('wp_ajax_nsp_variables'.$var, plugins_url('./includes/js/nsp_variables.js', __FILE__), array('jquery'));
+  wp_localize_script('wp_ajax_nsp_variables'.$var, 'nsp_variablesAjax', array(
     'VAR' => $var,
     'URL' => $url,
     'FLAG' => $flag,
     'LIMIT' => $limit    
   ));
-  //wp_register_script('wp_ajax_nsp_variables', plugins_url('./includes/js/nsp_variables.js', __FILE__), array('jquery')); 
-  add_action( 'wp_ajax_nsp_variables', 'nsp_variablesAjax' );
-  //add_action( 'wp_ajax_nopriv_nsp_variables', 'nsp_variablesAjax' ); // need this to serve non logged in users
-  
-/*
-  $res = "<span id=\"".$var."\">_</span>
-          <script type=\"text/javascript\">
+ 
+  add_action( 'wp_ajax_nsp_variables'.$var, 'nsp_variablesAjax' );
+  //add_action( 'wp_ajax_nopriv_nsp_variables'.$var, 'nsp_variablesAjax' ); // need this to serve non logged in users
 
-            var xmlhttp_".$var." = new XMLHttpRequest();
-
-            xmlhttp_".$var.".onreadystatechange = function() {
-              if (xmlhttp_".$var.".readyState == 4 && xmlhttp_".$var.".status == 200) {
-                document.getElementById(\"".$var."\").innerHTML=xmlhttp_".$var.".responseText;
-              }
-            }
-
-            var url=\"".plugins_url(nsp_TEXTDOMAIN)."/includes/api/variables.php?VAR=".$var."&LIMIT=".$limit."&FLAG=".$flag."&URL=".$url."\";
-
-            xmlhttp_".$var.".open(\"GET\", url, true);
-            xmlhttp_".$var.".send();
-          </script>
-         ";
-         */
+  $res = "<span id=\"".$var."\">_</span>";
   return $res;
 }
 
