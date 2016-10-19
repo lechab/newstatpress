@@ -1223,10 +1223,11 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
   
   wp_enqueue_script('wp_ajax_nsp_variables'.$var, plugins_url('./includes/js/nsp_variables.js', __FILE__), array('jquery'));
   wp_localize_script('wp_ajax_nsp_variables'.$var, 'nsp_variablesAjax', array(
-    'VAR' => $var,
-    'URL' => $url,
-    'FLAG' => $flag,
-    'LIMIT' => $limit    
+    'ajaxurl' => admin_url( 'admin-ajax.php' ),
+    'VAR'     => $var,
+    'URL'     => $url,
+    'FLAG'    => $flag,
+    'LIMIT'   => $limit    
   ));
  
   add_action( 'wp_ajax_nsp_variables'.$var, 'nsp_variablesAjax' );
