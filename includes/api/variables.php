@@ -13,10 +13,9 @@ function nsp_variablesAjax() {
   global $wpdb;
   global $nsp_option_vars;
   $table_name = $wpdb->prefix . "statpress";
-  
+
   // response output
   header( "Content-Type: application/json" );
-
 
   // get the submitted parameters
   $var = $_POST['VAR'];

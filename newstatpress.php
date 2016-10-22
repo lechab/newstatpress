@@ -8,6 +8,11 @@
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
+                   
+                      
+///define( 'WP_DEBUG', true );
+///define( 'WP_DEBUG_DISPLAY', true );
+///define( 'WP_DEBUG_LOG', true );
 
 
 // Make sure plugin remains secure if called directly
@@ -104,11 +109,9 @@ $nsp_widget_vars=array( // list of widget variables name, with description assoc
                        array('since',__('Date of the first hit', 'newstatpress')),
                        array('visitorsonline',__('Counts all online visitors', 'newstatpress')),
                        array('usersonline',__('Counts logged online visitors', 'newstatpress')),
+                       array('monthtotalpageviews',__('Total page view in the month', 'newstatpress')),
                        array('toppost',__('The most viewed Post', 'newstatpress'))
                       );
-                      
-                     
-
 
 /**
  * Check to update of the plugin
@@ -1221,16 +1224,19 @@ add_action('send_headers', 'nsp_StatAppend');
 function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
   global $newstatpress_dir;
   
-  wp_enqueue_script('wp_ajax_nsp_variables'.$var, plugins_url('./includes/js/nsp_variables.js', __FILE__), array('jquery'));
-  wp_localize_script('wp_ajax_nsp_variables'.$var, 'nsp_variablesAjax', array(
+  wp_enqueue_script('wp_ajax_nsp_variables_'.$var, plugins_url('./includes/js/nsp_variables_'.$var.'.js', __FILE__), array('jquery'));
+  wp_localize_script('wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax_'.$var, array(
     'ajaxurl' => admin_url( 'admin-ajax.php' ),
     'VAR'     => $var,
     'URL'     => $url,
     'FLAG'    => $flag,
     'LIMIT'   => $limit    
   ));
- 
-  add_action( 'wp_ajax_nsp_variables'.$var, 'nsp_variablesAjax' );
+  
+  ///$data="Generate: ".$var."   ";
+  //echo("<script>console.log('PHP: ".$data."');</script>");
+
+  add_action( 'wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax' );
   //add_action( 'wp_ajax_nopriv_nsp_variables'.$var, 'nsp_variablesAjax' ); // need this to serve non logged in users
 
   $res = "<span id=\"".$var."\">_</span>";
@@ -1262,7 +1268,8 @@ function nsp_ExpandVarsInsideCode($body) {
                    'totalvisits',
                    'totalpageviews',
                    'todaytotalpageviews',
-                   'alltotalvisits'
+                   'alltotalvisits',
+                   'monthtotalpageviews'
                   );
 
   # look for $vars_list
@@ -1271,7 +1278,7 @@ function nsp_ExpandVarsInsideCode($body) {
       $body = str_replace("%$var%", nsp_GenerateAjaxVar($var), $body);
     }
   }
-
+  
   # look for %thistotalvisits%
   if(strpos(strtolower($body),"%thistotalvisits%") !== FALSE) {
     $body = str_replace("%thistotalvisits%", nsp_GenerateAjaxVar("thistotalvisits", 0, '', nsp_URL()), $body);
@@ -1821,5 +1828,4 @@ function nsp_MakeOverview($print ='dashboard') {
 }
 
 register_activation_hook(__FILE__,'nsp_BuildPluginSQLTable');
-
 ?>
