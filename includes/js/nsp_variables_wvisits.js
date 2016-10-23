@@ -14,7 +14,6 @@ jQuery.post(
   },
 
   function( response ) {
-    console.log('nsp_variables_'+nsp_variablesAjax_wvisits.VAR+" "+response);
     document.getElementById(nsp_variablesAjax_wvisits.VAR).innerHTML=response;
   }
 ); 

@@ -37,6 +37,8 @@ IMPORTANT CRITICAL UPDATE
 - [x] Fix Stored cross-site scripting vulnerabilities, find by Han Sahin of www.SumOfPwn.nl @sumofpwn
 - [x] Avoid direct access to pages
 - [x] Changing path detections (not support anymore WordPress 2.x or lower)
+- [x] fix widget variable list
+- [x] Use javascript+ajax fo variables API
 - [ ] Remove the usage of wp_load
 - [ ] Complete name conversion
 - [ ] Rewrite API authentication

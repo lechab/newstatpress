@@ -9,12 +9,6 @@
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
                    
-                      
-///define( 'WP_DEBUG', true );
-///define( 'WP_DEBUG_DISPLAY', true );
-///define( 'WP_DEBUG_LOG', true );
-
-
 // Make sure plugin remains secure if called directly
 if( !defined( 'ABSPATH' ) ) {
   if( !headers_sent() ) { header('HTTP/1.1 403 Forbidden'); }
@@ -257,9 +251,13 @@ function nsp_Activation($arg='') {
    require ('includes/nsp_dashboard.php');
 
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
- } else require ('includes/api/variables.php');
-
-require ('includes/nsp_core.php');
+ }
+ require ('includes/api/variables.php');
+ require ('includes/nsp_core.php');
+ 
+ // register actions for ajax variables API
+ nsp_RegisterVarAjaxAction();
+ 
 /*************************************
  * Add pages for NewStatPress plugin *
  *************************************/
@@ -313,18 +311,18 @@ function nsp_BuildPluginMenu() {
     add_submenu_page('nsp-main', __('Options','newstatpress'), __('Options','newstatpress'), $options_capability, 'nsp_options', 'nsp_OptionsC');
     add_submenu_page('nsp-main', __('Credits','newstatpress'), __('Credits','newstatpress'), $credits_capability, 'nsp_credits', 'nsp_DisplayCreditsPageC');
 
-		// Add action to load the meta boxes to the overview page.
-		add_action('load-' . $nsp_overview_screen, 'nsp_statistics_load_overview_page');
-		add_action('admin_footer-'.$nsp_overview_screen,'wptuts_print_script_in_footer');
+    // Add action to load the meta boxes to the overview page.
+    add_action('load-' . $nsp_overview_screen, 'nsp_statistics_load_overview_page');
+    add_action('admin_footer-'.$nsp_overview_screen,'wptuts_print_script_in_footer');
   }
 }
 add_action('admin_menu', 'nsp_BuildPluginMenu');
 
 /* Prints script in footer to 'initialises' the meta boxes */
 function wptuts_print_script_in_footer() {
-		?>
-		<script>jQuery(document).ready(function(){ postboxes.add_postbox_toggles(pagenow);jQuery('.postbox h3').prepend('<a class="togbox">+</a> '); });</script>
-		<?php
+  ?>
+    <script>jQuery(document).ready(function(){ postboxes.add_postbox_toggles(pagenow);jQuery('.postbox h3').prepend('<a class="togbox">+</a> '); });</script>
+  <?php
 }
 
 
@@ -340,7 +338,7 @@ function nsp_statistics_load_overview_page() {
 
 function nsp_NewStatPressMainC() {
   require ('includes/nsp_overview.php');
-	nsp_NewStatPressMain();
+  nsp_NewStatPressMain();
 }
 
 function nsp_DisplayDetailsC() {
@@ -1223,7 +1221,7 @@ add_action('send_headers', 'nsp_StatAppend');
  ************************************************/
 function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
   global $newstatpress_dir;
-  
+
   wp_enqueue_script('wp_ajax_nsp_variables_'.$var, plugins_url('./includes/js/nsp_variables_'.$var.'.js', __FILE__), array('jquery'));
   wp_localize_script('wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax_'.$var, array(
     'ajaxurl' => admin_url( 'admin-ajax.php' ),
@@ -1233,12 +1231,6 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
     'LIMIT'   => $limit    
   ));
   
-  ///$data="Generate: ".$var."   ";
-  //echo("<script>console.log('PHP: ".$data."');</script>");
-
-  add_action( 'wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax' );
-  //add_action( 'wp_ajax_nopriv_nsp_variables'.$var, 'nsp_variablesAjax' ); // need this to serve non logged in users
-
   $res = "<span id=\"".$var."\">_</span>";
   return $res;
 }
@@ -1248,6 +1240,30 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
  */
 function NewStatPress_Print($body='') {
   return nsp_ExpandVarsInsideCode($body);
+}
+
+
+/**
+ * Register the actions for ajax variable API
+ */
+function nsp_RegisterVarAjaxAction() {
+  $vars_list=array('visits',
+                   'yvisits',
+                   'mvisits',
+                   'wvisits',
+                   'totalvisits',
+                   'totalpageviews',
+                   'todaytotalpageviews',
+                   'alltotalvisits',
+                   'monthtotalpageviews',
+                   'thistotalvisits'
+                  );
+                  
+  # look for $vars_list
+  foreach($vars_list as $var) {
+    add_action( 'wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax' );
+    add_action( 'wp_ajax_nopriv_nsp_variables_'.$var, 'nsp_variablesAjax' ); // need this to serve non logged in users
+  }                                   
 }
 
 
