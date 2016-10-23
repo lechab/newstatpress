@@ -39,7 +39,7 @@ IMPORTANT CRITICAL UPDATE
 - [x] Changing path detections (not support anymore WordPress 2.x or lower)
 - [x] fix widget variable list
 - [x] Use javascript+ajax fo variables API
-- [ ] Remove the usage of wp_load
+- [x] Remove the usage of wp_load
 - [ ] Complete name conversion
 - [ ] Rewrite API authentication
 

@@ -1,32 +1,21 @@
 <?php
-header('Access-Control-Allow-Origin: *'); 
 
-#error_reporting(E_ALL);
-#ini_set('display_errors', 1);
+// Make sure plugin remains secure if called directly
+if( !defined( 'ABSPATH' ) ) {
+  if( !headers_sent() ) { header('HTTP/1.1 403 Forbidden'); }
+  die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
+}
 
-require_once('../../../../../wp-load.php');
 require('nsp_api_version.php');
 require('nsp_api_wpversion.php');
 require('nsp_api_dashboard.php');
 require('nsp_api_overview.php');
 
-$var;
-$key; 
-$par; 
-$typ;
-
-body();
-
-
 /**
- * body function
+ * body function of external API
  */
-function body() {
+function nsp_externalApiAjax() {
   global $_NEWSTATPRESS;
-  global $var;
-  global $key; 
-  global $par; 
-  global $typ; 
   global $wpdb;
 
   header('HTTP/1.0 200 Ok');
@@ -99,7 +88,9 @@ function body() {
       return;
   }
 
-  if ($typ == 'JSON') {
+  if ($typ == 'JSON') {    
+    // response output
+    header( "Content-Type: application/json" );
     // gives the complete output according to $resultJ
     echo json_encode(
       $result
@@ -107,9 +98,12 @@ function body() {
   }
 
   if ($typ == 'HTML') {
+    // response output
+    header( "Content-Type: application/html" );  
     // gives the complete output according to $resultH
     echo $result; 
   }
+  wp_die();
 }
 
 ?> 

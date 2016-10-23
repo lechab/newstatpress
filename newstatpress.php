@@ -253,10 +253,53 @@ function nsp_Activation($arg='') {
    add_action('wp_dashboard_setup', 'nsp_AddDashBoardWidget' );
  }
  require ('includes/api/variables.php');
+ require ('includes/api/external.php');
  require ('includes/nsp_core.php');
  
- // register actions for ajax variables API
- nsp_RegisterVarAjaxAction();
+ 
+ nsp_RegisterVarAjaxAction();          // register actions for ajax variables API
+ nsp_RegisterExtenalApiAjaxAction();   // register actions for ajax external API
+ 
+ 
+/**
+ * Register the actions for ajax variable API
+ */
+function nsp_RegisterExtenalApiAjaxAction() { 
+  $vars_list=array('version',
+                   'wpversion',
+                   'dashboard',
+                   'overview'
+                  ); 
+                  
+  # look for $vars_list
+  foreach($vars_list as $var) {
+    add_action( 'wp_ajax_nsp_external_'.$var, 'nsp_externalApiAjax' );
+    add_action( 'wp_ajax_nopriv_nsp_external_'.$var, 'nsp_externalApiAjax' ); // need this to serve non logged in users  
+  }                  
+}
+
+/**
+ * Register the actions for ajax variable API
+ */
+function nsp_RegisterVarAjaxAction() {
+  $vars_list=array('visits',
+                   'yvisits',
+                   'mvisits',
+                   'wvisits',
+                   'totalvisits',
+                   'totalpageviews',
+                   'todaytotalpageviews',
+                   'alltotalvisits',
+                   'monthtotalpageviews',
+                   'thistotalvisits'
+                  );
+                  
+  # look for $vars_list
+  foreach($vars_list as $var) {
+    add_action( 'wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax' );
+    add_action( 'wp_ajax_nopriv_nsp_variables_'.$var, 'nsp_variablesAjax' ); // need this to serve non logged in users
+  }                                   
+}
  
 /*************************************
  * Add pages for NewStatPress plugin *
@@ -265,7 +308,7 @@ function nsp_BuildPluginMenu() {
 
   global $nsp_option_vars;
   global $current_user;
-	global $nsp_overview_screen;
+  global $nsp_overview_screen;
   wp_get_current_user();
 
 
@@ -1241,31 +1284,6 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
 function NewStatPress_Print($body='') {
   return nsp_ExpandVarsInsideCode($body);
 }
-
-
-/**
- * Register the actions for ajax variable API
- */
-function nsp_RegisterVarAjaxAction() {
-  $vars_list=array('visits',
-                   'yvisits',
-                   'mvisits',
-                   'wvisits',
-                   'totalvisits',
-                   'totalpageviews',
-                   'todaytotalpageviews',
-                   'alltotalvisits',
-                   'monthtotalpageviews',
-                   'thistotalvisits'
-                  );
-                  
-  # look for $vars_list
-  foreach($vars_list as $var) {
-    add_action( 'wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax' );
-    add_action( 'wp_ajax_nopriv_nsp_variables_'.$var, 'nsp_variablesAjax' ); // need this to serve non logged in users
-  }                                   
-}
-
 
 /**
  * Expand vars into the give code

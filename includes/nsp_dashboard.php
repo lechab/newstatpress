@@ -15,13 +15,12 @@ function nsp_BuildDashboardWidget() {
 
   $api_key=get_option('newstatpress_apikey');
   $newstatpress_url=PluginUrl();
-  $url=$newstatpress_url."/includes/api/external.php";
-
-  wp_register_script('wp_ajax_nsp_js_dashbord', plugins_url('./js/nsp_dashboard.js', __FILE__), array('jquery'));
-  wp_enqueue_script('jquery');
-  wp_enqueue_script('wp_ajax_nsp_js_dashbord');
-  wp_localize_script( 'wp_ajax_nsp_js_dashbord', 'ExtData', array(
-    'Url' => $url,
+  
+  wp_enqueue_script('wp_ajax_nsp_js_dashbord', plugins_url('./js/nsp_dashboard.js', __FILE__), array('jquery'));
+ // wp_enqueue_script('jquery');
+ // wp_enqueue_script('wp_ajax_nsp_js_dashbord');
+  wp_localize_script( 'wp_ajax_nsp_js_dashbord', 'nsp_externalAjax_dashboard', array(
+    'ajaxurl' => admin_url( 'admin-ajax.php' ),
     'Key' => md5(gmdate('m-d-y H i').$api_key)
   ));
 
