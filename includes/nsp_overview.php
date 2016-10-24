@@ -391,11 +391,9 @@ function nsp_generate_overview_spiders() {
 
                  get_option('newstatpress_externalapi')=='checked' ? $message=$msg_activated:$message=$msg_not_activated;
 
-                 wp_register_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
-                 wp_enqueue_script('jquery');
-                 wp_enqueue_script('wp_ajax_nsp_js_overview');
-                 wp_localize_script( 'wp_ajax_nsp_js_overview', 'ExtData', array(
-                   'Url' => $url,
+                 wp_enqueue_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
+                 wp_localize_script( 'wp_ajax_nsp_js_overview', 'nsp_externalAjax_overview', array(
+                   'ajaxurl' => admin_url( 'admin-ajax.php' ),
                    'Key' => md5(gmdate('m-d-y H i').$api_key)
                  ));
 
@@ -432,14 +430,11 @@ function nsp_NewStatPressMain3() {
     $_newstatpress_url=PluginUrl();
     $url=$_newstatpress_url."/includes/api/external.php";
 
-    wp_register_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('wp_ajax_nsp_js_overview');
-    wp_localize_script( 'wp_ajax_nsp_js_overview', 'ExtData', array(
-      'Url' => $url,
-      'Key' => md5(gmdate('m-d-y H i').$api_key)
-    ));
-
+    wp_enqueue_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
+    wp_localize_script( 'wp_ajax_nsp_js_overview', 'nsp_externalAjax_overview', array(
+                   'ajaxurl' => admin_url( 'admin-ajax.php' ),
+                   'Key' => md5(gmdate('m-d-y H i').$api_key)
+                 ));
     echo "<div id=\"nsp_result-overview\"><img id=\"nsp_loader-overview\" src=\"$_newstatpress_url/images/ajax-loader.gif\"></div>";
 
 

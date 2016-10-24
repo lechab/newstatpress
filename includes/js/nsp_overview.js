@@ -1,8 +1,9 @@
 (function($) {
   $( "#nsp_error-overview").hide();  
-  $.post(ExtData.Url, {
+  $.post(nsp_externalAjax_overview.ajaxurl, {
+    action : 'nsp_external',   
     VAR: "overview",
-    KEY: ExtData.Key,
+    KEY: nsp_externalAjax_overview.Key,
     PAR: "0",
     TYP: "HTML"
   }, 

@@ -40,8 +40,9 @@ IMPORTANT CRITICAL UPDATE
 - [x] fix widget variable list
 - [x] Use javascript+ajax fo variables API
 - [x] Remove the usage of wp_load
-- [ ] Complete name conversion
-- [ ] Rewrite API authentication
+- [x] Complete name conversion
+- [x] External API via WP Ajax
+- [x] Fix missing 2 spider images
 
 PLEASE
 
