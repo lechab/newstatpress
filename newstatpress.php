@@ -256,50 +256,14 @@ function nsp_Activation($arg='') {
  require ('includes/api/external.php');
  require ('includes/nsp_core.php');
  
+ // register actions for ajax variables API
+ add_action( 'wp_ajax_nsp_variables', 'nsp_variablesAjax' );
+ add_action( 'wp_ajax_nopriv_nsp_variables', 'nsp_variablesAjax' ); // need this to serve non logged in users
  
- nsp_RegisterVarAjaxAction();          // register actions for ajax variables API
- nsp_RegisterExtenalApiAjaxAction();   // register actions for ajax external API
+ // register actions for ajax external API
+ add_action( 'wp_ajax_nsp_external', 'nsp_externalApiAjax' );
+ add_action( 'wp_ajax_nopriv_nsp_external', 'nsp_externalApiAjax' ); // need this to serve non logged in users
  
- 
-/**
- * Register the actions for ajax variable API
- */
-function nsp_RegisterExtenalApiAjaxAction() { 
-  $vars_list=array('version',
-                   'wpversion',
-                   'dashboard',
-                   'overview'
-                  ); 
-                  
-  # look for $vars_list
-  foreach($vars_list as $var) {
-    add_action( 'wp_ajax_nsp_external_'.$var, 'nsp_externalApiAjax' );
-    add_action( 'wp_ajax_nopriv_nsp_external_'.$var, 'nsp_externalApiAjax' ); // need this to serve non logged in users  
-  }                  
-}
-
-/**
- * Register the actions for ajax variable API
- */
-function nsp_RegisterVarAjaxAction() {
-  $vars_list=array('visits',
-                   'yvisits',
-                   'mvisits',
-                   'wvisits',
-                   'totalvisits',
-                   'totalpageviews',
-                   'todaytotalpageviews',
-                   'alltotalvisits',
-                   'monthtotalpageviews',
-                   'thistotalvisits'
-                  );
-                  
-  # look for $vars_list
-  foreach($vars_list as $var) {
-    add_action( 'wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax' );
-    add_action( 'wp_ajax_nopriv_nsp_variables_'.$var, 'nsp_variablesAjax' ); // need this to serve non logged in users
-  }                                   
-}
  
 /*************************************
  * Add pages for NewStatPress plugin *

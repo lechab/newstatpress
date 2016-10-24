@@ -1,7 +1,7 @@
 (function($) {
   $( "#nsp_error-dashboard").hide();  
   $.post(nsp_externalAjax_dashboard.ajaxurl, {
-    action : 'nsp_external_dashboard',  
+    action : 'nsp_external',  
     VAR: "dashboard",
     KEY: nsp_externalAjax_dashboard.Key,
     PAR: "",
