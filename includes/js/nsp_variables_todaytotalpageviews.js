@@ -11,6 +11,9 @@ jQuery.post(
     URL    : nsp_variablesAjax_todaytotalpageviews.URL,
     LIMIT  : nsp_variablesAjax_todaytotalpageviews.LIMIT,
     FLAG   : nsp_variablesAjax_todaytotalpageviews.FLAG,
+    
+    // send the nonce along with the request
+    postCommentNonce : nsp_variablesAjax_todaytotalpageviews.postCommentNonce      
   },
 
   function( response ) {

@@ -16,7 +16,15 @@ function nsp_variablesAjax() {
 
   // response output
   header( "Content-Type: application/json" );
-
+  
+  $nonce = $_POST['postCommentNonce'];
+ 
+  // check to see if the submitted nonce matches with the
+  // generated nonce we created earlier
+  if (!wp_verify_nonce($nonce, 'newstatpress-nsp_variables-nonce')) {
+    die ( 'Busted!');
+  }
+  
   // get the submitted parameters
   $var = $_POST['VAR'];
 

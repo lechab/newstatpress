@@ -1232,6 +1232,7 @@ function nsp_generateAjaxVar($var, $limit=0, $flag='', $url='') {
   wp_enqueue_script('wp_ajax_nsp_variables_'.$var, plugins_url('./includes/js/nsp_variables_'.$var.'.js', __FILE__), array('jquery'));
   wp_localize_script('wp_ajax_nsp_variables_'.$var, 'nsp_variablesAjax_'.$var, array(
     'ajaxurl' => admin_url( 'admin-ajax.php' ),
+    'postCommentNonce' => wp_create_nonce( 'newstatpress-nsp_variables-nonce' ),
     'VAR'     => $var,
     'URL'     => $url,
     'FLAG'    => $flag,

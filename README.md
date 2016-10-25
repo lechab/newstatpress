@@ -43,6 +43,7 @@ IMPORTANT CRITICAL UPDATE
 - [x] Complete name conversion
 - [x] External API via WP Ajax
 - [x] Fix missing 2 spider images
+- [x] Use NONCE for ajax call in variables API
 
 PLEASE
 
