@@ -585,7 +585,7 @@ function nsp_DisplayDatabaseInfo() {
   else
     $from_date = gmdate('Ymd', current_time('timestamp')-86400*$days);
 
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
   $wpdb->show_errors();
 
@@ -641,7 +641,7 @@ function nsp_UpdateNow() {
   else
     $from_date = gmdate('Ymd', current_time('timestamp')-86400*$days);
 
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
   $wpdb->show_errors();
 

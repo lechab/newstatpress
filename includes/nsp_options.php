@@ -184,7 +184,7 @@ function nsp_PrintRowInput($option_title, $nsp_option_vars, $input_size, $input_
   <?php
 }
 
-function input_selected($name,$value,$default) {
+function nsp_input_selected($name,$value,$default) {
 
   $status=get_option($name);
   if ($status=='')
@@ -743,10 +743,10 @@ function nsp_Options() {
               ?>
               <form id="myForm">
                 <p>
-                  <input class="tog" type='radio' id='dis' name='<?php echo $name ?>' value='disabled'<?php input_selected($name,'disabled',$default);?> /><label> <?php _e('Disabled',nsp_TEXTDOMAIN); ?></label>
+                  <input class="tog" type='radio' id='dis' name='<?php echo $name ?>' value='disabled'<?php nsp_input_selected($name,'disabled',$default);?> /><label> <?php _e('Disabled',nsp_TEXTDOMAIN); ?></label>
                 </p>
                 <p>
-                  <input class="tog" type='radio' id='ena' name='<?php echo $name ?>' value='enabled'<?php input_selected($name,'enabled',$default);?>  /><label> <?php _e('Enabled',nsp_TEXTDOMAIN) ?></label>
+                  <input class="tog" type='radio' id='ena' name='<?php echo $name ?>' value='enabled'<?php nsp_input_selected($name,'enabled',$default);?>  /><label> <?php _e('Enabled',nsp_TEXTDOMAIN) ?></label>
                 </p>
               </form>
               </fieldset>
@@ -818,7 +818,7 @@ function nsp_Options() {
       <!-- tab 'API' -->
       <div id='api'>
         <?php
-          $newstatpress_url=PluginUrl();
+          $newstatpress_url=nsp_PluginUrl();
           $url2=$newstatpress_url."doc/external_api.pdf";
           $option_description=__('The external API is build to let you to use the collected data from your Newstatpress plugin in an other web server application (for example you can show data relative to your Wordpress blog, inside a Drupal site that run since an another server).',nsp_TEXTDOMAIN);
           $option_description.=' <strong>'.__('However the external API is also used by Newstatpress itself for speedup page rendering of queried data (when are processed AJAX calls), so \'overview page & widget dashboard\' will be not working if you not activate it.',nsp_TEXTDOMAIN);

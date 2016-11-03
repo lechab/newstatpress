@@ -386,7 +386,7 @@ function nsp_DatabaseSearchC() {
  *
  * @return the url of the plugin
  ********************************/
-function PluginUrl() {
+function nsp_PluginUrl() {
   //Try to use WP API if possible, introduced in WP 2.6
   if (function_exists('plugins_url')) return trailingslashit(plugins_url(basename(dirname(__FILE__))));
 

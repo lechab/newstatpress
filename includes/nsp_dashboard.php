@@ -14,7 +14,7 @@ function nsp_BuildDashboardWidget() {
   global $newstatpress_dir;
 
   $api_key=get_option('newstatpress_apikey');
-  $newstatpress_url=PluginUrl();
+  $newstatpress_url=nsp_PluginUrl();
   
   wp_enqueue_script('wp_ajax_nsp_js_dashbord', plugins_url('./js/nsp_dashboard.js', __FILE__), array('jquery'));
   wp_localize_script( 'wp_ajax_nsp_js_dashbord', 'nsp_externalAjax_dashboard', array(

@@ -16,7 +16,7 @@ function nsp_generate_overview_agents(){
   $table_name = nsp_TABLENAME;
 
   global $newstatpress_dir;
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
   // determine the structure to use for URL
   $permalink_structure = get_option('permalink_structure');
@@ -80,7 +80,7 @@ function nsp_generate_overview_lasthits() {
   $table_name = nsp_TABLENAME;
 
   global $newstatpress_dir;
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
 
   // determine the structure to use for URL
@@ -153,7 +153,7 @@ function nsp_generate_overview_lastsearchterms() {
   $table_name = nsp_TABLENAME;
 
   global $newstatpress_dir;
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
 
   // determine the structure to use for URL
@@ -199,7 +199,7 @@ function nsp_generate_overview_lastreferrers() {
   $table_name = nsp_TABLENAME;
 
   global $newstatpress_dir;
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
 
   // determine the structure to use for URL
@@ -248,7 +248,7 @@ function nsp_generate_overview_pages() {
   $table_name = nsp_TABLENAME;
 
   global $newstatpress_dir;
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
 
   // determine the structure to use for URL
@@ -308,7 +308,7 @@ function nsp_generate_overview_spiders() {
   $table_name = nsp_TABLENAME;
 
   global $newstatpress_dir;
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
 
   // determine the structure to use for URL
@@ -383,7 +383,7 @@ function nsp_generate_overview_spiders() {
                <div class="loadAJAX">
                  <?php
                  $api_key=get_option('newstatpress_apikey');
-                 $_newstatpress_url=PluginUrl();
+                 $_newstatpress_url=nsp_PluginUrl();
                  $url=$_newstatpress_url."/includes/api/external.php";
 
                  $msg_activated=__('Loading... (Refresh page if no information is displayed).','newstatpress');
@@ -427,7 +427,7 @@ function nsp_NewStatPressMain3() {
     echo "<div class='wrap'><h2>". __('Overview','newstatpress'). "</h2>";
 
     $api_key=get_option('newstatpress_apikey');
-    $_newstatpress_url=PluginUrl();
+    $_newstatpress_url=nsp_PluginUrl();
     $url=$_newstatpress_url."/includes/api/external.php";
 
     wp_enqueue_script('wp_ajax_nsp_js_overview', plugins_url('./js/nsp_overview.js', __FILE__), array('jquery'));
@@ -439,7 +439,7 @@ function nsp_NewStatPressMain3() {
 
 
  /// nsp_MakeOverview('main');
-  $_newstatpress_url=PluginUrl();
+  $_newstatpress_url=nsp_PluginUrl();
 
 
   // determine the structure to use for URL
