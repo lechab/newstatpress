@@ -12,7 +12,7 @@ if ($("#pagecredits").length) {
    $.each(data.translation, function(keyp, valp) {
      var addressr="<tr>"+
                   "<td class='cell-l'>" +
-                  "<img style='border:0px;height:16px;' alt='" + valp.domain + "' title='"+valp.domain+"'" + "src='../wp-content/plugins/newstatpress/images/domain/"+ valp.domain + ".png' /> " +
+                  "<img style='border:0px;height:16px;' alt='" + valp.domain + "' title='"+valp.domain+"'" + "src='"+ExtData.Domain+"/"+ valp.domain + ".png' /> " +
                   valp.lang + "</td>\n<td class='cell-r'>" + valp.properties + "</td>" +
                   "<td class='cell-r'>" + valp.status + "</td></tr>\n";
      $(addressr).appendTo("#langr");

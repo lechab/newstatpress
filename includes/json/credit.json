@@ -51,6 +51,10 @@
       {
          "name":"Greg Sydney",
          "properties":"Fix overwiew bug in total"
+      },
+      {
+         "name":"Han Sahin",
+         "properties":"Reveal a Stored cross-site scripting vulnerabilities"
       }
    ]
 }

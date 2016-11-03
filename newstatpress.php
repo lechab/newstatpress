@@ -227,10 +227,11 @@ function nsp_Activation($arg='') {
        
        if ($key=='NewStatPressJs') {
          wp_localize_script( 'NewStatPressJs', 'ExtData', array(
-           'Credit' => plugins_url( 'newstatpress/includes/json/credit.json', __FILE__ ),
-           'Lang' => plugins_url( 'newstatpress/includes/json/lang.json', __FILE__ ),
-           'Resources' => plugins_url( 'newstatpress/includes/json/ressources.json', __FILE__ ),
-           'Donation' => plugins_url( 'newstatpress/includes/json/donation.json', __FILE__ )
+           'Credit' => plugins_url( './includes/json/credit.json', __FILE__ ),
+           'Lang' => plugins_url( './includes/json/lang.json', __FILE__ ),
+           'Resources' => plugins_url( './includes/json/ressources.json', __FILE__ ),
+           'Donation' => plugins_url( './includes/json/donation.json', __FILE__ ),
+           'Domain' => plugins_url( './images/domain', __FILE__ ),
          ));       
        }
        
