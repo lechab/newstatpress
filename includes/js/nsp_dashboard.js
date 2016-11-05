@@ -5,7 +5,10 @@
     VAR: "dashboard",
     KEY: nsp_externalAjax_dashboard.Key,
     PAR: "",
-    TYP: "HTML"
+    TYP: "HTML",
+    
+    // send the nonce along with the request
+    postCommentNonce : nsp_externalAjax_dashboard.postCommentNonce
   }, 
   function(data,status){
     $( "#nsp_loader-dashboard").hide();

@@ -19,7 +19,8 @@ function nsp_BuildDashboardWidget() {
   wp_enqueue_script('wp_ajax_nsp_js_dashbord', plugins_url('./js/nsp_dashboard.js', __FILE__), array('jquery'));
   wp_localize_script( 'wp_ajax_nsp_js_dashbord', 'nsp_externalAjax_dashboard', array(
     'ajaxurl' => admin_url( 'admin-ajax.php' ),
-    'Key' => md5(gmdate('m-d-y H i').$api_key)
+    'Key' => md5(gmdate('m-d-y H i').$api_key),
+    'postCommentNonce' => wp_create_nonce( 'newstatpress-nsp_external-nonce' )
   ));
 
   echo "<div id=\"nsp_result-dashboard\"><img id=\"nsp_loader-dashboard\" src=\"$newstatpress_url/images/ajax-loader.gif\"></div>";

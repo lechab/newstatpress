@@ -12,6 +12,21 @@ require('nsp_api_dashboard.php');
 require('nsp_api_overview.php');
 
 /**
+ * body function of external API Nonce
+ */
+function nsp_externalApiAjaxN() {
+  $nonce = $_POST['postCommentNonce'];
+ 
+  // check to see if the submitted nonce matches with the
+  // generated nonce we created earlier
+  if (!wp_verify_nonce($nonce, 'newstatpress-nsp_external-nonce')) {
+    die ( 'Busted!');
+  }
+  
+  nsp_externalApiAjax();
+}
+
+/**
  * body function of external API
  */
 function nsp_externalApiAjax() {

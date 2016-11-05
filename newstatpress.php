@@ -262,7 +262,7 @@ function nsp_Activation($arg='') {
  add_action( 'wp_ajax_nopriv_nsp_variables', 'nsp_variablesAjax' ); // need this to serve non logged in users
  
  // register actions for ajax external API
- add_action( 'wp_ajax_nsp_external', 'nsp_externalApiAjax' );
+ add_action( 'wp_ajax_nsp_external', 'nsp_externalApiAjaxN' );
  add_action( 'wp_ajax_nopriv_nsp_external', 'nsp_externalApiAjax' ); // need this to serve non logged in users
  
  
