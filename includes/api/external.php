@@ -16,13 +16,13 @@ require('nsp_api_overview.php');
  */
 function nsp_externalApiAjaxN() {
   $nonce = $_POST['postCommentNonce'];
- 
+
   // check to see if the submitted nonce matches with the
   // generated nonce we created earlier
   if (!wp_verify_nonce($nonce, 'newstatpress-nsp_external-nonce')) {
     die ( 'Busted!');
   }
-  
+
   nsp_externalApiAjax();
 }
 
@@ -32,17 +32,15 @@ function nsp_externalApiAjaxN() {
 function nsp_externalApiAjax() {
   global $_NEWSTATPRESS;
   global $wpdb;
-
   header('HTTP/1.0 200 Ok');
-
   if($_SERVER['REQUEST_METHOD'] != "POST") {
-    header('HTTP/1.0 403 Forbidden'); 
+    header('HTTP/1.0 403 Forbidden');
     die("Invalid use of API");
     return;
   }
 
   if (get_option('newstatpress_externalapi')!='checked') {
-    header('HTTP/1.0 403 Forbidden'); 
+    header('HTTP/1.0 403 Forbidden');
     die("API not activated");
     return;
   }
@@ -60,7 +58,7 @@ function nsp_externalApiAjax() {
   if ($typ == null) $typ="JSON";
 
   if ($typ != "JSON" && $typ != "HTML") {
-    header('HTTP/1.0 403 Forbidden'); 
+    header('HTTP/1.0 403 Forbidden');
     die("Return type not available");
     return;
   }
@@ -90,38 +88,34 @@ function nsp_externalApiAjax() {
       break;
     case 'wpversion':
       $result=nsp_ApiWpVersion($typ);
-      break;           
+      break;
     case 'dashboard':
       $result=nsp_ApiDashboard($typ);
       break;
     case 'overview':
       $result=nsp_ApiOverview($typ, $par);
-      break;          
-    default: 
-      header('HTTP/1.0 403 Forbidden'); 
+      break;
+    default:
+      header('HTTP/1.0 403 Forbidden');
       die("Not recognized API.");
       return;
   }
 
-  if ($typ == 'JSON') {    
+  if ($typ == 'JSON') {
     // response output
     header( "Content-Type: application/json" );
     // gives the complete output according to $resultJ
     echo json_encode(
       $result
-    ); 
+    );
   }
 
   if ($typ == 'HTML') {
     // response output
-    header( "Content-Type: application/html" );  
+    header( "Content-Type: application/html" );
     // gives the complete output according to $resultH
-    echo $result; 
+    echo $result;
   }
   wp_die();
 }
-
-?> 
-
-
-
+?>
