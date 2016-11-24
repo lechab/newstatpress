@@ -547,50 +547,6 @@ function nsp_stat_by_email($arg='') {
 }
 
 
-
-if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
-  $name=$nsp_option_vars['mail_notification']['name'];
-  $status=get_option($name);
-
-  if ($status=='enabled') {
-    $name=$nsp_option_vars['mail_notification_freq']['name'];
-    $freq=get_option($name);
-    $name=$nsp_option_vars['mail_notification_time']['name'];
-    $timeuser=get_option($name);
-    $crontime_offest=nsp_calculationOffsetTime($t=time(),$timeuser);
-    $crontime = time() + $crontime_offest ;
-    if($freq=='_oneoff')
-      wp_schedule_single_event( $crontime, 'nsp_mail_notification' );
-    else
-      wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
-  }
-}
-else {
-  $name=$nsp_option_vars['mail_notification']['name'];
-  $status=get_option($name);
-
-  if ($status=='disabled')
-     nsp_mail_notification_deactivate();
-  elseif ($status=='enabled') {
-    if(isset($_POST['saveit']) && $_POST['saveit'] == 'all') {
-      $name=$nsp_option_vars['mail_notification_freq']['name'];
-      $freq=get_option($name);
-      $name=$nsp_option_vars['mail_notification_time']['name'];
-      $timeuser=get_option($name);
-      $crontime_offest=nsp_calculationOffsetTime($t=time(),$timeuser);
-      $crontime = time() + $crontime_offest ;
-      remove_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
-      $timestamp = wp_next_scheduled( 'nsp_mail_notification' );
-      wp_unschedule_event( $timestamp, 'nsp_mail_notification');
-      if($freq=='_oneoff')
-        wp_schedule_single_event( $crontime, 'nsp_mail_notification' );
-      else
-        wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
-     }
-  }
-}
-
-
 function nsp_mail_notification_deactivate() {
  wp_clear_scheduled_hook( 'nsp_mail_notification' );
 }
