@@ -273,6 +273,7 @@ else {
   elseif ($status=='enabled') {
     if(isset($_POST['saveit']) && $_POST['saveit'] == 'all') {  
       check_admin_referer('nsp_submit', 'nps_option_post');
+      if (!current_user_can('administrator')) die("NO permission");
     
       $retrieved_nonce = $_REQUEST['_wpnonce'];
       if (!wp_verify_nonce($retrieved_nonce, 'nsp_option_post' ) ) die( 'Failed security check' );
@@ -298,6 +299,7 @@ else {
     
     if(isset($_POST['saveit']) && $_POST['saveit'] == 'all') { //option update request by user
       check_admin_referer('nsp_submit', 'nps_option_post');
+      if (!current_user_can('administrator')) die("NO permission");
 
       $i=isset($_POST['newstatpress_collectloggeduser']) ? $_POST['newstatpress_collectloggeduser'] : '';
       update_option('newstatpress_collectloggeduser', $i);
@@ -341,6 +343,7 @@ else {
     }
     elseif(isset($_POST['saveit']) && $_POST['saveit'] == 'mailme') { //option mailme request by user
       check_admin_referer('nsp_submit', 'nps_option_post');
+      if (!current_user_can('administrator')) die("NO permission");
     
       update_option('newstatpress_mail_notification_emailaddress', $_POST['newstatpress_mail_notification_emailaddress']); //save the
       $mail_confirmation=nsp_stat_by_email('test');
