@@ -247,53 +247,53 @@ function nsp_Options() {
     <?php
     
     
-if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
-  $name=$nsp_option_vars['mail_notification']['name'];
-  $status=get_option($name);
+  if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
+    $name=$nsp_option_vars['mail_notification']['name'];
+    $status=get_option($name);
 
-  if ($status=='enabled') {
-    $name=$nsp_option_vars['mail_notification_freq']['name'];
-    $freq=get_option($name);
-    $name=$nsp_option_vars['mail_notification_time']['name'];
-    $timeuser=get_option($name);
-    $crontime_offest=nsp_calculationOffsetTime($t=time(),$timeuser);
-    $crontime = time() + $crontime_offest ;
-    if($freq=='_oneoff')
-      wp_schedule_single_event( $crontime, 'nsp_mail_notification' );
-    else
-      wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
-  }
-}
-else {
-  $name=$nsp_option_vars['mail_notification']['name'];
-  $status=get_option($name);
-
-  if ($status=='disabled')
-     nsp_mail_notification_deactivate();
-  elseif ($status=='enabled') {
-    if(isset($_POST['saveit']) && $_POST['saveit'] == 'all') {  
-      check_admin_referer('nsp_submit', 'nps_option_post');
-      if (!current_user_can('administrator')) die("NO permission");
-    
-      $retrieved_nonce = $_REQUEST['_wpnonce'];
-      if (!wp_verify_nonce($retrieved_nonce, 'nsp_option_post' ) ) die( 'Failed security check' );
-      
+    if ($status=='enabled') {
       $name=$nsp_option_vars['mail_notification_freq']['name'];
       $freq=get_option($name);
       $name=$nsp_option_vars['mail_notification_time']['name'];
       $timeuser=get_option($name);
       $crontime_offest=nsp_calculationOffsetTime($t=time(),$timeuser);
       $crontime = time() + $crontime_offest ;
-      remove_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
-      $timestamp = wp_next_scheduled( 'nsp_mail_notification' );
-      wp_unschedule_event( $timestamp, 'nsp_mail_notification');
       if($freq=='_oneoff')
         wp_schedule_single_event( $crontime, 'nsp_mail_notification' );
       else
         wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
-     }
+    }
   }
-}    
+  else {
+    $name=$nsp_option_vars['mail_notification']['name'];
+    $status=get_option($name);
+
+    if ($status=='disabled')
+       nsp_mail_notification_deactivate();
+    elseif ($status=='enabled') {
+      if(isset($_POST['saveit']) && $_POST['saveit'] == 'all') {  
+        check_admin_referer('nsp_submit', 'nps_option_post');
+        if (!current_user_can('administrator')) die("NO permission");
+    
+        $retrieved_nonce = $_REQUEST['_wpnonce'];
+        if (!wp_verify_nonce($retrieved_nonce, 'nsp_option_post' ) ) die( 'Failed security check' );
+      
+        $name=$nsp_option_vars['mail_notification_freq']['name'];
+        $freq=get_option($name);
+        $name=$nsp_option_vars['mail_notification_time']['name'];
+        $timeuser=get_option($name);
+        $crontime_offest=nsp_calculationOffsetTime($t=time(),$timeuser);
+        $crontime = time() + $crontime_offest ;
+        remove_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
+        $timestamp = wp_next_scheduled( 'nsp_mail_notification' );
+        wp_unschedule_event( $timestamp, 'nsp_mail_notification');
+        if($freq=='_oneoff')
+          wp_schedule_single_event( $crontime, 'nsp_mail_notification' );
+        else
+          wp_schedule_event( $crontime, $freq, 'nsp_mail_notification');
+       }
+    }
+  }    
     
     
     
@@ -301,19 +301,19 @@ else {
       check_admin_referer('nsp_submit', 'nps_option_post');
       if (!current_user_can('administrator')) die("NO permission");
 
-      $i=isset($_POST['newstatpress_collectloggeduser']) ? $_POST['newstatpress_collectloggeduser'] : '';
+      $i=isset($_POST['newstatpress_collectloggeduser']) ? ('checked'===$_POST['newstatpress_collectloggeduser'] ? 'checked' : '' ) : '';
       update_option('newstatpress_collectloggeduser', $i);
 
-      $i=isset($_POST['newstatpress_donotcollectspider']) ? $_POST['newstatpress_donotcollectspider'] : '';
+      $i=isset($_POST['newstatpress_donotcollectspider']) ? ('checked'===$_POST['newstatpress_donotcollectspider'] ? 'checked' : '' ) : '';
       update_option('newstatpress_donotcollectspider', $i);
 
-      $i=isset($_POST['newstatpress_cryptip']) ? $_POST['newstatpress_cryptip'] : '';
+      $i=isset($_POST['newstatpress_cryptip']) ? ('checked'===$_POST['newstatpress_cryptip'] ? 'checked' : '' ) : '';
       update_option('newstatpress_cryptip', $i);
 
-      $i=isset($_POST['newstatpress_dashboard']) ? $_POST['newstatpress_dashboard'] : '';
+      $i=isset($_POST['newstatpress_dashboard']) ? ('checked'===$_POST['newstatpress_dashboard'] ? 'checked' : '' ) : '';
       update_option('newstatpress_dashboard', $i);
 
-      $i=isset($_POST['newstatpress_externalapi']) ? $_POST['newstatpress_externalapi'] : '';
+      $i=isset($_POST['newstatpress_externalapi']) ? ('checked'===$_POST['newstatpress_externalapi'] ? 'checked' : '' ) : '';
       update_option('newstatpress_externalapi', $i);
 
       global $nsp_option_vars;
@@ -332,7 +332,7 @@ else {
         update_option('newstatpress_ignore_users', nsp_FilterForXss($_POST['newstatpress_ignore_users']));
         elseif ($var['name'] == 'newstatpress_ignore_permalink')
           update_option('newstatpress_ignore_permalink', nsp_FilterForXss($_POST['newstatpress_ignore_permalink']));
-        else update_option($var['name'], $_POST[$var['name']]);
+        else update_option($var['name'], esc_js(esc_html($_POST[$var['name']])));
       }
 
       // update database too and print message confirmation
