@@ -42,7 +42,7 @@ function nsp_DatabaseSearch($what='') {
          print "<td><input type=checkbox name=sortby$i value='checked' "."checked"."> ".__('Sort by','newstatpress')."</td>";
       } else print "<td><input type=checkbox name=sortby$i value='checked' "."> ".__('Sort by','newstatpress')."</td>";
 
-      print "<td>, ".__('if contains','newstatpress')." <input type=text name=what$i value='".$_GET["what$i"]."'></td>";
+      print "<td>, ".__('if contains','newstatpress')." <input type=text name=what$i value='".esc_js(esc_html($_GET["what$i"]))."'></td>";
       print "</tr>";
     }
 ?>
@@ -67,6 +67,7 @@ function nsp_DatabaseSearch($what='') {
          </tr>
          <tr><td>&nbsp;</td></tr>
          <tr>
+          <?php wp_nonce_field('nsp_search', 'nsp_search_post'); ?>
           <td align=right><input class='button button-primary' type=submit value=<?php _e('Search','newstatpress'); ?> name=searchsubmit></td>
          </tr>
        </table>
@@ -81,6 +82,12 @@ function nsp_DatabaseSearch($what='') {
 <?php
 
  if(isset($_GET['searchsubmit'])) {
+   check_admin_referer('nsp_search', 'nsp_search_post'); 
+   if (!current_user_can('administrator')) die("NO permission");
+ 
+   $retrieved_nonce = $_REQUEST['nsp_search_post'];
+   if (!wp_verify_nonce($retrieved_nonce, 'nsp_search' ) ) die( 'Failed security check' );
+ 
    # query builder
    $qry="";
    # FIELDS

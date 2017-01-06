@@ -272,11 +272,11 @@ function nsp_Options() {
        nsp_mail_notification_deactivate();
     elseif ($status=='enabled') {
       if(isset($_POST['saveit']) && $_POST['saveit'] == 'all') {  
-        check_admin_referer('nsp_submit', 'nps_option_post');
+        check_admin_referer('nsp_submit', 'nsp_option_post');
         if (!current_user_can('administrator')) die("NO permission");
     
-        $retrieved_nonce = $_REQUEST['_wpnonce'];
-        if (!wp_verify_nonce($retrieved_nonce, 'nsp_option_post' ) ) die( 'Failed security check' );
+        $retrieved_nonce = $_REQUEST['nsp_option_post'];
+        if (!wp_verify_nonce($retrieved_nonce, 'nsp_submit' ) ) die( 'Failed security check' );
       
         $name=$nsp_option_vars['mail_notification_freq']['name'];
         $freq=get_option($name);
@@ -298,8 +298,11 @@ function nsp_Options() {
     
     
     if(isset($_POST['saveit']) && $_POST['saveit'] == 'all') { //option update request by user
-      check_admin_referer('nsp_submit', 'nps_option_post');
+      check_admin_referer('nsp_submit', 'nsp_option_post');
       if (!current_user_can('administrator')) die("NO permission");
+      
+      $retrieved_nonce = $_POST['nsp_option_post'];
+      if (!wp_verify_nonce($retrieved_nonce, 'nsp_submit' ) ) die( 'Failed security check on option' );
 
       $i=isset($_POST['newstatpress_collectloggeduser']) ? ('checked'===$_POST['newstatpress_collectloggeduser'] ? 'checked' : '' ) : '';
       update_option('newstatpress_collectloggeduser', $i);
@@ -342,10 +345,13 @@ function nsp_Options() {
 
     }
     elseif(isset($_POST['saveit']) && $_POST['saveit'] == 'mailme') { //option mailme request by user
-      check_admin_referer('nsp_submit', 'nps_option_post');
+      check_admin_referer('nsp_submit', 'nsp_option_post');
       if (!current_user_can('administrator')) die("NO permission");
     
-      update_option('newstatpress_mail_notification_emailaddress', $_POST['newstatpress_mail_notification_emailaddress']); //save the
+      $retrieved_nonce = $_REQUEST['nsp_option_post'];
+      if (!wp_verify_nonce($retrieved_nonce, 'nsp_submit' ) ) die( 'Failed security check on mail' );
+    
+      update_option('newstatpress_mail_notification_emailaddress', esc_js(esc_html($_POST['newstatpress_mail_notification_emailaddress']))); //save the
       $mail_confirmation=nsp_stat_by_email('test');
 
       if ($mail_confirmation)
@@ -936,7 +942,7 @@ function nsp_Options() {
       </div>
 
       <!-- Save Options Button -->
-      <?php wp_nonce_field('nsp_submit', 'nps_option_post'); ?>
+      <?php wp_nonce_field('nsp_submit', 'nsp_option_post'); ?>
       <input type="hidden" name="page" value="newstatpress">
       <input type="hidden" name="newstatpress_action" value="options">
       <button class="button button-primary" type="submit" name="saveit" value="all"><?php _e('Save options',nsp_TEXTDOMAIN); ?></button>

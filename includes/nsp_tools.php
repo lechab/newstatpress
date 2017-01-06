@@ -19,7 +19,6 @@ if( !defined( 'ABSPATH' ) ) {
  * Display the tools page using tabs
  */
 function nsp_DisplayToolsPage() {
-
   global $pagenow;
   $page='nsp_tools';
   $ToolsPage_tabs = array( 'IP2nation' => __('IP2nation','newstatpress'),
@@ -91,14 +90,25 @@ function nsp_IndexTableSize($table) {
  *
  *************************/
 function nsp_IP2nation() {
-
-
-
   // Install or Remove if requested by user
   if (isset($_POST['installation']) && $_POST['installation'] == 'install' ) {
+  
+    check_admin_referer('nsp_tool', 'nsp_tool_post');
+    if (!current_user_can('administrator')) die("NO permission");
+    
+    $retrieved_nonce = $_REQUEST['nsp_tool_post'];
+    if (!wp_verify_nonce($retrieved_nonce, 'nsp_tool' ) ) die( 'Failed security check' );  
+  
     $install_result=nsp_IP2nationInstall();
   }
   elseif (isset($_POST['installation']) && $_POST['installation'] == 'remove' ) {
+  
+    check_admin_referer('nsp_tool', 'nsp_tool_post');
+    if (!current_user_can('administrator')) die("NO permission");
+    
+    $retrieved_nonce = $_REQUEST['nsp_tool_post'];
+    if (!wp_verify_nonce($retrieved_nonce, 'nsp_tool' ) ) die( 'Failed security check' );  
+  
     $install_result=nsp_IP2nationRemove();
   }
 
@@ -163,6 +173,7 @@ function nsp_IP2nation() {
     <br /><br />
       <form method=post>
        <input type=hidden name=page value=newstatpress>
+       <?php wp_nonce_field('nsp_tool', 'nsp_tool_post'); ?>
 
        <input type=hidden name=newstatpress_action value=ip2nation>
        <button class='<?php echo $class_install ?> button button-primary' type=submit name=installation value=install>
@@ -397,6 +408,7 @@ function nsp_IP2nationRemove() {
         </td>
       </tr>
     </table>
+    <?php wp_nonce_field('nsp_tool', 'nsp_tool_post'); ?>
     <input class='button button-primary' type=submit value=<?php _e('Export','newstatpress'); ?>>
     <input type=hidden name=page value=newstatpress><input type=hidden name=newstatpress_action value=exportnow>
     </form>
@@ -409,15 +421,59 @@ function nsp_IP2nationRemove() {
  */
 function nsp_ExportNow() {
   global $wpdb;
+  
+  check_admin_referer('nsp_tool', 'nsp_tool_post');
+      
+  $retrieved_nonce = $_REQUEST['nsp_tool_post'];
+  if (!wp_verify_nonce($retrieved_nonce, 'nsp_tool' ) ) die( 'Failed security check' );
+  
   $table_name = nsp_TABLENAME;
+  
+  // sanitize from date
+  if (isset($_GET['from']) && is_numeric($_GET['from'])) $from=$_GET['from'];
+  else $from='19990101';
+  
+  // sanitize to date
+  if (isset($_GET['to']) && is_numeric($_GET['to'])) $to=$_GET['to'];
+  else $from='29990101';
+    
+  // sanitize extesnion
+  if (isset($_GET['ext'])) {
+    switch($_GET['ext']) {
+      case 'csv':
+      case 'txt':
+        $ext=$_GET['ext'];
+        break;
+      default:
+        $ext="txt";
+    }
+  } else $ext="txt";
+  
+  // sanitize delimiter
+  if (isset($_GET['del'])) {
+    $del=substr($_GET['del'],0,1);
+    
+    switch ($del) {
+      case ';':
+      case '|':
+      case ',':
+      case 't':
+        break;
+      default:
+        $del=';';
+    }
+  } else $del=';';
+  
+  
+  // sanitize file name  
   if($_GET['filename']=='')
-    $filename=get_bloginfo('title' )."-newstatpress_".$_GET['from']."-".$_GET['to'].".".$_GET['ext'];
+    $filename=get_bloginfo('title' )."-newstatpress_".$from."-".$to.".".$ext;
   else
-    $filename=$_GET['filename']."_".$_GET['from']."-".$_GET['to'].".".$_GET['ext'];
+    $filename=sanitize_file_name($_GET['filename']."_".$from."-".$to.".".$ext);
 
-  $ti['filename']=$_GET['filename'];
-  $ti['del']=$_GET['del'];
-  $ti['ext']=$_GET['ext'];
+  $ti['filename']=sanitize_file_name($_GET['filename']);
+  $ti['del']=$del;
+  $ti['ext']=$ext;
   update_option('newstatpress_exporttool', $ti);
 
   header('Content-Description: File Transfer');
@@ -427,10 +483,10 @@ function nsp_ExportNow() {
     "SELECT *
      FROM $table_name
      WHERE
-       date>='".(date("Ymd",strtotime(substr($_GET['from'],0,8))))."' AND
-       date<='".(date("Ymd",strtotime(substr($_GET['to'],0,8))))."';
+       date>='".(date("Ymd",strtotime(substr($from,0,8))))."' AND
+       date<='".(date("Ymd",strtotime(substr($to,0,8))))."';
     ");
-  $del=substr($_GET['del'],0,1);
+
   if ($del=="t") {
     $del="\t";
   }
@@ -447,6 +503,14 @@ function nsp_ExportNow() {
 function nsp_RemovePluginDatabase() {
 
   if(isset($_POST['removeit']) && $_POST['removeit'] == 'yes') {
+  
+    check_admin_referer('nsp_tool', 'nsp_tool_post');
+    if (!current_user_can('administrator')) die("NO permission");
+    
+    $retrieved_nonce = $_REQUEST['nsp_tool_post'];
+    if (!wp_verify_nonce($retrieved_nonce, 'nsp_tool' ) ) die( 'Failed security check' ); 
+  
+  
     global $wpdb;
     $table_name = nsp_TABLENAME;
     $results =$wpdb->query( "DELETE FROM " . $table_name);
@@ -461,6 +525,7 @@ function nsp_RemovePluginDatabase() {
         <form method=post>
               <?php _e('To remove the Newstatpress database, just click on the button bellow.','newstatpress');?>
           <br /><br />
+        <?php wp_nonce_field('nsp_tool', 'nsp_tool_post'); ?>
         <input class='button button-primary' type=submit value="<?php _e('Remove','newstatpress'); ?>" onclick="return confirm('<?php _e('Are you sure?','newstatpress'); ?>');" >
         <input type=hidden name=removeit value=yes>
         </form>
@@ -535,6 +600,12 @@ function nsp_ExtractFeedReq($url) {
 function nsp_Update() {
   // database update if requested by user
   if (isset($_POST['update']) && $_POST['update'] == 'yes' ) {
+    check_admin_referer('nsp_tool', 'nsp_tool_post');
+    if (!current_user_can('administrator')) die("NO permission");
+    
+    $retrieved_nonce = $_REQUEST['nsp_tool_post'];
+    if (!wp_verify_nonce($retrieved_nonce, 'nsp_tool' ) ) die( 'Failed security check' );
+  
     nsp_UpdateNow();
     die;
   }
@@ -544,6 +615,7 @@ function nsp_Update() {
        <?php _e('To update the newstatpress database, just click on the button bellow.','newstatpress');?>
    <br /><br />
    <form method=post>
+    <?php wp_nonce_field('nsp_tool', 'nsp_tool_post'); ?>
     <input type=hidden name=page value=newstatpress>
     <input type=hidden name=update value=yes>
     <input type=hidden name=newstatpress_action value=update>
@@ -890,6 +962,12 @@ function nsp_Optimize() {
 
   // database update if requested by user
   if (isset($_POST['optimize']) && $_POST['optimize'] == 'yes' ) {
+    check_admin_referer('nsp_tool', 'nsp_tool_post');
+    if (!current_user_can('administrator')) die("NO permission");
+    
+    $retrieved_nonce = $_REQUEST['nsp_tool_post'];
+    if (!wp_verify_nonce($retrieved_nonce, 'nsp_tool' ) ) die( 'Failed security check' ); 
+  
     nsp_OptimizeNow();
     die;
   }
@@ -899,6 +977,7 @@ function nsp_Optimize() {
     <?php _e('To optimize the statpress table, just click on the button bellow.','newstatpress');?>
     <br /><br />
     <form method=post>
+      <?php wp_nonce_field('nsp_tool', 'nsp_tool_post'); ?>
       <input type=hidden name=page value=newstatpress>
       <input type=hidden name=optimize value=yes>
       <input type=hidden name=newstatpress_action value=optimize>
@@ -922,6 +1001,12 @@ function nsp_Optimize() {
 function nsp_Repair() {
   // database update if requested by user
   if (isset($_POST['repair']) && $_POST['repair'] == 'yes' ) {
+    check_admin_referer('nsp_tool', 'nsp_tool_post');
+    if (!current_user_can('administrator')) die("NO permission");
+    
+    $retrieved_nonce = $_REQUEST['nsp_tool_post'];
+    if (!wp_verify_nonce($retrieved_nonce, 'nsp_tool' ) ) die( 'Failed security check' ); 
+  
     nsp_RepairNow();
     die;
   }
@@ -931,6 +1016,7 @@ function nsp_Repair() {
        <?php _e('To repair the statpress table if damaged, just click on the button bellow.','newstatpress');?>
    <br /><br />
    <form method=post>
+    <?php wp_nonce_field('nsp_tool', 'nsp_tool_post'); ?>
     <input type=hidden name=page value=newstatpress>
     <input type=hidden name=repair value=yes>
     <input type=hidden name=newstatpress_action value=repair>
