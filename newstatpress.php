@@ -1043,14 +1043,13 @@ function nsp_StatAppend() {
   }
 
   $referrer = (isset($_SERVER['HTTP_REFERER']) ? htmlentities($_SERVER['HTTP_REFERER']) : '');
+  $referrer=esc_url($referrer);
   $referrer=esc_sql($referrer);
-  $referrer=esc_html($referrer);
-  $referrer=esc_js($referrer); 
+
 
   $userAgent = (isset($_SERVER['HTTP_USER_AGENT']) ? htmlentities($_SERVER['HTTP_USER_AGENT']) : '');
+  $userAgent=sanitize_text_field($userAgent);
   $userAgent=esc_sql($userAgent);
-  $userAgent=esc_html($userAgent);
-  $userAgent=esc_js($userAgent); 
 
   $spider=nsp_GetSpider($userAgent);
 
