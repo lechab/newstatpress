@@ -161,7 +161,7 @@ function nsp_variablesAjax() {
        echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='thistotalvisits') {
-      $url = esc_sql($_REQUEST["URL"]);
+      $url = esc_url($_REQUEST["URL"]);
 
       $qry = $wpdb->get_results(
         "SELECT count(DISTINCT(ip)) AS pageview

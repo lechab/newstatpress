@@ -335,7 +335,7 @@ function nsp_Options() {
         update_option('newstatpress_ignore_users', nsp_FilterForXss($_POST['newstatpress_ignore_users']));
         elseif ($var['name'] == 'newstatpress_ignore_permalink')
           update_option('newstatpress_ignore_permalink', nsp_FilterForXss($_POST['newstatpress_ignore_permalink']));
-        else update_option($var['name'], esc_js(esc_html($_POST[$var['name']])));
+        else update_option($var['name'], sanitize_text_field($_POST[$var['name']]));
       }
 
       // update database too and print message confirmation
@@ -351,7 +351,7 @@ function nsp_Options() {
       $retrieved_nonce = $_REQUEST['nsp_option_post'];
       if (!wp_verify_nonce($retrieved_nonce, 'nsp_submit' ) ) die( 'Failed security check on mail' );
     
-      update_option('newstatpress_mail_notification_emailaddress', esc_js(esc_html($_POST['newstatpress_mail_notification_emailaddress']))); //save the
+      update_option('newstatpress_mail_notification_emailaddress', sanitize_email($_POST['newstatpress_mail_notification_emailaddress'])); //save the
       $mail_confirmation=nsp_stat_by_email('test');
 
       if ($mail_confirmation)
