@@ -1393,7 +1393,7 @@ function nsp_WidgetInit($args) {
     $options = get_option('widget_newstatpress');
     if ( !is_array($options) ) $options = array('title'=>'NewStatPress Stats', 'body'=>'Visits today: %visits%');
     if ( isset($_POST['newstatpress-submit']) && $_POST['newstatpress-submit'] ) {
-      $options['title'] = strip_tags(stripslashes($_POST['newstatpress-title']));
+      $options['title'] = sanitize_text_field($_POST['newstatpress-title']);
       $options['body'] = stripslashes($_POST['newstatpress-body']);
       update_option('widget_newstatpress', $options);
     }
@@ -1438,9 +1438,9 @@ function nsp_WidgetInit($args) {
       $options = array('title'=>'NewStatPress TopPosts', 'howmany'=>'5', 'showcounts'=>'checked');
     }
     if ( isset($_POST['newstatpresstopposts-submit']) && $_POST['newstatpresstopposts-submit'] ) {
-      $options['title'] = strip_tags(stripslashes($_POST['newstatpresstopposts-title']));
-      $options['howmany'] = stripslashes($_POST['newstatpresstopposts-howmany']);
-      $options['showcounts'] = stripslashes($_POST['newstatpresstopposts-showcounts']);
+      $options['title'] = sanitize_text_field($_POST['newstatpresstopposts-title']);
+      $options['howmany'] = filter_var($_POST['newstatpresstopposts-howmany'], FILTER_SANITIZE_NUMBER_INT);
+      $options['showcounts'] = sanitize_text_field($_POST['newstatpresstopposts-showcounts']);
       if($options['showcounts'] == "1") {
         $options['showcounts']='checked';
       }
