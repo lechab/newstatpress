@@ -30,22 +30,20 @@
 - [ ] Add jQuery Vector Maps v1.5.0
 
 ## 1.2.5
-*Released date: 2016-07-xx*
+*Released date: 2016-03-20*
 
 IMPORTANT CRITICAL UPDATE
 
 - [x] Fix Stored cross-site scripting vulnerabilities, find by Han Sahin of www.SumOfPwn.nl @sumofpwn
 - [x] Avoid direct access to pages
 - [x] Changing path detections (not support anymore WordPress 2.x or lower)
-- [x] fix widget variable list
-- [x] Use javascript+ajax fo variables API
+- [x] Fix widget variable list
+- [x] Use javascript+ajax for variables API
 - [x] Remove the usage of wp_load
 - [x] Complete name conversion
 - [x] External API via WP Ajax
 - [x] Fix missing 2 spider images
 - [x] Use NONCE for ajax call in variables API
-
-PLEASE
 
 ## 1.2.4
 *Released date: 2016-06-18*

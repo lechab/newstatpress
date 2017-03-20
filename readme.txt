@@ -151,15 +151,20 @@ Check at http://newstatpress.altervista.org for more details
 == Changelog ==
 
 = 1.2.5 =
-*Released date: 2016-07-xx*
+*Released date: 2017-03-20*
 
 IMPORTANT CRITICAL UPDATE
 * Fix Stored cross-site scripting vulnerabilities, find by Han Sahin of www.SumOfPwn.nl @sumofpwn
 * Avoid direct access to pages 
 * Changing path detections (not support anymore WordPress 2.x or lower)
+* Fix widget variable list
+* Use javascript+ajax for variables API
 * Remove the usage of wp_load
 * Complete name conversion
-* Rewrite API authentication
+* External API via WP Ajax
+* Fix missing 2 spider images
+* Use NONCE for ajax call in variables API
+
 
 = 1.2.4 =
 *Released date: 2016-06-18*
