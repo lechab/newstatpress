@@ -644,7 +644,7 @@ function nsp_URL() {
   
   // sanitize urldecode
   $urlRequested = filter_var($urlRequested, FILTER_SANITIZE_URL);
-  if (!filter_var($urlRequested, FILTER_VALIDATE_URL)) return "";
+  //if (!filter_var($urlRequested, FILTER_VALIDATE_URL)) return "";
   
   return $urlRequested;
 }

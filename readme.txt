@@ -150,6 +150,12 @@ Check at http://newstatpress.altervista.org for more details
 
 == Changelog ==
 
+
+= 1.2.6 =
+*Released date: 2017-03-23*
+
+* Fix url sanitization that break page detection
+
 = 1.2.5 =
 *Released date: 2017-03-20*
 
