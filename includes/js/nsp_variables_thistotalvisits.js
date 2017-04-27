@@ -13,7 +13,7 @@ jQuery.post(
     FLAG   : nsp_variablesAjax_thistotalvisits.FLAG,
     
     // send the nonce along with the request
-    postCommentNonce : nsp_variablesAjax_monthtotalpageviews.postCommentNonce      
+    postCommentNonce : nsp_variablesAjax_thistotalvisits.postCommentNonce      
   },
 
   function( response ) {
