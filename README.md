@@ -33,6 +33,7 @@
 *Released date: 2017-05-xx*
 
 - [x] Fix %thistotalvisits% javascript
+- [x] Fix offsets not stores in option after sanitization
 
 ## 1.2.6
 *Released date: 2017-03-23*
