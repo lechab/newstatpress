@@ -30,10 +30,11 @@
 - [ ] Add jQuery Vector Maps v1.5.0
 
 ## 1.2.7
-*Released date: 2017-05-xx*
+*Released date: 2017-07-02*
 
 - [x] Fix %thistotalvisits% javascript
 - [x] Fix offsets not stores in option after sanitization
+- [x] Fix css wordpress problem
 
 ## 1.2.6
 *Released date: 2017-03-23*

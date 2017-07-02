@@ -151,10 +151,11 @@ Check at http://newstatpress.altervista.org for more details
 == Changelog ==
 
 = 1.2.7 =
-*Released date: 2017-05-xx*
+*Released date: 2017-07-02*
 
 *Fix %thistotalvisits% javascript
 *Fix offsets not stores in option after sanitization
+*Fix css wordpress problem
 
 = 1.2.6 =
 *Released date: 2017-03-23*
