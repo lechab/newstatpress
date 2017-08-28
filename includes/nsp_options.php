@@ -239,14 +239,14 @@ function nsp_PrintTextaera($option_title, $option_var, $option_description) {
  * Update by cHab : integrate JS tabulation
  */
 function nsp_Options() {
+  global $nsp_option_vars;
 ?>
 
 <div class='wrap'>
   <h2><?php _e('NewStatPress Settings',nsp_TEXTDOMAIN); ?></h2>
 
     <?php
-    
-    
+     
   if ( ! wp_next_scheduled( 'nsp_mail_notification' ) ) {
     $name=$nsp_option_vars['mail_notification']['name'];
     $status=get_option($name);
@@ -319,7 +319,7 @@ function nsp_Options() {
       $i=isset($_POST['newstatpress_externalapi']) ? ('checked'===$_POST['newstatpress_externalapi'] ? 'checked' : '' ) : '';
       update_option('newstatpress_externalapi', $i);
 
-      global $nsp_option_vars;
+      //global $nsp_option_vars;
 
       // $status['state'] = FALSE;
       // $status['freq'] = TRUE;

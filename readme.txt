@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 3.5
 Tested up to: 4.8
-Stable Tag: 1.2.7
+Stable Tag: 1.2.8
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -149,6 +149,12 @@ Check at http://newstatpress.altervista.org for more details
 6.
 
 == Changelog ==
+
+= 1.2.8 =
+*Released date: 2017-08-28*
+
+*Fix Os missing images
+*Fix undefined index warning
 
 = 1.2.7 =
 *Released date: 2017-07-02*

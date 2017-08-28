@@ -201,32 +201,35 @@ function nsp_AdminNagNotices() {
 
     global $pagenow;
     $page_nsp=0;
-    switch ($_GET['page']) {
-      case 'nsp-main':
+    
+    if (isset($_GET['page'])) {
+      switch ($_GET['page']) {
+        case 'nsp-main':
                           $page_nsp=1;
                           break;
-      case 'nsp_details':
+        case 'nsp_details':
                           $page_nsp=1;
                           break;
-      case 'nsp_visits':
+        case 'nsp_visits':
                           $page_nsp=1;
                           break;
-      case 'nsp_search':
+        case 'nsp_search':
                           $page_nsp=1;
                           break;
-      case 'nsp_tools':
+        case 'nsp_tools':
                           $page_nsp=1;
                           break;
-      case 'nsp_options':
+        case 'nsp_options':
                           $page_nsp=1;
                           break;
-      case 'nsp_credits':
+        case 'nsp_credits':
                           $page_nsp=1;
                           break;
 
-      default:
+        default:
                           $page_nsp=0;
                           break;
+      }
     }
 
     //Display NSP box if user are in plugins page or nsp plugins

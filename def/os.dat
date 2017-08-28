@@ -62,7 +62,7 @@ iOS 9.2 (iPhone)|iPhoneOS9_2|iOS 9|
 iOS 9.1 (iPhone)|iPhoneOS9_1|iOS 9|
 iOS 9.0 (iPhone)|iPhoneOS9_0|iOS 9|
 iOS 9|iPhoneOS9|iOS 9|
-iPhone|iPhone|
+iPhone|iPhone|iPhone|
 iOS 6.1 (iPad)|CPUOS6_1|iOS 6|
 iOS 6.0 (iPad)|CPUOS6_0|iOS 6|
 iOS 7.1 (iPad)|CPUOS7_1|iOS 7|
@@ -75,8 +75,8 @@ iOS 9.3 (iPad)|CPUOS9_3|iOS 9|
 iOS 9.2 (iPad)|CPUOS9_2|iOS 9|
 iOS 9.1 (iPad)|CPUOS9_1|iOS 9|
 iOS 9.0 (iPad)|CPUOS9_0|iOS 9|
-iPad|iPad|
-iPod|iPod|
+iPad|iPad|iPad|
+iPod|iPod|iPod|
 CyanogenMod|CyanogenMod|Android|
 Android Donut (1.6)|Android1.6|Android|
 Android Donut (1.6)|Donut|Android|
