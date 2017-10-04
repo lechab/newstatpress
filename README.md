@@ -30,7 +30,7 @@
 - [ ] Add jQuery Vector Maps v1.5.0
 
 ## 1.2.8
-*Released date: 2017-08-25*
+*Released date: 2017-10-04*
 
 - [x] Fix Os missing images
 - [x] Fix undefined index warning
