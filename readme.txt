@@ -155,6 +155,8 @@ Check at http://newstatpress.altervista.org for more details
 
 *Fix Os missing images
 *Fix undefined index warning
+*Update Hungarian language thanks to Pille
+*Fix PHP 7.1 specific error
 
 = 1.2.7 =
 *Released date: 2017-07-02*

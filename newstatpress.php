@@ -1130,7 +1130,7 @@ function nsp_StatAppend() {
     }
 
     if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-      nsp_BuildPluginSQLTable();
+      nsp_BuildPluginSQLTable('create');
     }
 
     $login = $userdata ? $userdata->user_login : null;

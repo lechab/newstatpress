@@ -34,6 +34,8 @@
 
 - [x] Fix Os missing images
 - [x] Fix undefined index warning
+- [x] Update Hungarian language thanks to Pille
+- [x] Fix PHP 7.1 specific error
 
 ## 1.2.7
 *Released date: 2017-07-02*
