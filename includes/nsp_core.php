@@ -26,14 +26,14 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
     $queryfld = $fld;
   }
 
-  $text .= "<div class='wrap'>
-             <table class='widefat'>
-              <thead>
-                <tr>
-                 <th scope='col' class='keytab-head'><h2>$fldtitle</h2></th>
-                 <th scope='col' style='width:10%;text-align:center;'>".__('Visits','newstatpress')."</th>
-                </tr>
-              </thead>\n";
+  $text = "<div class='wrap'>
+            <table class='widefat'>
+             <thead>
+               <tr>
+                <th scope='col' class='keytab-head'><h2>$fldtitle</h2></th>
+                <th scope='col' style='width:10%;text-align:center;'>".__('Visits','newstatpress')."</th>
+               </tr>
+             </thead>\n";
 
   $rks = $wpdb->get_var("
      SELECT count($param $queryfld) as rks

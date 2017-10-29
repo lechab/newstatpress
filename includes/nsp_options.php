@@ -328,23 +328,25 @@ function nsp_Options() {
       // $status['info'] = TRUE;
 
       foreach($nsp_option_vars as $var) {
+        if (isset($_POST[$var['name']])) {
 
-        if ($var['name'] == 'newstatpress_ignore_ip')
-          update_option('newstatpress_ignore_ip', nsp_FilterForXss($_POST['newstatpress_ignore_ip']));
-        elseif ($var['name'] == 'newstatpress_ignore_users')
-        update_option('newstatpress_ignore_users', nsp_FilterForXss($_POST['newstatpress_ignore_users']));
-        elseif ($var['name'] == 'newstatpress_ignore_permalink')
-          update_option('newstatpress_ignore_permalink', nsp_FilterForXss($_POST['newstatpress_ignore_permalink']));
+          if ($var['name'] == 'newstatpress_ignore_ip')
+            update_option('newstatpress_ignore_ip', nsp_FilterForXss($_POST['newstatpress_ignore_ip']));
+          elseif ($var['name'] == 'newstatpress_ignore_users')
+          update_option('newstatpress_ignore_users', nsp_FilterForXss($_POST['newstatpress_ignore_users']));
+          elseif ($var['name'] == 'newstatpress_ignore_permalink')
+            update_option('newstatpress_ignore_permalink', nsp_FilterForXss($_POST['newstatpress_ignore_permalink']));
    
-        elseif ($var['name'] == 'newstatpress_stats_offsets') { 
-          $temp = array();
-          foreach( $_POST['newstatpress_stats_offsets'] as $key => $id ) {
-            $temp[$key] = intval( $id );
-          }       
-          update_option('newstatpress_stats_offsets', $temp);      
+          elseif ($var['name'] == 'newstatpress_stats_offsets') { 
+            $temp = array();
+            foreach( $_POST['newstatpress_stats_offsets'] as $key => $id ) {
+              $temp[$key] = intval( $id );
+            }       
+            update_option('newstatpress_stats_offsets', $temp);      
    
-        } 
-        else update_option($var['name'], sanitize_text_field($_POST[$var['name']]));
+          } 
+          else update_option($var['name'], sanitize_text_field($_POST[$var['name']]));
+        }
       }
 
       // update database too and print message confirmation

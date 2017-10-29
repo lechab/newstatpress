@@ -42,9 +42,20 @@ function nsp_DatabaseSearch($what='') {
          print "<td><input type=checkbox name=sortby$i value='checked' "."checked"."> ".__('Sort by','newstatpress')."</td>";
       } else print "<td><input type=checkbox name=sortby$i value='checked' "."> ".__('Sort by','newstatpress')."</td>";
 
-      print "<td>, ".__('if contains','newstatpress')." <input type=text name=what$i value='".esc_js(esc_html($_GET["what$i"]))."'></td>";
+      $what='';
+      if (isset($_GET["what$i"])) $what=$_GET["what$i"];
+      print "<td>, ".__('if contains','newstatpress')." <input type=text name=what$i value='".esc_js(esc_html($what))."'></td>";
       print "</tr>";
     }
+    
+    $orderby='';
+    if (isset($_GET['oderbycount'])) $orderby=$_GET['oderbycount'];
+    
+    $spider='';
+    if (isset($_GET['spider'])) $spider=$_GET['spider'];
+    
+    $feed='';
+    if (isset($_GET['feed'])) $feed=$_GET['feed'];
 ?>
   </table>
   <br>
@@ -52,9 +63,9 @@ function nsp_DatabaseSearch($what='') {
    <tr>
      <td>
        <table>
-         <tr><td><input type=checkbox name=oderbycount value=checked <?php print esc_html($_GET['oderbycount']) ?>> <?php _e('sort by count if grouped','newstatpress'); ?></td></tr>
-         <tr><td><input type=checkbox name=spider value=checked <?php print esc_html($_GET['spider']) ?>> <?php _e('include spiders/crawlers/bot','newstatpress'); ?></td></tr>
-         <tr><td><input type=checkbox name=feed value=checked <?php print esc_html($_GET['feed']) ?>> <?php _e('include feed','newstatpress'); ?></td></tr>
+         <tr><td><input type=checkbox name=oderbycount value=checked <?php print esc_html($orderby) ?>> <?php _e('sort by count if grouped','newstatpress'); ?></td></tr>
+         <tr><td><input type=checkbox name=spider value=checked <?php print esc_html($spider) ?>> <?php _e('include spiders/crawlers/bot','newstatpress'); ?></td></tr>
+         <tr><td><input type=checkbox name=feed value=checked <?php print esc_html($feed) ?>> <?php _e('include feed','newstatpress'); ?></td></tr>
        </table>
      </td>
      <td width=15> </td>
