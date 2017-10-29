@@ -4,7 +4,7 @@
  Plugin URI: http://newstatpress.altervista.org
  Text Domain: newstatpress
  Description: Real time stats for your Wordpress blog
- Version: 1.2.8
+ Version: 1.2.9
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
@@ -15,7 +15,7 @@ if( !defined( 'ABSPATH' ) ) {
   die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-$_NEWSTATPRESS['version']='1.2.8';
+$_NEWSTATPRESS['version']='1.2.9';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir,
@@ -1083,11 +1083,15 @@ function nsp_StatAppend() {
           ORDER BY ip DESC
           LIMIT 0,1';
     $qry = $wpdb->get_row($sql);
-    $countrylang=$qry->country;
+    if (isset($qry->country)) {
+      $countrylang=$qry->country;
+    }  
   }
 
   if($countrylang == '') {
-    $countrylang=nsp_GetLanguage($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+      $countrylang=nsp_GetLanguage($_SERVER['HTTP_ACCEPT_LANGUAGE']);
+    }  
   }
 
   // Auto-delete visits if...

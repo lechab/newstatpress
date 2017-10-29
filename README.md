@@ -29,6 +29,11 @@
 - [ ] Add https://github.com/piwik/referrer-spam-blacklist
 - [ ] Add jQuery Vector Maps v1.5.0
 
+## 1.2.9
+*Released date: 2017-10-29*
+
+*Fix some PHP Notice
+
 ## 1.2.8
 *Released date: 2017-10-04*
 
