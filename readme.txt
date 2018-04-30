@@ -153,27 +153,28 @@ Check at http://newstatpress.altervista.org for more details
 = 1.3.0 =
 *Released date: 2018-04-30*
 
-*Fix some PHP 7.2 Warning
+* Fix some PHP 7.2 Warning
+* Add browser (+97), OS (+2)
 
 = 1.2.9 =
 *Released date: 2017-10-29*
 
-*Fix some PHP Notice
+* Fix some PHP Notice
 
 = 1.2.8 =
 *Released date: 2017-10-04*
 
-*Fix Os missing images
-*Fix undefined index warning
-*Update Hungarian language thanks to Pille
-*Fix PHP 7.1 specific error
+* Fix Os missing images
+* Fix undefined index warning
+* Update Hungarian language thanks to Pille
+* Fix PHP 7.1 specific error
 
 = 1.2.7 =
 *Released date: 2017-07-02*
 
-*Fix %thistotalvisits% javascript
-*Fix offsets not stores in option after sanitization
-*Fix css wordpress problem
+* Fix %thistotalvisits% javascript
+* Fix offsets not stores in option after sanitization
+* Fix css wordpress problem
 
 = 1.2.6 =
 *Released date: 2017-03-23*

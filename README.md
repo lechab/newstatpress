@@ -32,12 +32,13 @@
 ## 1.3.0
 *Released date: 2018-04-30*
 
-*Fix some PHP 7.2 Warning
+- [x] Fix some PHP 7.2 Warning
+- [x] Add browser (+97), OS (+2)
 
 ## 1.2.9
 *Released date: 2017-10-29*
 
-*Fix some PHP Notice
+- [x] Fix some PHP Notice
 
 ## 1.2.8
 *Released date: 2017-10-04*
