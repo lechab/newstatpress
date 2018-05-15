@@ -151,7 +151,7 @@ Check at http://newstatpress.altervista.org for more details
 == Changelog ==
 
 = 1.3.0 =
-*Released date: 2018-04-30*
+*Released date: 2018-05-15*
 
 * Fix some PHP 7.2 Warning
 * Add browser (+97), OS (+2)
