@@ -154,6 +154,7 @@ Check at http://newstatpress.altervista.org for more details
 *Released date: 2018-06-xx*
 
 * Update Hungarian language thanks to Pille
+* Remove Warning "Address is not a valid IPv4 or IPv6"
 
 = 1.3.0 =
 *Released date: 2018-05-15*

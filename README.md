@@ -33,6 +33,7 @@
 *Released date: 2018-06-xx*
 
 - [x] Update Hungarian language thanks to Pille
+- [x] Remove Warning "Address is not a valid IPv4 or IPv6"
 
 ## 1.3.0
 *Released date: 2018-05-15*
