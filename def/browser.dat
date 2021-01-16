@@ -1,4 +1,14 @@
 Camino|Camino|Camino|
+Chromium 99|Chromium/99|Chromium11|
+Chromium 98|Chromium/98|Chromium11|
+Chromium 97|Chromium/97|Chromium11|
+Chromium 96|Chromium/96|Chromium11|
+Chromium 95|Chromium/95|Chromium11|
+Chromium 94|Chromium/94|Chromium11|
+Chromium 93|Chromium/93|Chromium11|
+Chromium 92|Chromium/92|Chromium11|
+Chromium 91|Chromium/91|Chromium11|
+Chromium 90|Chromium/90|Chromium11|
 Chromium 89|Chromium/89|Chromium11|
 Chromium 88|Chromium/88|Chromium11|
 Chromium 87|Chromium/87|Chromium11|
@@ -277,7 +287,6 @@ Firefox 77|Firefox/77|Firefox|
 Firefox 78|Firefox/78|Firefox|
 Firefox 79|Firefox/79|Firefox|
 Firefox 7|Firefox/7|Firefox|
-Firefox 8|Firefox/8|Firefox|
 Firefox 80|Firefox/80|Firefox|
 Firefox 81|Firefox/81|Firefox|
 Firefox 82|Firefox/82|Firefox|
@@ -288,7 +297,7 @@ Firefox 86|Firefox/86|Firefox|
 Firefox 87|Firefox/87|Firefox|
 Firefox 88|Firefox/88|Firefox|
 Firefox 89|Firefox/89|Firefox|
-Firefox 9|Firefox/9|Firefox|
+Firefox 8|Firefox/8|Firefox|
 Firefox 90|Firefox/90|Firefox|
 Firefox 91|Firefox/91|Firefox|
 Firefox 92|Firefox/92|Firefox|
@@ -299,6 +308,7 @@ Firefox 96|Firefox/96|Firefox|
 Firefox 97|Firefox/97|Firefox|
 Firefox 98|Firefox/98|Firefox|
 Firefox 99|Firefox/99|Firefox|
+Firefox 9|Firefox/9|Firefox|
 Firefox|Firefox|Firefox|
 Firefox|Phoenix|Firefox|
 Firebird|Firebird|Firefox|

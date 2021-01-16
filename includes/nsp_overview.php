@@ -24,12 +24,13 @@ function nsp_generate_overview_agents(){
   else $extra="/";
 
   $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
-  $useragents = $wpdb->get_results("
-    SELECT agent,os,browser,spider
+  // use prepare
+  $useragents = $wpdb->get_results($wpdb->prepare(
+   "SELECT agent,os,browser,spider
     FROM $table_name
     GROUP BY agent,os,browser,spider
-    ORDER BY id DESC LIMIT $querylimit
-  ");
+    ORDER BY id DESC LIMIT %d
+  ", $querylimit));
   ?>
   <table class='widefat nsp'>
     <thead>
@@ -89,12 +90,13 @@ function nsp_generate_overview_lasthits() {
   else $extra="/";
 
   $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
-  $lasthits = $wpdb->get_results("
-    SELECT *
+  // use prepare
+  $lasthits = $wpdb->get_results($wpdb->prepare(
+   "SELECT *
     FROM $table_name
     WHERE (os<>'' OR feed<>'')
-    ORDER bY id DESC LIMIT $querylimit
-  ");
+    ORDER bY id DESC LIMIT %d
+  ",  $querylimit));
   ?>
       <table class='widefat nsp'>
         <thead>
@@ -162,12 +164,13 @@ function nsp_generate_overview_lastsearchterms() {
   else $extra="/";
 
   $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
-  $lastsearchterms = $wpdb->get_results("
-    SELECT date,time,referrer,urlrequested,search,searchengine
+  // use prepare
+  $lastsearchterms = $wpdb->get_results($wpdb->prepare(
+   "SELECT date,time,referrer,urlrequested,search,searchengine
     FROM $table_name
     WHERE search<>''
-    ORDER BY id DESC LIMIT $querylimit
-  ");
+    ORDER BY id DESC LIMIT %d
+  ", $querylimit));
   ?>
   <table class='widefat nsp'>
     <thead>
@@ -208,15 +211,16 @@ function nsp_generate_overview_lastreferrers() {
   else $extra="/";
 
   $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
-  $lastreferrers = $wpdb->get_results("
-    SELECT date,time,referrer,urlrequested
+  // use prepare
+  $lastreferrers = $wpdb->get_results($wpdb->prepare(
+   "SELECT date,time,referrer,urlrequested
     FROM $table_name
     WHERE
      ((referrer NOT LIKE '".get_option('home')."%') AND
       (referrer <>'') AND
       (searchengine='')
-     ) ORDER BY id DESC LIMIT $querylimit
-  ");
+     ) ORDER BY id DESC LIMIT %d
+  ", $querylimit));
   ?>
   <table class='widefat nsp'>
     <thead>
@@ -257,12 +261,13 @@ function nsp_generate_overview_pages() {
   else $extra="/";
 
   $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
-  $pages = $wpdb->get_results("
-    SELECT date,time,urlrequested,os,browser,spider
+  // use prepare
+  $pages = $wpdb->get_results($wpdb->prepare(
+   "SELECT date,time,urlrequested,os,browser,spider
     FROM $table_name
     WHERE (spider='' AND feed='')
-    ORDER BY id DESC LIMIT $querylimit
-  ");
+    ORDER BY id DESC LIMIT %d
+  ", $querylimit));
   ?>
   <table class='widefat nsp'>
     <thead>
@@ -317,12 +322,13 @@ function nsp_generate_overview_spiders() {
   else $extra="/";
 
   $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
-  $spiders = $wpdb->get_results("
-    SELECT date,time,agent,os,browser,spider
+  // use prepare
+  $spiders = $wpdb->get_results($wpdb->prepare(
+   "SELECT date,time,agent,os,browser,spider
     FROM $table_name
     WHERE (spider<>'')
-    ORDER BY id DESC LIMIT $querylimit
-  ");
+    ORDER BY id DESC LIMIT %d
+  ",  $querylimit));
   ?>
   <table class='widefat nsp'>
     <thead>
@@ -450,50 +456,56 @@ function nsp_NewStatPressMain3() {
   else $extra="/";
 
   $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
-
-  $lasthits = $wpdb->get_results("
-    SELECT *
+  // use prepare
+  $lasthits = $wpdb->get_results($wpdb->prepare(
+   "SELECT *
     FROM $table_name
     WHERE (os<>'' OR feed<>'')
-    ORDER bY id DESC LIMIT $querylimit
-  ");
-  $lastsearchterms = $wpdb->get_results("
-    SELECT date,time,referrer,urlrequested,search,searchengine
+    ORDER bY id DESC LIMIT %d
+  ", $querylimit));
+  
+  // use prepare
+  $lastsearchterms = $wpdb->get_results($wpdb->prepare(
+   "SELECT date,time,referrer,urlrequested,search,searchengine
     FROM $table_name
     WHERE search<>''
-    ORDER BY id DESC LIMIT $querylimit
-  ");
+    ORDER BY id DESC LIMIT %d
+  ", $querylimit));
 
-  $lastreferrers = $wpdb->get_results("
-    SELECT date,time,referrer,urlrequested
+  // use prepare
+  $lastreferrers = $wpdb->get_results($wpdb->prepare(
+   "SELECT date,time,referrer,urlrequested
     FROM $table_name
     WHERE
      ((referrer NOT LIKE '".get_option('home')."%') AND
       (referrer <>'') AND
       (searchengine='')
-     ) ORDER BY id DESC LIMIT $querylimit
-  ");
+     ) ORDER BY id DESC LIMIT %d
+  ", $querylimit));
 
-  $useragents = $wpdb->get_results("
-    SELECT agent,os,browser,spider
+  // use prepare
+  $useragents = $wpdb->get_results($wpdb->prepare(
+   "SELECT agent,os,browser,spider
     FROM $table_name
     GROUP BY agent,os,browser,spider
-    ORDER BY id DESC LIMIT $querylimit
-  ");
+    ORDER BY id DESC LIMIT %d
+  ", $querylimit));
 
-  $pages = $wpdb->get_results("
-    SELECT date,time,urlrequested,os,browser,spider
+  // use prepare
+  $pages = $wpdb->get_results($wpdb->prepare(
+   "SELECT date,time,urlrequested,os,browser,spider
     FROM $table_name
     WHERE (spider='' AND feed='')
-    ORDER BY id DESC LIMIT $querylimit
-  ");
-
-  $spiders = $wpdb->get_results("
-    SELECT date,time,agent,os,browser,spider
+    ORDER BY id DESC LIMIT %d
+  ", $querylimit));
+  
+  // use prepare
+  $spiders = $wpdb->get_results($wpdb->prepare(
+   "SELECT date,time,agent,os,browser,spider
     FROM $table_name
     WHERE (spider<>'')
-    ORDER BY id DESC LIMIT $querylimit
-  ");
+    ORDER BY id DESC LIMIT %d
+  ", $querylimit));
   ?>
 
   <!-- Last hits table -->

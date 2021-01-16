@@ -109,28 +109,31 @@ function nsp_SpyBot() {
 
   // limit the search 7 days ago
   $day_ago = gmdate('Ymd', current_time('timestamp') - 7*86400);
-  $MinId = $wpdb->get_var("
-    SELECT min(id) as MinId
+  // use prepare  
+  $MinId = $wpdb->get_var($wpdb->prepare(
+   "SELECT min(id) as MinId
     FROM $table_name
-    WHERE date > $day_ago
-  ");
+    WHERE date > %s
+   ", $day_ago));
 
   // Number of distinct spiders after $day_ago
-  $Num = $wpdb->get_var("
-    SELECT count(distinct spider)
+  // use prepare    
+  $Num = $wpdb->get_var($wpdb->prepare(
+   "SELECT count(distinct spider)
     FROM $table_name
     WHERE
       spider<>'' AND
-      id >$MinId
-  ");
+      id > %d
+   ", $MinId));
   $NA = ceil($Num/$LIMIT);
 
   // echo "<div class='wrap'><h2>" . __('Spy Bot', 'newstatpress') . "</h2>";
   echo "<br />";
 
   // selection of spider, group by spider, order by most recently visit (last id in the table)
-  $sql = "
-    SELECT *
+  // use prepare
+  $sql = $wpdb->prepare(
+   "SELECT *
     FROM $table_name as T1
     JOIN
     (SELECT spider,max(id) as MaxId
@@ -138,12 +141,12 @@ function nsp_SpyBot() {
      WHERE spider<>''
      GROUP BY spider
      ORDER BY MaxId
-     DESC LIMIT $LimitValue, $LIMIT
+     DESC LIMIT %d, %d
     ) as T2
     ON T1.spider = T2.spider
-    WHERE T1.id > $MinId
+    WHERE T1.id > %d
     ORDER BY MaxId DESC, id DESC
-  ";
+  ", $LimitValue, $LIMIT, $MinId);
   $qry = $wpdb->get_results($sql);
 
   echo '<div align="center">';
@@ -211,14 +214,16 @@ function nsp_Spy() {
   $yesterday = gmdate('Ymd', current_time('timestamp')-86400);
   // print "<div class='wrap'><h2>".__('Last visitors','newstatpress')."</h2>";
   echo "<br />";
-  $sql="
-    SELECT ip,nation,os,browser,agent
+  // use prepare
+  $sql=$wpdb->prepare(
+   "SELECT ip,nation,os,browser,agent
     FROM $table_name
     WHERE
       spider='' AND
       feed='' AND
-      date BETWEEN '$yesterday' AND '$today'
-    GROUP BY ip ORDER BY id DESC LIMIT 20";
+      date BETWEEN %s AND %s
+    GROUP BY ip ORDER BY id DESC LIMIT 20
+   ", $yesterday, $today);
   $qry = $wpdb->get_results($sql);
 
 ?>
@@ -272,15 +277,16 @@ document.getElementById(thediv).style.display="none"
     print "<br><br></div>";
     print "<script>document.getElementById('".$rk->ip."').style.display='none';</script>";
     print "</td></tr>";
-    $qry2=$wpdb->get_results("
-      SELECT *
+    // use prepare
+    $qry2=$wpdb->get_results($wpdb->prepare(
+     "SELECT *
       FROM $table_name
       WHERE
-        ip='".$rk->ip."' AND
-        (date BETWEEN '$yesterday' AND '$today')
+        ip= %s AND
+        (date BETWEEN %s AND %s)
       ORDER BY id
-      LIMIT 10"
-    );
+      LIMIT 10
+     ", $rk->ip, $yesterday, $today));
     foreach ($qry2 as $details) {
       print "<tr>";
       print "<td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>".nsp_hdate($details->date)." ".$details->time."</strong></font></div></td>";
@@ -321,6 +327,7 @@ function nsp_NewSpy() {
   $pp = newstatpress_page_periode();
 
   // Number of distinct ip (unique visitors)
+  // no need prepare
   $NumIP = $wpdb->get_var("
     SELECT count(distinct ip)
     FROM $table_name
@@ -329,8 +336,9 @@ function nsp_NewSpy() {
   $NP = ceil($NumIP/$LIMIT);
   $LimitValue = ($pp * $LIMIT) - $LIMIT;
 
-  $sql = "
-    SELECT *
+  // use prepare
+  $sql = $wpdb->prepare(
+   "SELECT *
     FROM $table_name as T1
     JOIN
       (SELECT max(id) as MaxId,min(id) as MinId,ip, nation
@@ -338,11 +346,11 @@ function nsp_NewSpy() {
        WHERE spider=''
        GROUP BY ip
        ORDER BY MaxId
-       DESC LIMIT $LimitValue, $LIMIT ) as T2
+       DESC LIMIT %i, %i ) as T2
     ON T1.ip = T2.ip
     WHERE id BETWEEN MinId AND MaxId
     ORDER BY MaxId DESC, id DESC
-  ";
+  ", $LimitValue, $LIMIT);
 
   $qry = $wpdb->get_results($sql);
 
@@ -456,6 +464,7 @@ document.getElementById(thediv).style.display="none"
 function nsp_PermalinksEnabled() {
   global $wpdb;
 
+  // no needs prepare
   $result = $wpdb->get_row('SELECT `option_value` FROM `' . $wpdb->prefix . 'options` WHERE `option_name` = "permalink_structure"');
   if ($result->option_value != '') return true;
   else return false;

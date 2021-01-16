@@ -400,7 +400,8 @@ function nsp_DisplayTabsNavbarForMenuPage($menu_tabs, $current, $ref) {
 
 function nsp_TableSize($table) {
   global $wpdb;
-  $res = $wpdb->get_results("SHOW TABLE STATUS LIKE '$table'");
+  // use prepare  
+  $res = $wpdb->get_results($wpdb->prepare("SHOW TABLE STATUS LIKE %s", $table));
   foreach ($res as $fstatus) {
     $data_lenght = $fstatus->Data_length;
     $data_rows = $fstatus->Rows;
@@ -410,7 +411,8 @@ function nsp_TableSize($table) {
 
 function nsp_TableSize2($table) {
   global $wpdb;
-  $res = $wpdb->get_results("SHOW TABLE STATUS LIKE '$table'");
+  // use prepare 
+  $res = $wpdb->get_results($wpdb->prepare("SHOW TABLE STATUS LIKE %s", $table));
   foreach ($res as $fstatus) {
     $data_lenght = $fstatus->Data_length;
     $data_rows = $fstatus->Rows;
@@ -420,7 +422,8 @@ function nsp_TableSize2($table) {
 
 function nsp_TableRecords($table) {
   global $wpdb;
-  $res = $wpdb->get_results("SHOW TABLE STATUS LIKE '$table'");
+  // use prepare 
+  $res = $wpdb->get_results($wpdb->prepare("SHOW TABLE STATUS LIKE %s", $table));
   foreach ($res as $fstatus) {
     $data_lenght = $fstatus->Data_length;
     $data_rows = $fstatus->Rows;
