@@ -4,7 +4,7 @@
  Plugin URI: http://newstatpress.altervista.org
  Text Domain: newstatpress
  Description: Real time stats for your Wordpress blog
- Version: 1.3.1
+ Version: 1.3.3
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
@@ -15,7 +15,7 @@ if( !defined( 'ABSPATH' ) ) {
   die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-$_NEWSTATPRESS['version']='1.3.1';
+$_NEWSTATPRESS['version']='1.3.3';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir,
@@ -923,7 +923,7 @@ function nsp_Lastmonth() {
        {
          $Key_name=$index['Key_name'];
          $Column_name=$index['Column_name'];
-         if ($wpdb->query("SHOW INDEXES FROM $table_name WHERE Key_name ='$Key_name'")=='') {
+         if ($wpdb->query($wpdb->prepare("SHOW INDEXES FROM $table_name WHERE Key_name = %s", $Key_name))=='') {
            $sql_createtable.=",\n INDEX $Key_name $Column_name";
          }
        }
@@ -1077,12 +1077,14 @@ function nsp_StatAppend() {
   // Country (ip2nation table) or language
   $countrylang="";
   if($wpdb->get_var("SHOW TABLES LIKE 'ip2nation'") == 'ip2nation') {
-    $sql='SELECT *
+    $qry = $wpdb->get_row($wpdb->prepare(
+         'SELECT *
           FROM ip2nation
-          WHERE ip < INET_ATON("'.$ipAddress.'")
+          WHERE ip < INET_ATON( %s )
           ORDER BY ip DESC
-          LIMIT 0,1';
-    $qry = $wpdb->get_row($sql);
+          LIMIT 0,1'    
+          ,$ipAddress
+    ));
     if (isset($qry->country)) {
       $countrylang=$qry->country;
     }  
@@ -1101,7 +1103,12 @@ function nsp_StatAppend() {
     if ($int>=1) {
       $t=gmdate('Ymd', current_time('timestamp')-86400*$int*30);
 
-      $results =$wpdb->query( "DELETE FROM " . $table_name . " WHERE date < '" . $t . "'");
+      $results =$wpdb->query($wpdb->prepare( 
+         "DELETE FROM $table_name
+          WHERE date < %s
+          ",
+          $t
+          ));
     }
   }
 
@@ -1113,12 +1120,14 @@ function nsp_StatAppend() {
     if ($int>=1) {
       $t=gmdate('Ymd', current_time('timestamp')-86400*$int*30);
 
-      $results =$wpdb->query(
-         "DELETE FROM " . $table_name . "
-          WHERE date < '" . $t . "' and
+      $results =$wpdb->query($wpdb->prepare(
+         "DELETE FROM $table_name
+          WHERE date < %s and
                 feed='' and
                 spider<>''
-         ");
+         ",
+         $t
+         ));
     }
   }
 
@@ -1138,42 +1147,27 @@ function nsp_StatAppend() {
     }
 
     $login = $userdata ? $userdata->user_login : null;
-
-    $insert =
-      "INSERT INTO " . $table_name . "(
-        date,
-        time,
-        ip,
-        urlrequested,
-        agent,
-        referrer,
-        search,
-        nation,
-        os,
-        browser,
-        searchengine,
-        spider,
-        feed,
-        user,
-        timestamp
-       ) VALUES (
-        '$vdate',
-        '$vtime',
-        '$ipAddress',
-        '$urlRequested',
-        '".addslashes(strip_tags($userAgent))."',
-        '$referrer','" .
-        addslashes(strip_tags($search_phrase))."',
-        '".$countrylang."',
-        '$os',
-        '$browser',
-        '$searchengine',
-        '$spider',
-        '$feed',
-        '$login',
-        '$timestamp'
-       )";
-    $results = $wpdb->query( $insert );
+    
+    $results = $wpdb->insert( 
+      $table_name, 
+       array( 
+          'date' => $vdate, 
+          'time' => $vtime, 
+          'ip' => substr($ipAddress, 0, 39),
+          'urlrequested' => substr($urlRequested, 0, 250),
+          'agent' => substr(strip_tags($userAgent), 0, 250),
+          'referrer' => substr($referrer, 0, 512),
+          'search' => substr(strip_tags($search_phrase), 0, 250),
+          'nation' => substr($countrylang, 0, 2),
+          'os' => substr($os, 0, 30),
+          'browser' => substr($browser, 0, 32),
+          'searchengine' => substr($searchengine, 0, 16),
+          'spider' => substr($spider, 0, 32),
+          'feed' => substr($feed, 0, 8),
+          'user' => substr($login, 0, 16),
+          'timestamp' => $timestamp
+      ), array( '%s')
+    );   
   }
 }
 add_action('send_headers', 'nsp_StatAppend');
