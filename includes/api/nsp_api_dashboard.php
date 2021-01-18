@@ -97,8 +97,9 @@ function nsp_ApiDashboard($typ) {
       }
       for($i=0;$i<$day;$i++)
       {
-        $qry_daylmonth = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$lastmonth$i%'");
-        $qry_day=$wpdb->get_row($sql_QueryTotal. " AND date LIKE '$year$month$i%'");
+        // use prepare
+        $qry_daylmonth=$wpdb->get_row($wpdb->prepare($sql_QueryTotal. " AND date LIKE %s", $lastmonth.$i.'%'));
+        $qry_day=$wpdb->get_row($wpdb->prepare($sql_QueryTotal. " AND date LIKE %s", $year.$month.$i.'%'));
         $tot+=$qry_day->$row;
         $totlm+=$qry_daylmonth->$row;
 
@@ -111,15 +112,17 @@ function nsp_ApiDashboard($typ) {
 
     }
     else { // classic
-      $qry_tmonth = $wpdb->get_row($sql_QueryTotal. " AND date BETWEEN '$thismonth1' AND '$thismonth31'");
-      $qry_lmonth = $wpdb->get_row($sql_QueryTotal. " AND date BETWEEN '$lastmonth1' AND '$lastmonth31'");
+      // use prepare
+      $qry_tmonth = $wpdb->get_row($wpdb->prepare($sql_QueryTotal. " AND date BETWEEN %s AND %s", $thismonth1, $thismonth31));
+      $qry_lmonth = $wpdb->get_row($wpdb->prepare($sql_QueryTotal. " AND date BETWEEN %s AND %s", $lastmonth1, $lastmonth31));
     }
 
     $resultJ[$row.'_tmonth'] = $qry_tmonth->$row;  // export
     $resultJ[$row.'_lmonth'] = $qry_lmonth->$row;  // export
 
-    $qry_y = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$yesterday'");
-    $qry_t = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$today'");
+    // use prepare
+    $qry_y = $wpdb->get_row($wpdb->prepare($sql_QueryTotal. " AND date LIKE %s", $yesterday));
+    $qry_t = $wpdb->get_row($wpdb->prepare($sql_QueryTotal. " AND date LIKE %s", $today));
 
     $resultJ[$row.'_qry_y'] = $qry_y->$row;  // export
     $resultJ[$row.'_qry_t'] = $qry_t->$row;  // export

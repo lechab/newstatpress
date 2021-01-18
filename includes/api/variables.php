@@ -32,6 +32,7 @@ function nsp_variablesAjax() {
 
   // test all vars
   if ($var=='alltotalvisits') {
+    // no need prepare
     $qry = $wpdb->get_results(
     "SELECT count(distinct urlrequested, ip) AS pageview
      FROM $table_name AS t1
@@ -44,6 +45,7 @@ function nsp_variablesAjax() {
        echo json_encode($qry[0]->pageview+$offsets['alltotalvisits']);
      }
   } elseif ($var=='visits') {
+      // no need prepare
       $qry = $wpdb->get_results(
         "SELECT count(DISTINCT(ip)) AS pageview
          FROM $table_name
@@ -55,6 +57,7 @@ function nsp_variablesAjax() {
        echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='yvisits') {
+      // no need prepare
       $qry = $wpdb->get_results(
         "SELECT count(DISTINCT(ip)) AS pageview
          FROM $table_name
@@ -67,6 +70,7 @@ function nsp_variablesAjax() {
      }
   } elseif ($var=='mvisits') {
       if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
+        // no need prepare
         $qry = $wpdb->get_results(
           "SELECT SUM(pagv) AS pageview FROM (
             SELECT count(DISTINCT(ip)) AS pagv
@@ -77,7 +81,8 @@ function nsp_variablesAjax() {
             GROUP BY DATE
            ) AS pageview;
         ");
-      } else {
+      } else { 
+          // no need prepare
           $qry = $wpdb->get_results(
             "SELECT count(DISTINCT(ip)) AS pageview
              FROM $table_name
@@ -91,6 +96,7 @@ function nsp_variablesAjax() {
       }
   } elseif ($var=='wvisits') {
       if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
+        // no need prepare
         $qry = $wpdb->get_results(
           "SELECT SUM(pagv) AS pageview FROM (
             SELECT count(DISTINCT(ip)) AS pagv
@@ -102,6 +108,7 @@ function nsp_variablesAjax() {
            ) AS pageview;
             ");
      } else {
+         // no need prepare
          $qry = $wpdb->get_results(
            "SELECT count(DISTINCT(ip)) AS pageview
             FROM $table_name
@@ -115,6 +122,7 @@ function nsp_variablesAjax() {
      }
   } elseif ($var=='totalvisits') {
       if (get_option($nsp_option_vars['calculation']['name'])=='sum') {
+        // no need prepare
         $qry = $wpdb->get_results(
           "SELECT SUM(pagv) AS pageview FROM (
             SELECT count(DISTINCT(ip)) AS pagv
@@ -126,6 +134,7 @@ function nsp_variablesAjax() {
            ) AS pageview;
             ");
       } else {
+        // no need prepare
         $qry = $wpdb->get_results(
           "SELECT count(DISTINCT(ip)) AS pageview
            FROM $table_name
@@ -138,6 +147,7 @@ function nsp_variablesAjax() {
        echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='totalpageviews') {
+      // no need prepare
       $qry = $wpdb->get_results(
         "SELECT count(id) AS pageview
          FROM $table_name
@@ -149,6 +159,7 @@ function nsp_variablesAjax() {
        echo json_encode($qry[0]->pageview+$offsets['pageviews']);
      }
   } elseif ($var=='todaytotalpageviews') {
+      // no need prepare
       $qry = $wpdb->get_results(
         "SELECT count(id) AS pageview
          FROM $table_name
@@ -161,20 +172,23 @@ function nsp_variablesAjax() {
        echo json_encode($qry[0]->pageview);
      }
   } elseif ($var=='thistotalvisits') {
-      $url = esc_url($_REQUEST["URL"]);
-
-      $qry = $wpdb->get_results(
+      //$url = esc_url($_REQUEST["URL"]);
+      $url=$_REQUEST["URL"];    // sanitize in prepare
+      
+      // use prepare
+      $qry = $wpdb->get_results( $wpdb->prepare(
         "SELECT count(DISTINCT(ip)) AS pageview
          FROM $table_name
          WHERE
            spider='' AND
            feed='' AND
-           urlrequested='".$url."';
-        ");
+           urlrequested=%s';
+        ", $url));
      if ($qry != null) {
        echo json_encode($qry[0]->pageview);
      }
-  } elseif ($var=='monthtotalpageviews'){
+  } elseif ($var=='monthtotalpageviews') {
+      // no need prepare
       $qry = $wpdb->get_results(
         "SELECT count(id) AS pageview
          FROM $table_name
@@ -190,7 +204,8 @@ function nsp_variablesAjax() {
       $showcounts = $_REQUEST["FLAG"];
 
       $res="\n<ul>\n";
-      $qry = $wpdb->get_results(
+      // use prepare
+      $qry = $wpdb->get_results($wpdb->prepare(
         "SELECT urlrequested,count(*) as totale
          FROM $table_name
          WHERE
@@ -198,8 +213,8 @@ function nsp_variablesAjax() {
            feed='' AND
            urlrequested LIKE '%p=%'
          GROUP BY urlrequested
-         ORDER BY totale DESC LIMIT $limit;
-        ");
+         ORDER BY totale DESC LIMIT %d;
+        ", $limit));
      foreach ($qry as $rk) {
        $res.="<li><a href='?".$rk->urlrequested."' target='_blank'>".nsp_DecodeURL($rk->urlrequested)."</a></li>\n";
        if(strtolower($showcounts) == 'checked') { $res.=" (".$rk->totale.")"; }

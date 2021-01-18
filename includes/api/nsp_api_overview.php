@@ -81,8 +81,10 @@ function nsp_ApiOverview($typ, $par) {
         break;
     }
     
+    // not need prepare
     $resultJ[$row.'_total'] = $wpdb->get_row($sql_QueryTotal)->$row;  // export
-    $resultJ[$row.'_tyear'] = $wpdb->get_row($sql_QueryTotal. " AND date LIKE '$thisyear%'")->$row;  // export
+    // use prepare
+    $resultJ[$row.'_tyear'] = $wpdb->get_row($wpdb->prepare($sql_QueryTotal. " AND date LIKE %s", $thisyear.'%'))->$row;  // export
     
     switch($row) {
       case 'visitors' :
@@ -111,17 +113,22 @@ function nsp_ApiOverview($typ, $par) {
 
     $date=gmdate('Ymd', current_time('timestamp')-86400*$gg);
 
-    $qry_visitors  = $wpdb->get_row("SELECT count(DISTINCT ip) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
-    $visitors[$gg] = $qry_visitors->total;
+    // use prepare
+    $qry_visitors=$wpdb->get_row($wpdb->prepare(
+       "SELECT count(DISTINCT ip) AS total FROM $table_name WHERE feed='' AND spider='' AND date = %s", $date));
+    $visitors[$gg]=$qry_visitors->total;
 
-    $qry_pageviews = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider='' AND date = '$date'");
-    $pageviews[$gg]= $qry_pageviews->total;
+    $qry_pageviews=$wpdb->get_row($wpdb->prepare(
+       "SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider='' AND date = %s", $date));
+    $pageviews[$gg]=$qry_pageviews->total;
 
-    $qry_spiders   = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider<>'' AND date = '$date'");
-    $spiders[$gg]  = $qry_spiders->total;
+    $qry_spiders=$wpdb->get_row($wpdb->prepare(
+       "SELECT count(date) AS total FROM $table_name WHERE feed='' AND spider<>'' AND date = %s", $date));
+    $spiders[$gg]=$qry_spiders->total;
 
-    $qry_feeds     = $wpdb->get_row("SELECT count(date) AS total FROM $table_name WHERE feed<>'' AND spider='' AND date = '$date'");
-    $feeds[$gg]    = $qry_feeds->total;
+    $qry_feeds=$wpdb->get_row($wpdb->prepare(
+       "SELECT count(date) AS total FROM $table_name WHERE feed<>'' AND spider='' AND date = %s", $date));
+    $feeds[$gg]=$qry_feeds->total;
 
     $total= $visitors[$gg] + $pageviews[$gg] + $spiders[$gg] + $feeds[$gg];
     if ($total > $maxxday) $maxxday= $total;

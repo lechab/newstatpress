@@ -77,6 +77,7 @@ function nsp_DisplayToolsPage() {
 
 function nsp_IndexTableSize($table) {
   global $wpdb;
+  // no needs prepare
   $res = $wpdb->get_results("SHOW TABLE STATUS LIKE '$table'");
   foreach ($res as $fstatus) {
     $index_lenght = $fstatus->Index_length;
@@ -131,6 +132,7 @@ function nsp_IP2nation() {
      $date=date('d/m/Y', filemtime($file_ip2nation));
 
      $table_name = "ip2nation";
+     // no needs prepare
      if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
        $value_remove="none";
        $class_inst="desactivated";
@@ -295,6 +297,7 @@ function nsp_IP2nationRemove() {
   global $wpdb;
   global $nsp_option_vars;
 
+  // no need prepare
   $sql = "DROP TABLE IF EXISTS ip2nation;";
   $wpdb->query($sql);
   $sql ="DROP TABLE IF EXISTS ip2nationCountries;";
@@ -484,13 +487,14 @@ function nsp_ExportNow() {
   $iFrom=strtotime($from);
   $iTo=strtotime($to);
   
-  $qry = $wpdb->get_results(
+  // use prepare
+  $qry = $wpdb->get_results($wpdb->prepare(
     "SELECT *
      FROM $table_name
      WHERE
-       date>='".(date("Ymd", $iFrom))."' AND
-       date<='".(date("Ymd", $iTo))."';
-    ");
+       date>= %s AND
+       date<= %s;
+    ", date("Ymd", $iFrom), date("Ymd", $iTo)));
 
   if ($del=="t") {
     $del="\t";
@@ -518,6 +522,7 @@ function nsp_RemovePluginDatabase() {
   
     global $wpdb;
     $table_name = nsp_TABLENAME;
+    // no need prepare
     $results =$wpdb->query( "DELETE FROM " . $table_name);
     print "<br /><div class='remove'><p>".__('All data removed','newstatpress')."!</p></div>";
   }
@@ -747,119 +752,133 @@ function nsp_UpdateNow() {
 
   # Update Feed
   print "<tr><td>". __('Feeds','newstatpress'). "</td>";
-  $wpdb->query("
-    UPDATE $table_name
+  // use prepare
+  $wpdb->query($wpdb->prepare(
+   "UPDATE $table_name
     SET feed=''
-    WHERE date BETWEEN $from_date AND $to_date;"
-  );
+    WHERE date BETWEEN %s AND %s;
+   ", $from_date, $to_date));
 
   # not standard
-  $wpdb->query("
-    UPDATE $table_name
+  // use prepare
+  $wpdb->query($wpdb->prepare(
+   "UPDATE $table_name
     SET feed='RSS2'
     WHERE
-      urlrequested LIKE '%/feed/%' AND
-      date BETWEEN $from_date AND $to_date;"
-  );
+      urlrequested LIKE '%%/feed/%%' AND
+      date BETWEEN %s AND %s;
+   ", $from_date, $to_date));
 
-  $wpdb->query("
-    UPDATE $table_name
+  // use prepare 
+  $wpdb->query($wpdb->prepare(
+   "UPDATE $table_name
     SET feed='RSS2'
     WHERE
-      urlrequested LIKE '%wp-feed.php%' AND
-      date BETWEEN $from_date AND $to_date;"
-  );
+      urlrequested LIKE '%%wp-feed.php%%' AND
+      date BETWEEN %s AND %s;
+   ", $from_date, $to_date));
 
   # standard blog info urls
   $s=nsp_ExtractFeedReq(get_bloginfo('comments_atom_url'));
   if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
+    // use prepare 
+    $wpdb->query($wpdb->prepare(
+     "UPDATE $table_name
       SET feed='COMMENT'
       WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-   );
+        INSTR(urlrequested, %s)>0 AND
+        date BETWEEN %s AND %s;
+     ", $s, $from_date, $to_date));
   }
   $s=nsp_ExtractFeedReq(get_bloginfo('comments_rss2_url'));
   if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
+    // use prepare 
+    $wpdb->query($wpdb->prepare(
+     "UPDATE $table_name
       SET feed='COMMENT'
       WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
+        INSTR(urlrequested, %s)>0 AND
+        date BETWEEN %s AND %s;
+     ", $s, $from_date, $to_date));
   }
   $s=nsp_ExtractFeedReq(get_bloginfo('atom_url'));
   if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
+    // use prepare 
+    $wpdb->query($wpdb->prepare(
+     "UPDATE $table_name
       SET feed='ATOM'
       WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
+        INSTR(urlrequested, %s)>0 AND
+        date BETWEEN %s AND %s;
+     ", $s, $from_date, $to_date));
   }
   $s=nsp_ExtractFeedReq(get_bloginfo('rdf_url'));
   if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
+    // use prepare 
+    $wpdb->query($wpdb->prepare(
+     "UPDATE $table_name
       SET feed='RDF'
       WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
+        INSTR(urlrequested, %s)>0 AND
+        date BETWEEN %s AND %s;
+     ", $s, $from_date, $to_date));
   }
   $s=nsp_ExtractFeedReq(get_bloginfo('rss_url'));
   if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
+    // use prepare
+    $wpdb->query($wpdb->prepare(
+     "UPDATE $table_name
       SET feed='RSS'
       WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
+        INSTR(urlrequested, %s)>0 AND
+        date BETWEEN %s AND %s;
+     ", $s, $from_date, $to_date));
   }
   $s=nsp_ExtractFeedReq(get_bloginfo('rss2_url'));
   if($s != '') {
-    $wpdb->query("
-      UPDATE $table_name
+    // use prepare
+    $wpdb->query($wpdb->prepare(
+     "UPDATE $table_name
       SET feed='RSS2'
       WHERE
-        INSTR(urlrequested,'$s')>0 AND
-        date BETWEEN $from_date AND $to_date;"
-    );
+        INSTR(urlrequested, %s)>0 AND
+        date BETWEEN %s AND %s;
+     ", $s, $from_date, $to_date));
   }
-
-  $wpdb->query("
-    UPDATE $table_name
+  
+  // use prepare
+  $wpdb->query($wpdb->prepare(
+   "UPDATE $table_name
     SET feed = ''
     WHERE
       isnull(feed) AND
-      date BETWEEN $from_date AND $to_date;"
-  );
+      date BETWEEN %s AND %s;
+   ", $from_date, $to_date));
 
   print "<td></td>";
   print "<td><img class'update_img' src='$img_ok'></td></tr>";
 
   # Update OS
   print "<tr><td>". __('OSes','newstatpress'). "</td>";
-  $wpdb->query("
-    UPDATE $table_name
+  // use prepare
+  $wpdb->query($wpdb->prepare(
+   "UPDATE $table_name
     SET os = ''
-    WHERE date BETWEEN $from_date AND $to_date;"
-  );
+    WHERE date BETWEEN %s AND %s;
+   ", $from_date, $to_date));
+   
   $lines = file($newstatpress_dir.'/def/os.dat');
   foreach($lines as $line_num => $os) {
     list($nome_os,$id_os)=explode("|",$os);
-    $qry="
-      UPDATE $table_name
-      SET os = '$nome_os'
+    // use prepare
+    $qry=$wpdb->prepare(
+     "UPDATE $table_name
+      SET os = %s
       WHERE
         os='' AND
-        replace(agent,' ','') LIKE '%".$id_os."%' AND
-        date BETWEEN $from_date AND $to_date;";
+        replace(agent,' ','') LIKE %s AND
+        date BETWEEN %s AND %s;
+     ", $nome_os, '%'.$id_os.'%', $from_date, $to_date);
     $wpdb->query($qry);
   }
   print "<td></td>";
@@ -867,21 +886,25 @@ function nsp_UpdateNow() {
 
   # Update Browser
   print "<tr><td>". __('Browsers','newstatpress'). "</td>";
-  $wpdb->query("
-    UPDATE $table_name
+  // use prepare
+  $wpdb->query($wpdb->prepare(
+   "UPDATE $table_name
     SET browser = ''
-    WHERE date BETWEEN $from_date AND $to_date;"
-  );
+    WHERE date BETWEEN %s AND %s;
+   ", $from_date, $to_date));
+   
   $lines = file($newstatpress_dir.'/def/browser.dat');
   foreach($lines as $line_num => $browser) {
     list($nome,$id)=explode("|",$browser);
-    $qry="
-      UPDATE $table_name
-      SET browser = '$nome'
+    // use prepare
+    $qry=$wpdb->prepare(
+     "UPDATE $table_name
+      SET browser = %s
       WHERE
         browser='' AND
-        replace(agent,' ','') LIKE '%".$id."%' AND
-        date BETWEEN $from_date AND $to_date;";
+        replace(agent,' ','') LIKE %s AND
+        date BETWEEN %s AND %s;
+     ", $nome, '%'.$id.'%', $from_date, $to_date);
     $wpdb->query($qry);
   }
   print "<td></td>";
@@ -889,21 +912,25 @@ function nsp_UpdateNow() {
 
   # Update Spider
   print "<tr><td>". __('Spiders','newstatpress'). "</td>";
-  $wpdb->query("
-    UPDATE $table_name
+  // use prepare
+  $wpdb->query($wpdb->prepare(
+   "UPDATE $table_name
     SET spider = ''
-    WHERE date BETWEEN $from_date AND $to_date;"
-  );
+    WHERE date BETWEEN %s AND %s;
+   ", $from_date, $to_date));
+   
   $lines = file($newstatpress_dir.'/def/spider.dat');
   foreach($lines as $line_num => $spider) {
     list($nome,$id)=explode("|",$spider);
-    $qry="
-      UPDATE $table_name
-      SET spider = '$nome',os='',browser=''
+    // use prepare
+    $qry=$wpdb->prepare(
+     "UPDATE $table_name
+      SET spider = %s,os='',browser=''
       WHERE
         spider='' AND
-        replace(agent,' ','') LIKE '%".$id."%' AND
-        date BETWEEN $from_date AND $to_date;";
+        replace(agent,' ','') LIKE %s AND
+        date BETWEEN %s AND %s;
+     ", $nome, '%'.$id.'%', $from_date, $to_date);
     $wpdb->query($qry);
   }
   print "<td></td>";
@@ -911,25 +938,33 @@ function nsp_UpdateNow() {
 
   # Update Search engine
   print "<tr><td>". __('Search engines','newstatpress'). " </td>";
-  $wpdb->query("
-    UPDATE $table_name
+  // use prepare
+  $wpdb->query($wpdb->prepare(
+   "UPDATE $table_name
     SET searchengine = '', search=''
-    WHERE date BETWEEN $from_date AND $to_date;");
-  $qry = $wpdb->get_results("
-    SELECT id, referrer
+    WHERE date BETWEEN %s AND %s;
+   ", $from_date, $to_date));
+   
+  // use prepare 
+  $qry = $wpdb->get_results($wpdb->prepare(
+   "SELECT id, referrer
     FROM $table_name
     WHERE
       length(referrer)!=0 AND
-      date BETWEEN $from_date AND $to_date");
+      date BETWEEN %s AND %s
+   ", $from_date, $to_date));
+   
   foreach ($qry as $rk) {
     list($searchengine,$search_phrase)=explode("|",nsp_GetSE($rk->referrer));
     if($searchengine <> '') {
-      $q="
-        UPDATE $table_name
-        SET searchengine = '$searchengine', search='".addslashes($search_phrase)."'
+      // use prepare
+      $q=$wpdb->prepare(
+       "UPDATE $table_name
+        SET searchengine = %s, search=%s 
         WHERE
-          id=".$rk->id." AND
-          date BETWEEN $from_date AND $to_date;";
+          id= %d AND
+          date BETWEEN %s AND %s;
+       ", $searchengine, addslashes($search_phrase), $rk->id, $from_date, $to_date);
       $wpdb->query($q);
     }
   }
@@ -1042,6 +1077,7 @@ function nsp_OptimizeNow() {
   global $wpdb;
   $table_name = nsp_TABLENAME;
 
+  // no needs prepare
   $wpdb->query("OPTIMIZE TABLE $table_name");
   print "<br /><div class='optimize'><p>".__('Optimization finished','newstatpress')."!</p></div>";
 }
@@ -1049,7 +1085,8 @@ function nsp_OptimizeNow() {
 function nsp_RepairNow() {
   global $wpdb;
   $table_name = nsp_TABLENAME;
-
+  
+  // no needs prepare
   $wpdb->query("REPAIR TABLE $table_name");
   print "<br /><div class='repair'><p>".__('Repair finished','newstatpress')."!</p></div>";
 }

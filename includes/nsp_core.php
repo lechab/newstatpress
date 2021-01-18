@@ -42,6 +42,7 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
   ");
 
   if($rks > 0) {
+    // in this form not needs prepare as $exclude nads $fld are fixed text
     $sql="
       SELECT count($param $queryfld) as pageview, $fld
       FROM $table_name
@@ -50,7 +51,8 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
       ORDER BY pageview DESC
     ";
     if($limit > 0) {
-      $sql=$sql." LIMIT $limit";
+     // use prepare
+      $sql=$wpdb->prepare($sql." LIMIT %d", $limit);
     }
     $qry = $wpdb->get_results($sql);
     $tdwidth=450;

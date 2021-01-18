@@ -197,6 +197,8 @@ Ubuntu Bionic Beaver|Ubuntu/18.04|Linux Ubuntu|
 Ubuntu Cosmic Cuttlefish|Ubuntu/18.10|Linux Ubuntu|
 Ubuntu Disco Dingo|Ubuntu/19.04|Linux Ubuntu|
 Ubuntu Eoan Ermine|Ubuntu/19.10|Linux Ubuntu|
+Ubuntu Focal Fossa|Ubuntu/20.04|Linux Ubuntu|
+Ubuntu Groovy Gorilla|Ubuntu/20.10|Linux Ubuntu|
 Ubuntu Linux|Ubuntu|Linux Ubuntu|
 Kubuntu|Kubuntu|linux|
 Suse Linux|Suse|Linux Suse|
@@ -212,6 +214,7 @@ Arch Linux|ArchLinux|linux|
 Arch Linux|Arch|linux|
 Mageia|mageia|linux|
 Linux Mandriva|Mandriva|linux|
+Linux Mint 20 Ulyssa|Linux Mint/20 (Ulyssa)|Linux Mint|
 Linux Mint 19 Tara|Linux Mint/19 (Tara)|Linux Mint|
 Linux Mint 18 Sarah|Linux Mint/18 (Sarah)|Linux Mint|
 Linux Mint 17 Rebecca|Linux Mint/17 (Rebecca)|Linux Mint|

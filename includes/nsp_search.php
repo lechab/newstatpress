@@ -101,6 +101,8 @@ function nsp_DatabaseSearch($what='') {
  
    # query builder
    $qry="";
+   $array = array();
+   
    # FIELDS
    $fields="";
    for($i=1;$i<=3;$i++) {
@@ -111,6 +113,8 @@ function nsp_DatabaseSearch($what='') {
      }
    }
    $fields=rtrim($fields,",");
+      
+   
    # WHERE
    $where="WHERE 1=1";
 
@@ -124,8 +128,10 @@ function nsp_DatabaseSearch($what='') {
      if(($_GET["what$i"] != '') && ($_GET["where$i"] != '')) {
        $where_i=$_GET["where$i"];
        if (array_key_exists($where_i, $f)) {
-         $what_i=esc_sql($_GET["what$i"]);
-         $where.=" AND ".$where_i." LIKE '%".$what_i."%'";
+         ///$what_i=esc_sql($_GET["what$i"]);
+         $what_i=$_GET["what$i"];              // sanitize with prepare  
+         $where.=" AND ".$where_i." LIKE %s ";
+         $array[]="%".$what_i."%";             // sanitize with prepare                               
        }  
      }
    }
@@ -159,11 +165,15 @@ function nsp_DatabaseSearch($what='') {
    if($orderby != '') { $orderby="ORDER BY ".rtrim($orderby,','); }
 
    $limit_num=intval($_GET['limitquery']); // force to use integer
-   $limit="LIMIT ".$limit_num;
+   $limit="LIMIT %d";     // for prepare
+   $array[]=$limit_num;   // for prepare
 
    # Results
    print "<h2>".__('Results','newstatpress')."</h2>";
-   $sql="SELECT $fields FROM $table_name $where $groupby $orderby $limit;";
+   
+   // use prepare
+   $sql=$wpdb->prepare("SELECT $fields FROM $table_name $where $groupby $orderby $limit;", $array);
+   
    //print "$sql<br>";
    print "<table class='widefat'><thead><tr>";
    for($i=1;$i<=3;$i++) {
@@ -184,7 +194,7 @@ function nsp_DatabaseSearch($what='') {
          print "</tr>";
      }
      print "</table>";
-     print "<br /><br /><font size=1 color=gray>sql: $sql</font></div>";
+     print "<br /><br /><font size=1 color=gray>sql: ".esc_html($sql)."</font></div>";
   }
 }
 ?>
