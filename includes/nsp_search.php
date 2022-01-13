@@ -43,7 +43,8 @@ function nsp_DatabaseSearch($what='') {
       } else print "<td><input type=checkbox name=sortby$i value='checked' "."> ".__('Sort by','newstatpress')."</td>";
 
       $what='';
-      if (isset($_GET["what$i"])) $what=$_GET["what$i"];
+      // we accept only chars, number, space and . (for ip) in search field
+      if (isset($_GET["what$i"])) $what=preg_replace("/[^A-Za-z0-9\.\s]/", '', $_GET["what$i"]);
       print "<td>, ".__('if contains','newstatpress')." <input type=text name=what$i value='".esc_js(esc_html($what))."'></td>";
       print "</tr>";
     }
@@ -128,8 +129,7 @@ function nsp_DatabaseSearch($what='') {
      if(($_GET["what$i"] != '') && ($_GET["where$i"] != '')) {
        $where_i=$_GET["where$i"];
        if (array_key_exists($where_i, $f)) {
-         ///$what_i=esc_sql($_GET["what$i"]);
-         $what_i=$_GET["what$i"];              // sanitize with prepare  
+         $what_i=preg_replace("/[^A-Za-z0-9\.\s]/", '', $_GET["what$i"]); // sanitize with prepare, but before extract what we expected               
          $where.=" AND ".$where_i." LIKE %s ";
          $array[]="%".$what_i."%";             // sanitize with prepare                               
        }  
