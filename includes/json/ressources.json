@@ -1,11 +1,6 @@
 {
    "ressources":[
       {
-        "ref": "idTabs",
-        "description": "Simple implimentation of tabs in jQuery",
-        "website": "http://www.sunsean.com/idTabs/"
-      },
-      {
         "ref": "Pikaday",
         "description": "JavaScript Datepicker",
         "website": "https://github.com/dbushell/Pikaday"

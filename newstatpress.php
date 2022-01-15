@@ -4,7 +4,7 @@
  Plugin URI: http://newstatpress.altervista.org
  Text Domain: newstatpress
  Description: Real time stats for your Wordpress blog
- Version: 1.3.6
+ Version: 1.3.7
  Author: Stefano Tognon and cHab (from Daniele Lippi works)
  Author URI: http://newstatpress.altervista.org
 ************************************************************/
@@ -15,7 +15,7 @@ if( !defined( 'ABSPATH' ) ) {
   die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-$_NEWSTATPRESS['version']='1.3.6';
+$_NEWSTATPRESS['version']='1.3.7';
 $_NEWSTATPRESS['feedtype']='';
 
 global $newstatpress_dir,
@@ -203,6 +203,9 @@ function nsp_Activation($arg='') {
 
    wp_register_style('NewStatPressStyles', $style_path);
    wp_enqueue_style('NewStatPressStyles');
+   
+   wp_enqueue_script('jquery-ui-core');// enqueue jQuery UI Core
+   wp_enqueue_script('jquery-ui-tabs');// enqueue jQuery UI Tabs
 
    $style_path2=plugins_url('./css/pikaday.css', __FILE__);
 
@@ -217,8 +220,7 @@ function nsp_Activation($arg='') {
    wp_enqueue_script('postbox'); //meta box
 
    // JS and jQuery
-   $scripts=array('idTabs'=>plugins_url('./js/jquery.idTabs.min.js', __FILE__),
-                  'moment'=>plugins_url('./js/moment.min.js', __FILE__),
+   $scripts=array('moment'=>plugins_url('./js/moment.min.js', __FILE__),
                   'pikaday'=>plugins_url('./js/pikaday.js', __FILE__),                  
                   'NewStatPressJs'=>plugins_url('./js/nsp_general.js', __FILE__));
    foreach($scripts as $key=>$sc)

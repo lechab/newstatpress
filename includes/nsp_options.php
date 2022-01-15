@@ -964,7 +964,10 @@ function nsp_Options() {
 </div>
 
 <script type="text/javascript">
-  jQuery("#usual1 ul").idTabs(general);
+  //jQuery("#usual1 ul").idTabs(general);
+  jQuery(document).ready(function($){
+    $("#usual1").tabs();
+  });
 </script>
 
 <?php

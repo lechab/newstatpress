@@ -135,7 +135,10 @@ function nsp_DisplayCreditsPage() {
 </div>
 
     <script type="text/javascript">
-      jQuery("#usual1 ul").idTabs(development);
+      //jQuery("#usual1 ul").idTabs(development);
+      jQuery(document).ready(function($){
+        $("#usual1").tabs();
+      });
     </script>
 
     <?php
