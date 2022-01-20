@@ -128,7 +128,7 @@ function nsp_IP2nation() {
   }
 
   echo "<br /><br />";
-     $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
+     $file_ip2nation= plugin_dir_path( __FILE__ ) . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
      $date=date('d/m/Y', filemtime($file_ip2nation));
 
      $table_name = "ip2nation";

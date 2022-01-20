@@ -37,7 +37,9 @@ define('nsp_PLUGIN_URL','http://newstatpress.altervista.org' );
 define('nsp_DONATE_URL', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F5S5PF4QBWU7E' );
 define('nsp_SUPPORT_URL','https://wordpress.org/support/plugin/'.nsp_TEXTDOMAIN );
 
-$newstatpress_dir = WP_PLUGIN_DIR . '/' .nsp_BASENAME;
+// user compatibility way to get dir
+$newstatpress_dir = plugin_dir_path( __FILE__ );
+
 
 $nsp_option_vars=array( // list of option variable name, with default value associated
                         // (''=>array('name'=>'','value'=>''))
@@ -390,15 +392,8 @@ function nsp_DatabaseSearchC() {
  * @return the url of the plugin
  ********************************/
 function nsp_PluginUrl() {
-  //Try to use WP API if possible, introduced in WP 2.6
-  if (function_exists('plugins_url')) return trailingslashit(plugins_url(basename(dirname(__FILE__))));
-
-  //Try to find manually... can't work if wp-content was renamed or is redirected
-  $path = dirname(__FILE__);
-  $path = str_replace("\\","/",$path);
-  $path = trailingslashit(get_bloginfo('wpurl')) . trailingslashit(substr($path,strpos($path,"wp-content/")));
-
-  return $path;
+  // use only modern way to get it  
+  return plugin_dir_url(__FILE__);
 }
 
 function nsp_GetServerName() {

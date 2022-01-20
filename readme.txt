@@ -150,6 +150,12 @@ Check at http://newstatpress.altervista.org for more details
 
 == Changelog ==
 
+= 1.3.7 =
+*Released date: 2021-01-xx*
+
+* Use WP Jquery, update JS at latest version
+* Use _FILE_ for accessing own files
+
 = 1.3.6 =
 *Released date: 2021-01-13*
 

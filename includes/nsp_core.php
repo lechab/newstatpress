@@ -73,10 +73,10 @@ function nsp_GetDataQuery2($fld, $fldtitle, $limit = 0, $param = "", $queryfld =
   if($rks > 0) {  // Chart!
 
     if($fld == 'nation') { // Nation chart
-      $charts=plugins_url('newstatpress')."/includes/geocharts.html".nsp_GetGoogleGeo($data);
+      $charts=plugins_url( './geocharts.html', __FILE__ ).nsp_GetGoogleGeo($data);
     }
     else { // Pie chart
-      $charts=plugins_url('newstatpress')."/includes/piecharts.html".nsp_GetGooglePie($fldtitle, $data);
+      $charts=plugins_url( './piecharts.html', __FILE__ ).nsp_GetGooglePie($fldtitle, $data);
     }
 
     foreach ($data as $key => $value) {

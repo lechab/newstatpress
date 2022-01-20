@@ -177,7 +177,7 @@ document.getElementById(thediv).style.display="none"
         list($title,$id)=explode("|",$spider);
         if($title==$rk->spider) break; // break, the tooltip ($title) is found
       }
-      echo "<IMG class='img_os' style='align:left;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/spider/'.$img, nsp_BASENAME). "'>
+      echo "<IMG class='img_os' style='align:left;' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/spider/'.$img, __FILE__). "'>
             <span style='color:#006dca;cursor:pointer;border-bottom:1px dotted #AFD5F9;font-size:8pt;' onClick=ttogle('" . $img . "');>http more info</span>
             <div id='" . $img . "' name='" . $img . "'><br /><small>" . $rk->ip . "</small><br><small>" . $rk->agent . "<br /></small></div>
             <script>document.getElementById('" . $img . "').style.display='none';</script>
@@ -248,7 +248,7 @@ document.getElementById(thediv).style.display="none"
         list($title,$id)=explode("|",$nation);
         if($id===$rk->nation) break;
       }
-      echo "<IMG style='border:0px;height:16px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, nsp_BASENAME). "'>  ";
+      echo "<IMG style='border:0px;height:16px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/domain/'.$img, __FILE__). "'>  ";
     } else {
         $ch = curl_init('http://api.hostip.info/country.php?ip='.$rk->ip);
         curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -258,7 +258,7 @@ document.getElementById(thediv).style.display="none"
         $output .=".png";
         $output = strtolower($output);
         curl_close($ch);
-        echo "<IMG style='border:0px;width:18;height:12px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$output, nsp_BASENAME). "'>  ";
+        echo "<IMG style='border:0px;width:18;height:12px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/domain/'.$output, __FILE__). "'>  ";
       }
 
 
@@ -396,7 +396,7 @@ document.getElementById(thediv).style.display="none"
             list($title,$id)=explode("|",$nation);
             if($id===$rk->nation) break;
           }
-          print "".__('Http domain', 'newstatpress')." <IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$img, nsp_BASENAME). "'>  ";
+          print "".__('Http domain', 'newstatpress')." <IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/domain/'.$img, __FILE__). "'>  ";
 
         } else {
             $ch = curl_init('http://api.hostip.info/country.php?ip='.$rk->ip);
@@ -407,7 +407,7 @@ document.getElementById(thediv).style.display="none"
             $output .=".png";
             $output = strtolower($output);
             curl_close($ch);
-            print "".__('Hostip country','newstatpress'). "<IMG style='border:0px;width:18;height:12px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('newstatpress/images/domain/'.$output, nsp_BASENAME). "'>  ";
+            print "".__('Hostip country','newstatpress'). "<IMG style='border:0px;width:18;height:12px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/domain/'.$output, __FILE__). "'>  ";
       }
 
         print "<strong><span><font size='2' color='#7b7b7b'>".$rk->ip."</font></span></strong> ";
