@@ -6,6 +6,9 @@ if( !defined( 'ABSPATH' ) ) {
   die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
+require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+
 /****** List of Functions available ******
  *
  * nsp_DisplayToolsPage()
@@ -277,7 +280,7 @@ function nsp_IP2nationInstall() {
 
   $file_ip2nation= WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes/ip2nation.sql';
 
-  $sql = file_get_contents($file_ip2nation);
+  $sql = WP_Filesystem_Direct::get_contents($file_ip2nation);
   $sql_array = explode (";",$sql);
   foreach ($sql_array as $val) {
     $wpdb->query($val);

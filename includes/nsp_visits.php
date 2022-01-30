@@ -249,15 +249,11 @@ document.getElementById(thediv).style.display="none"
         if($id===$rk->nation) break;
       }
       echo "<IMG style='border:0px;height:16px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/domain/'.$img, __FILE__). "'>  ";
-    } else {
-        $ch = curl_init('http://api.hostip.info/country.php?ip='.$rk->ip);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_POST, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $output = curl_exec($ch);
+    } else {      
+        $response = wp_remote_request( 'https://api.hostip.info/country.php?ip='.$rk->ip);
+        $output = wp_remote_retrieve_body($response);
         $output .=".png";
         $output = strtolower($output);
-        curl_close($ch);
         echo "<IMG style='border:0px;width:18;height:12px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/domain/'.$output, __FILE__). "'>  ";
       }
 
@@ -398,17 +394,14 @@ document.getElementById(thediv).style.display="none"
           }
           print "".__('Http domain', 'newstatpress')." <IMG class='img_os' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/domain/'.$img, __FILE__). "'>  ";
 
-        } else {
-            $ch = curl_init('http://api.hostip.info/country.php?ip='.$rk->ip);
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_POST, 0);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            $output = curl_exec($ch);
+        } else {           
+            $response = wp_remote_request( 'https://api.hostip.info/country.php?ip='.$rk->ip);
+            $output = wp_remote_retrieve_body($response);            
             $output .=".png";
             $output = strtolower($output);
-            curl_close($ch);
+
             print "".__('Hostip country','newstatpress'). "<IMG style='border:0px;width:18;height:12px;' alt='".$title."' title='".$title."' SRC='" .plugins_url('../images/domain/'.$output, __FILE__). "'>  ";
-      }
+          }
 
         print "<strong><span><font size='2' color='#7b7b7b'>".$rk->ip."</font></span></strong> ";
         print "<span style='color:#006dca;cursor:pointer;border-bottom:1px dotted #AFD5F9;font-size:8pt;' onClick=ttogle('".$rk->ip."');>".__('more info','newstatpress')."</span></div>";

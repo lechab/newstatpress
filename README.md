@@ -30,10 +30,16 @@
 - [ ] Add jQuery Vector Maps v1.5.0
 
 
+
+## 1.3.8
+*Released date: 2021-02-xx*
+- [x] Use HTTP API instead of CURL 
+
 ## 1.3.7
-*Released date: 2021-01-xx*
+*Released date: 2021-01-27*
 - [x] Use WP Jquery, update JS at latest version
 - [x] Use _FILE_ for accessing own files
+- [x] Load ip2nation with Wordpress API
 
 ## 1.3.6
 *Released date: 2021-01-13*
