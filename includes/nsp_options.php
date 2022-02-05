@@ -148,8 +148,8 @@ function nsp_interval( $since ) {
 function nsp_PrintSchedules($current){
   global $nsp_option_vars;
   $schedules = nsp_GetSchedules();
-  $name=$nsp_option_vars['mail_notification_freq']['name'];
-  $valu=$nsp_option_vars['mail_notification_freq']['value'];
+  //$name=$nsp_option_vars['mail_notification_freq']['name'];
+  //$valu=$nsp_option_vars['mail_notification_freq']['value'];
     ?>
     <select name="newstatpress_mail_notification_freq" id="mail_freq">
     <option <?php selected( $current, '_oneoff' ); ?> value="_oneoff"><?php esc_html_e( 'Non-repeating', nsp_TEXTDOMAIN ); ?></option>
@@ -174,9 +174,9 @@ function nsp_PrintRowInput($option_title, $nsp_option_vars, $input_size, $input_
   <tr>
     <td>
     <?php
-    echo "<label for=$nsp_option_vars[name]>$option_title</label></td>\n";
-    echo "<td><input class='right' type='text' name=$nsp_option_vars[name] value=";
-    echo (get_option($nsp_option_vars['name'])=='') ? $nsp_option_vars['value']:get_option($nsp_option_vars['name']);
+    echo "<label for='".esc_attr($nsp_option_vars[name])."'>".esc_html($option_title)."</label></td>\n";
+    echo "<td><input class='right' type='text' name='".esc_attr($nsp_option_vars[name])."' value=";
+    echo (get_option($nsp_option_vars['name'])=='') ? $nsp_option_vars['value']:esc_attr(get_option($nsp_option_vars['name']));
     echo " size=$input_size maxlength=$input_maxlength />\n";
     ?>
     </td>
@@ -478,17 +478,17 @@ function nsp_Options() {
                 $name=$nsp_option_vars['calculation']['name'];
                 $valu=$nsp_option_vars['calculation']['value'];
                 echo "
-                  <p><input type='radio' name='$name' value=";
+                  <p><input type='radio' name='".esc_attr($name)."' value=";
 
                         if ((get_option($name)=='') OR (get_option($name)==$valu)) {
                           // echo $nsp_option_vars['calculation']['value'];
-                          echo $valu." checked";
+                          echo esc_html($valu)." checked";
                         }
                         echo " />
                         <label>"; _e('Simple sum of distinct IPs (Classic method)',nsp_TEXTDOMAIN); echo "</label>
                     </p>
                     <p>
-                        <input type='radio' name='$name' value=";
+                        <input type='radio' name='".esc_attr($name)."' value=";
 
                           echo 'sum';
                             if (get_option($name)=='sum') {

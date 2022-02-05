@@ -50,10 +50,10 @@ function nsp_externalApiAjax() {
   $api_key=md5(gmdate('m-d-y H i').$api_key);
 
   // get the parameter from URL
-  $var = $_REQUEST["VAR"];
-  $key = $_REQUEST["KEY"];  # key readed is md5(date('m-d-y H i').'Key')
-  $par = $_REQUEST["PAR"];  # can be empty
-  $typ = $_REQUEST["TYP"];  # can be empty
+  $var = substr(preg_replace("/[^a-z]+/", "", $_REQUEST["VAR"]), 0, 9);
+  $key = preg_replace("/[^a-z0-9]+/", "", $_REQUEST["KEY"]);            # key readed is md5(date('m-d-y H i').'Key')
+  $par = intval($_REQUEST["PAR"]);                                      # can be empty
+  $typ = substr(preg_replace("/[^A-Z]+/", "", $_REQUEST["TYP"]), 0, 4); # can be empty
 
   if ($typ == null) $typ="JSON";
 
@@ -63,7 +63,7 @@ function nsp_externalApiAjax() {
     return;
   }
 
-  if( !preg_match("/^[a-zA-Z0-9 ]*$/",$key) )  {
+  if( !preg_match('/^[a-f0-9]{32}$/',$key) )  {
     header('HTTP/1.0 403 Forbidden');
     die("Invalid key");
     return;

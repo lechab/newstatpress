@@ -167,44 +167,44 @@ function nsp_Shortcode($content = '') {
         $replacement=nsp_ApiDashboard("HTML");
         break;
       case "Top days":
-        $replacement=nsp_GetDataQuery2("date", __('Top days','newstatpress') ,(get_option('newstatpress_el_top_days')=='') ? 5:get_option('newstatpress_el_top_days'), FALSE);
+        $replacement=nsp_GetDataQuery2("date", __('Top days','newstatpress') ,(get_option('newstatpress_el_top_days')=='') ? 5:intval(get_option('newstatpress_el_top_days')), FALSE);
         // $replacement=nsp_GetDataQuery2("date","Top days", (get_option('newstatpress_el_top_days')=='') ? 5:get_option('newstatpress_el_top_days'), FALSE);
         break;
       case "O.S.":
-        $replacement=nsp_GetDataQuery2("os",__('OSes','newstatpress'),(get_option('newstatpress_el_os')=='') ? 10:get_option('newstatpress_el_os'),"","","AND feed='' AND spider='' AND os<>''", FALSE);
+        $replacement=nsp_GetDataQuery2("os",__('OSes','newstatpress'),(get_option('newstatpress_el_os')=='') ? 10:intval(get_option('newstatpress_el_os')),"","","AND feed='' AND spider='' AND os<>''", FALSE);
         break;
       case "Browser":
-        $replacement=nsp_GetDataQuery2("browser",__('Browsers','newstatpress') ,(get_option('newstatpress_el_browser')=='') ? 10:get_option('newstatpress_el_browser'),"","","AND feed='' AND spider='' AND browser<>''", FALSE);
+        $replacement=nsp_GetDataQuery2("browser",__('Browsers','newstatpress') ,(get_option('newstatpress_el_browser')=='') ? 10:intval(get_option('newstatpress_el_browser')),"","","AND feed='' AND spider='' AND browser<>''", FALSE);
         break;
       case "Feeds":
-        $replacement=nsp_GetDataQuery2("feed",__('Feeds','newstatpress'), (get_option('newstatpress_el_feed')=='') ? 5:get_option('newstatpress_el_feed'),"","","AND feed<>''", FALSE);
+        $replacement=nsp_GetDataQuery2("feed",__('Feeds','newstatpress'), (get_option('newstatpress_el_feed')=='') ? 5:intval(get_option('newstatpress_el_feed')),"","","AND feed<>''", FALSE);
         break;
       case "Search Engine":
-        $replacement=nsp_GetDataQuery2("searchengine",__('Search engines','newstatpress') ,(get_option('newstatpress_el_searchengine')=='') ? 10:get_option('newstatpress_el_searchengine'),"","","AND searchengine<>''", FALSE);
+        $replacement=nsp_GetDataQuery2("searchengine",__('Search engines','newstatpress') ,(get_option('newstatpress_el_searchengine')=='') ? 10:intval(get_option('newstatpress_el_searchengine')),"","","AND searchengine<>''", FALSE);
         break;
       case "Search terms":
-        $replacement=nsp_GetDataQuery2("search",__('Top search terms','newstatpress') ,(get_option('newstatpress_el_search')=='') ? 20:get_option('newstatpress_el_search'),"","","AND search<>''", FALSE);
+        $replacement=nsp_GetDataQuery2("search",__('Top search terms','newstatpress') ,(get_option('newstatpress_el_search')=='') ? 20:intval(get_option('newstatpress_el_search')),"","","AND search<>''", FALSE);
         break;
       case "Top referrer":
-        $replacement= nsp_GetDataQuery2("referrer",__('Top referrers','newstatpress') ,(get_option('newstatpress_el_referrer')=='') ? 10:get_option('newstatpress_el_referrer'),"","","AND referrer<>'' AND referrer NOT LIKE '%".get_bloginfo('url')."%'", FALSE);
+        $replacement= nsp_GetDataQuery2("referrer",__('Top referrers','newstatpress') ,(get_option('newstatpress_el_referrer')=='') ? 10:intval(get_option('newstatpress_el_referrer')),"","","AND referrer<>'' AND referrer NOT LIKE '%".get_bloginfo('url')."%'", FALSE);
         break;
       case "Languages":
-        $replacement=nsp_GetDataQuery2("nation",__('Countries','newstatpress').'/'.__('Languages','newstatpress') ,(get_option('newstatpress_el_languages')=='') ? 20:get_option('newstatpress_el_languages'),"","","AND nation<>'' AND spider=''", FALSE);
+        $replacement=nsp_GetDataQuery2("nation",__('Countries','newstatpress').'/'.__('Languages','newstatpress') ,(get_option('newstatpress_el_languages')=='') ? 20:intval(get_option('newstatpress_el_languages')),"","","AND nation<>'' AND spider=''", FALSE);
         break;
       case "Spider":
-        $replacement=nsp_GetDataQuery2("spider",__('Spiders','newstatpress') ,(get_option('newstatpress_el_spiders')=='') ? 10:get_option('newstatpress_el_spiders'),"","","AND spider<>''", FALSE);
+        $replacement=nsp_GetDataQuery2("spider",__('Spiders','newstatpress') ,(get_option('newstatpress_el_spiders')=='') ? 10:intval(get_option('newstatpress_el_spiders')),"","","AND spider<>''", FALSE);
         break;
       case "Top Pages":
-        $replacement=nsp_GetDataQuery2("urlrequested",__('Top pages','newstatpress') ,(get_option('newstatpress_el_pages')=='') ? 5:get_option('newstatpress_el_pages'),"","urlrequested","AND feed='' and spider=''", FALSE);
+        $replacement=nsp_GetDataQuery2("urlrequested",__('Top pages','newstatpress') ,(get_option('newstatpress_el_pages')=='') ? 5:intval(get_option('newstatpress_el_pages')),"","urlrequested","AND feed='' and spider=''", FALSE);
         break;
       case "Top Days - Unique visitors":
-        $replacement=nsp_GetDataQuery2("date",__('Top days','newstatpress').' - '.__('Unique visitors','newstatpress') ,(get_option('newstatpress_el_visitors')=='') ? 5:get_option('newstatpress_el_visitors'),"distinct","ip","AND feed='' and spider=''", FALSE);
+        $replacement=nsp_GetDataQuery2("date",__('Top days','newstatpress').' - '.__('Unique visitors','newstatpress') ,(get_option('newstatpress_el_visitors')=='') ? 5:intval(get_option('newstatpress_el_visitors')),"distinct","ip","AND feed='' and spider=''", FALSE);
         break;
       case "Top Days - Pageviews":
-        $replacement=nsp_GetDataQuery2("date",__('Top days','newstatpress').' - '.__('Pageviews','newstatpress') ,(get_option('newstatpress_el_daypages')=='') ? 5:get_option('newstatpress_el_daypages'),"","urlrequested","AND feed='' and spider=''", FALSE);
+        $replacement=nsp_GetDataQuery2("date",__('Top days','newstatpress').' - '.__('Pageviews','newstatpress') ,(get_option('newstatpress_el_daypages')=='') ? 5:intval(get_option('newstatpress_el_daypages')),"","urlrequested","AND feed='' and spider=''", FALSE);
         break;
       case "Top IPs - Pageviews":
-        $replacement=nsp_GetDataQuery2("ip",__('Top IPs','newstatpress').' - '.__('Pageviews','newstatpress') ,(get_option('newstatpress_el_ippages')=='') ? 5:get_option('newstatpress_el_ippages'),"","urlrequested","AND feed='' and spider=''", FALSE);
+        $replacement=nsp_GetDataQuery2("ip",__('Top IPs','newstatpress').' - '.__('Pageviews','newstatpress') ,(get_option('newstatpress_el_ippages')=='') ? 5:intval(get_option('newstatpress_el_ippages')),"","urlrequested","AND feed='' and spider=''", FALSE);
         break;
       default:
         $replacement="";

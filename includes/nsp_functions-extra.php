@@ -132,9 +132,8 @@ function nsp_ExtractFeedFromUrl($url) {
 
 function nsp_GetUrl() {
 	$url  = nsp_ConnexionIsSSL() ? 'https://' : 'http://';
-  //$url = 'http://';
 	$url .= nsp_SERVER_NAME.$_SERVER['REQUEST_URI'];
-	return $url;
+	return esc_url($url);
 }
 
 /**
@@ -359,7 +358,7 @@ function nsp_load_time()
 
 
 /**
- * Display tabs pf navigation bar for menu in page
+ * Display tabs of navigation bar for menu in page
  *
  * @param menu_tabs list of menu tabs
  * @param current current tabs

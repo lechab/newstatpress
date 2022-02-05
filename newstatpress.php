@@ -402,7 +402,7 @@ function nsp_GetServerName() {
   elseif( !empty( $_NEWSTATPRESS_ENV['HTTP_HOST'] ) )   { $server_name = $_NEWSTATPRESS_ENV['HTTP_HOST']; }
   elseif( !empty( $_SERVER['SERVER_NAME'] ) )           { $server_name = $_SERVER['SERVER_NAME']; }
   elseif( !empty( $_NEWSTATPRESS_ENV['SERVER_NAME'] ) ) { $server_name = $_NEWSTATPRESS_ENV['SERVER_NAME']; }
-  return nsp_CaseTrans( 'lower', $server_name );
+  return esc_html(nsp_CaseTrans( 'lower', $server_name ));
 }
 
 /***TODO rsfb_strlen
@@ -493,10 +493,10 @@ function nsp_stat_by_email($arg='') {
   $name=$nsp_option_vars['mail_notification_freq']['name'];
   $freq=get_option($name);
 
-  $userna = get_option('newstatpress_mail_notification_info');
+  $userna = esc_html(get_option('newstatpress_mail_notification_info'));
 
   //$headers= 'From:NewStatPress';
-  $blog_title = get_bloginfo('name');
+  $blog_title = esc_html(get_bloginfo('name'));
   $subject=sprintf(__('[%s] Visits statistics','newstatpress'), $blog_title);
   if($arg=='test')
     $subject=sprintf(__('[%s] Visits statistics : test of email address','newstatpress'), $blog_title);
@@ -505,13 +505,13 @@ function nsp_stat_by_email($arg='') {
   $resultH=nsp_ApiDashboard("HTML");
 
   $name=$nsp_option_vars['mail_notification_address']['name'];
-  $email_address=get_option($name);
+  $email_address=sanitize_email(get_option($name));
 
   $name=$nsp_option_vars['mail_notification_sender']['name'];
-  $sender=get_option($name);
-  //$sender=get_option($nsp_option_vars['name']);
+  $sender=esc_html(get_option($name));
+
   if($sender=='') {
-    $sender=$nsp_option_vars['mail_notification_sender']['value'];
+    $sender=esc_html($nsp_option_vars['mail_notification_sender']['value']);
   } 
 
   $support_pluginpage="<a href='".nsp_SUPPORT_URL."' target='_blank'>".__('support page','newstatpress')."</a>";
@@ -1396,7 +1396,7 @@ function nsp_WidgetInit($args) {
     if ( !is_array($options) ) $options = array('title'=>'NewStatPress Stats', 'body'=>'Visits today: %visits%');
     if ( isset($_POST['newstatpress-submit']) && $_POST['newstatpress-submit'] ) {
       $options['title'] = sanitize_text_field($_POST['newstatpress-title']);
-      $options['body'] = stripslashes($_POST['newstatpress-body']);
+      $options['body'] = sanitize_text_field(stripslashes($_POST['newstatpress-body']));
       update_option('widget_newstatpress', $options);
     }
     $title = htmlspecialchars($options['title'], ENT_QUOTES);
@@ -1405,11 +1405,11 @@ function nsp_WidgetInit($args) {
      // the form
     echo "<p>
             <label for='newstatpress-title'>". __('Title:', 'newstatpress') ."</label>
-            <input class='widget-title' id='newstatpress-title' name='newstatpress-title' type='text' value='$title' />
+            <input class='widget-title' id='newstatpress-title' name='newstatpress-title' type='text' value='".esc_attr($title)."' />
           </p>
           <p>
             <label for='newstatpress-body'>". _e('Body:', 'newstatpress') ."</label>
-            <textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea' placeholder='Example: Month visits: %mvisits%...'>$body</textarea>
+            <textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea' placeholder='Example: Month visits: %mvisits%...'>".esc_html($body)."</textarea>
           </p>
           <input type='hidden' id='newstatpress-submit' name='newstatpress-submit' value='1' />
           <p>". __('Stats available: ', 'newstatpress') ."<br/ >
@@ -1423,8 +1423,8 @@ function nsp_WidgetInit($args) {
   function nsp_WidgetStats($args) {
     extract($args);
     $options = get_option('widget_newstatpress');
-    $title = $options['title'];
-    $body = $options['body'];
+    $title = esc_js($options['title']);
+    $body = esc_js($options['body']);
     echo $before_widget;
     print($before_title . $title . $after_title);
     print nsp_ExpandVarsInsideCode($body);
@@ -1454,15 +1454,15 @@ function nsp_WidgetInit($args) {
     // the form
     echo "<p style='text-align:right;'>
             <label for='newstatpresstopposts-title'>". __('Title','newstatpress') . "
-            <input style='width: 250px;' id='newstatpress-title' name='newstatpresstopposts-title' type='text' value=$title />
+            <input style='width: 250px;' id='newstatpress-title' name='newstatpresstopposts-title' type='text' value='".esc_attr($title)."' />
             </label>
           </p>
           <p style='text-align:right;'>
             <label for='newstatpresstopposts-howmany'>". __('Limit results to','newstatpress') ."
-            <input style='width: 100px;' id='newstatpresstopposts-howmany' name='newstatpresstopposts-howmany' type='text' value=$howmany />
+            <input style='width: 100px;' id='newstatpresstopposts-howmany' name='newstatpresstopposts-howmany' type='text' value='".esc_attr($howmany)."' />
             </label>
           </p>";
-    echo '<p style="text-align:right;"><label for="newstatpresstopposts-showcounts">' . __('Visits','newstatpress') . ' <input id="newstatpresstopposts-showcounts" name="newstatpresstopposts-showcounts" type=checkbox value="checked" '.$showcounts.' /></label></p>';
+    echo '<p style="text-align:right;"><label for="newstatpresstopposts-showcounts">' . __('Visits','newstatpress') . ' <input id="newstatpresstopposts-showcounts" name="newstatpresstopposts-showcounts" type=checkbox value="checked" '.esc_attr($showcounts).' /></label></p>';
     echo '<input type="hidden" id="newstatpress-submitTopPosts" name="newstatpresstopposts-submit" value="1" />';
   }
   function nsp_WidgetTopPosts($args) {
@@ -1682,19 +1682,19 @@ function nsp_MakeOverview($print ='dashboard') {
 
     switch($row) {
       case 'visitors' :
-        $qry_total->$row=$qry_total->$row+$offsets['alltotalvisits'];
+        $qry_total->$row=$qry_total->$row+intval($offsets['alltotalvisits']);
         break;
       case 'visitors_feeds' :
-        $qry_total->$row=$qry_total->$row+$offsets['visitorsfeeds'];
+        $qry_total->$row=$qry_total->$row+intval($offsets['visitorsfeeds']);
         break;
       case 'pageview' :
-        $qry_total->$row=$qry_total->$row+$offsets['pageviews'];
+        $qry_total->$row=$qry_total->$row+intval($offsets['pageviews']);
         break;
       case 'spiders' :
-        $qry_total->$row=$qry_total->$row+$offsets['spy'];
+        $qry_total->$row=$qry_total->$row+intval($offsets['spy']);
         break;
       case 'feeds' :
-        $qry_total->$row=$qry_total->$row+$offsets['pageviewfeeds'];
+        $qry_total->$row=$qry_total->$row+intval($offsets['pageviewfeeds']);
         break;
     }
 

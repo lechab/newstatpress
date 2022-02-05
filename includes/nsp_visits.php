@@ -25,7 +25,7 @@ function nsp_DisplayVisitsPage() {
   print "<div class='wrap'><h2>".__('Visits','newstatpress')."</h2>";
 
 
-  if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($VisitsPage_tabs,$_GET['tab'],$page);
+  if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($VisitsPage_tabs,sanitize_text_field($_GET['tab']),$page);
   else nsp_DisplayTabsNavbarForMenuPage($VisitsPage_tabs, 'lastvisitors',$page);
 
   if ( $pagenow == 'admin.php' && $_GET['page'] == $page ) {
@@ -57,7 +57,7 @@ function newstatpress_page_periode() {
   // pp is the display page periode
   if(isset($_GET['pp'])) {
     // Get Current page periode from URL
-    $periode = $_GET['pp'];
+    $periode = intval($_GET['pp']);
     if($periode <= 0)
       // Periode is less than 0 then set it to 1
       $periode = 1;
@@ -77,7 +77,7 @@ function newstatpress_page_posts() {
   // pa is the display pages Articles
   if(isset($_GET['pa'])) {
     // Get Current page Articles from URL
-    $pageA = $_GET['pa'];
+    $pageA = intval($_GET['pa']);
     if($pageA <= 0)
       // Article is less than 0 then set it to 1
       $pageA = 1;

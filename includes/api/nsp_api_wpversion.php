@@ -24,7 +24,7 @@ function nsp_ApiWpVersion($typ) {
 
   if ($typ=="JSON") return $resultJ;         // avoid to calculte HTML if not necessary
   
-  $resultH="<div>".$resultJ[$var]."</div>";  
+  $resultH="<div>".esc_html($resultJ[$var])."</div>";  
   return $resultH;
 }
 ?>

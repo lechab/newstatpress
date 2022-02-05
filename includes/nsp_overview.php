@@ -23,7 +23,7 @@ function nsp_generate_overview_agents(){
   if ($permalink_structure=='') $extra="/?";
   else $extra="/";
 
-  $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
+  $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:intval(get_option('newstatpress_el_overview')));
   // use prepare
   $useragents = $wpdb->get_results($wpdb->prepare(
    "SELECT agent,os,browser,spider
@@ -89,7 +89,7 @@ function nsp_generate_overview_lasthits() {
   if ($permalink_structure=='') $extra="/?";
   else $extra="/";
 
-  $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
+  $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:intval(get_option('newstatpress_el_overview')));
   // use prepare
   $lasthits = $wpdb->get_results($wpdb->prepare(
    "SELECT *
@@ -321,7 +321,7 @@ function nsp_generate_overview_spiders() {
   if ($permalink_structure=='') $extra="/?";
   else $extra="/";
 
-  $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:get_option('newstatpress_el_overview'));
+  $querylimit=((get_option('newstatpress_el_overview')=='') ? 10:intval(get_option('newstatpress_el_overview')));
   // use prepare
   $spiders = $wpdb->get_results($wpdb->prepare(
    "SELECT date,time,agent,os,browser,spider

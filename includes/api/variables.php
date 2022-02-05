@@ -201,7 +201,7 @@ function nsp_variablesAjax() {
      }
   } elseif ($var=='widget_topposts') {
       $limit = intval($_REQUEST["LIMIT"]);
-      $showcounts = $_REQUEST["FLAG"];
+      $showcounts = preg_replace("/[^a-zA-Z]+/", "", $_REQUEST["FLAG"]);
 
       $res="\n<ul>\n";
       // use prepare

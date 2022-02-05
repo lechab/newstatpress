@@ -13,7 +13,6 @@ require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
  *
  * nsp_DisplayToolsPage()
  * nsp_RemovePluginDatabase()
- * nsp_IP2nationDownload()
  * nsp_ExportNow()
  * nsp_Export()
  *****************************************/
@@ -37,12 +36,12 @@ function nsp_DisplayToolsPage() {
 
   print "<div class='wrap'><h2>".__('Database Tools','newstatpress')."</h2>";
 
-  if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($ToolsPage_tabs,$_GET['tab'],$page);
+  if ( isset ( $_GET['tab'] ) ) nsp_DisplayTabsNavbarForMenuPage($ToolsPage_tabs,sanitize_text_field($_GET['tab']),$page);
   else nsp_DisplayTabsNavbarForMenuPage($ToolsPage_tabs, $default_tab, $page);
 
   if ( $pagenow == 'admin.php' && $_GET['page'] == $page ) {
 
-    if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
+    if ( isset ( $_GET['tab'] ) ) $tab = sanitize_text_field($_GET['tab']);
     else $tab = $default_tab;
 
     switch ($tab) {
@@ -151,10 +150,10 @@ function nsp_IP2nation() {
 
     // Display status
     $i=sprintf(__('Last version available: %s','newstatpress'), $date);
-    echo $i.'<br />';
+    echo esc_html($i).'<br />';
      if ($installed!="none") {
        $i=sprintf(__('Last version installed: %s','newstatpress'), $installed);
-       echo $i.'<br /><br />';
+       echo esc_html($i).'<br /><br />';
        _e('To update the IP2nation database, just click on the button bellow.','newstatpress');
        if($installed==$date) {
          $button_name='Update';
@@ -181,12 +180,12 @@ function nsp_IP2nation() {
        <?php wp_nonce_field('nsp_tool', 'nsp_tool_post'); ?>
 
        <input type=hidden name=newstatpress_action value=ip2nation>
-       <button class='<?php echo $class_install ?> button button-primary' type=submit name=installation value=install>
+       <button class='<?php echo esc_attr($class_install) ?> button button-primary' type=submit name=installation value=install>
          <?php _e($button_name,'newstatpress'); ?>
        </button>
 
        <input type=hidden name=newstatpress_action value=ip2nation>
-       <button class='<?php echo $class_inst ?> button button-primary' type=submit name=installation value=<?php echo $value_remove ?> >
+       <button class='<?php echo esc_attr($class_inst) ?> button button-primary' type=submit name=installation value=<?php echo esc_attr($value_remove) ?> >
          <?php _e('Remove','newstatpress'); ?>
        </button>
       </form>
@@ -206,70 +205,6 @@ function nsp_IP2nation() {
     ?>
     </div>
 <?php
-}
-
-// add by chab
-/**
- * Download and install IP2nation
- *
- * @return the status of the operation
- *************************************/
-function nsp_IP2nationDownload() {
-
-  //Request to make http request with WP functions
-  if( !class_exists( 'WP_Http' ) ) {
-    include_once( ABSPATH . WPINC. '/class-http.php' );
-  }
-
-  // Definition $var
-  $timeout=300;
-  $db_file_url = 'http://www.ip2nation.com/ip2nation.zip';
-  $upload_dir = wp_upload_dir();
-  $temp_zip_file = $upload_dir['basedir'] . '/ip2nation.zip';
-
-  //delete old file if exists
-  unlink( $temp_zip_file );
-
-  $result = wp_remote_get ($db_file_url, array( 'timeout' => $timeout ));
-
-  //Writing of the ZIP db_file
-  if ( !is_wp_error( $result ) ) {
-    //Headers error check : 404
-    if ( 200 != wp_remote_retrieve_response_code( $result ) ){
-      $install_status = new WP_Error( 'http_404', trim( wp_remote_retrieve_response_message( $result ) ) );
-    }
-
-    // Save file to temp directory
-    // ******To add a md5 routine : to check the integrity of the file
-    $content = wp_remote_retrieve_body($result);
-    $zip_size = file_put_contents ($temp_zip_file, $content);
-    if (!$zip_size) { // writing error
-      $install_status=__('Failure to save content locally, please try to re-install.','newstatpress');
-    }
-  }
-  else { // WP_error
-    $error_message = $result->get_error_message();
-    echo '<div id="message" class="error"><p>' . $error_message . '</p></div>';
-  }
-
-  // require PclZip if not loaded
-  if(! class_exists('PclZip')) {
-    require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
-  }
-
-  // Unzip Db Archive
-  $archive = new PclZip($temp_zip_file);
-  $newstatpress_includes_path = WP_PLUGIN_DIR . '/' .dirname(plugin_basename(__FILE__)) . '/includes';
-  if ($archive->extract(PCLZIP_OPT_PATH, $newstatpress_includes_path , PCLZIP_OPT_REMOVE_ALL_PATH) == 0) {
-    $install_status=__('Failure to unzip archive, please try to re-install','newstatpress');
-  }
-  else {
-    $install_status=__('Installation of IP2nation database was successful','newstatpress');
-  }
-
-  // Remove Zip file
-  unlink( $temp_zip_file );
-  return $install_status;
 }
 
 //TODO integrate error check
@@ -437,14 +372,14 @@ function nsp_ExportNow() {
   $table_name = nsp_TABLENAME;
   
   // sanitize from date
-  if (isset($_GET['from'])) $from=$_GET['from'];
+  if ( isset($_GET['from']) ) $from=date('Ymd', strtotime($_GET['from']));
   else $from='19990101';
   
   // sanitize to date
-  if (isset($_GET['to'])) $to=$_GET['to'];
+  if ( isset($_GET['to']) ) $to=date('Ymd', strtotime($_GET['to']));
   else $to='29990101';
     
-  // sanitize extesnion
+  // sanitize extension
   if (isset($_GET['ext'])) {
     switch($_GET['ext']) {
       case 'csv':

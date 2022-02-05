@@ -32,8 +32,9 @@
 
 
 ## 1.3.8
-*Released date: 2021-02-xx*
+*Released date: 2021-02-05*
 - [x] Use HTTP API instead of CURL 
+- [x] Add more sanization onto output from db
 
 ## 1.3.7
 *Released date: 2021-01-27*

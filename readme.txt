@@ -151,9 +151,10 @@ Check at http://newstatpress.altervista.org for more details
 == Changelog ==
 
 = 1.3.8 =
-*Released date: 2021-02-xx*
+*Released date: 2021-02-05*
 
 * Use HTTP API instead of CURL
+* Add more sanization onto output from db
 
 = 1.3.7 =
 *Released date: 2021-01-27*
