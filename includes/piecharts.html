@@ -15,10 +15,10 @@
           $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
         }
 
-        var pieTitle=$_GET['title'];     
+        var pieTitle=sanitize_text_field($_GET['title']);     
 
-        var values = $_GET['chd'].split(",");
-        var labels = $_GET['chl'].split("|");
+        var values = sanitize_text_field($_GET['chd']).split(",");
+        var labels = sanitize_text_field($_GET['chl']).split("|");
 
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'descr');

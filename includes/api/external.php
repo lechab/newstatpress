@@ -6,10 +6,10 @@ if( !defined( 'ABSPATH' ) ) {
   die(__('ERROR: This plugin requires WordPress and will not function if called directly.','newstatpress'));
 }
 
-require('nsp_api_version.php');
-require('nsp_api_wpversion.php');
-require('nsp_api_dashboard.php');
-require('nsp_api_overview.php');
+require('nsp-api-version.php');
+require('nsp-api-wpversion.php');
+require('nsp-api-dashboard.php');
+require('nsp-api-overview.php');
 
 /**
  * body function of external API Nonce
@@ -84,7 +84,7 @@ function nsp_externalApiAjax() {
 
   switch ($var) {
     case 'version':
-      $result=nsp_ApiVersion($typ);
+      $result=nsp_api_version($typ);
       break;
     case 'wpversion':
       $result=nsp_ApiWpVersion($typ);

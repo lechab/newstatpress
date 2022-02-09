@@ -269,8 +269,8 @@ function nsp_IP2nationRemove() {
 <!--TODO chab, check if the input format is ok  -->
   <div class='wrap'>
     <!-- <h3><?php //_e('Export stats to text file','newstatpress'); ?> (csv)</h3> -->
-    <p><?php echo $export_description; ?></p>
-    <p><i><?php echo $export_description2; ?></i></p>
+    <p><?php echo esc_html($export_description); ?></p>
+    <p><i><?php echo esc_html($export_description2); ?></i></p>
 
     <form method=get>
     <table class='form-tableH'>
@@ -384,7 +384,7 @@ function nsp_ExportNow() {
     switch($_GET['ext']) {
       case 'csv':
       case 'txt':
-        $ext=$_GET['ext'];
+        $ext=sanitize_text_field($_GET['ext']);
         break;
       default:
         $ext="txt";
@@ -393,7 +393,7 @@ function nsp_ExportNow() {
   
   // sanitize delimiter
   if (isset($_GET['del'])) {
-    $del=substr($_GET['del'],0,1);
+    $del=substr(sanitize_text_field($_GET['del']),0,1);
     
     switch ($del) {
       case ';':

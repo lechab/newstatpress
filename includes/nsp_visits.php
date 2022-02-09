@@ -30,7 +30,7 @@ function nsp_DisplayVisitsPage() {
 
   if ( $pagenow == 'admin.php' && $_GET['page'] == $page ) {
 
-    if ( isset ( $_GET['tab'] ) ) $tab = $_GET['tab'];
+    if ( isset ( $_GET['tab'] ) ) $tab = sanitize_text_field($_GET['tab']);
     else $tab = 'lastvisitors';
 
     switch ($tab) {

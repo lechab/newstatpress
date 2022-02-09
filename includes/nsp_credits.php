@@ -38,7 +38,7 @@ function nsp_DisplayCreditsPage() {
     <table class='widefat'>
       <tr>
         <td>
-          <?php echo $credits_introduction; ?>
+          <?php echo esc_html($credits_introduction); ?>
         </td>
         <td class='don'>
           <br/>

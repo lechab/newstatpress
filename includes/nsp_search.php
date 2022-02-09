@@ -177,8 +177,8 @@ function nsp_DatabaseSearch($what='') {
    //print "$sql<br>";
    print "<table class='widefat'><thead><tr>";
    for($i=1;$i<=3;$i++) {
-     $where_i=strip_tags($_GET["where$i"]);
-     if($where_i != '') { print "<th scope='col'>".ucfirst(htmlspecialchars($where_i, ENT_COMPAT, 'UTF-8'))."</th>"; }
+     $where_i=htmlspecialchars(strip_tags($_GET["where$i"]), ENT_COMPAT, 'UTF-8');
+     if($where_i != '') { print "<th scope='col'>".ucfirst(esc_html($where_i))."</th>"; }
    }
    if($groupby != '') { print "<th scope='col'>".__('Count','newstatpress')."</th>"; }
      print "</tr></thead><tbody id='the-list'>";
