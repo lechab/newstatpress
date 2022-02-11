@@ -87,7 +87,7 @@ function nsp_externalApiAjax() {
       $result=nsp_api_version($typ);
       break;
     case 'wpversion':
-      $result=nsp_ApiWpVersion($typ);
+      $result=nsp_api_wp_version($typ);
       break;
     case 'dashboard':
       $result=nsp_ApiDashboard($typ);

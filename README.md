@@ -30,6 +30,9 @@
 - [ ] Add jQuery Vector Maps v1.5.0
 
 
+## 1.3.9
+*Released date: 2021-02-11*
+- [x] More sanification
 
 ## 1.3.8
 *Released date: 2021-02-05*
