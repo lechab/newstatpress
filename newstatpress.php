@@ -262,8 +262,8 @@ function nsp_Activation($arg='') {
  require ('includes/nsp_core.php');
  
  // register actions for ajax variables API
- add_action( 'wp_ajax_nsp_variables', 'nsp_variablesAjax' );
- add_action( 'wp_ajax_nopriv_nsp_variables', 'nsp_variablesAjax' ); // need this to serve non logged in users
+ add_action( 'wp_ajax_nsp_variables', 'nsp_variables_ajax' );
+ add_action( 'wp_ajax_nopriv_nsp_variables', 'nsp_variables_ajax' ); // need this to serve non logged in users
  
  // register actions for ajax external API
  add_action( 'wp_ajax_nsp_external', 'nsp_externalApiAjaxN' );
