@@ -102,7 +102,7 @@ function nsp_external_api_ajax() {
 			$result = nsp_api_wp_version( $typ );
 			break;
 		case 'dashboard':
-			$result = nsp_ApiDashboard( $typ );
+			$result = nsp_api_dashboard( $typ );
 			break;
 		case 'overview':
 			$result = nsp_ApiOverview( $typ, $par );

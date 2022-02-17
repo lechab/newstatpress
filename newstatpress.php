@@ -502,7 +502,7 @@ function nsp_stat_by_email($arg='') {
     $subject=sprintf(__('[%s] Visits statistics : test of email address','newstatpress'), $blog_title);
 
   require_once ('includes/api/nsp-api-dashboard.php');
-  $resultH=nsp_ApiDashboard("HTML");
+  $resultH=nsp_api_dashboard("HTML");
 
   $name=$nsp_option_vars['mail_notification_address']['name'];
   $email_address=sanitize_email(get_option($name));

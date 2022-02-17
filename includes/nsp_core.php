@@ -164,7 +164,7 @@ function nsp_Shortcode($content = '') {
     switch ($TYPE) {
       case "Overview":
         require_once ('api/nsp_api_dashboard.php');
-        $replacement=nsp_ApiDashboard("HTML");
+        $replacement=nsp_api_dashboard("HTML");
         break;
       case "Top days":
         $replacement=nsp_GetDataQuery2("date", __('Top days','newstatpress') ,(get_option('newstatpress_el_top_days')=='') ? 5:intval(get_option('newstatpress_el_top_days')), FALSE);

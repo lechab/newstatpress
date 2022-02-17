@@ -44,7 +44,7 @@ function nsp_ApiOverview($typ, $par) {
   if($gdays == 0) { $gdays=20; }
 
   // get result of dashboard as some date is shared with this
-  $resultJ=nsp_ApiDashboard("JSON");
+  $resultJ=nsp_api_dashboard("JSON");
   
   $resultJ['days']=$gdays;  // export
 
