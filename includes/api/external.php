@@ -105,7 +105,7 @@ function nsp_external_api_ajax() {
 			$result = nsp_api_dashboard( $typ );
 			break;
 		case 'overview':
-			$result = nsp_ApiOverview( $typ, $par );
+			$result = nsp_api_overview( $typ, $par );
 			break;
 		default:
 			header( 'HTTP/1.0 403 Forbidden' );
