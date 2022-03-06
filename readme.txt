@@ -92,8 +92,8 @@ Widget is customizable. These are the available variables:
 * %topos% - The most used O.S.
 * %topsearch% - The most used search terms
 
-Now you could add these values everywhere! NewStatPress offers a new PHP function *NewStatPress_Print()*.
-* i.e. NewStatPress_Print("%totalvisits% total visits.");
+Now you could add these values everywhere! NewStatPress offers a new PHP function *newstatpress_print()*.
+* i.e. newstatpress_print("%totalvisits% total visits.");
 
 New experimental functions: place this command [NewStatPress: xxx] every were in your Wordpress blog pages and you will have the graph about the xxx function.
 

@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return the result
  */
 function nsp_api_wp_version( $typ ) {
-	global $_NEWSTATPRESS;
+	global $_newstatpress;
 
 	$result_j = array(
 		'wpversion' => get_bloginfo( 'version' ),

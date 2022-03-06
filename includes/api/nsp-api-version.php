@@ -23,10 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return the result
  */
 function nsp_api_version( $typ ) {
-	global $_NEWSTATPRESS;
+	global $_newstatpress;
 
 	$result_j = array(
-		'version' => $_NEWSTATPRESS['version'],
+		'version' => $_newstatpress['version'],
 	);
 
 	// avoid to calculte HTML if not necessary.

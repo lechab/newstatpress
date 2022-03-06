@@ -35,7 +35,7 @@ function nsp_external_api_ajax_n() {
  * Body function of external API
  */
 function nsp_external_api_ajax() {
-	global $_NEWSTATPRESS;
+	global $_newstatpress;
 	global $wpdb;
 	header( 'HTTP/1.0 200 Ok' );
 	if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
@@ -125,7 +125,39 @@ function nsp_external_api_ajax() {
 		// response output.
 		header( 'Content-Type: application/html' );
 		// gives the complete output according to $resultH.
-		echo esc_js( $result );
+		echo wp_kses(
+			$result,
+			array(
+				'table' => array(
+					'class' => array(),
+				),
+				'tbody' => array(
+					'class' => array(),
+				),
+				'tr'    => array(
+					'class' => array(),
+				),
+				'div'   => array(
+					'class' => array(),
+					'style' => array(),
+					'title' => array(),
+				),
+				'td'    => array(
+					'class'  => array(),
+					'width'  => array(),
+					'valign' => array(),
+				),
+				'th'    => array(
+					'scope'   => array(),
+					'colspan' => array(),
+				),
+				'thead' => array(),
+				'span'  => array(),
+				'br'    => array(),
+				'p'     => array(),
+				'i'     => array(),
+			)
+		);
 	}
 	wp_die();
 }

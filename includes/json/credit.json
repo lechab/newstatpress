@@ -46,7 +46,7 @@
       },
       {
          "name":"Gwss",
-         "properties":"Fix domain.dat manages inside nsp_visits.php"
+         "properties":"Fix domain.dat manages inside nsp-visits.php"
       },
       {
          "name":"Greg Sydney",

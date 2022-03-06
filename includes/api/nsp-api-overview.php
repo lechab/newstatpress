@@ -28,10 +28,10 @@ function nsp_api_overview( $typ, $par ) {
 
 	$offsets = get_option( $nsp_option_vars['stats_offsets']['name'] );
 
-	$table_name = nsp_TABLENAME;
+	$table_name = NSP_TABLENAME;
 
-	$since     = nsp_ExpandVarsInsideCode( '%since%' );
-	$lastmonth = nsp_Lastmonth();
+	$since     = nsp_expand_vars_inside_code( '%since%' );
+	$lastmonth = nsp_lastmonth();
 	$thisyear  = gmdate( 'Y', current_time( 'timestamp' ) );
 	$thismonth = gmdate( 'Ym', current_time( 'timestamp' ) );
 	$yesterday = gmdate( 'Ymd', current_time( 'timestamp' ) - 86400 );
@@ -60,54 +60,40 @@ function nsp_api_overview( $typ, $par ) {
 	$overview_rows = array( 'visitors', 'visitors_feeds', 'pageview', 'feeds', 'spiders' );
 
 	foreach ( $overview_rows as $row ) {
-
 		switch ( $row ) {
 			case 'visitors':
-				$row2            = 'DISTINCT ip';
-				$row_title       = __( 'Visitors', 'newstatpress' );
-				$sql_query_total = "SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
-				break;
-			case 'visitors_feeds':
-				$row2            = 'DISTINCT ip';
-				$row_title       = __( 'Visitors through Feeds', 'newstatpress' );
-				$sql_query_total = "SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider='' AND agent<>''";
-				break;
-			case 'pageview':
-				$row2            = 'date';
-				$row_title       = __( 'Pageviews', 'newstatpress' );
-				$sql_query_total = "SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider=''";
-				break;
-			case 'spiders':
-				$row2            = 'date';
-				$row_title       = __( 'Spiders', 'newstatpress' );
-				$sql_query_total = "SELECT count($row2) AS $row FROM $table_name WHERE feed='' AND spider<>''";
-				break;
-			case 'feeds':
-				$row2            = 'date';
-				$row_title       = __( 'Pageviews through Feeds', 'newstatpress' );
-				$sql_query_total = "SELECT count($row2) AS $row FROM $table_name WHERE feed<>'' AND spider=''";
-				break;
-		}
-
-		// not need prepare.
-		$result_j[ $row . '_total' ] = $wpdb->get_row( $wpdb->prepare( '%s', $sql_query_total ) )->$row; // db call ok; no-cache ok.  // export.
-		// use prepare.
-		$result_j[ $row . '_tyear' ] = $wpdb->get_row( $wpdb->prepare( ' %s AND date LIKE %s', $sql_query_total, $thisyear . '%' ) )->$row; // db call ok; no-cache ok.  // export.
-
-		switch ( $row ) {
-			case 'visitors':
+				$row_title = __( 'Visitors', 'newstatpress' );
+				// db call ok; no-cache ok; unprepared SQL OK.
+				$result_j[ $row . '_total' ] = $wpdb->get_row( "SELECT count(DISTINCT ip) AS visitors FROM `$table_name` WHERE feed='' AND spider=''" )->$row; // phpcs:ignore
+				$result_j[ $row . '_tyear' ]  = $wpdb->get_row( $wpdb->prepare( "SELECT count(DISTINCT ip) AS visitors FROM `$table_name` WHERE feed='' AND spider='' AND date LIKE %s", $thisyear . '%' ) )->$row; // phpcs:ignore
 				$result_j[ $row . '_total' ] += $offsets['alltotalvisits'];
 				break;
 			case 'visitors_feeds':
+				$row_title = __( 'Visitors through Feeds', 'newstatpress' );
+				// db call ok; no-cache ok; unprepared SQL OK.
+				$result_j[ $row . '_total' ] = $wpdb->get_row( "SELECT count(DISTINCT ip) AS visitors_feeds FROM `$table_name` WHERE feed<>'' AND spider='' AND agent<>''" )->$row; // phpcs:ignore
+				$result_j[ $row . '_tyear' ]  = $wpdb->get_row( $wpdb->prepare( "SELECT count(DISTINCT ip) AS visitors_feeds FROM `$table_name` WHERE feed<>'' AND spider='' AND agent<>'' AND date LIKE %s", $thisyear . '%' ) )->$row; // phpcs:ignore
 				$result_j[ $row . '_total' ] += $offsets['visitorsfeeds'];
 				break;
 			case 'pageview':
+				$row_title = __( 'Pageviews', 'newstatpress' );
+				// db call ok; no-cache ok; unprepared SQL OK.
+				$result_j[ $row . '_total' ] = $wpdb->get_row( "SELECT count(date) AS pageview FROM `$table_name` WHERE feed='' AND spider=''" )->$row; // phpcs:ignore
+				$result_j[ $row . '_tyear' ] = $wpdb->get_row( $wpdb->prepare( "SELECT count(date) AS pageview FROM `$table_name` WHERE feed='' AND spider='' AND date LIKE %s", $thisyear . '%' ) )->$row; // phpcs:ignore
 				$result_j[ $row . '_total' ] += $offsets['pageviews'];
 				break;
 			case 'spiders':
+				$row_title = __( 'Spiders', 'newstatpress' );
+				// db call ok; no-cache ok; unprepared SQL OK.
+				$result_j[ $row . '_total' ] = $wpdb->get_row( "SELECT count(date) AS spiders FROM `$table_name` WHERE feed='' AND spider<>''" )->$row; // phpcs:ignore
+				$result_j[ $row . '_tyear' ] = $wpdb->get_row( $wpdb->prepare( "SELECT count(date) AS spiders FROM `$table_name` WHERE feed='' AND spider<>'' AND date LIKE %s", $thisyear . '%' ) )->$row; // phpcs:ignore
 				$result_j[ $row . '_total' ] += $offsets['spy'];
 				break;
 			case 'feeds':
+				$row_title = __( 'Pageviews through Feeds', 'newstatpress' );
+				// db call ok; no-cache ok; unprepared SQL OK.
+				$result_j[ $row . '_total' ] = $wpdb->get_row( "SELECT count(date) AS feeds FROM `$table_name` WHERE feed<>'' AND spider=''" )->$row;  // phpcs:ignore
+				$result_j[ $row . '_tyear' ] = $wpdb->get_row( $wpdb->prepare( "SELECT count(date) AS feeds FROM `$table_name` WHERE feed<>'' AND spider='' AND date LIKE %s", $thisyear . '%' ) )->$row;  // phpcs:ignore
 				$result_j[ $row . '_total' ] += $offsets['pageviewfeeds'];
 				break;
 		}
@@ -120,41 +106,20 @@ function nsp_api_overview( $typ, $par ) {
 
 		$date = gmdate( 'Ymd', current_time( 'timestamp' ) - 86400 * $gg );
 
-		// use prepare.
-		$qry_visitors    = $wpdb->get_row(
-			$wpdb->prepare(
-				"SELECT count(DISTINCT ip) AS total FROM %s WHERE feed='' AND spider='' AND date = %s",
-				$table_name,
-				$date
-			)
-		); // db call ok; no-cache ok.
+		// db call ok; no-cache ok; unprepared SQL OK.
+		$qry_visitors    = $wpdb->get_row( $wpdb->prepare( "SELECT count(DISTINCT ip) AS total FROM `$table_name` WHERE feed='' AND spider='' AND date = %s", $date ) ); // phpcs:ignore
 		$visitors[ $gg ] = $qry_visitors->total;
 
-		$qry_pageviews    = $wpdb->get_row(
-			$wpdb->prepare(
-				"SELECT count(date) AS total FROM %s WHERE feed='' AND spider='' AND date = %s",
-				$table_name,
-				$date
-			)
-		); // db call ok; no-cache ok.
+		// db call ok; no-cache ok; unprepared SQL OK.
+		$qry_pageviews   = $wpdb->get_row( $wpdb->prepare( "SELECT count(date) AS total FROM `$table_name` WHERE feed='' AND spider='' AND date = %s", $date ) ); // phpcs:ignore
 		$pageviews[ $gg ] = $qry_pageviews->total;
 
-		$qry_spiders    = $wpdb->get_row(
-			$wpdb->prepare(
-				"SELECT count(date) AS total FROM %s WHERE feed='' AND spider<>'' AND date = %s",
-				$table_name,
-				$date
-			)
-		); // db call ok; no-cache ok.
+		// db call ok; no-cache ok; unprepared SQL OK.
+		$qry_spiders    = $wpdb->get_row( $wpdb->prepare( "SELECT count(date) AS total FROM `$table_name` WHERE feed='' AND spider<>'' AND date = %s", $date ) ); // phpcs:ignore
 		$spiders[ $gg ] = $qry_spiders->total;
 
-		$qry_feeds    = $wpdb->get_row(
-			$wpdb->prepare(
-				"SELECT count(date) AS total FROM %s WHERE feed<>'' AND spider='' AND date = %s",
-				$table_name,
-				$date
-			)
-		); // db call ok; no-cache ok.
+		// db call ok; no-cache ok; unprepared SQL OK.
+		$qry_feeds    = $wpdb->get_row( $wpdb->prepare( "SELECT count(date) AS total FROM `$table_name` WHERE feed<>'' AND spider='' AND date = %s", $date ) ); // phpcs:ignore
 		$feeds[ $gg ] = $qry_feeds->total;
 
 		$total = $visitors[ $gg ] + $pageviews[ $gg ] + $spiders[ $gg ] + $feeds[ $gg ];
@@ -205,7 +170,7 @@ function nsp_api_overview( $typ, $par ) {
 	$overview_rows = array( 'visitors', 'visitors_feeds', 'pageview', 'feeds', 'spiders' );
 
 	foreach ( $overview_rows as $row ) {
-		$result = nsp_CalculateVariation( $result_j[ $row . '_tmonth' ], $result_j[ $row . '_lmonth' ] );
+		$result = nsp_calculate_variation( $result_j[ $row . '_tmonth' ], $result_j[ $row . '_lmonth' ] );
 
 		// build full current row.
 		$overview_table .= "<tr><td class='row_title $row'>" . $result_j[ $row . '_title' ] . '</td>';
