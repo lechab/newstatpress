@@ -15,22 +15,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Display data in table extracted from the given query
  *
- * @param string  $fld GROUP BY argument of query.
+ * @param string  $type type to manage.
  * @param string  $fldtitle title of field.
+ * @param string  $fld field.
  * @param int     $limit quantity of elements to extract.
- * @param string  $param extra arguemnt for query (like DISTINCT).
- * @param string  $queryfld field of query.
- * @param string  $exclude WHERE argument of query.
  * @param boolean $print TRUE if the table is to print in page.
  * @return return the HTML output accoding to the sprint state
  */
-function nsp_get_data_query2( $fld, $fldtitle, $limit = 0, $param = '', $queryfld = '', $exclude = '', $print = true ) {
+function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true ) {
 	global $wpdb;
 	$table_name = NSP_TABLENAME;
-
-	if ( '' === $queryfld ) {
-		$queryfld = $fld;
-	}
 
 	$text = "<div class='wrap'>
             <table class='widefat'>
@@ -41,70 +35,445 @@ function nsp_get_data_query2( $fld, $fldtitle, $limit = 0, $param = '', $queryfl
                </tr>
              </thead>\n";
 
-	$rks = $wpdb->get_var(
-		$wpdb->prepare(
-			"SELECT count(".strtok($param, " ")." ".strtok($queryfld, " ").") as rks
-       FROM `$table_name`
-       WHERE 1=1 %s
-       ",
-			$exclude
-		)
-	); // db call ok; no-cache ok.
+	switch ( $type ) {
+		case 'DATE1':
+			$rks = $wpdb->get_var(
+				"SELECT count(date) as rks
+        FROM `$table_name`
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'OS':
+			$rks = $wpdb->get_var(
+				"SELECT count(os) as rks
+        FROM `$table_name`
+        WHERE feed='' AND spider='' AND os<>''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'BROWSER':
+			$rks = $wpdb->get_var(
+				"SELECT count(browser) as rks
+        FROM `$table_name`
+        WHERE feed='' AND spider='' AND browser<>''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'FEED':
+			$rks = $wpdb->get_var(
+				"SELECT count(feed) as rks
+        FROM `$table_name`
+        WHERE feed<>''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'SEARCHENGINE':
+			$rks = $wpdb->get_var(
+				"SELECT count(searchengine) as rks
+        FROM `$table_name`
+        WHERE searchengine<>''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'SEARCH':
+			$rks = $wpdb->get_var(
+				"SELECT count(search) as rks
+        FROM `$table_name`
+        WHERE search<>''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'REFFERER':
+			$rks = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT count(referrer) as rks
+        FROM `$table_name`
+        WHERE referrer<>'' AND referrer NOT LIKE %s
+        ",
+					'%' . get_bloginfo( 'url' ) . '%'
+				)
+			); // db call ok; no-cache ok.
+			break;
+		case 'NATION':
+			$rks = $wpdb->get_var(
+				"SELECT count(nation) as rks
+        FROM `$table_name`
+        WHERE nation<>'' AND spider=''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'SPIDER':
+			$rks = $wpdb->get_var(
+				"SELECT count(spider) as rks
+        FROM `$table_name`
+        WHERE spider<>''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'URLREQUESTED':
+			$rks = $wpdb->get_var(
+				"SELECT count(urlrequested) as rks
+        FROM `$table_name`
+        WHERE feed='' and spider=''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'DATE2':
+			$rks = $wpdb->get_var(
+				"SELECT count(distinct ip) as rks
+        FROM `$table_name`
+        WHERE feed='' and spider=''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'DATE3':
+			$rks = $wpdb->get_var(
+				"SELECT count(urlrequested) as rks
+        FROM `$table_name`
+        WHERE feed='' and spider=''
+        "
+			); // db call ok; no-cache ok.
+			break;
+		case 'IP':
+			$rks = $wpdb->get_var(
+				"SELECT count(urlrequested) as rks
+        FROM `$table_name`
+        WHERE feed='' and spider=''
+        "
+			); // db call ok; no-cache ok.
+			break;
+	}
 
 	if ( $rks > 0 ) {
-		// in this form not needs prepare as $exclude nads $fld are fixed text.
 		if ( $limit > 0 ) {
-			// use prepare.
-			$qry = $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT count(".strtok($param, " ")." ".strtok($queryfld, " ").") as pageview, %s
-           FROM `$table_name`
-           WHERE 1=1 %s
-           GROUP BY %s
-           ORDER BY pageview DESC
-           LIMIT %d",
-					$fld,
-					$exclude,
-					$fld,
-					$limit
-				)
-			); // db call ok; no-cache ok.
+			switch ( $type ) {
+				case 'DATE1':
+					// use prepare.
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(date) as pageview, date
+              FROM `$table_name`             
+              GROUP BY date
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'OS':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(os) as pageview, os
+              FROM `$table_name`  
+              WHERE feed='' AND spider='' AND os<>''
+              GROUP BY os
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'BROWSER':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(browser) as pageview, browser
+              FROM `$table_name`        
+							WHERE feed='' AND spider='' AND browser<>''
+              GROUP BY browser
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'FEED':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(feed) as pageview, feed
+              FROM `$table_name`        
+							WHERE feed<>''
+              GROUP BY feed
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'SEARCHENGINE':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(searchengine) as pageview, searchengine
+              FROM `$table_name`        
+							WHERE searchengine<>''
+              GROUP BY searchengine
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'SEARCH':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(search) as pageview, search
+              FROM `$table_name`        
+							WHERE search<>''
+              GROUP BY search
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'REFFERER':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(referrer) as pageview, referrer
+              FROM `$table_name`        
+            	WHERE referrer<>'' AND referrer NOT LIKE %s
+              GROUP BY referrer
+              ORDER BY pageview DESC
+              LIMIT %d",
+							'%' . get_bloginfo( 'url' ) . '%',
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'NATION':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(nation) as pageview, nation
+              FROM `$table_name`        
+            	WHERE nation<>'' AND spider=''
+              GROUP BY nation
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'SPIDER':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(spider) as pageview, spider
+              FROM `$table_name`        
+            	WHERE spider<>''
+              GROUP BY spider
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'URLREQUESTED':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(urlrequested) as pageview, urlrequested
+              FROM `$table_name`        
+            	WHERE feed='' and spider=''
+              GROUP BY urlrequested
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'DATE2':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(distinct ip) as pageview, date
+              FROM `$table_name`        
+            	WHERE feed='' and spider=''
+              GROUP BY date
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'DATE3':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(urlrequested) as pageview, date
+              FROM `$table_name`        
+            	WHERE feed='' and spider=''
+              GROUP BY date
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'IP':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(urlrequested) as pageview, ip
+              FROM `$table_name`        
+            	WHERE feed='' and spider=''
+              GROUP BY ip
+              ORDER BY pageview DESC
+              LIMIT %d",
+							$limit
+						)
+					); // db call ok; no-cache ok.
+					break;
+			}
 		} else {
-			$qry = $wpdb->get_results(
-				$wpdb->prepare(
-					"SELECT count(".strtok($param, " ")." ".strtok($queryfld, " ").") as pageview, %s
-           FROM `$table_name`
-           WHERE 1=1 %s
-           GROUP BY %s
-           ORDER BY pageview DESC",
-					$fld,
-					$exclude,
-					$fld
-				)
-			); // db call ok; no-cache ok.
+			switch ( $type ) {
+				case 'DATE1':
+					// use prepare.
+					$qry = $wpdb->get_results(
+						"SELECT count(date) as pageview, date
+              FROM `$table_name`             
+              GROUP BY date
+              ORDER BY pageview DESC
+              LIMIT %d"
+					); // db call ok; no-cache ok.
+					break;
+				case 'OS':
+					$qry = $wpdb->get_results(
+						"SELECT count(os) as pageview, os
+              FROM `$table_name`  
+              WHERE feed='' AND spider='' AND os<>''
+              GROUP BY os
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'BROWSER':
+					$qry = $wpdb->get_results(
+						"SELECT count(browser) as pageview, browser
+              FROM `$table_name`        
+							WHERE feed='' AND spider='' AND browser<>''
+              GROUP BY browser
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'FEED':
+					$qry = $wpdb->get_results(
+						"SELECT count(feed) as pageview, feed
+              FROM `$table_name`        
+							WHERE feed<>''
+              GROUP BY feed
+              ORDER BY pageview DESC
+              LIMIT %d"
+					); // db call ok; no-cache ok.
+					break;
+				case 'SEARCHENGINE':
+					$qry = $wpdb->get_results(
+						"SELECT count(searchengine) as pageview, searchengine
+              FROM `$table_name`        
+							WHERE searchengine<>''
+              GROUP BY searchengine
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'SEARCH':
+					$qry = $wpdb->get_results(
+						"SELECT count(search) as pageview, search
+              FROM `$table_name`        
+							WHERE search<>''
+              GROUP BY search
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'REFFERER':
+					$qry = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT count(referrer) as pageview, referrer
+              FROM `$table_name`        
+            	WHERE referrer<>'' AND referrer NOT LIKE %s
+              GROUP BY referrer
+              ORDER BY pageview DESC
+              ",
+							'%' . get_bloginfo( 'url' ) . '%'
+						)
+					); // db call ok; no-cache ok.
+					break;
+				case 'NATION':
+					$qry = $wpdb->get_results(
+						"SELECT count(nation) as pageview, nation
+              FROM `$table_name`        
+            	WHERE nation<>'' AND spider=''
+              GROUP BY nation
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'SPIDER':
+					$qry = $wpdb->get_results(
+						"SELECT count(spider) as pageview, spider
+              FROM `$table_name`        
+            	WHERE spider<>''
+              GROUP BY spider
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'URLREQUESTED':
+					$qry = $wpdb->get_results(
+						"SELECT count(urlrequested) as pageview, urlrequested
+              FROM `$table_name`        
+            	WHERE feed='' and spider=''
+              GROUP BY urlrequested
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'DATE2':
+					$qry = $wpdb->get_results(
+						"SELECT count(distinct ip) as pageview, date
+              FROM `$table_name`        
+            	WHERE feed='' and spider=''
+              GROUP BY date
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'DATE3':
+					$qry = $wpdb->get_results(
+						"SELECT count(urlrequested) as pageview, date
+              FROM `$table_name`        
+            	WHERE feed='' and spider=''
+              GROUP BY date
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+				case 'IP':
+					$qry = $wpdb->get_results(
+						"SELECT count(urlrequested) as pageview, ip
+              FROM `$table_name`        
+            	WHERE feed='' and spider=''
+              GROUP BY ip
+              ORDER BY pageview DESC
+              "
+					); // db call ok; no-cache ok.
+					break;
+			}
 		}
 
 		$tdwidth = 450;
 
 		// Collects data.
 		$data = array();
-		foreach ( $qry as $rk ) {
-			$pc = round( ( $rk->pageview * 100 / $rks ), 1 );
-			if ( 'nation' === $fld ) {
-				$rk->$fld = strtoupper( $rk->$fld ); }
-			if ( 'date' === $fld ) {
-				$rk->$fld = nsp_hdate( $rk->$fld ); }
-			if ( 'urlrequested' === $fld ) {
-				$rk->$fld = nsp_decode_url( $rk->$fld ); }
-			$data[ substr( $rk->$fld, 0, 250 ) ] = $rk->pageview;
-		}
+    foreach ($qry as $rk) {
+      $pc=round(($rk->pageview*100/$rks),1);
+      if($fld == 'nation') { $rk->$fld = strtoupper($rk->$fld); }
+      if($fld == 'date') { $rk->$fld = nsp_hdate($rk->$fld); }
+      if($fld == 'urlrequested') { $rk->$fld = nsp_decode_url($rk->$fld); }
+      $data[substr($rk->$fld,0,250)]=$rk->pageview;
+    }
 	}
 
 	// Draw table body.
 	$text .= "<tbody id='the-list'>";
 	if ( $rks > 0 ) {  // Chart!
 
-		if ( 'nation' === $fld ) { // Nation chart.
+		if ( 'NATION' === $type ) { // Nation chart.
 			$charts = plugins_url( './geocharts.html', __FILE__ ) . nsp_get_google_geo( $data );
 		} else { // Pie chart.
 			$charts = plugins_url( './piecharts.html', __FILE__ ) . nsp_get_google_pie( $fldtitle, $data );
@@ -116,7 +485,7 @@ function nsp_get_data_query2( $fld, $fldtitle, $limit = 0, $param = '', $queryfl
 
 		$text .= "<tr><td colspan=2 style='width:50%;'>
               <iframe src='" . $charts . "' class='framebox'>
-          <p>[_e('This section requires a browser that supports iframes.]','newstatpress')</p>
+          <p>["._e('This section requires a browser that supports iframes.','newstatpress')."]</p>
         </iframe></td></tr>";
 	}
 	$text .= "</tbody>
@@ -134,11 +503,18 @@ function nsp_get_data_query2( $fld, $fldtitle, $limit = 0, $param = '', $queryfl
 					'class'  => array(),
 				),
 				'tr'    => array(),
-
-				'p'     => array(
-					'iframe' => array(),
+				'thead'    => array(),
+				'h2'     => array(),
+				'p'     => array(),
+				
+				'iframe' => array(
 					'src'    => array(),
 					'class'  => array(),
+				),
+				'th'    => array(
+					'scope' => array(),
+					'style'   => array(),
+					'class'   => array(),
 				),
 				'td'    => array(
 					'colspan' => array(),
@@ -148,6 +524,12 @@ function nsp_get_data_query2( $fld, $fldtitle, $limit = 0, $param = '', $queryfl
 				'tbody' => array(
 					'id' => array(),
 				),
+				'table' => array(
+					'class' => array(),
+				), 
+				'div' => array(
+					'class' => array(),
+				), 	 
 			)
 		);
 	} else {
@@ -225,43 +607,43 @@ function nsp_shortcode( $content = '' ) {
 				$replacement = nsp_api_dashboard( 'HTML' );
 				break;
 			case 'Top days':
-				$replacement = nsp_get_data_query2( 'date', __( 'Top days', 'newstatpress' ), ( get_option( 'newstatpress_el_top_days' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_top_days' ) ), false );
+				$replacement = nsp_get_data_query2( 'DATE1', 'date', __( 'Top days', 'newstatpress' ), ( get_option( 'newstatpress_el_top_days' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_top_days' ) ), false );
 				break;
 			case 'O.S.':
-				$replacement = nsp_get_data_query2( 'os', __( 'OSes', 'newstatpress' ), ( get_option( 'newstatpress_el_os' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_os' ) ), '', '', "AND feed='' AND spider='' AND os<>''", false );
+				$replacement = nsp_get_data_query2( 'OS', 'os', __( 'OSes', 'newstatpress' ), ( get_option( 'newstatpress_el_os' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_os' ) ), false );
 				break;
 			case 'Browser':
-				$replacement = nsp_get_data_query2( 'browser', __( 'Browsers', 'newstatpress' ), ( get_option( 'newstatpress_el_browser' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_browser' ) ), '', '', "AND feed='' AND spider='' AND browser<>''", false );
+				$replacement = nsp_get_data_query2( 'BROWSER', 'browser', __( 'Browsers', 'newstatpress' ), ( get_option( 'newstatpress_el_browser' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_browser' ) ), false );
 				break;
 			case 'Feeds':
-				$replacement = nsp_get_data_query2( 'feed', __( 'Feeds', 'newstatpress' ), ( get_option( 'newstatpress_el_feed' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_feed' ) ), '', '', "AND feed<>''", false );
+				$replacement = nsp_get_data_query2( 'FEED', 'feed', __( 'Feeds', 'newstatpress' ), ( get_option( 'newstatpress_el_feed' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_feed' ) ), false );
 				break;
 			case 'Search Engine':
-				$replacement = nsp_get_data_query2( 'searchengine', __( 'Search engines', 'newstatpress' ), ( get_option( 'newstatpress_el_searchengine' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_searchengine' ) ), '', '', "AND searchengine<>''", false );
+				$replacement = nsp_get_data_query2( 'SEARCHENGINE', 'searchengine', __( 'Search engines', 'newstatpress' ), ( get_option( 'newstatpress_el_searchengine' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_searchengine' ) ), false );
 				break;
 			case 'Search terms':
-				$replacement = nsp_get_data_query2( 'search', __( 'Top search terms', 'newstatpress' ), ( get_option( 'newstatpress_el_search' ) === '' ) ? 20 : intval( get_option( 'newstatpress_el_search' ) ), '', '', "AND search<>''", false );
+				$replacement = nsp_get_data_query2( 'SEARCH', 'search', __( 'Top search terms', 'newstatpress' ), ( get_option( 'newstatpress_el_search' ) === '' ) ? 20 : intval( get_option( 'newstatpress_el_search' ) ), false );
 				break;
 			case 'Top referrer':
-				$replacement = nsp_get_data_query2( 'referrer', __( 'Top referrers', 'newstatpress' ), ( get_option( 'newstatpress_el_referrer' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_referrer' ) ), '', '', "AND referrer<>'' AND referrer NOT LIKE '%" . get_bloginfo( 'url' ) . "%'", false );
+				$replacement = nsp_get_data_query2( 'REFFERER', 'referrer', __( 'Top referrers', 'newstatpress' ), ( get_option( 'newstatpress_el_referrer' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_referrer' ) ), false );
 				break;
 			case 'Languages':
-				$replacement = nsp_get_data_query2( 'nation', __( 'Countries', 'newstatpress' ) . '/' . __( 'Languages', 'newstatpress' ), ( get_option( 'newstatpress_el_languages' ) === '' ) ? 20 : intval( get_option( 'newstatpress_el_languages' ) ), '', '', "AND nation<>'' AND spider=''", false );
+				$replacement = nsp_get_data_query2( 'NATION', 'nation', __( 'Countries', 'newstatpress' ) . '/' . __( 'Languages', 'newstatpress' ), ( get_option( 'newstatpress_el_languages' ) === '' ) ? 20 : intval( get_option( 'newstatpress_el_languages' ) ), false );
 				break;
 			case 'Spider':
-				$replacement = nsp_get_data_query2( 'spider', __( 'Spiders', 'newstatpress' ), ( get_option( 'newstatpress_el_spiders' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_spiders' ) ), '', '', "AND spider<>''", false );
+				$replacement = nsp_get_data_query2( 'SPIDER', 'spider', __( 'Spiders', 'newstatpress' ), ( get_option( 'newstatpress_el_spiders' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_spiders' ) ), false );
 				break;
 			case 'Top Pages':
-				$replacement = nsp_get_data_query2( 'urlrequested', __( 'Top pages', 'newstatpress' ), ( get_option( 'newstatpress_el_pages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_pages' ) ), '', 'urlrequested', "AND feed='' and spider=''", false );
+				$replacement = nsp_get_data_query2( 'URLREQUESTED', 'urlrequested', __( 'Top pages', 'newstatpress' ), ( get_option( 'newstatpress_el_pages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_pages' ) ), false );
 				break;
 			case 'Top Days - Unique visitors':
-				$replacement = nsp_get_data_query2( 'date', __( 'Top days', 'newstatpress' ) . ' - ' . __( 'Unique visitors', 'newstatpress' ), ( get_option( 'newstatpress_el_visitors' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_visitors' ) ), 'distinct', 'ip', "AND feed='' and spider=''", false );
+				$replacement = nsp_get_data_query2( 'DATE2', 'date', __( 'Top days', 'newstatpress' ) . ' - ' . __( 'Unique visitors', 'newstatpress' ), ( get_option( 'newstatpress_el_visitors' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_visitors' ) ), false );
 				break;
 			case 'Top Days - Pageviews':
-				$replacement = nsp_get_data_query2( 'date', __( 'Top days', 'newstatpress' ) . ' - ' . __( 'Pageviews', 'newstatpress' ), ( get_option( 'newstatpress_el_daypages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_daypages' ) ), '', 'urlrequested', "AND feed='' and spider=''", false );
+				$replacement = nsp_get_data_query2( 'DATE3', 'date', __( 'Top days', 'newstatpress' ) . ' - ' . __( 'Pageviews', 'newstatpress' ), ( get_option( 'newstatpress_el_daypages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_daypages' ) ), false );
 				break;
 			case 'Top IPs - Pageviews':
-				$replacement = nsp_get_data_query2( 'ip', __( 'Top IPs', 'newstatpress' ) . ' - ' . __( 'Pageviews', 'newstatpress' ), ( get_option( 'newstatpress_el_ippages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_ippages' ) ), '', 'urlrequested', "AND feed='' and spider=''", false );
+				$replacement = nsp_get_data_query2( 'IP', 'ip', __( 'Top IPs', 'newstatpress' ) . ' - ' . __( 'Pageviews', 'newstatpress' ), ( get_option( 'newstatpress_el_ippages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_ippages' ) ), '', 'urlrequested', false );
 				break;
 			default:
 				$replacement = '';
