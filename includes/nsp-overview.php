@@ -235,7 +235,7 @@ function nsp_generate_overview_lastsearchterms() {
 }
 
 /**
- * Generate overview lastrefferers
+ * Generate overview lastreferrers
  */
 function nsp_generate_overview_lastreferrers() {
 	global $wpdb;

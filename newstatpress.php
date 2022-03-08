@@ -1767,14 +1767,13 @@ function nsp_widget_init( $args ) {
 	 * @param string $args arguments.
 	 */
 	function nsp_widget_stats( $args ) {
-		extract( $args );
 		$options = get_option( 'widget_newstatpress' );
 		$title   = esc_js( $options['title'] );
 		$body    = esc_js( $options['body'] );
-		echo $before_widget;
-		print( $before_title . $title . $after_title );
+		echo $args['before_widget'];
+		print( $args['before_title'] . esc_html( $title ) . $args['after_title'] );
 		print nsp_expand_vars_inside_code( $body );
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 	wp_register_sidebar_widget( 'NewStatPress', 'NewStatPress Stats', 'nsp_widget_stats' );
 	wp_register_widget_control( 'NewStatPress', array( 'NewStatPress', 'widgets' ), 'nsp_widget_stats_control', 300, 210 );
@@ -1830,15 +1829,14 @@ function nsp_widget_init( $args ) {
 	 * @param string $args args to use.
 	 */
 	function nsp_widget_top_posts( $args ) {
-		extract( $args );
 		$options    = get_option( 'widget_newstatpresstopposts' );
 		$title      = htmlspecialchars( $options['title'], ENT_QUOTES );
 		$howmany    = htmlspecialchars( $options['howmany'], ENT_QUOTES );
 		$showcounts = htmlspecialchars( $options['showcounts'], ENT_QUOTES );
-		echo $before_widget;
-		print( $before_title . $title . $after_title );
+		echo $args['before_widget'];
+		print( $args['before_title'] . esc_html( $title ) . $args['after_title'] );
 		print nsp_top_posts( $howmany, $showcounts );
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 	wp_register_sidebar_widget( 'NewStatPress TopPosts', 'NewStatPress TopPosts', 'nsp_widget_top_posts' );
 	wp_register_widget_control( 'NewStatPress TopPosts', array( 'NewStatPress TopPosts', 'widgets' ), 'nsp_widget_top_posts_control', 300, 110 );

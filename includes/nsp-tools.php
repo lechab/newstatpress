@@ -796,175 +796,175 @@ function nsp_update_now() {
 	// Update Feed.
 	print '<tr><td>' . esc_html__( 'Feeds', 'newstatpress' ) . '</td>';
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE %s
+			"UPDATE `$table_name`
       SET feed=''
-      WHERE date BETWEEN %s AND %s;
+      WHERE date BETWEEN %s AND %s
       ",
-			$table_name,
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	// not standard.
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE %s
+			"UPDATE `$table_name`
       SET feed='RSS2'
       WHERE
         urlrequested LIKE %s AND
-        date BETWEEN %s AND %s;
+        date BETWEEN %s AND %s
       ",
-			$table_name,
 			'%%/feed/%%',
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE %s
+			"UPDATE `$table_name`
       SET feed='RSS2'
       WHERE
         urlrequested LIKE %s AND
-        date BETWEEN %s AND %s;
+        date BETWEEN %s AND %s
      ",
-			$table_name,
 			'%%wp-feed.php%%',
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	// standard blog info urls.
 	$s = nsp_extract_feed_req( get_bloginfo( 'comments_atom_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
         SET feed='COMMENT'
         WHERE
           INSTR(urlrequested, %s)>0 AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
        ",
-				$table_name,
 				$s,
 				$from_date,
 				$to_date
 			)
-		); // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 	$s = nsp_extract_feed_req( get_bloginfo( 'comments_rss2_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
         SET feed='COMMENT'
         WHERE
           INSTR(urlrequested, %s)>0 AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
         ",
-				$table_name,
 				$s,
 				$from_date,
 				$to_date
 			)
-		); // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 	$s = nsp_extract_feed_req( get_bloginfo( 'atom_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
         SET feed='ATOM'
         WHERE
           INSTR(urlrequested, %s)>0 AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
         ",
-				$table_name,
 				$s,
 				$from_date,
 				$to_date
 			)
-		); // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 	$s = nsp_extract_feed_req( get_bloginfo( 'rdf_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
         SET feed='RDF'
         WHERE
           INSTR(urlrequested, %s)>0 AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
        ",
-				$table_name,
 				$s,
 				$from_date,
 				$to_date
 			)
-		); // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 	$s = nsp_extract_feed_req( get_bloginfo( 'rss_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
         SET feed='RSS'
         WHERE
           INSTR(urlrequested, %s)>0 AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
         ",
-				$table_name,
 				$s,
 				$from_date,
 				$to_date
 			)
-		); // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 	$s = nsp_extract_feed_req( get_bloginfo( 'rss2_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
          SET feed='RSS2'
          WHERE
          INSTR(urlrequested, %s)>0 AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
         ",
-				$table_name,
 				$s,
 				$from_date,
 				$to_date
 			)
-		); // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE %s
+			"UPDATE `$table_name`
       SET feed = ''
       WHERE
         isnull(feed) AND
-        date BETWEEN %s AND %s;
+        date BETWEEN %s AND %s
       ",
-			$table_name,
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	print '<td></td>';
 	print "<td><img class'update_img' src='" . esc_attr( $img_ok ) . "'></td></tr>";
@@ -972,38 +972,38 @@ function nsp_update_now() {
 	// Update OS.
 	print '<tr><td>' . esc_html__( 'OSes', 'newstatpress' ) . '</td>';
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE %s
+			"UPDATE `$table_name`
       SET os = ''
-      WHERE date BETWEEN %s AND %s;
+      WHERE date BETWEEN %s AND %s
       ",
-			$table_name,
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	$lines = file( $newstatpress_dir . '/def/os.dat' );
 	foreach ( $lines as $line_num => $os ) {
 		list($nome_os,$id_os) = explode( '|', $os );
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
         SET os = %s
         WHERE
           os='' AND
           replace(agent,' ','') LIKE %s AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
        ",
-				$table_name,
 				$nome_os,
 				'%' . $id_os . '%',
 				$from_date,
 				$to_date
 			)
-		); // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 	print '<td></td>';
 	print "<td><img class'update_img' src='" . esc_attr( $img_ok ) . "'></td></tr>";
@@ -1011,38 +1011,38 @@ function nsp_update_now() {
 	// Update Browser.
 	print '<tr><td>' . esc_html__( 'Browsers', 'newstatpress' ) . '</td>';
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE %s
-    SET browser = ''
-    WHERE date BETWEEN %s AND %s;
+			"UPDATE `$table_name`
+       SET browser = ''
+       WHERE date BETWEEN %s AND %s
    ",
-			$table_name,
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	$lines = file( $newstatpress_dir . '/def/browser.dat' );
 	foreach ( $lines as $line_num => $browser ) {
 		list($nome,$id) = explode( '|', $browser );
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
         SET browser = %s
         WHERE
           browser='' AND
           replace(agent,' ','') LIKE %s AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
        ",
-				$table_name,
 				$nome,
 				'%' . $id . '%',
 				$from_date,
 				$to_date
 			)
-		);  // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 	print '<td></td>';
 	print "<td><img class'update_img' src='" . esc_attr( $img_ok ) . "'></td></tr>";
@@ -1050,38 +1050,38 @@ function nsp_update_now() {
 	// Update Spider.
 	print '<tr><td>' . esc_html__( 'Spiders', 'newstatpress' ) . '</td>';
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE %s
+			"UPDATE `$table_name`
       SET spider = ''
-      WHERE date BETWEEN %s AND %s;
+      WHERE date BETWEEN %s AND %s
       ",
-			$table_name,
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	$lines = file( $newstatpress_dir . '/def/spider.dat' );
 	foreach ( $lines as $line_num => $spider ) {
 		list($nome,$id) = explode( '|', $spider );
 		// use prepare.
+		// phpcs:ignore -- db call ok; no-cache ok.
 		$wpdb->query(
 			$wpdb->prepare(
-				"UPDATE %s
+				"UPDATE `$table_name`
         SET spider = %s,os='',browser=''
         WHERE
           spider='' AND
           replace(agent,' ','') LIKE %s AND
-          date BETWEEN %s AND %s;
+          date BETWEEN %s AND %s
         ",
-				$table_name,
 				$nome,
 				'%' . $id . '%',
 				$from_date,
 				$to_date
 			)
-		); // db call ok; no-cache ok.
+		); // phpcs:ignore: unprepared SQL OK.
 	}
 	print '<td></td>';
 	print "<td><img class'update_img' src='" . esc_attr( $img_ok ) . "'></td></tr>";
@@ -1089,53 +1089,53 @@ function nsp_update_now() {
 	// Update Search engine.
 	print '<tr><td>' . esc_html__( 'Search engines', 'newstatpress' ) . ' </td>';
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE %s
+			"UPDATE `$table_name`
        SET searchengine = '', search=''
-       WHERE date BETWEEN %s AND %s;
+       WHERE date BETWEEN %s AND %s
       ",
-			$table_name,
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	// use prepare.
+	// phpcs:ignore -- db call ok; no-cache ok.
 	$qry = $wpdb->get_results(
 		$wpdb->prepare(
-			'SELECT id, referrer
-       FROM %s
+			"SELECT id, referrer
+       FROM `$table_name`
        WHERE
          length(referrer)!=0 AND
          date BETWEEN %s AND %s
-       ',
-			$table_name,
+       ",
 			$from_date,
 			$to_date
 		)
-	); // db call ok; no-cache ok.
+	); // phpcs:ignore: unprepared SQL OK.
 
 	foreach ( $qry as $rk ) {
 		list($searchengine,$search_phrase) = explode( '|', nsp_get_se( $rk->referrer ) );
 		if ( '' !== $searchengine ) {
 			// use prepare.
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$wpdb->query(
 				$wpdb->prepare(
-					'UPDATE %s
+					"UPDATE `$table_name`
           SET searchengine = %s, search=%s 
           WHERE
             id= %d AND
-            date BETWEEN %s AND %s;
-          ',
-					$table_name,
+            date BETWEEN %s AND %s
+          ",
 					$searchengine,
 					addslashes( $search_phrase ),
 					$rk->id,
 					$from_date,
 					$to_date
 				)
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 		}
 	}
 	print '<td></td>';

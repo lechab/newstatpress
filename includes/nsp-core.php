@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Display data in table extracted from the given query
  *
  * @param string  $type type to manage.
- * @param string  $fldtitle title of field.
  * @param string  $fld field.
+ * @param string  $fldtitle title of field.
  * @param int     $limit quantity of elements to extract.
  * @param boolean $print TRUE if the table is to print in page.
  * @return return the HTML output accoding to the sprint state
@@ -37,53 +37,60 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
 
 	switch ( $type ) {
 		case 'DATE1':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(date) as rks
         FROM `$table_name`
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'OS':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(os) as rks
         FROM `$table_name`
         WHERE feed='' AND spider='' AND os<>''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'BROWSER':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(browser) as rks
         FROM `$table_name`
         WHERE feed='' AND spider='' AND browser<>''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'FEED':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(feed) as rks
         FROM `$table_name`
         WHERE feed<>''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'SEARCHENGINE':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(searchengine) as rks
         FROM `$table_name`
         WHERE searchengine<>''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'SEARCH':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(search) as rks
         FROM `$table_name`
         WHERE search<>''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'REFFERER':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				$wpdb->prepare(
 					"SELECT count(referrer) as rks
@@ -92,55 +99,61 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
         ",
 					'%' . get_bloginfo( 'url' ) . '%'
 				)
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'NATION':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(nation) as rks
         FROM `$table_name`
         WHERE nation<>'' AND spider=''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'SPIDER':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(spider) as rks
         FROM `$table_name`
         WHERE spider<>''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'URLREQUESTED':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(urlrequested) as rks
         FROM `$table_name`
         WHERE feed='' and spider=''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'DATE2':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(distinct ip) as rks
         FROM `$table_name`
         WHERE feed='' and spider=''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'DATE3':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(urlrequested) as rks
         FROM `$table_name`
         WHERE feed='' and spider=''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 		case 'IP':
+			// phpcs:ignore -- db call ok; no-cache ok.
 			$rks = $wpdb->get_var(
 				"SELECT count(urlrequested) as rks
         FROM `$table_name`
         WHERE feed='' and spider=''
         "
-			); // db call ok; no-cache ok.
+			); // phpcs:ignore: unprepared SQL OK.
 			break;
 	}
 
@@ -149,6 +162,7 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
 			switch ( $type ) {
 				case 'DATE1':
 					// use prepare.
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(date) as pageview, date
@@ -158,9 +172,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'OS':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(os) as pageview, os
@@ -171,9 +186,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'BROWSER':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(browser) as pageview, browser
@@ -184,9 +200,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'FEED':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(feed) as pageview, feed
@@ -197,9 +214,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'SEARCHENGINE':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(searchengine) as pageview, searchengine
@@ -210,9 +228,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'SEARCH':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(search) as pageview, search
@@ -223,9 +242,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'REFFERER':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(referrer) as pageview, referrer
@@ -237,9 +257,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
 							'%' . get_bloginfo( 'url' ) . '%',
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'NATION':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(nation) as pageview, nation
@@ -250,9 +271,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'SPIDER':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(spider) as pageview, spider
@@ -263,9 +285,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'URLREQUESTED':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(urlrequested) as pageview, urlrequested
@@ -276,9 +299,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'DATE2':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(distinct ip) as pageview, date
@@ -289,9 +313,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'DATE3':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(urlrequested) as pageview, date
@@ -302,9 +327,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'IP':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(urlrequested) as pageview, ip
@@ -315,22 +341,24 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               LIMIT %d",
 							$limit
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 			}
 		} else {
 			switch ( $type ) {
 				case 'DATE1':
 					// use prepare.
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(date) as pageview, date
               FROM `$table_name`             
               GROUP BY date
               ORDER BY pageview DESC
               LIMIT %d"
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'OS':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(os) as pageview, os
               FROM `$table_name`  
@@ -338,9 +366,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY os
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'BROWSER':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(browser) as pageview, browser
               FROM `$table_name`        
@@ -348,9 +377,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY browser
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'FEED':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(feed) as pageview, feed
               FROM `$table_name`        
@@ -358,9 +388,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY feed
               ORDER BY pageview DESC
               LIMIT %d"
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'SEARCHENGINE':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(searchengine) as pageview, searchengine
               FROM `$table_name`        
@@ -368,9 +399,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY searchengine
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'SEARCH':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(search) as pageview, search
               FROM `$table_name`        
@@ -378,9 +410,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY search
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'REFFERER':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						$wpdb->prepare(
 							"SELECT count(referrer) as pageview, referrer
@@ -391,9 +424,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               ",
 							'%' . get_bloginfo( 'url' ) . '%'
 						)
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'NATION':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(nation) as pageview, nation
               FROM `$table_name`        
@@ -401,9 +435,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY nation
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'SPIDER':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(spider) as pageview, spider
               FROM `$table_name`        
@@ -411,9 +446,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY spider
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'URLREQUESTED':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(urlrequested) as pageview, urlrequested
               FROM `$table_name`        
@@ -421,9 +457,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY urlrequested
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'DATE2':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(distinct ip) as pageview, date
               FROM `$table_name`        
@@ -431,9 +468,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY date
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'DATE3':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(urlrequested) as pageview, date
               FROM `$table_name`        
@@ -441,9 +479,10 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY date
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 				case 'IP':
+					// phpcs:ignore -- db call ok; no-cache ok.
 					$qry = $wpdb->get_results(
 						"SELECT count(urlrequested) as pageview, ip
               FROM `$table_name`        
@@ -451,7 +490,7 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
               GROUP BY ip
               ORDER BY pageview DESC
               "
-					); // db call ok; no-cache ok.
+					); // phpcs:ignore: unprepared SQL OK.
 					break;
 			}
 		}
@@ -460,13 +499,16 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
 
 		// Collects data.
 		$data = array();
-    foreach ($qry as $rk) {
-      $pc=round(($rk->pageview*100/$rks),1);
-      if($fld == 'nation') { $rk->$fld = strtoupper($rk->$fld); }
-      if($fld == 'date') { $rk->$fld = nsp_hdate($rk->$fld); }
-      if($fld == 'urlrequested') { $rk->$fld = nsp_decode_url($rk->$fld); }
-      $data[substr($rk->$fld,0,250)]=$rk->pageview;
-    }
+		foreach ( $qry as $rk ) {
+			$pc = round( ( $rk->pageview * 100 / $rks ), 1 );
+			if ( 'nation' === $fld ) {
+				$rk->$fld = strtoupper( $rk->$fld ); }
+			if ( 'date' === $fld ) {
+				$rk->$fld = nsp_hdate( $rk->$fld ); }
+			if ( 'urlrequested' === $fld ) {
+				$rk->$fld = nsp_decode_url( $rk->$fld ); }
+			$data[ substr( $rk->$fld, 0, 250 ) ] = $rk->pageview;
+		}
 	}
 
 	// Draw table body.
@@ -485,8 +527,8 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
 
 		$text .= "<tr><td colspan=2 style='width:50%;'>
               <iframe src='" . $charts . "' class='framebox'>
-          <p>["._e('This section requires a browser that supports iframes.','newstatpress')."]</p>
-        </iframe></td></tr>";
+          <p>[" . esc_html_e( 'This section requires a browser that supports iframes.', 'newstatpress' ) . ']</p>
+        </iframe></td></tr>';
 	}
 	$text .= "</tbody>
 	</table>
@@ -497,39 +539,39 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
 		print wp_kses(
 			$text,
 			array(
-				'a'     => array(
+				'a'      => array(
 					'href'   => array(),
 					'target' => array(),
 					'class'  => array(),
 				),
-				'tr'    => array(),
-				'thead'    => array(),
+				'tr'     => array(),
+				'thead'  => array(),
 				'h2'     => array(),
-				'p'     => array(),
-				
+				'p'      => array(),
+
 				'iframe' => array(
-					'src'    => array(),
-					'class'  => array(),
+					'src'   => array(),
+					'class' => array(),
 				),
-				'th'    => array(
+				'th'     => array(
 					'scope' => array(),
-					'style'   => array(),
-					'class'   => array(),
+					'style' => array(),
+					'class' => array(),
 				),
-				'td'    => array(
+				'td'     => array(
 					'colspan' => array(),
 					'style'   => array(),
 					'class'   => array(),
 				),
-				'tbody' => array(
+				'tbody'  => array(
 					'id' => array(),
 				),
-				'table' => array(
+				'table'  => array(
 					'class' => array(),
-				), 
-				'div' => array(
+				),
+				'div'    => array(
 					'class' => array(),
-				), 	 
+				),
 			)
 		);
 	} else {
