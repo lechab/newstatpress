@@ -22,7 +22,7 @@ function nsp_display_credits_page() {
 	global $pagenow;
 	global $credits_introduction;
 
-	$page = 'nsp_credits';
+	$page = 'nsp-credits';
 
 	$credits_page_tabs = array(
 		'development' => __( 'Development', 'newstatpress' ),
@@ -69,7 +69,7 @@ function nsp_display_credits_page() {
 	</table>
 
 	<?php
-	if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && $_GET['page'] === $page ) {
+	if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && $page === $_GET['page'] ) {
 		?>
 
 	<div id="usual1" class="usual">

@@ -18,11 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  *******************************/
 function nsp_build_dashboard_widget() {
 	global $newstatpress_dir;
+	global $_newstatpress;
 
 	$api_key          = get_option( 'newstatpress_apikey' );
 	$newstatpress_url = nsp_plugin_url();
 
-	wp_enqueue_script( 'wp_ajax_nsp_js_dashbord', plugins_url( './js/nsp_dashboard.js', __FILE__ ), array( 'jquery' ) );
+	wp_enqueue_script( 'wp_ajax_nsp_js_dashbord', plugins_url( './js/nsp_dashboard.js', __FILE__ ), array( 'jquery' ), $_newstatpress['version'], true );
 	wp_localize_script(
 		'wp_ajax_nsp_js_dashbord',
 		'nsp_externalAjax_dashboard',
@@ -33,7 +34,7 @@ function nsp_build_dashboard_widget() {
 		)
 	);
 
-	echo "<div id=\"nsp_result-dashboard\"><img id=\"nsp_loader-dashboard\" src=\"$newstatpress_url/images/ajax-loader.gif\"></div>";
+	echo '<div id="nsp_result-dashboard"><img id="nsp_loader-dashboard" src="' . esc_url( $newstatpress_url ) . '/images/ajax-loader.gif"></div>';
 	?>
   <ul class='nsp_dashboard'>
 	<li>

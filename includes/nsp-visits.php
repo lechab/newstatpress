@@ -290,7 +290,7 @@ document.getElementById(thediv).style.display="none"
 			$output   = wp_remote_retrieve_body( $response );
 			$output  .= '.png';
 			$output   = strtolower( $output );
-			echo "<IMG style='border:0px;width:18;height:12px;' alt='" . esc_attr( $title ) . "' title='" . esc_attr( $title ) . "' SRC='" . esc_attr( plugins_url( '../images/domain/' . $output, __FILE__ ) ) . "'>  ";
+			echo "<IMG style='border:0px;width:18;height:12px;' alt='hostip' title='hostip' SRC='" . esc_attr( plugins_url( '../images/domain/' . $output, __FILE__ ) ) . "'>  ";
 		}
 
 		print "<strong><span><font size='2' color='#7b7b7b'>" . esc_attr( $rk->ip ) . '</font></span></strong> ';
@@ -527,40 +527,40 @@ function newstatpress_decode( $out_url ) {
 		if ( '' === $out_url ) {
 			$out_url = __( 'Page', 'newstatpress' ) . ': Home';
 		}
-		if ( nsp_MySubstr( $out_url, 0, 4 ) === 'cat=' ) {
-			$out_url = __( 'Category', 'newstatpress' ) . ': ' . get_cat_name( nsp_MySubstr( $out_url, 4 ) );
+		if ( nsp_my_substr( $out_url, 0, 4 ) === 'cat=' ) {
+			$out_url = __( 'Category', 'newstatpress' ) . ': ' . get_cat_name( nsp_my_substr( $out_url, 4 ) );
 		}
-		if ( nsp_MySubstr( $out_url, 0, 2 ) === 'm=' ) {
-			$out_url = __( 'Calendar', 'newstatpress' ) . ': ' . nsp_MySubstr( $out_url, 6, 2 ) . '/' . nsp_MySubstr( $out_url, 2, 4 );
+		if ( nsp_my_substr( $out_url, 0, 2 ) === 'm=' ) {
+			$out_url = __( 'Calendar', 'newstatpress' ) . ': ' . nsp_my_substr( $out_url, 6, 2 ) . '/' . nsp_my_substr( $out_url, 2, 4 );
 		}
-		if ( nsp_MySubstr( $out_url, 0, 2 ) === 's=' ) {
-			$out_url = __( 'Search', 'newstatpress' ) . ': ' . nsp_MySubstr( $out_url, 2 );
+		if ( nsp_my_substr( $out_url, 0, 2 ) === 's=' ) {
+			$out_url = __( 'Search', 'newstatpress' ) . ': ' . nsp_my_substr( $out_url, 2 );
 		}
-		if ( nsp_MySubstr( $out_url, 0, 2 ) === 'p=' ) {
-			$sub_out   = nsp_MySubstr( $out_url, 2 );
+		if ( nsp_my_substr( $out_url, 0, 2 ) === 'p=' ) {
+			$sub_out   = nsp_my_substr( $out_url, 2 );
 			$post_id_7 = get_post( $sub_out, ARRAY_A );
 			$out_url   = $post_id_7['post_title'];
 		}
-		if ( nsp_MySubstr( $out_url, 0, 8 ) === 'page_id=' ) {
-			$sub_out   = nsp_MySubstr( $out_url, 8 );
+		if ( nsp_my_substr( $out_url, 0, 8 ) === 'page_id=' ) {
+			$sub_out   = nsp_my_substr( $out_url, 8 );
 			$post_id_7 = get_page( $sub_out, ARRAY_A );
 			$out_url   = __( 'Page', 'newstatpress' ) . ': ' . $post_id_7['post_title'];
 		}
 	} else {
 		if ( '' === $out_url ) {
 			$out_url = __( 'Page', 'newstatpress' ) . ': Home';
-		} elseif ( nsp_MySubstr( $out_url, 0, 9 ) === 'category/' ) {
-			$out_url = __( 'Category', 'newstatpress' ) . ': ' . get_cat_name( nsp_MySubstr( $out_url, 9 ) );
-		} elseif ( nsp_MySubstr( $out_url, 0, 2 ) === 's=' ) {
-			$out_url = __( 'Search', 'newstatpress' ) . ': ' . nsp_MySubstr( $out_url, 2 );
-		} elseif ( nsp_MySubstr( $out_url, 0, 2 ) === 'p=' ) {
+		} elseif ( nsp_my_substr( $out_url, 0, 9 ) === 'category/' ) {
+			$out_url = __( 'Category', 'newstatpress' ) . ': ' . get_cat_name( nsp_my_substr( $out_url, 9 ) );
+		} elseif ( nsp_my_substr( $out_url, 0, 2 ) === 's=' ) {
+			$out_url = __( 'Search', 'newstatpress' ) . ': ' . nsp_my_substr( $out_url, 2 );
+		} elseif ( nsp_my_substr( $out_url, 0, 2 ) === 'p=' ) {
 				// not working yet.
-				$sub_out   = nsp_MySubstr( $out_url, 2 );
+				$sub_out   = nsp_my_substr( $out_url, 2 );
 				$post_id_7 = get_post( $sub_out, ARRAY_A );
 				$out_url   = $post_id_7['post_title'];
-		} elseif ( nsp_MySubstr( $out_url, 0, 8 ) === 'page_id=' ) {
+		} elseif ( nsp_my_substr( $out_url, 0, 8 ) === 'page_id=' ) {
 				// not working yet.
-				$sub_out   = nsp_MySubstr( $out_url, 8 );
+				$sub_out   = nsp_my_substr( $out_url, 8 );
 				$post_id_7 = get_page( $sub_out, ARRAY_A );
 				$out_url   = __( 'Page', 'newstatpress' ) . ': ' . $post_id_7['post_title'];
 		}

@@ -128,7 +128,7 @@ function nsp_database_search( $what = '' ) {
 			die( 'NO permission' );
 		}
 
-		if ( ! ( isset( $_POST['nsp_search_post'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nsp_search_post'] ) ), 'nsp_search' ) ) ) {
+		if ( ! ( isset( $_REQUEST['nsp_search_post'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nsp_search_post'] ) ), 'nsp_search' ) ) ) {
 			die( 'Failed security check' );
 		}
 

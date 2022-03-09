@@ -11,9 +11,6 @@
  * @package NewStatpress
  ************************************************************/
 
-ini_set( 'display_errors', 1 );
-ini_set( 'display_startup_errors', 1 );
-error_reporting( E_ALL );
 // Make sure plugin remains secure if called directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	if ( ! headers_sent() ) {
@@ -304,6 +301,7 @@ function nsp_check_export() {
 	global $current_user;
 	wp_get_current_user();
 
+	// phpcs:ignore -- nonce is verified inside nsp_export_now, so warning can be suppressed.
 	if ( isset( $_GET['newstatpress_action'] ) && 'exportnow' === $_GET['newstatpress_action'] ) {
 		$tools_capability = get_option( 'newstatpress_menutools_cap' );
 		if ( ! $tools_capability ) { // default value.
@@ -585,9 +583,12 @@ function nsp_plugin_url() {
 function nsp_get_server_name() {
 	$server_name = '';
 	if ( ! empty( $_SERVER['HTTP_HOST'] ) ) {
-		$server_name = wp_unslash( $_SERVER['HTTP_HOST'] ); } elseif ( ! empty( $_newstatpress_env['HTTP_HOST'] ) ) {
-		$server_name = $_newstatpress_env['HTTP_HOST']; } elseif ( ! empty( $_SERVER['SERVER_NAME'] ) ) {
-			$server_name = wp_unslash( $_SERVER['SERVER_NAME'] ); } elseif ( ! empty( $_newstatpress_env['SERVER_NAME'] ) ) {
+		$server_name = sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) );
+	} elseif ( ! empty( $_newstatpress_env['HTTP_HOST'] ) ) {
+		$server_name = $_newstatpress_env['HTTP_HOST'];
+	} elseif ( ! empty( $_SERVER['SERVER_NAME'] ) ) {
+			$server_name = sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) );
+	} elseif ( ! empty( $_newstatpress_env['SERVER_NAME'] ) ) {
 			$server_name = $_newstatpress_env['SERVER_NAME']; }
 			return esc_html( nsp_case_trans( 'lower', $server_name ) );
 }
@@ -775,7 +776,7 @@ function nsp_add_settings_link( $links, $file ) {
 
 	return $links;
 }
- add_filter( 'plugin_action_links', 'nsp_add_settings_link', 10, 2 );
+add_filter( 'plugin_action_links', 'nsp_add_settings_link', 10, 2 );
 
 
 
@@ -788,7 +789,7 @@ function nsp_add_settings_link( $links, $file ) {
  * @param int    $y y value.
  * @return the substring.
  */
-function nsp_MySubstr( $str, $x, $y = 0 ) {
+function nsp_my_substr( $str, $x, $y = 0 ) {
 	if ( 0 == $y ) {
 		$y = strlen( $str ) - $x;
 	}
@@ -872,7 +873,7 @@ function nsp_hdate( $dt = '00000000' ) {
  * @return the hdate.
  */
 function newstatpress_hdate( $dt = '00000000' ) {
-	return mysql2date( get_option( 'date_format' ), nsp_MySubstr( $dt, 0, 4 ) . '-' . nsp_MySubstr( $dt, 4, 2 ) . '-' . nsp_MySubstr( $dt, 6, 2 ) );
+	return mysql2date( get_option( 'date_format' ), nsp_my_substr( $dt, 0, 4 ) . '-' . nsp_my_substr( $dt, 4, 2 ) . '-' . nsp_my_substr( $dt, 6, 2 ) );
 }
 
 
@@ -1269,7 +1270,7 @@ function nsp_stat_append() {
 
 	// IP.
 	if ( isset( $_SERVER['REMOTE_ADDR'] ) ) {
-		$ip_address = wp_unslash( $_SERVER['REMOTE_ADDR'] ); // BASIC detection -> to delete if it works.
+		$ip_address = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ); // BASIC detection -> to delete if it works.
 	}
 
 	// Is this IP blacklisted from file?
@@ -1318,11 +1319,11 @@ function nsp_stat_append() {
 			return ''; }
 	}
 
-	$referrer = ( isset( $_SERVER['HTTP_REFERER'] ) ? htmlentities( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) : '' );
+	$referrer = ( isset( $_SERVER['HTTP_REFERER'] ) ? htmlentities( sanitize_text_field( wp_unslash( $_SERVER['HTTP_REFERER'] ) ) ) : '' );
 	$referrer = esc_url( $referrer );
 	$referrer = esc_sql( $referrer );
 
-	$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? htmlentities( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '' );
+	$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? htmlentities( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) : '' );
 	$user_agent = sanitize_text_field( $user_agent );
 	$user_agent = esc_sql( $user_agent );
 
@@ -1339,9 +1340,11 @@ function nsp_stat_append() {
 		$os      = '';
 		$browser = '';
 	} else {
-		// Trap feeds
-		$feed = nsp_is_feed( get_bloginfo( 'url' ) . $_SERVER['REQUEST_URI'] );
-		// Get OS and browser
+		// Trap feeds.
+		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
+			$feed = nsp_is_feed( get_bloginfo( 'url' ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+		}
+		// Get OS and browser.
 		$os      = nsp_get_os( $user_agent );
 		$browser = nsp_get_browser( $user_agent );
 
@@ -1363,15 +1366,15 @@ function nsp_stat_append() {
           LIMIT 0,1',
 				$ip_address
 			)
-		);
+		); // db call ok; no-cache ok.
 		if ( isset( $qry->country ) ) {
 			$countrylang = $qry->country;
 		}
 	}
 
-	if ( $countrylang == '' ) {
+	if ( '' === $countrylang ) {
 		if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
-			$countrylang = nsp_get_language( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) );
+			$countrylang = nsp_get_language( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) );
 		}
 	}
 
@@ -1547,7 +1550,7 @@ function nsp_expand_vars_inside_code( $body ) {
 
 	// look for %os%.
 	if ( strpos( strtolower( $body ), '%os%' ) !== false ) {
-		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) : '' );
+		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '' );
 		$os         = nsp_get_os( $user_agent );
 		$body       = str_replace( '%os%', $os, $body );
 	}
@@ -1560,7 +1563,7 @@ function nsp_expand_vars_inside_code( $body ) {
 
 	// look for %ip%.
 	if ( strpos( strtolower( $body ), '%ip%' ) !== false ) {
-		$ip_address = $_SERVER['REMOTE_ADDR'];
+		$ip_address = ( isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '' );
 		$body       = str_replace( '%ip%', $ip_address, $body );
 	}
 
@@ -1729,7 +1732,7 @@ function nsp_widget_init( $args ) {
 				'body'  => 'Visits today: %visits%',
 			);
 		}
-		if ( isset( $_POST['newstatpress-submit'] ) && $_POST['newstatpress-submit'] ) {
+		if ( isset( $_POST['newstatpress-submit'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['newstatpress-submit'] ) ), 'nsp_widget_stats_control' ) ) {
 			if ( isset( $_POST['newstatpress-title'] ) ) {
 				$options['title'] = sanitize_text_field( wp_unslash( $_POST['newstatpress-title'] ) );
 			}
@@ -1748,9 +1751,10 @@ function nsp_widget_init( $args ) {
           </p>
           <p>
             <label for='newstatpress-body'>" . esc_html_e( 'Body:', 'newstatpress' ) . "</label>
-            <textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea' placeholder='Example: Month visits: %mvisits%...'>" . esc_html( $body ) . "</textarea>
+            <textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea' placeholder='Example: Month visits: %mvisits%...'>" . esc_html( $body ) . '</textarea>
           </p>
-          <input type='hidden' id='newstatpress-submit' name='newstatpress-submit' value='1' />
+          ' . "
+          <input type='hidden' id='newstatpress-submit' name='newstatpress-submit' value='" . esc_html( wp_create_nonce( 'nsp_widget_stats_control' ) ) . "' />
           <p>" . esc_html__( 'Stats available: ', 'newstatpress' ) . "<br/ >
           <span class='widget_varslist'>";
 		foreach ( $nsp_widget_vars as $var ) {
@@ -1770,10 +1774,10 @@ function nsp_widget_init( $args ) {
 		$options = get_option( 'widget_newstatpress' );
 		$title   = esc_js( $options['title'] );
 		$body    = esc_js( $options['body'] );
-		echo $args['before_widget'];
-		print( $args['before_title'] . esc_html( $title ) . $args['after_title'] );
-		print nsp_expand_vars_inside_code( $body );
-		echo $args['after_widget'];
+		echo wp_kses_post( $args['before_widget'] );
+		print( wp_kses_post( $args['before_title'] ) . esc_html( $title ) . wp_kses_post( $args['after_title'] ) );
+		print wp_kses_post( nsp_expand_vars_inside_code( $body ) );
+		echo wp_kses_post( $args['after_widget'] );
 	}
 	wp_register_sidebar_widget( 'NewStatPress', 'NewStatPress Stats', 'nsp_widget_stats' );
 	wp_register_widget_control( 'NewStatPress', array( 'NewStatPress', 'widgets' ), 'nsp_widget_stats_control', 300, 210 );
@@ -1790,7 +1794,7 @@ function nsp_widget_init( $args ) {
 				'showcounts' => 'checked',
 			);
 		}
-		if ( isset( $_POST['newstatpresstopposts-submit'] ) && $_POST['newstatpresstopposts-submit'] ) {
+		if ( isset( $_POST['newstatpresstopposts-submit'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['newstatpresstopposts-submit'] ) ), 'nsp_widget_top_posts_control' ) ) {
 			if ( isset( $_POST['newstatpresstopposts-title'] ) ) {
 				$options['title'] = sanitize_text_field( wp_unslash( $_POST['newstatpresstopposts-title'] ) );
 			}
@@ -1820,7 +1824,7 @@ function nsp_widget_init( $args ) {
             </label>
           </p>";
 		echo '<p style="text-align:right;"><label for="newstatpresstopposts-showcounts">' . esc_html__( 'Visits', 'newstatpress' ) . ' <input id="newstatpresstopposts-showcounts" name="newstatpresstopposts-showcounts" type=checkbox value="checked" ' . esc_attr( $showcounts ) . ' /></label></p>';
-		echo '<input type="hidden" id="newstatpress-submitTopPosts" name="newstatpresstopposts-submit" value="1" />';
+		echo '<input type="hidden" id="newstatpress-submitTopPosts" name="newstatpresstopposts-submit" value="' . esc_html( wp_create_nonce( 'nsp_widget_top_posts_control' ) ) . '" />';
 	}
 
 	/**
@@ -1833,13 +1837,13 @@ function nsp_widget_init( $args ) {
 		$title      = htmlspecialchars( $options['title'], ENT_QUOTES );
 		$howmany    = htmlspecialchars( $options['howmany'], ENT_QUOTES );
 		$showcounts = htmlspecialchars( $options['showcounts'], ENT_QUOTES );
-		echo $args['before_widget'];
-		print( $args['before_title'] . esc_html( $title ) . $args['after_title'] );
-		print nsp_top_posts( $howmany, $showcounts );
-		echo $args['after_widget'];
+		echo wp_kses_post( $args['before_widget'] );
+		print( wp_kses_post( $args['before_title'] ) . esc_html( $title ) . wp_kses_post( $args['after_title'] ) );
+		print wp_kses_post( nsp_top_posts( $howmany, $showcounts ) );
+		echo wp_kses_post( $args['after_widget'] );
 	}
-	wp_register_sidebar_widget( 'NewStatPress TopPosts', 'NewStatPress TopPosts', 'nsp_widget_top_posts' );
-	wp_register_widget_control( 'NewStatPress TopPosts', array( 'NewStatPress TopPosts', 'widgets' ), 'nsp_widget_top_posts_control', 300, 110 );
+	wp_register_sidebar_widget( 'NewStatPressTopPosts', 'NewStatPress TopPosts', 'nsp_widget_top_posts' );
+	wp_register_widget_control( 'NewStatPressTopPosts', array( 'NewStatPressTopPosts', 'widgets' ), 'nsp_widget_top_posts_control', 300, 110 );
 }
 add_action( 'plugins_loaded', 'nsp_widget_init' );
 

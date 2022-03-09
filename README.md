@@ -31,9 +31,10 @@
 
 
 ## 1.4.0
-*Released date: 2021-02-xx*
-- [x] More sanification
+*Released date: 2021-03-09*
+- [x] More sanification (complete core rewrite: actually search function is not working)
 - [x] Fix email sent
+- [x]  Fix top post widget error
 
 ## 1.3.9
 *Released date: 2021-02-11*

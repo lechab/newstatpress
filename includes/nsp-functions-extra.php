@@ -477,8 +477,8 @@ function nsp_table_size( $table ) {
 	// use prepare.
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
 	foreach ( $res as $fstatus ) {
-		$data_lenght = $fstatus->data_length;
-		$data_rows   = $fstatus->rows;
+		$data_lenght = $fstatus->Rata_length; // phpcs:ignore -- not in valid snake_case format: it is a DB field!
+		$data_rows   = $fstatus->Rows; // phpcs:ignore -- not in valid snake_case format: it is a DB field!
 	}
 	return number_format( ( $data_lenght / 1024 / 1024 ), 2, ',', ' ' ) . " Mb ($data_rows " . __( 'records', 'newstatpress' ) . ')';
 }
@@ -493,8 +493,8 @@ function nsp_table_size2( $table ) {
 	// use prepare.
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
 	foreach ( $res as $fstatus ) {
-		$data_lenght = $fstatus->data_length;
-		$data_rows   = $fstatus->rows;
+		$data_lenght = $fstatus->Data_length; // phpcs:ignore -- not in valid snake_case format: it is a DB field!
+		$data_rows   = $fstatus->Rows; // phpcs:ignore -- not in valid snake_case format: it is a DB field!
 	}
 	return number_format( ( $data_lenght / 1024 / 1024 ), 2, ',', ' ' ) . '  ' . __( 'Mb', 'newstatpress' );
 }
@@ -509,8 +509,8 @@ function nsp_table_records( $table ) {
 	// use prepare.
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
 	foreach ( $res as $fstatus ) {
-		$data_lenght = $fstatus->data_length;
-		$data_rows   = $fstatus->rows;
+		$data_lenght = $fstatus->Data_length; // phpcs:ignore -- not in valid snake_case format: it is a DB field!
+		$data_rows   = $fstatus->Rows; // phpcs:ignore -- not in valid snake_case format: it is a DB field!
 	}
 	return $data_rows;
 }

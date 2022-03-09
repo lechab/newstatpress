@@ -100,7 +100,7 @@ function nsp_index_table_size( $table ) {
 	// no needs prepare.
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
 	foreach ( $res as $fstatus ) {
-		$index_lenght = $fstatus->index_length;
+		$index_lenght = $fstatus->Index_length;  // phpcs:ignore -- not in valid snake_case format: it is a DB field!
 	}
 	return number_format( ( $index_lenght / 1024 / 1024 ), 2, ',', ' ' ) . ' Mb';
 }
@@ -118,7 +118,7 @@ function nsp_ip2nation() {
 			die( 'NO permission' );
 		}
 
-		if ( ! ( isset( $_POST['nsp_tool_post'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nsp_tool_post'] ) ), 'nsp_tool' ) ) ) {
+		if ( ! ( isset( $_REQUEST['nsp_tool_post'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nsp_tool_post'] ) ), 'nsp_tool' ) ) ) {
 			die( 'Failed security check' );
 		}
 
@@ -130,7 +130,7 @@ function nsp_ip2nation() {
 			die( 'NO permission' );
 		}
 
-		if ( ! ( isset( $_POST['nsp_tool_post'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nsp_tool_post'] ) ), 'nsp_tool' ) ) ) {
+		if ( ! ( isset( $_REQUEST['nsp_tool_post'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nsp_tool_post'] ) ), 'nsp_tool' ) ) ) {
 			die( 'Failed security check' );
 		}
 
@@ -422,7 +422,7 @@ function nsp_export_now() {
 
 	check_admin_referer( 'nsp_tool', 'nsp_tool_post' );
 
-	if ( ! ( isset( $_POST['nsp_tool_post'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nsp_tool_post'] ) ), 'nsp_tool' ) ) ) {
+	if ( ! ( isset( $_REQUEST['nsp_tool_post'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nsp_tool_post'] ) ), 'nsp_tool' ) ) ) {
 		die( 'Failed security check' );
 	}
 
