@@ -4,7 +4,7 @@
  * Plugin URI: http://newstatpress.altervista.org
  * Text Domain: newstatpress
  * Description: Real time stats for your WordPress blog
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: Stefano Tognon and cHab (from Daniele Lippi works)
  * Author URI: http://newstatpress.altervista.org
  *
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( esc_html__( 'ERROR: This plugin requires WordPress and will not function if called directly.', 'newstatpress' ) );
 }
 
-$_newstatpress['version']  = '1.4.0';
+$_newstatpress['version']  = '1.4.1';
 $_newstatpress['feedtype'] = '';
 
 global  $newstatpress_dir,
@@ -1329,14 +1329,14 @@ function nsp_stat_append() {
 
 	$spider = nsp_get_spider( $user_agent );
 
-	if ( ( '' !== $spider ) && ( get_option( 'newstatpress_donotcollectspider' ) === 'checked' ) ) {
+	if ( ( '' != $spider ) && ( get_option( 'newstatpress_donotcollectspider' ) === 'checked' ) ) {
 		return ''; }
 
 	// ininitalize to empty.
 	$searchengine  = '';
 	$search_phrase = '';
 
-	if ( '' !== $spider ) {
+	if ( '' != $spider ) {
 		$os      = '';
 		$browser = '';
 	} else {
@@ -1372,7 +1372,7 @@ function nsp_stat_append() {
 		}
 	}
 
-	if ( '' === $countrylang ) {
+	if ( '' == $countrylang ) {
 		if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
 			$countrylang = nsp_get_language( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) );
 		}

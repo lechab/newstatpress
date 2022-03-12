@@ -115,7 +115,7 @@ function nsp_database_search( $what = '' ) {
 		</td>
 	</tr>
 		</table>
-		<input type=hidden name=page value='nsp_search'>
+		<input type=hidden name=page value='nsp-search'>
 		<input type=hidden name=newstatpress_action value=search>
 	</form>
 
@@ -208,17 +208,17 @@ function nsp_database_search( $what = '' ) {
 				// Results.
 				print '<h2>' . esc_html__( 'Results', 'newstatpress' ) . '</h2>';
 
-				print " < table class                   = 'widefat' > < thead > < tr > ";
+				print "<table class='widefat'> <thead> <tr> ";
 				for ( $i = 1;$i <= 3;$i++ ) {
 					if ( isset( $_GET[ "where$i" ] ) ) {
 						$where_i = htmlspecialchars( wp_strip_all_tags( wp_unslash( $_GET[ "where$i" ] ) ), ENT_COMPAT, 'UTF-8' );
 					}
 					if ( '' !== $where_i ) {
-						print " < th scope              = 'col' > " . esc_html( ucfirst( $where_i ) ) . '</th>'; }
+						print " <th scope='col'> " . esc_html( ucfirst( $where_i ) ) . '</th>'; }
 				}
 				if ( '' !== $groupby ) {
-					print " < th scope                  = 'col' > " . esc_html__( 'Count', 'newstatpress' ) . '</th>'; }
-				print " < / tr > < / thead > < tbody id = 'the-list' > ";
+					print "<th scope='col'> " . esc_html__( 'Count', 'newstatpress' ) . '</th>'; }
+				print " </tr> </thead > <tbody id='the-list'> ";
 				$qry = $wpdb->get_results( $wpdb->prepare( 'SELECT %s FROM %s %s %s %s LIMIT %d;', $fields, $table_name, $where, $groupby, $orderby, $limit_num ), ARRAY_N ); // db call ok; no-cache ok.
 				foreach ( $qry as $rk ) {
 					print '<tr>';
@@ -235,7 +235,7 @@ function nsp_database_search( $what = '' ) {
 						print '</tr>';
 				}
 				print '</table>';
-				print '<br /><br /><font size=1 color=gray>sql: ' . esc_html( $sql ) . '</font></div>';
+				print '<br/><br/><font size=1 color=gray>sql: ' . esc_html( $wpdb->last_query ) . '</font></div>';
 	}
 }
 ?>

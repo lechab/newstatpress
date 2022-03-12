@@ -30,6 +30,12 @@
 - [ ] Add jQuery Vector Maps v1.5.0
 
 
+## 1.4.1
+*Released date: 2021-03-12*
+- [x] Fix os/browser detection
+- [x] Fix update missing action
+
+
 ## 1.4.0
 *Released date: 2021-03-09*
 - [x] More sanification (complete core rewrite: actually search function is not working)

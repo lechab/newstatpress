@@ -635,7 +635,7 @@ function nsp_extract_feed_req( $url ) {
  ***********************/
 function nsp_update() {
 	// database update if requested by user.
-	if ( 'yes' === isset( $_POST['update'] ) && sanitize_file_name( wp_unslash( $_POST['update'] ) ) ) {
+	if ( 'yes' == isset( $_POST['update'] ) && sanitize_file_name( wp_unslash( $_POST['update'] ) ) ) {
 		check_admin_referer( 'nsp_tool', 'nsp_tool_post' );
 		if ( ! current_user_can( 'administrator' ) ) {
 			die( 'NO permission' );
