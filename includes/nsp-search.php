@@ -32,26 +32,26 @@ function nsp_database_search( $what = '' ) {
 	$f['ip']           = __( 'IP', 'newstatpress' );
 	?>
 	<div class='wrap'><h2><?php esc_html_e( 'Search', 'newstatpress' ); ?></h2>
-	<form method=get><table>
+	<form method=post><table>
 	<?php
 	for ( $i = 1;$i <= 3;$i++ ) {
 		print '<tr>';
 		print '<td>' . esc_html__( 'Field', 'newstatpress' ) . ' <select name=' . esc_attr( "where$i" ) . "><option value=''></option>";
 		foreach ( array_keys( $f ) as $k ) {
 			print "<option value='" . esc_html( $k ) . "'";
-			if ( isset( $_GET[ "where$i" ] ) && $_GET[ "where$i" ] === $k ) {
+			if ( isset( $_POST[ "where$i" ] ) && $_POST[ "where$i" ] === $k ) {
 				print ' SELECTED '; }
 			print '>' . esc_html( $f[ $k ] ) . '</option>';
 		}
 		print '</select></td>';
-		if ( isset( $_GET[ "groupby$i" ] ) ) {
+		if ( isset( $_POST[ "groupby$i" ] ) ) {
 			// must only be a "checked" value if this is set.
 			print '<td><input type=checkbox name=' . esc_attr( "groupby$i" ) . " value='checked' checked" . '> ' . esc_html__( 'Group by', 'newstatpress' ) . '</td>';
 		} else {
 			print '<td> <input type=checkbox name=' . esc_attr( "groupby$i" ) . " value = 'checked' " . '> ' . esc_html__( 'Group by', 'newstatpress' ) . '</td>';
 		}
 
-		if ( isset( $_GET[ "sortby$i" ] ) ) {
+		if ( isset( $_POST[ "sortby$i" ] ) ) {
 			// must only be a 'checked" value if this is set.
 			print '<td><input type=checkbox name=' . esc_attr( "sortby$i" ) . " value = 'checked' " . 'checked> ' . esc_html__( 'Sort by', 'newstatpress' ) . '</td>';
 		} else {
@@ -60,26 +60,26 @@ function nsp_database_search( $what = '' ) {
 
 		$what = '';
 		// we accept only chars, number, space and . (for ip) in search field.
-		if ( isset( $_GET[ "what$i" ] ) ) {
-			$what = preg_replace( '/[^A-Za-z0-9\.\s]/', '', sanitize_text_field( wp_unslash( $_GET[ "what$i" ] ) ) );
+		if ( isset( $_POST[ "what$i" ] ) ) {
+			$what = preg_replace( '/[^A-Za-z0-9\.\s]/', '', sanitize_text_field( wp_unslash( $_POST[ "what$i" ] ) ) );
 		}
-		print '<td>, ' . esc_html__( 'if contains', 'newstatpress' ) . ' <input type=text name=' . esc_attr( "what$i" ) . " value = '" . esc_js( esc_html( $what ) ) . "' > < / td > ";
+		print '<td>, ' . esc_html__( 'if contains', 'newstatpress' ) . ' <input type=text name=' . esc_attr( "what$i" ) . " value = '" . esc_js( esc_html( $what ) ) . "' > </td> ";
 		print '</tr>';
 	}
 
 	$orderby = '';
-	if ( isset( $_GET['oderbycount'] ) ) {
-		$orderby = sanitize_text_field( wp_unslash( $_GET['oderbycount'] ) );
+	if ( isset( $_POST['oderbycount'] ) ) {
+		$orderby = sanitize_text_field( wp_unslash( $_POST['oderbycount'] ) );
 	}
 
 	$spider = '';
-	if ( isset( $_GET['spider'] ) ) {
-		$spider = sanitize_text_field( wp_unslash( $_GET['spider'] ) );
+	if ( isset( $_POST['spider'] ) ) {
+		$spider = sanitize_text_field( wp_unslash( $_POST['spider'] ) );
 	}
 
 	$feed = '';
-	if ( isset( $_GET['feed'] ) ) {
-		$feed = sanitize_text_field( wp_unslash( $_GET['feed'] ) );
+	if ( isset( $_POST['feed'] ) ) {
+		$feed = sanitize_text_field( wp_unslash( $_POST['feed'] ) );
 	}
 	?>
 	</table>
@@ -100,8 +100,8 @@ function nsp_database_search( $what = '' ) {
 				<td><?php esc_html_e( 'Limit results to', 'newstatpress' ); ?>
 				<select name=limitquery>
 				<?php
-				if ( isset( $_GET['limitquery'] ) && $_GET['limitquery'] > 0 ) {
-					print '<option>' . esc_html( sanitize_text_field( wp_unslash( $_GET['limitquery'] ) ) ) . '</option>';}
+				if ( isset( $_POST['limitquery'] ) && $_POST['limitquery'] > 0 ) {
+					print '<option>' . esc_html( sanitize_text_field( wp_unslash( $_POST['limitquery'] ) ) ) . '</option>';}
 				?>
 				<option>1</option><option>5</option><option>10</option><option>20</option><option>50</option></select>
 				</td>
@@ -122,7 +122,7 @@ function nsp_database_search( $what = '' ) {
 	<br>
 	<?php
 
-	if ( isset( $_GET['searchsubmit'] ) ) {
+	if ( isset( $_POST['searchsubmit'] ) ) {
 		check_admin_referer( 'nsp_search', 'nsp_search_post' );
 		if ( ! current_user_can( 'administrator' ) ) {
 			die( 'NO permission' );
@@ -136,11 +136,21 @@ function nsp_database_search( $what = '' ) {
 		$qry   = '';
 		$array = array();
 
+		$_urlrequested = '';
+		$_agent        = '';
+		$_referrer     = '';
+		$_search       = '';
+		$_searchengine = '';
+		$_os           = '';
+		$_browser      = '';
+		$_spider       = '';
+		$_ip           = '';
+
 		// FIELDS.
 		$fields = '';
 		for ( $i = 1;$i <= 3;$i++ ) {
-			if ( isset( $_GET[ "where$i" ] ) && '' !== $_GET[ "where$i" ] ) {
-				$where_i = sanitize_text_field( wp_unslash( $_GET[ "where$i" ] ) );
+			if ( isset( $_POST[ "where$i" ] ) && '' !== $_POST[ "where$i" ] ) {
+				$where_i = sanitize_text_field( wp_unslash( $_POST[ "where$i" ] ) );
 				if ( ! array_key_exists( $where_i, $f ) ) {
 					$where_i = ''; // prevent to use not valid values.
 				}
@@ -149,91 +159,511 @@ function nsp_database_search( $what = '' ) {
 		}
 		$fields = rtrim( $fields, ',' );
 
-		// WHERE.
-		$where = 'WHERE 1=1';
-
-		if ( ! isset( $_GET['spider'] ) ) {
-			$where .= " and spider                      = ''"; } elseif ( 'checked' !== $_GET['spider'] ) {
-					$where .= " and spider              = ''"; }
-
-			if ( ! isset( $_GET['feed'] ) ) {
-				$where .= " and feed                    = ''"; } elseif ( 'checked' !== $_GET['feed'] ) {
-					$where .= " and feed                = ''"; }
-
-				for ( $i = 1;$i <= 3;$i++ ) {
-					if ( ( '' !== $_GET[ "what$i" ] ) && isset( $_GET[ "where$i" ] ) && ( '' !== $_GET[ "where$i" ] ) ) {
-						$where_i = sanitize_text_field( wp_unslash( $_GET[ "where$i" ] ) );
-						if ( array_key_exists( $where_i, $f ) ) {
-									$what_i  = preg_replace( '/[^A-Za-z0-9\.\s]/', '', sanitize_text_field( wp_unslash( $_GET[ "what$i" ] ) ) ); // sanitize with prepare, but before extract what we expected.
-									$where  .= ' AND ' . $where_i . ' LIKE %s ';
-									$array[] = '%' . $what_i . '%';             // sanitize with prepare.
-						}
+		for ( $i = 1;$i <= 3;$i++ ) {
+			if ( ( '' !== $_POST[ "what$i" ] ) && isset( $_POST[ "where$i" ] ) && ( '' !== $_POST[ "where$i" ] ) ) {
+				$where_i = sanitize_text_field( wp_unslash( $_POST[ "where$i" ] ) );
+				if ( array_key_exists( $where_i, $f ) ) {
+							$what_i = preg_replace( '/[^A-Za-z0-9\.\s]/', '', sanitize_text_field( wp_unslash( $_POST[ "what$i" ] ) ) ); // sanitize with prepare, but before extract what we expected.
+					switch ( $where_i ) {
+						case 'agent':
+							$_agent = $what_i;
+							break;
+						case 'referrer':
+							$_referrer = $what_i;
+							break;
+						case 'search':
+							$_search = $what_i;
+							break;
+						case 'searchengine':
+							$_searchengine = $what_i;
+							break;
+						case 'os':
+							$_os = $what_i;
+							break;
+						case 'browser':
+							$_browser = $what_i;
+							break;
+						case 'spider':
+							$_spider = $what_i;
+							break;
+						case 'ip':
+							$_ip = $what_i;
+							break;
 					}
+							$array[] = '%' . $what_i . '%';             // sanitize with prepare.
 				}
+			}
+		}
 				// ORDER BY.
 				$orderby = '';
-				for ( $i = 1;$i <= 3;$i++ ) {
-					if ( isset( $_GET[ "sortby$i" ] ) && isset( $_GET[ "where$i" ] ) && ( 'checked' === $_GET[ "sortby$i" ] ) && ( '' !== $_GET[ "where$i" ] ) ) {
-						$where_i = sanitize_text_field( wp_unslash( $_GET[ "where$i" ] ) );
-						if ( array_key_exists( $where_i, $f ) ) {
-							$orderby .= $where_i . ',';
-						}
-					}
+		for ( $i = 1;$i <= 3;$i++ ) {
+			if ( isset( $_POST[ "sortby$i" ] ) && isset( $_POST[ "where$i" ] ) && ( 'checked' === $_POST[ "sortby$i" ] ) && ( '' !== $_POST[ "where$i" ] ) ) {
+				$where_i = sanitize_text_field( wp_unslash( $_POST[ "where$i" ] ) );
+				if ( array_key_exists( $where_i, $f ) ) {
+					$orderby .= $where_i . ',';
 				}
+			}
+		}
 
 				// GROUP BY.
 				$groupby = '';
-				for ( $i = 1;$i <= 3;$i++ ) {
-					if ( isset( $_GET[ "groupby$i" ] ) && isset( $_GET[ "where$i" ] ) && ( 'checked' === $_GET[ "groupby$i" ] ) && ( '' !== $_GET[ "where$i" ] ) ) {
-						$where_i = sanitize_text_field( wp_unslash( $_GET[ "where$i" ] ) );
-						if ( array_key_exists( $where_i, $f ) ) {
-							$groupby .= $where_i . ',';
-						}
-					}
+		for ( $i = 1;$i <= 3;$i++ ) {
+			if ( isset( $_POST[ "groupby$i" ] ) && isset( $_POST[ "where$i" ] ) && ( 'checked' === $_POST[ "groupby$i" ] ) && ( '' !== $_POST[ "where$i" ] ) ) {
+				$where_i = sanitize_text_field( wp_unslash( $_POST[ "where$i" ] ) );
+				if ( array_key_exists( $where_i, $f ) ) {
+					$groupby .= $where_i . ',';
 				}
-				if ( '' !== $groupby ) {
-					$groupby = 'GROUP BY ' . rtrim( $groupby, ',' );
-					$fields .= ',count(*) as totale';
-					if ( isset( $_GET['oderbycount'] ) && 'checked' === $_GET['oderbycount'] ) {
-						$orderby = 'totale DESC,' . $orderby; }
-				}
+			}
+		}
+		if ( '' !== $groupby ) {
+			$groupby = rtrim( $groupby, ',' );
+			$fields .= ',count(*) as totale';
+			if ( isset( $_POST['oderbycount'] ) && 'checked' === $_POST['oderbycount'] ) {
+				$orderby = 'totale DESC,' . $orderby; }
+		}
 
-				if ( '' !== $orderby ) {
-					$orderby = 'ORDER BY ' . rtrim( $orderby, ',' ); }
+		if ( '' !== $orderby ) {
+			$orderby = rtrim( $orderby, ',' );
+		} else {
+			$orderby = 'id';
+		}
 
-				if ( isset( $_GET['limitquery'] ) ) {
-					$limit_num = intval( $_GET['limitquery'] ); // force to use integer.
-				}
+		if ( isset( $_POST['limitquery'] ) ) {
+			$limit_num = intval( $_POST['limitquery'] ); // force to use integer.
+		}
 
 				// Results.
 				print '<h2>' . esc_html__( 'Results', 'newstatpress' ) . '</h2>';
 
 				print "<table class='widefat'> <thead> <tr> ";
-				for ( $i = 1;$i <= 3;$i++ ) {
-					if ( isset( $_GET[ "where$i" ] ) ) {
-						$where_i = htmlspecialchars( wp_strip_all_tags( wp_unslash( $_GET[ "where$i" ] ) ), ENT_COMPAT, 'UTF-8' );
-					}
-					if ( '' !== $where_i ) {
-						print " <th scope='col'> " . esc_html( ucfirst( $where_i ) ) . '</th>'; }
-				}
-				if ( '' !== $groupby ) {
-					print "<th scope='col'> " . esc_html__( 'Count', 'newstatpress' ) . '</th>'; }
+		for ( $i = 1;$i <= 3;$i++ ) {
+			if ( isset( $_POST[ "where$i" ] ) ) {
+				$where_i = htmlspecialchars( wp_strip_all_tags( wp_unslash( $_POST[ "where$i" ] ) ), ENT_COMPAT, 'UTF-8' );
+			}
+			if ( '' !== $where_i ) {
+				print " <th scope='col'> " . esc_html( ucfirst( $where_i ) ) . '</th>'; }
+		}
+		if ( '' !== $groupby ) {
+			print "<th scope='col'> " . esc_html__( 'Count', 'newstatpress' ) . '</th>'; }
 				print " </tr> </thead > <tbody id='the-list'> ";
-				$qry = $wpdb->get_results( $wpdb->prepare( 'SELECT %s FROM %s %s %s %s LIMIT %d;', $fields, $table_name, $where, $groupby, $orderby, $limit_num ), ARRAY_N ); // db call ok; no-cache ok.
-				foreach ( $qry as $rk ) {
-					print '<tr>';
-					for ( $i = 1;$i <= 3;$i++ ) {
-						print '<td>';
-						if ( isset( $_GET[ "where$i" ] ) && 'urlrequested' === $_GET[ "where$i" ] ) {
-							print esc_html( nsp_decode_url( $rk[ $i - 1 ] ) ); } else {
-							if ( isset( $rk[ $i - 1 ] ) ) {
-								print esc_html( $rk[ $i - 1 ] );
+
+		if ( '' !== $groupby ) {
+			if ( isset( $_POST['spider'] ) && 'checked' === $_POST['spider'] && isset( $_POST['feed'] ) && 'checked' === $_POST['feed'] ) {
+				// phpcs:disable -- Use placeholders and $wpdb->prepare(); found interpolated variable $table_name at FROM `$table_name`
+				$qry = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT 
+				       urlrequested,
+				       agent,
+			         referrer,
+				       search,
+				       searchengine,
+				       os,
+				       browser,
+				       spider,
+				       ip,
+			         count(*) as totale
+				      FROM `$table_name` 
+				      WHERE 
+				        urlrequested like %s AND
+				        agent like %s AND
+				        referrer like %s AND
+				        search like %s AND
+				        searchengine like %s AND
+				        os like %s AND
+				        browser like %s AND
+				        spider like %s AND
+				        ip like %s and
+				        feed <> '' AND
+				        spider <> ''
+				       GROUP BY %s
+				       ORDER BY %s                                              
+				        LIMIT %d",
+						'%' . $wpdb->esc_like( $_urlrequested ) . '%',
+						'%' . $wpdb->esc_like( $_agent ) . '%',
+						'%' . $wpdb->esc_like( $_refferer ) . '%',
+						'%' . $wpdb->esc_like( $_search ) . '%',
+						'%' . $wpdb->esc_like( $_searchengine ) . '%',
+						'%' . $wpdb->esc_like( $_os ) . '%',
+						'%' . $wpdb->esc_like( $_browser ) . '%',
+						'%' . $wpdb->esc_like( $_spider ) . '%',
+						'%' . $wpdb->esc_like( $_ip ) . '%',
+						sanitize_sql_orderby( $groupby ),
+						sanitize_sql_orderby( $orderby ),
+						$limit_num
+					),
+					ARRAY_N
+				); // phpcs:enable
+			} elseif ( isset( $_POST['spider'] ) && 'checked' === $_POST['spider'] ) {
+				// phpcs:disable -- Use placeholders and $wpdb->prepare(); found interpolated variable $table_name at FROM `$table_name`
+				$qry = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT 
+				       urlrequested,
+				       agent,
+			         referrer,
+				       search,
+				       searchengine,
+				       os,
+				       browser,
+				       spider,
+				       ip,
+			         count(*) as totale
+				      FROM `$table_name` 
+				      WHERE 
+				        urlrequested like %s AND
+				        agent like %s AND
+				        referrer like %s AND
+				        search like %s AND
+				        searchengine like %s AND
+				        os like %s AND
+				        browser like %s AND
+				        spider like %s AND
+				        ip like %s and
+				        feed = '' AND
+				        spider <> ''
+				       GROUP BY %s
+				       ORDER BY %s                                              
+				        LIMIT %d",
+						'%' . $wpdb->esc_like( $_urlrequested ) . '%',
+						'%' . $wpdb->esc_like( $_agent ) . '%',
+						'%' . $wpdb->esc_like( $_refferer ) . '%',
+						'%' . $wpdb->esc_like( $_search ) . '%',
+						'%' . $wpdb->esc_like( $_searchengine ) . '%',
+						'%' . $wpdb->esc_like( $_os ) . '%',
+						'%' . $wpdb->esc_like( $_browser ) . '%',
+						'%' . $wpdb->esc_like( $_spider ) . '%',
+						'%' . $wpdb->esc_like( $_ip ) . '%',
+						sanitize_sql_orderby( $groupby ),
+						sanitize_sql_orderby( $orderby ),
+						$limit_num
+					),
+					ARRAY_N
+				); // phpcs:enable
+			} elseif ( isset( $_POST['feed'] ) && 'checked' === $_POST['feed'] ) {
+				// phpcs:disable -- Use placeholders and $wpdb->prepare(); found interpolated variable $table_name at FROM `$table_name`
+				$qry = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT 
+				       urlrequested,
+				       agent,
+			         referrer,
+				       search,
+				       searchengine,
+				       os,
+				       browser,
+				       spider,
+				       ip,
+			         count(*) as totale
+				      FROM `$table_name` 
+				      WHERE 
+				        urlrequested like %s AND
+				        agent like %s AND
+				        referrer like %s AND
+				        search like %s AND
+				        searchengine like %s AND
+				        os like %s AND
+				        browser like %s AND
+				        spider like %s AND
+				        ip like %s and
+				        feed <> '' AND
+				        spider = ''
+				       GROUP BY %s
+				       ORDER BY %s                                              
+				        LIMIT %d",
+						'%' . $wpdb->esc_like( $_urlrequested ) . '%',
+						'%' . $wpdb->esc_like( $_agent ) . '%',
+						'%' . $wpdb->esc_like( $_refferer ) . '%',
+						'%' . $wpdb->esc_like( $_search ) . '%',
+						'%' . $wpdb->esc_like( $_searchengine ) . '%',
+						'%' . $wpdb->esc_like( $_os ) . '%',
+						'%' . $wpdb->esc_like( $_browser ) . '%',
+						'%' . $wpdb->esc_like( $_spider ) . '%',
+						'%' . $wpdb->esc_like( $_ip ) . '%',
+						sanitize_sql_orderby( $groupby ),
+						sanitize_sql_orderby( $orderby ),
+						$limit_num
+					),
+					ARRAY_N
+				); // phpcs:enable
+			} else {
+				// phpcs:disable -- Use placeholders and $wpdb->prepare(); found interpolated variable $table_name at FROM `$table_name`
+				$qry = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT 
+				       urlrequested,
+				       agent,
+			         referrer,
+				       search,
+				       searchengine,
+				       os,
+				       browser,
+				       spider,
+				       ip,
+			         count(*) as totale
+				      FROM `$table_name` 
+				      WHERE 
+				        urlrequested like %s AND
+				        agent like %s AND
+				        referrer like %s AND
+				        search like %s AND
+				        searchengine like %s AND
+				        os like %s AND
+				        browser like %s AND
+				        spider like %s AND
+				        ip like %s AND
+				        feed = '' AND
+				        spider = ''
+				       GROUP BY %s
+				       ORDER BY %s                                              
+				        LIMIT %d",
+						'%' . $wpdb->esc_like( $_urlrequested ) . '%',
+						'%' . $wpdb->esc_like( $_agent ) . '%',
+						'%' . $wpdb->esc_like( $_refferer ) . '%',
+						'%' . $wpdb->esc_like( $_search ) . '%',
+						'%' . $wpdb->esc_like( $_searchengine ) . '%',
+						'%' . $wpdb->esc_like( $_os ) . '%',
+						'%' . $wpdb->esc_like( $_browser ) . '%',
+						'%' . $wpdb->esc_like( $_spider ) . '%',
+						'%' . $wpdb->esc_like( $_ip ) . '%',
+						sanitize_sql_orderby( $groupby ),
+						sanitize_sql_orderby( $orderby ),
+						$limit_num
+					),
+					ARRAY_N
+				); // phpcs:enable
+			}
+		} else {
+			if ( isset( $_POST['spider'] ) && 'checked' === $_POST['spider'] && isset( $_POST['feed'] ) && 'checked' === $_POST['feed'] ) {
+				// phpcs:disable -- Use placeholders and $wpdb->prepare(); found interpolated variable $table_name at FROM `$table_name`
+				$qry = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT 
+				       urlrequested,
+				       agent,
+			         referrer,
+				       search,
+				       searchengine,
+				       os,
+				       browser,
+				       spider,
+				       ip
+				      FROM `$table_name` 
+				      WHERE 
+				        urlrequested like %s AND
+				        agent like %s AND
+				        referrer like %s AND
+				        search like %s AND
+				        searchengine like %s AND
+				        os like %s AND
+				        browser like %s AND
+				        spider like %s AND
+				        ip like %s and
+				        feed <> '' AND
+				        spider <> ''        
+				       ORDER BY %s
+				        LIMIT %d",
+						'%' . $wpdb->esc_like( $_urlrequested ) . '%',
+						'%' . $wpdb->esc_like( $_agent ) . '%',
+						'%' . $wpdb->esc_like( $_refferer ) . '%',
+						'%' . $wpdb->esc_like( $_search ) . '%',
+						'%' . $wpdb->esc_like( $_searchengine ) . '%',
+						'%' . $wpdb->esc_like( $_os ) . '%',
+						'%' . $wpdb->esc_like( $_browser ) . '%',
+						'%' . $wpdb->esc_like( $_spider ) . '%',
+						'%' . $wpdb->esc_like( $_ip ) . '%',
+						sanitize_sql_orderby( $orderby ),
+						$limit_num
+					),
+					ARRAY_N
+				); // phpcs:enable
+
+			} elseif ( isset( $_POST['spider'] ) && 'checked' === $_POST['spider'] ) {
+				// phpcs:disable -- Use placeholders and $wpdb->prepare(); found interpolated variable $table_name at FROM `$table_name`
+				$qry = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT 
+				       urlrequested,
+				       agent,
+			         referrer,
+				       search,
+				       searchengine,
+				       os,
+				       browser,
+				       spider,
+				       ip
+				      FROM `$table_name` 
+				      WHERE 
+				        urlrequested like %s AND
+				        agent like %s AND
+				        referrer like %s AND
+				        search like %s AND
+				        searchengine like %s AND
+				        os like %s AND
+				        browser like %s AND
+				        spider like %s AND
+				        ip like %s and
+				        feed = '' AND
+				        spider <> ''
+				       ORDER BY %s                                          
+				        LIMIT %d",
+						'%' . $wpdb->esc_like( $_urlrequested ) . '%',
+						'%' . $wpdb->esc_like( $_agent ) . '%',
+						'%' . $wpdb->esc_like( $_refferer ) . '%',
+						'%' . $wpdb->esc_like( $_search ) . '%',
+						'%' . $wpdb->esc_like( $_searchengine ) . '%',
+						'%' . $wpdb->esc_like( $_os ) . '%',
+						'%' . $wpdb->esc_like( $_browser ) . '%',
+						'%' . $wpdb->esc_like( $_spider ) . '%',
+						'%' . $wpdb->esc_like( $_ip ) . '%',
+						sanitize_sql_orderby( $orderby ),
+						$limit_num
+					),
+					ARRAY_N
+				); // phpcs:enable
+			} elseif ( isset( $_POST['feed'] ) && 'checked' === $_POST['feed'] ) {
+				// phpcs:disable -- Use placeholders and $wpdb->prepare(); found interpolated variable $table_name at FROM `$table_name`
+				$qry = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT 
+				       urlrequested,
+				       agent,
+			         referrer,
+				       search,
+				       searchengine,
+				       os,
+				       browser,
+				       spider,
+				       ip
+				      FROM `$table_name` 
+				      WHERE 
+				        urlrequested like %s AND
+				        agent like %s AND
+				        referrer like %s AND
+				        search like %s AND
+				        searchengine like %s AND
+				        os like %s AND
+				        browser like %s AND
+				        spider like %s AND
+				        ip like %s and
+				        feed <> '' AND
+				        spider = ''
+				       ORDER BY %s
+				        LIMIT %d",
+						'%' . $wpdb->esc_like( $_urlrequested ) . '%',
+						'%' . $wpdb->esc_like( $_agent ) . '%',
+						'%' . $wpdb->esc_like( $_refferer ) . '%',
+						'%' . $wpdb->esc_like( $_search ) . '%',
+						'%' . $wpdb->esc_like( $_searchengine ) . '%',
+						'%' . $wpdb->esc_like( $_os ) . '%',
+						'%' . $wpdb->esc_like( $_browser ) . '%',
+						'%' . $wpdb->esc_like( $_spider ) . '%',
+						'%' . $wpdb->esc_like( $_ip ) . '%',
+						sanitize_sql_orderby( $orderby ),
+						$limit_num
+					),
+					ARRAY_N
+				); // phpcs:enable
+			} else {
+				// phpcs:disable -- Use placeholders and $wpdb->prepare(); found interpolated variable $table_name at FROM `$table_name`
+				$qry = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT 
+				       urlrequested,
+				       agent,
+			         referrer,
+				       search,
+				       searchengine,
+				       os,
+				       browser,
+				       spider,
+				       ip
+				      FROM `$table_name` 
+				      WHERE 
+				        urlrequested like %s AND
+				        agent like %s AND
+				        referrer like %s AND
+				        search like %s AND
+				        searchengine like %s AND
+				        os like %s AND
+				        browser like %s AND
+				        spider like %s AND
+				        ip like %s AND
+				        feed = '' AND
+				        spider = ''
+				       ORDER BY %s                                   
+				        LIMIT %d",
+						'%' . $wpdb->esc_like( $_urlrequested ) . '%',
+						'%' . $wpdb->esc_like( $_agent ) . '%',
+						'%' . $wpdb->esc_like( $_refferer ) . '%',
+						'%' . $wpdb->esc_like( $_search ) . '%',
+						'%' . $wpdb->esc_like( $_searchengine ) . '%',
+						'%' . $wpdb->esc_like( $_os ) . '%',
+						'%' . $wpdb->esc_like( $_browser ) . '%',
+						'%' . $wpdb->esc_like( $_spider ) . '%',
+						'%' . $wpdb->esc_like( $_ip ) . '%',
+						sanitize_sql_orderby( $orderby ),
+						$limit_num
+					),
+					ARRAY_N
+				); // phpcs:enable
+			}
+		}
+
+		foreach ( $qry as $rk ) {
+			for ( $i = 1;$i <= 3;$i++ ) {
+				print '<td>';
+				if ( isset( $_POST[ "where$i" ] ) && 'urlrequested' === $_POST[ "where$i" ] ) {
+					print esc_html( nsp_decode_url( $rk[0] ) );
+				} else {
+					switch ( $_POST[ "where$i" ] ) {
+						case 'agent':
+							if ( isset( $rk[1] ) ) {
+								print esc_html( $rk[1] );
 							}
+							break;
+						case 'referrer':
+							if ( isset( $rk[2] ) ) {
+								print esc_html( $rk[2] );
 							}
-							print '</td>';
+							break;
+						case 'search':
+							if ( isset( $rk[3] ) ) {
+								print esc_html( $rk[3] );
+							}
+							break;
+						case 'searchengine':
+							if ( isset( $rk[4] ) ) {
+								print esc_html( $rk[4] );
+							}
+							break;
+						case 'os':
+							if ( isset( $rk[5] ) ) {
+								print esc_html( $rk[5] );
+							}
+							break;
+						case 'browser':
+							if ( isset( $rk[6] ) ) {
+								print esc_html( $rk[6] );
+							}
+							break;
+						case 'spider':
+							if ( isset( $rk[7] ) ) {
+								print esc_html( $rk[7] );
+							}
+							break;
+						case 'ip':
+							if ( isset( $rk[8] ) ) {
+								print esc_html( $rk[8] );
+							}
+							break;
 					}
-						print '</tr>';
 				}
+				print esc_html( $rk[9] );
+				print '</td>';
+			}
+			print '</tr>';
+		}
 				print '</table>';
 				print '<br/><br/><font size=1 color=gray>sql: ' . esc_html( $wpdb->last_query ) . '</font></div>';
 	}
