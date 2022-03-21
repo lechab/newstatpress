@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
 Requires at least: 3.5
 Tested up to: 5.9.2
-Stable Tag: 1.4.1
+Stable Tag: 1.4.2
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -92,6 +92,14 @@ Widget is customizable. These are the available variables:
 * %topos% - The most used O.S.
 * %topsearch% - The most used search terms
 
+In widget, those are special html contropart:
+
+* %br%  => <br>
+* %ul%  => <ul>
+* %/ul% => </ul>
+* %li%  => <li>
+* %/li% => </li>
+
 Now you could add these values everywhere! NewStatPress offers a new PHP function *newstatpress_print()*.
 * i.e. newstatpress_print("%totalvisits% total visits.");
 
@@ -149,6 +157,14 @@ Check at http://newstatpress.altervista.org for more details
 6.
 
 == Changelog ==
+
+= 1.4.2 =
+*Released date: 2021-03-21*
+
+* Complete search
+* Add html contropart for widget
+
+* Fix os/browser detection
 
 = 1.4.1 =
 *Released date: 2021-03-12*

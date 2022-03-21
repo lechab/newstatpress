@@ -526,9 +526,7 @@ function nsp_get_data_query2( $type, $fld, $fldtitle, $limit = 0, $print = true 
 		}
 
 		$text .= "<tr><td colspan=2 style='width:50%;'>
-              <iframe src='" . $charts . "' class='framebox'>
-          <p>[" . esc_html_e( 'This section requires a browser that supports iframes.', 'newstatpress' ) . ']</p>
-        </iframe></td></tr>';
+              <iframe src='" . $charts . "' class='framebox'></iframe></td></tr>";
 	}
 	$text .= "</tbody>
 	</table>

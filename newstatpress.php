@@ -4,7 +4,7 @@
  * Plugin URI: http://newstatpress.altervista.org
  * Text Domain: newstatpress
  * Description: Real time stats for your WordPress blog
- * Version: 1.4.1
+ * Version: 1.4.2
  * Author: Stefano Tognon and cHab (from Daniele Lippi works)
  * Author URI: http://newstatpress.altervista.org
  *
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( esc_html__( 'ERROR: This plugin requires WordPress and will not function if called directly.', 'newstatpress' ) );
 }
 
-$_newstatpress['version']  = '1.4.1';
+$_newstatpress['version']  = '1.4.2';
 $_newstatpress['feedtype'] = '';
 
 global  $newstatpress_dir,
@@ -1692,6 +1692,27 @@ function nsp_expand_vars_inside_code( $body ) {
 		} else {
 			$body = str_replace( '%topsearch%', '', $body );
 		}
+	}
+
+	// look for %br%.
+	if ( strpos( strtolower( $body ), '%br%' ) !== false ) {
+		$body = str_replace( '%br%', '<br>', $body );
+	}
+	// look for %ul%.
+	if ( strpos( strtolower( $body ), '%ul%' ) !== false ) {
+		$body = str_replace( '%ul%', '<ul>', $body );
+	}
+	// look for %li%.
+	if ( strpos( strtolower( $body ), '%li%' ) !== false ) {
+		$body = str_replace( '%li%', '<li>', $body );
+	}
+	// look for %/ul%.
+	if ( strpos( strtolower( $body ), '%/ul%' ) !== false ) {
+		$body = str_replace( '%/ul%', '</ul>', $body );
+	}
+	// look for %/li%.
+	if ( strpos( strtolower( $body ), '%/li%' ) !== false ) {
+		$body = str_replace( '%/li%', '</li>', $body );
 	}
 
 	return $body;
