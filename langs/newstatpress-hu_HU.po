@@ -2,16 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NewStatPress\n"
 "POT-Creation-Date: 2018-05-26 13:14+0200\n"
-"PO-Revision-Date: 2018-05-26 13:14+0200\n"
+"PO-Revision-Date: 2022-03-30 15:29+0200\n"
 "Last-Translator: ice00@libero.it\n"
 "Language-Team: Net-media Alapitvany <info@netalap.hu>\n"
 "Language: hu_HU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.7\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: newstatpress.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -119,7 +119,7 @@ msgstr "Hírcsatornák"
 #: includes/nsp_core.php:34 includes/nsp_dashboard.php:33
 #: includes/nsp_visits.php:25 newstatpress.php:316 newstatpress.php:1467
 msgid "Visits"
-msgstr "Látogatók"
+msgstr "Látogatások"
 
 #: includes/nsp_core.php:168 includes/nsp_core.php:199
 #: includes/nsp_core.php:202 includes/nsp_details.php:19
@@ -148,7 +148,7 @@ msgstr "Legkeresettebb kifejezések"
 
 #: includes/nsp_core.php:187 includes/nsp_details.php:36
 msgid "Top referrers"
-msgstr "Legjobb hivatkozók"
+msgstr "Legnépszerűbb hivatkozók"
 
 #: includes/nsp_core.php:190 includes/nsp_details.php:39
 msgid "Countries"
@@ -168,7 +168,7 @@ msgstr "Egyedi Látogatók"
 
 #: includes/nsp_core.php:205 includes/nsp_details.php:54
 msgid "Top IPs"
-msgstr "Legtöbb IP-ék"
+msgstr "Legtöbb IP-címek"
 
 #: includes/nsp_credits.php:20
 msgid "Development"
@@ -199,8 +199,8 @@ msgid ""
 "If you have found this plugin usefull and you like it, thank you to take a "
 "moment to rate it."
 msgstr ""
-"Ha megtaláltad ezt a plugin hasznos, és tetszik, köszönöm, hogy egy "
-"pillanatra, hogy értékelje azt."
+"Ha hasznosnak találta ezt a bővítményt, és tetszik, köszönjük, hogy szán egy "
+"percet az értékelésére."
 
 #: includes/nsp_credits.php:30
 #, php-format
@@ -217,8 +217,8 @@ msgid ""
 "NewStatPress is provided for free and is maintained only on free time, you "
 "can also consider a donation to support further work."
 msgstr ""
-"NewStatPress van feltéve részére szabad és van fenntart egyetlen-ra szabad "
-"idő, tudod is tekint egy adomány-hoz támogat tovább dolgozik."
+"A NewStatPress ingyenes, és csak szabadidőben van karbantartva, a további "
+"munka támogatására adományozást is fontolóra vehet."
 
 #: includes/nsp_credits.php:37 newstatpress.php:320
 msgid "Credits"
@@ -238,7 +238,7 @@ msgstr "Ez a bővítmény egy villát a bővítmény"
 
 #: includes/nsp_credits.php:67
 msgid "originally developed (and not longer maintened) by"
-msgstr "eredetileg (és nem hosszabb maintened)"
+msgstr "eredetileg fejlesztette (és már nem tartja karban)."
 
 #: includes/nsp_credits.php:71 includes/nsp_credits.php:99
 #: includes/nsp_credits.php:112
@@ -321,9 +321,9 @@ msgid ""
 "dashboard and overview), you must activate the external API in Options>Api "
 "page."
 msgstr ""
-"Óta a bevezetés-ból új módszer részére felgyorsít a bemutatás (szükséges "
-"részére Műszerfal és áttekintés), Önnek kell hatékonnyá tesz a külső API-ban "
-"választások > API oldal."
+"A megjelenítés gyorsítására szolgáló új módszer bevezetése óta (a "
+"műszerfalhoz és az áttekintéshez szükséges), aktiválnia kell a külső API-t "
+"az Options>Api oldalon."
 
 #: includes/nsp_functions-extra.php:268
 msgid ""
@@ -331,23 +331,22 @@ msgid ""
 "big database. In addition, it will allow to be more flexible about the "
 "graphical informations in next versions."
 msgstr ""
-"Ez a jelentős változás volt szükség a célja, hogy javítsa a plugin a "
-"felhasználók nagy adatbázis. Ezen kívül, ez lehetővé teszi, hogy rugalmasabb "
-"a grafikus információk a következő verziókban."
+"Erre a jelentős változtatásra azért volt szükség, hogy javítsuk a bővítményt "
+"a nagy adatbázissal rendelkező felhasználók számára. Ezen túlmenően "
+"rugalmasabbá teszi a grafikus információkat a következő verziókban."
 
 #: includes/nsp_functions-extra.php:279
 msgid ""
 "It looks like you've been using NewStatPress for a while now. That's great!"
-msgstr ""
-"Ez úgy néz ki mint youve ' használ NewStatPress egy ideig most. az nagyszerű!"
+msgstr "Úgy tűnik, már egy ideje használja a NewStatPresst. Nagyszerű!"
 
 #: includes/nsp_functions-extra.php:280
 msgid ""
 "If you find this plugin useful, would you take a moment to give it a rating "
 "on WordPress.org?"
 msgstr ""
-"Ha úgy találja, ez a plugin hasznos, kíván venni egy pillanatra, hogy ez egy "
-"értékelés a WordPress.org?"
+"Ha hasznosnak találja ezt a bővítményt, szánna egy percet, hogy értékelje a "
+"WordPress.org webhelyen?"
 
 #: includes/nsp_functions-extra.php:281
 msgid ""
@@ -355,9 +354,9 @@ msgid ""
 "rating commentaries if you wish to report an issue with the plugin, it will "
 "be processed more quickly by the team."
 msgstr ""
-"NB: Kérjük, nyisson meg egy jegyet a support oldalon ahelyett, hozzátéve, "
-"hogy a minősítési kommentárok, ha szeretné, hogy jelentse a kérdést a "
-"plugin, akkor feldolgozzák gyorsabban a csapat."
+"Megjegyzés: kérjük, nyisson meg egy jegyet a támogatási oldalon ahelyett, "
+"hogy hozzáadná az értékelési kommentárokhoz, ha problémát szeretne jelenteni "
+"a bővítménnyel kapcsolatban, azt a csapat gyorsabban feldolgozza."
 
 #: includes/nsp_functions-extra.php:282
 msgid "Yes, I'd like to rate it!"
@@ -372,16 +371,16 @@ msgid ""
 "You've been using NewStatPress for several months now. We hope that means "
 "you like it and are finding it helpful."
 msgstr ""
-"Youve ' használ NewStatPress részére több hónapok most. Mi remél amit anyagi "
-"eszközök ön szeret ez és van megtalálás ez segíteni kész."
+"Már több hónapja használja a NewStatPresst. Reméljük, hogy ez azt jelenti, "
+"hogy tetszik, és hasznosnak találja."
 
 #: includes/nsp_functions-extra.php:294
 msgid ""
 "NewStatPress is provided for free and maintained only on free time. If you "
 "like the plugin, consider a donation to help further its development"
 msgstr ""
-"A NewStatPress ingyenes, és csak a szabadidőben tartható fenn. Ha szereted a "
-"plugin, fontolja meg egy adomány, hogy segítsen tovább a fejlesztési"
+"A NewStatPress ingyenes, és csak szabadidőben karbantartható. Ha tetszik a "
+"beépülő modul, fontolja meg adományozását, hogy elősegítse a fejlesztését"
 
 #: includes/nsp_functions-extra.php:295
 msgid "Yes, I'd like to donate!"
@@ -563,7 +562,7 @@ msgstr "Grafikus"
 
 #: includes/nsp_options.php:516
 msgid "Days number in Overview graph"
-msgstr "Napok száma Áttekintési grafikonon"
+msgstr "A napok száma az áttekintési grafikonon"
 
 #: includes/nsp_options.php:522 includes/nsp_overview.php:370
 #: includes/nsp_overview.php:428 newstatpress.php:314
@@ -625,11 +624,11 @@ msgstr "Adat tisztogatás"
 
 #: includes/nsp_options.php:608
 msgid "Automatically delete all visits older than"
-msgstr "Automatikusan törölje a régebbi látogatásokat mint"
+msgstr "Minden ennél régebbi látogatás automatikus törlése"
 
 #: includes/nsp_options.php:614
 msgid "Automatically delete only spiders visits older than"
-msgstr "Automatikusan törölje a régebbi webbejáró látogatásokat mint"
+msgstr "Csak olyan spider-ek automatikus törlése, amelyek régebbi, mint"
 
 #: includes/nsp_options.php:622 includes/nsp_options.php:671
 msgid "Parameters to ignore"
@@ -686,11 +685,11 @@ msgstr "A látogatók általi észrevételek"
 
 #: includes/nsp_options.php:654
 msgid "number of IP per page"
-msgstr "ip-k száma oldalanként"
+msgstr "ip-címek száma oldalanként"
 
 #: includes/nsp_options.php:661
 msgid "number of visits for IP"
-msgstr "ip-kénti látogatások"
+msgstr "ip-címenkénti látogatások"
 
 #: includes/nsp_options.php:674
 msgid "number of bot per page"
@@ -752,7 +751,7 @@ msgstr "spider-ek (alapértelmezett %d)"
 #: includes/nsp_options.php:723
 #, php-format
 msgid "Top Pages (default %d)"
-msgstr "Legjobb oldalak (alapértelmezett %d)"
+msgstr "Legnépszerűbb oldalak (alapértelmezett %d)"
 
 #: includes/nsp_options.php:726
 #, php-format
@@ -767,21 +766,19 @@ msgstr "Legjobb napok - oldalmegtekintések (alapértelmezett %d)"
 #: includes/nsp_options.php:732
 #, php-format
 msgid "Top IPs - Pageviews (default %d)"
-msgstr "Legjobb IP-k - oldalmegtekintések (alapértelmezett %d)"
+msgstr "Legjobb IP-címek - oldalmegtekintések (alapértelmezett %d)"
 
 #: includes/nsp_options.php:741
 msgid ""
 "Select the interval of date from today you want to use for updating your "
 "database with new definitions"
 msgstr ""
-"Válassza ki azt az időtartamot a mai naptól számítva, amikortól frissíteni "
-"kívánja az adatbázist az új beállításokkal. Ha sokszor futtatja, túl sok "
-"szerver erőforrást vehet igéybe! Kiválaszthatja melyik mezőket nem akarja "
-"frissíteni."
+"Válassza ki azt az időtartamot a mai dátumtól, amelyet az adatbázis új "
+"definíciókkal való frissítéséhez használni szeretne"
 
 #: includes/nsp_options.php:743
 msgid "(To update your database, go to Tools page)"
-msgstr "(To update your database, go to Tools page)"
+msgstr "(Az adatbázis frissítéséhez lépjen az Eszközök oldalra)"
 
 #: includes/nsp_options.php:745
 msgid ""
@@ -828,8 +825,8 @@ msgid ""
 "Sender could be personalized according your website (by default : "
 "'NewStatPress')."
 msgstr ""
-"A feladó a webhelye szerint személyre szabható (alapértelmezés szerint: ' "
-"NewStatPress ')."
+"A feladó személyre szabható az Ön webhelyének megfelelően (alapértelmezés "
+"szerint \"NewStatPress\")."
 
 #: includes/nsp_options.php:809
 msgid "Statistics notification is"
@@ -867,7 +864,7 @@ msgstr "Helyi idő: %s"
 
 #: includes/nsp_options.php:869
 msgid "Sender Description (From)"
-msgstr "Feladó leírása (a)"
+msgstr "Feladó leírása (feladó)"
 
 #: includes/nsp_options.php:878
 msgid "Mailing address"
@@ -884,10 +881,10 @@ msgid ""
 "show data relative to your Wordpress blog, inside a Drupal site that run "
 "since an another server)."
 msgstr ""
-"A külső API épít-hoz enged ön-hoz használ a összegyűjtött adatokat a "
-"Newstatpress plugin egy másik webszerver alkalmazás (például meg lehet "
-"mutatni adatokat képest a WordPress blog, belül egy Drupal site fut, mivel "
-"egy másik szerver)."
+"A külső API-t úgy építették fel, hogy lehetővé tegye a Newstatpress beépülő "
+"modulból összegyűjtött adatok felhasználását egy másik webszerver-"
+"alkalmazásban (például megjelenítheti a Wordpress blogjához kapcsolódó "
+"adatokat egy másik szerver óta futó Drupal webhelyen)."
 
 #: includes/nsp_options.php:898
 msgid ""
@@ -895,10 +892,10 @@ msgid ""
 "page rendering of queried data (when are processed AJAX calls), so 'overview "
 "page & widget dashboard' will be not working if you not activate it."
 msgstr ""
-"Bármennyire a külső API van is használt mellett Newstatpress maga részére "
-"sebesség oldal visszaadás-ból kérdezgető adat (Mikor van folyamat Ajax hív), "
-"tehát ' áttekintés oldal reggeli műszerfal ' lesz nem működő ha Ön nem "
-"hatékonnyá tesz ez."
+"A külső API-t azonban maga a Newstatpress is használja a lekérdezett adatok "
+"oldalmegjelenítésének felgyorsítására (amikor AJAX-hívások vannak "
+"feldolgozva), így az „Áttekintő oldal és widget irányítópult” nem fog "
+"működni, ha nem aktiválja."
 
 #: includes/nsp_options.php:899
 msgid ""
@@ -907,10 +904,11 @@ msgid ""
 "blank means that you allow everyone to get data without authorization if "
 "external API is activated)."
 msgstr ""
-"To use it, a key is needed to allow NewStatpress to recognize that you and "
-"only you want the data and not the not authorized people (Let the input form "
-"blank means that you allow everyone to get data without authorization if "
-"external API is activated)."
+"Használatához egy kulcsra van szükség, amely lehetővé teszi a NewStatpress "
+"számára, hogy felismerje, hogy Ön és csak Ön akarja az adatokat, és nem a "
+"nem jogosult személyek (A beviteli űrlap üresen hagyása azt jelenti, hogy "
+"engedélyezi mindenkinek az adatokhoz való hozzáférést engedély nélkül, ha a "
+"külső API aktiválva van)."
 
 #: includes/nsp_options.php:900
 msgid "Full documentation (PDF)"
@@ -922,9 +920,10 @@ msgid ""
 "when are processed AJAX calls for speedup page rendering of queried data, so "
 "you will need to choose an key and activate it."
 msgstr ""
-"Please be aware that the external API is also used by Newstatpress itself "
-"when are processed AJAX calls for speedup page rendering of queried data, so "
-"you will need to choose an key and activate it."
+"Kérjük, vegye figyelembe, hogy a külső API-t maga a Newstatpress is "
+"használja, amikor AJAX-hívásokat dolgoznak fel a lekérdezett adatok "
+"oldalmegjelenítésének felgyorsítására, ezért ki kell választania egy kulcsot "
+"és aktiválnia kell."
 
 #: includes/nsp_options.php:903
 msgid ""
@@ -932,8 +931,8 @@ msgid ""
 "alphanumeric characters are allowed (A-Z, a-z, 0-9), length should be "
 "between 64 and 128 characters."
 msgstr ""
-"Manuálisan kell létrehoznia vagy beállítania a külső API személyes kulcsát: "
-"csak alfanumerikus karakterek megengedettek (a-z, a-z, 0-9), a hossznak 64 "
+"Kézzel kell létrehoznia vagy beállítania egy privát kulcsot a külső API-hoz: "
+"csak alfanumerikus karakterek megengedettek (A-Z, a-z, 0-9), a hossznak 64 "
 "és 128 karakter között kell lennie."
 
 #: includes/nsp_options.php:905
@@ -1043,7 +1042,7 @@ msgstr "Lehetetlen betölteni az áttekintést:"
 
 #: includes/nsp_overview.php:390
 msgid "You must activate the external api first (Page Option>Api)"
-msgstr "Aktiválni kell a külső API első (oldal opció > API)"
+msgstr "Először aktiválnia kell a külső API-t (Oldalopció>Api)"
 
 #: includes/nsp_overview.php:501 newstatpress.php:339
 msgid "Last hits"
@@ -1126,7 +1125,7 @@ msgstr "feeddel együtt"
 
 #: includes/nsp_search.php:75 newstatpress.php:1463
 msgid "Limit results to"
-msgstr "Limit results to"
+msgstr "Korlátozza az eredményeket"
 
 #: includes/nsp_search.php:165
 msgid "Results"
@@ -1146,7 +1145,7 @@ msgstr "Módosít"
 
 #: includes/nsp_tools.php:26 includes/nsp_tools.php:413
 msgid "Export"
-msgstr "Export"
+msgstr "Exportálás"
 
 #: includes/nsp_tools.php:27 includes/nsp_tools.php:985
 msgid "Optimize"
@@ -1344,7 +1343,7 @@ msgstr ""
 
 #: includes/nsp_tools.php:539
 msgid "If you have doubt about this function, don't use it."
-msgstr "Ha kétség merül fel ez a funkció, ne használja."
+msgstr "Ha kétségei vannak ezzel a funkcióval kapcsolatban, ne használja."
 
 #: includes/nsp_tools.php:543
 msgid ""
@@ -1373,15 +1372,15 @@ msgstr ""
 
 #: includes/nsp_tools.php:634
 msgid "Note: The update may take some times to complete."
-msgstr "Megjegyzés: A frissítés eltarthat egy ideig míg befejezi."
+msgstr "Megjegyzés: A frissítés befejezése eltarthat egy ideig."
 
 #: includes/nsp_tools.php:667
 msgid ""
 "This tool display basic informations about the newstatpress database. It "
 "should be usefull to check the functionning of the plugin."
 msgstr ""
-"Ez az eszköz alapvető információkat jelenít meg a newstatpress "
-"adatbázisáról. Ez legyen hasznos-hoz ellenőriz a functionning-ból dugó."
+"Ez az eszköz alapvető információkat jelenít meg a newstatpress adatbázissal "
+"kapcsolatban. Hasznos lehet ellenőrizni a bővítmény működését."
 
 #: includes/nsp_tools.php:674 includes/nsp_tools.php:728
 msgid "Size"
@@ -1441,8 +1440,9 @@ msgid ""
 "Optimize a table is an database operation that can free some server space if "
 "you had lot of delation (like with prune activated) in it."
 msgstr ""
-"A tábla optimalizálása olyan adatbázis-művelet, amely felszabadíthatja a "
-"kiszolgálói helyet, ha nagy mennyiségű delatációra van szüksége (pl. prune)."
+"Az adattábla optimalizálása egy olyan adatbázis-művelet, amely "
+"felszabadíthat némi szerverterületet, ha sok törlés van benne (például a "
+"prune aktiválása esetén)."
 
 #: includes/nsp_tools.php:992 includes/nsp_tools.php:1031
 msgid ""
@@ -1460,13 +1460,11 @@ msgstr "Tábla javítása"
 #: includes/nsp_tools.php:1017
 msgid ""
 "To repair the statpress table if damaged, just click on the button bellow."
-msgstr ""
-"Megjavítani a StatPress táblázatban, ha sérült, kattintson a lenti gombra."
+msgstr "A megsérült statpress tábla javításához kattintson az alábbi gombra."
 
 #: includes/nsp_tools.php:1028
 msgid "Repair is an database operation that can fix a corrupted table."
-msgstr ""
-"Javítása az művelet adatbázist, amely rögzíteni tudja a sérült asztalt."
+msgstr "A javítás egy adatbázis-művelet, amely javíthatja a sérült táblát."
 
 #: includes/nsp_tools.php:1042
 msgid "Optimization finished"
@@ -1541,7 +1539,7 @@ msgstr "Összes lekért oldal"
 
 #: newstatpress.php:97
 msgid "Total pages view today"
-msgstr "Mai összes lekért oldal"
+msgstr "A ma megtekintett oldalak száma"
 
 #: newstatpress.php:98
 msgid "This page, total visits"
@@ -1573,7 +1571,7 @@ msgstr "Számolja meg az összes elérhető vendéget"
 
 #: newstatpress.php:105
 msgid "Counts logged online visitors"
-msgstr "Számolja össze a bejelentkezett elérhető látogatót"
+msgstr "Számolja meg az összes bejelentkezett online látogatót"
 
 #: newstatpress.php:106
 msgid "Total page view in the month"
@@ -1615,8 +1613,8 @@ msgid ""
 "If you have found this plugin useful and you like it, thank you to take a "
 "moment to rate it."
 msgstr ""
-"Ha megtaláltad ezt a plugin hasznos és tetszik, köszönöm, hogy egy "
-"pillanatra, hogy értékelje azt."
+"Ha hasznosnak találta ezt a bővítményt, és tetszik, köszönjük, hogy szán egy "
+"percet az értékelésére."
 
 #: newstatpress.php:524
 #, fuzzy, php-format
@@ -1636,25 +1634,25 @@ msgid ""
 "can also consider a donation to support further work, directly on the plugin "
 "website or through the plugin (Credits Page)."
 msgstr ""
-"NewStatPress van feltéve részére szabad és van fenntart egyetlen-ra szabad "
-"idő, tudod is tekint egy adomány-hoz támogat tovább dolgozik, közvetlenül-on "
-"dugó website vagy átmenő a dugó (hitelek oldal)."
+"A NewStatPress ingyenes, és csak szabadidőben van karbantartva, és fontolóra "
+"veheti az adományozást is a további munkák támogatására, közvetlenül a "
+"bővítmény webhelyén vagy a beépülő modulon keresztül (Credits Page)."
 
 #: newstatpress.php:528
 msgid ""
 "This option is yet experimental, please report bugs or improvement (see link "
 "on the bottom)"
 msgstr ""
-"Ez a lehetőség még kísérleti, jelentse a hibákat, vagy a javítandókat (a "
-"link alul található)"
+"Ez a lehetőség még kísérleti jellegű, kérjük, jelentse a hibákat vagy "
+"fejlesztéseket (lásd a linket alul)"
 
 #: newstatpress.php:529
 msgid ""
 "You receive this email because you have enabled the statistics notification "
 "in the NewStatpress plugin (option menu) from your WP website "
 msgstr ""
-"Ezt az e-mailt kapja, mert engedélyezte a statisztikai értesítést a WP "
-"webhelyén található NewStatpress kiegészítő opciók menüjében."
+"Azért kapta ezt az e-mailt, mert engedélyezte a statisztikai értesítést a "
+"NewStatpress beépülő modulban (opció menü) a WP webhelyéről"
 
 #: newstatpress.php:530
 msgid "Dear"

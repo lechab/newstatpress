@@ -103,6 +103,16 @@ Chromium 3|Chromium/3|Chromium|
 Chromium 2|Chromium/2|Chromium|
 Chromium 1|Chromium/1|Chromium|
 Chromium|Chromium|Chromium|
+Chrome 100|Chrome/100|Chrome2011|
+Chrome 101|Chrome/101|Chrome2011|
+Chrome 102|Chrome/102|Chrome2011|
+Chrome 103|Chrome/103|Chrome2011|
+Chrome 104|Chrome/104|Chrome2011|
+Chrome 105|Chrome/105|Chrome2011|
+Chrome 106|Chrome/106|Chrome2011|
+Chrome 107|Chrome/107|Chrome2011|
+Chrome 108|Chrome/108|Chrome2011|
+Chrome 109|Chrome/109|Chrome2011|
 Chrome 10|Chrome/10|Chrome|
 Chrome 11|Chrome/11|Chrome2011|
 Chrome 12|Chrome/12|Chrome2011|
@@ -207,10 +217,17 @@ Dillo|Dillo|Dillo|
 Edge|Edge/12|Edge|
 Edge|Edge/13|Edge|
 Epiphany|Epiphany|Epiphany|
-Firefox 1|Firefox/1.0|Firefox|
 Firefox 1.5|Firefox/1.5|Firefox|
-Firefox 2|BonEcho|Firefox|
-Firefox 3|GranParadiso|Firefox|
+Firefox 100|Firefox/100|Firefox|
+Firefox 101|Firefox/101|Firefox|
+Firefox 102|Firefox/102|Firefox|
+Firefox 103|Firefox/103|Firefox|
+Firefox 104|Firefox/104|Firefox|
+Firefox 105|Firefox/105|Firefox|
+Firefox 106|Firefox/106|Firefox|
+Firefox 107|Firefox/107|Firefox|
+Firefox 108|Firefox/108|Firefox|
+Firefox 109|Firefox/109|Firefox|
 Firefox 10|Firefox/10|Firefox|
 Firefox 11|Firefox/11|Firefox|
 Firefox 12|Firefox/12|Firefox|
@@ -221,6 +238,7 @@ Firefox 16|Firefox/16|Firefox|
 Firefox 17|Firefox/17|Firefox|
 Firefox 18|Firefox/18|Firefox|
 Firefox 19|Firefox/19|Firefox|
+Firefox 1|Firefox/1.0|Firefox|
 Firefox 20|Firefox/20|Firefox|
 Firefox 21|Firefox/21|Firefox|
 Firefox 22|Firefox/22|Firefox|

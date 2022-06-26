@@ -29,6 +29,14 @@
 - [ ] Add https://github.com/piwik/referrer-spam-blacklist
 - [ ] Add jQuery Vector Maps v1.5.0
 
+## 1.4.3
+*Released date: 2022-06-26*
+
+- [x] Browsers (+20)
+- [x] Upgrade Hungarian language (thanks to Pile)
+- [x] Fix filemtime() in ip2nation
+
+
 ## 1.4.2
 *Released date: 2021-03-21*
 
