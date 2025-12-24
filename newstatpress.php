@@ -265,6 +265,9 @@ function nsp_update_check() {
 		if ( NSP_NOTICENEWS ) {
 			global $current_user;
 			$status         = get_user_meta( $current_user->ID, 'newstatpress_nag_status', true );
+			if ( ! is_array( $status ) ) {
+				$status = array();
+			}
 			$status['news'] = false;
 			update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status );
 		}

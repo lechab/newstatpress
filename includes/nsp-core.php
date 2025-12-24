@@ -614,85 +614,96 @@ function nsp_get_google_pie( $title, $data_array ) {
 }
 
 /**
- * Replace a content in page with NewStatPress output
- * Used format is: [NewStatPress: type]
- * Type can be:
- *  [NewStatPress: Overview]
- *  [NewStatPress: Top days]
- *  [NewStatPress: O.S.]
- *  [NewStatPress: Browser]
- *  [NewStatPress: Feeds]
- *  [NewStatPress: Search Engine]
- *  [NewStatPress: Search terms]
- *  [NewStatPress: Top referrer]
- *  [NewStatPress: Languages]
- *  [NewStatPress: Spider]
- *  [NewStatPress: Top Pages]
- *  [NewStatPress: Top Days - Unique visitors]
- *  [NewStatPress: Top Days - Pageviews]
- *  [NewStatPress: Top IPs - Pageviews]
+ * NewStatPress shortcode handler using WordPress Shortcode API.
  *
- * @param string $content the content of page.
+ * Usage:
+ *  [NewStatPress type="Overview"]
+ *  [NewStatPress type="Top days"]
+ *  [NewStatPress type="O.S."]
+ *  [NewStatPress type="Browser"]
+ *  [NewStatPress type="Feeds"]
+ *  [NewStatPress type="Search Engine"]
+ *  [NewStatPress type="Search terms"]
+ *  [NewStatPress type="Top referrer"]
+ *  [NewStatPress type="Languages"]
+ *  [NewStatPress type="Spider"]
+ *  [NewStatPress type="Top Pages"]
+ *  [NewStatPress type="Top Days - Unique visitors"]
+ *  [NewStatPress type="Top Days - Pageviews"]
+ *  [NewStatPress type="Top IPs - Pageviews"]
+ *
+ * @param array $attrs attributes.
+ * @param string $content the content of tag.
  ******************************************************/
-function nsp_shortcode( $content = '' ) {
-	ob_start();
-	$types = array();
-	$type  = preg_match_all( '/\[NewStatPress: (.*)\]/Ui', $content, $types );
+function nsp_shortcode_handler( $atts = array(), $content = null ) {
+	$allowed_types = array(
+		'Overview',
+		'Top days',
+		'O.S.',
+		'Browser',
+		'Feeds',
+		'Search Engine',
+		'Search terms',
+		'Top referrer',
+		'Languages',
+		'Spider',
+		'Top Pages',
+		'Top Days - Unique visitors',
+		'Top Days - Pageviews',
+		'Top IPs - Pageviews',
+	);
 
-	foreach ( $types[1] as $k => $type ) {
-		echo esc_html( $type );
-		switch ( $type ) {
-			case 'Overview':
-				require_once 'api/nsp-api-dashboard.php';
-				$replacement = nsp_api_dashboard( 'HTML' );
-				break;
-			case 'Top days':
-				$replacement = nsp_get_data_query2( 'DATE1', 'date', __( 'Top days', 'newstatpress' ), ( get_option( 'newstatpress_el_top_days' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_top_days' ) ), false );
-				break;
-			case 'O.S.':
-				$replacement = nsp_get_data_query2( 'OS', 'os', __( 'OSes', 'newstatpress' ), ( get_option( 'newstatpress_el_os' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_os' ) ), false );
-				break;
-			case 'Browser':
-				$replacement = nsp_get_data_query2( 'BROWSER', 'browser', __( 'Browsers', 'newstatpress' ), ( get_option( 'newstatpress_el_browser' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_browser' ) ), false );
-				break;
-			case 'Feeds':
-				$replacement = nsp_get_data_query2( 'FEED', 'feed', __( 'Feeds', 'newstatpress' ), ( get_option( 'newstatpress_el_feed' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_feed' ) ), false );
-				break;
-			case 'Search Engine':
-				$replacement = nsp_get_data_query2( 'SEARCHENGINE', 'searchengine', __( 'Search engines', 'newstatpress' ), ( get_option( 'newstatpress_el_searchengine' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_searchengine' ) ), false );
-				break;
-			case 'Search terms':
-				$replacement = nsp_get_data_query2( 'SEARCH', 'search', __( 'Top search terms', 'newstatpress' ), ( get_option( 'newstatpress_el_search' ) === '' ) ? 20 : intval( get_option( 'newstatpress_el_search' ) ), false );
-				break;
-			case 'Top referrer':
-				$replacement = nsp_get_data_query2( 'REFFERER', 'referrer', __( 'Top referrers', 'newstatpress' ), ( get_option( 'newstatpress_el_referrer' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_referrer' ) ), false );
-				break;
-			case 'Languages':
-				$replacement = nsp_get_data_query2( 'NATION', 'nation', __( 'Countries', 'newstatpress' ) . '/' . __( 'Languages', 'newstatpress' ), ( get_option( 'newstatpress_el_languages' ) === '' ) ? 20 : intval( get_option( 'newstatpress_el_languages' ) ), false );
-				break;
-			case 'Spider':
-				$replacement = nsp_get_data_query2( 'SPIDER', 'spider', __( 'Spiders', 'newstatpress' ), ( get_option( 'newstatpress_el_spiders' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_spiders' ) ), false );
-				break;
-			case 'Top Pages':
-				$replacement = nsp_get_data_query2( 'URLREQUESTED', 'urlrequested', __( 'Top pages', 'newstatpress' ), ( get_option( 'newstatpress_el_pages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_pages' ) ), false );
-				break;
-			case 'Top Days - Unique visitors':
-				$replacement = nsp_get_data_query2( 'DATE2', 'date', __( 'Top days', 'newstatpress' ) . ' - ' . __( 'Unique visitors', 'newstatpress' ), ( get_option( 'newstatpress_el_visitors' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_visitors' ) ), false );
-				break;
-			case 'Top Days - Pageviews':
-				$replacement = nsp_get_data_query2( 'DATE3', 'date', __( 'Top days', 'newstatpress' ) . ' - ' . __( 'Pageviews', 'newstatpress' ), ( get_option( 'newstatpress_el_daypages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_daypages' ) ), false );
-				break;
-			case 'Top IPs - Pageviews':
-				$replacement = nsp_get_data_query2( 'IP', 'ip', __( 'Top IPs', 'newstatpress' ) . ' - ' . __( 'Pageviews', 'newstatpress' ), ( get_option( 'newstatpress_el_ippages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_ippages' ) ), '', 'urlrequested', false );
-				break;
-			default:
-				$replacement = '';
-		}
-		$content = str_replace( $types[0][ $k ], $replacement, $content );
+	// Read the "type" attribute.
+	$atts = shortcode_atts(
+		array(
+			'type' => '',
+		),
+		$atts,
+		'NewStatPress'
+	);
+
+	// Sanificate the input.
+	$type = sanitize_text_field( $atts['type'] );
+
+	// Do nothing if the type is not valid
+	if ( ! in_array( $type, $allowed_types, true ) ) {
+		return '';
 	}
-	ob_get_clean();
-	return $content;
+
+	switch ( $type ) {
+		case 'Overview':
+			require_once 'api/nsp-api-dashboard.php';
+			return nsp_api_dashboard( 'HTML' );
+		case 'Top days':
+			return nsp_get_data_query2( 'DATE1', 'date', __( 'Top days', 'newstatpress' ), ( get_option( 'newstatpress_el_top_days' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_top_days' ) ), false );
+		case 'O.S.':
+			return nsp_get_data_query2( 'OS', 'os', __( 'OSes', 'newstatpress' ), ( get_option( 'newstatpress_el_os' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_os' ) ), false );
+		case 'Browser':
+			return nsp_get_data_query2( 'BROWSER', 'browser', __( 'Browsers', 'newstatpress' ), ( get_option( 'newstatpress_el_browser' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_browser' ) ), false );
+		case 'Feeds':
+			return nsp_get_data_query2( 'FEED', 'feed', __( 'Feeds', 'newstatpress' ), ( get_option( 'newstatpress_el_feed' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_feed' ) ), false );
+		case 'Search Engine':
+			return nsp_get_data_query2( 'SEARCHENGINE', 'searchengine', __( 'Search engines', 'newstatpress' ), ( get_option( 'newstatpress_el_searchengine' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_searchengine' ) ), false );
+		case 'Search terms':
+			return nsp_get_data_query2( 'SEARCH', 'search', __( 'Top search terms', 'newstatpress' ), ( get_option( 'newstatpress_el_search' ) === '' ) ? 20 : intval( get_option( 'newstatpress_el_search' ) ), false );
+		case 'Top referrer':
+			return nsp_get_data_query2( 'REFFERER', 'referrer', __( 'Top referrers', 'newstatpress' ), ( get_option( 'newstatpress_el_referrer' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_referrer' ) ), false );
+		case 'Languages':
+			return nsp_get_data_query2( 'NATION', 'nation', __( 'Countries', 'newstatpress' ) . '/' . __( 'Languages', 'newstatpress' ), ( get_option( 'newstatpress_el_languages' ) === '' ) ? 20 : intval( get_option( 'newstatpress_el_languages' ) ), false );
+		case 'Spider':
+			return nsp_get_data_query2( 'SPIDER', 'spider', __( 'Spiders', 'newstatpress' ), ( get_option( 'newstatpress_el_spiders' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_spiders' ) ), false );
+		case 'Top Pages':
+			return nsp_get_data_query2( 'URLREQUESTED', 'urlrequested', __( 'Top pages', 'newstatpress' ), ( get_option( 'newstatpress_el_pages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_pages' ) ), false );
+		case 'Top Days - Unique visitors':
+			return nsp_get_data_query2( 'DATE2', 'date', __( 'Top days', 'newstatpress' ) . ' - ' . __( 'Unique visitors', 'newstatpress' ), ( get_option( 'newstatpress_el_visitors' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_visitors' ) ), false );
+		case 'Top Days - Pageviews':
+			return nsp_get_data_query2( 'DATE3', 'date', __( 'Top days', 'newstatpress' ) . ' - ' . __( 'Pageviews', 'newstatpress' ), ( get_option( 'newstatpress_el_daypages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_daypages' ) ), false );
+		case 'Top IPs - Pageviews':
+			return nsp_get_data_query2( 'IP', 'ip', __( 'Top IPs', 'newstatpress' ) . ' - ' . __( 'Pageviews', 'newstatpress' ), ( get_option( 'newstatpress_el_ippages' ) === '' ) ? 5 : intval( get_option( 'newstatpress_el_ippages' ) ), '', 'urlrequested', false );
+	}
+
+	return '';
 }
-add_filter( 'the_content', 'nsp_shortcode' );
+add_shortcode( 'NewStatPress', 'nsp_shortcode_handler' );
 
 
