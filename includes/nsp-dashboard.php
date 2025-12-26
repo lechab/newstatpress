@@ -16,14 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Show statistics in dashboard
  *******************************/
-function nsp_build_dashboard_widget() {
+function newstatpress_build_dashboard_widget() {
 	global $newstatpress_dir;
 	global $_newstatpress;
 
 	$api_key          = get_option( 'newstatpress_apikey' );
-	$newstatpress_url = nsp_plugin_url();
+	$newstatpress_url = newstatpress_plugin_url();
 
-	wp_enqueue_script( 'wp_ajax_nsp_js_dashbord', plugins_url( './js/nsp_dashboard.js', __FILE__ ), array( 'jquery' ), $_newstatpress['version'], true );
+	wp_enqueue_script( 'wp_ajax_nsp_js_dashbord', plugins_url( './js/nsp_dashboard.js', __FILE__ ), array( 'jquery' ), NEWSTATPRESS_VERSION, true );
 	wp_localize_script(
 		'wp_ajax_nsp_js_dashbord',
 		'nsp_externalAjax_dashboard',
@@ -53,14 +53,14 @@ function nsp_build_dashboard_widget() {
 /**
  * Create the function use in the action hook.
  */
-function nsp_add_dashboard_widget() {
+function newstatpress_add_dashboard_widget() {
 
 	global $wp_meta_boxes;
 	$title = __( 'NewStatPress Overview', 'newstatpress' );
 
 	// Add the dashboard widget if user option is 'yes'.
 	if ( get_option( 'newstatpress_dashboard' ) === 'checked' ) {
-		wp_add_dashboard_widget( 'dashboard_NewsStatPress_overview', $title, 'nsp_build_dashboard_widget' );
+		wp_add_dashboard_widget( 'dashboard_NewsStatPress_overview', $title, 'newstatpress_build_dashboard_widget' );
 	} else {
 		unset( $wp_meta_boxes['dashboard']['side']['core']['wp_dashboard_setup'] );
 	}

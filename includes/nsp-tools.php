@@ -17,16 +17,16 @@ require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
 
 /****** List of Functions available ******
  *
- * Nsp_display_tools_page()
- * nsp_remove_plugin_database()
- * nsp_export_now()
- * nsp_export()
+ * newstatpress_display_tools_page()
+ * newstatpress_remove_plugin_database()
+ * newstatpress_export_now()
+ * newstatpress_export()
  *****************************************/
 
 /**
  * Display the tools page using tabs
  */
-function nsp_display_tools_page() {
+function newstatpress_display_tools_page() {
 	global $pagenow;
 	$page            = 'nsp-tools';
 	$tools_page_tabs = array(
@@ -44,9 +44,9 @@ function nsp_display_tools_page() {
 	print "<div class='wrap'><h2>" . esc_html__( 'Database Tools', 'newstatpress' ) . '</h2>';
 
 	if ( isset( $_GET['tab'] ) ) {
-		nsp_display_tabs_navbar_for_menu_page( $tools_page_tabs, sanitize_text_field( wp_unslash( $_GET['tab'] ) ), $page );
+		newstatpress_display_tabs_navbar_for_menu_page( $tools_page_tabs, sanitize_text_field( wp_unslash( $_GET['tab'] ) ), $page );
 	} else {
-		nsp_display_tabs_navbar_for_menu_page( $tools_page_tabs, $default_tab, $page );
+		newstatpress_display_tabs_navbar_for_menu_page( $tools_page_tabs, $default_tab, $page );
 	}
 
 	if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && $page === $_GET['page'] ) {
@@ -60,31 +60,31 @@ function nsp_display_tools_page() {
 		switch ( $tab ) {
 
 			case 'IP2nation':
-				nsp_ip2nation();
+				newstatpress_ip2nation();
 				break;
 
 			case 'export':
-				nsp_export();
+				newstatpress_export();
 				break;
 
 			case 'update':
-				nsp_update();
+				newstatpress_update();
 				break;
 
 			case 'optimize':
-				nsp_optimize();
+				newstatpress_optimize();
 				break;
 
 			case 'repair':
-				nsp_repair();
+				newstatpress_repair();
 				break;
 
 			case 'remove':
-				nsp_remove_plugin_database();
+				newstatpress_remove_plugin_database();
 				break;
 
 			case 'info':
-				nsp_display_database_info();
+				newstatpress_display_database_info();
 				break;
 		}
 	}
@@ -95,7 +95,7 @@ function nsp_display_tools_page() {
  *
  * @param string $table table to search.
  */
-function nsp_index_table_size( $table ) {
+function newstatpress_index_table_size( $table ) {
 	global $wpdb;
 	// no needs prepare.
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
@@ -109,7 +109,7 @@ function nsp_index_table_size( $table ) {
 /**
  * IP2nation form function
  *************************/
-function nsp_ip2nation() {
+function newstatpress_ip2nation() {
 	// Install or Remove if requested by user.
 	if ( isset( $_POST['installation'] ) && 'install' === $_POST['installation'] ) {
 
@@ -122,7 +122,7 @@ function nsp_ip2nation() {
 			die( 'Failed security check' );
 		}
 
-		$install_result = nsp_ip2nation_install();
+		$install_result = newstatpress_ip2nation_install();
 	} elseif ( isset( $_POST['installation'] ) && 'remove' === $_POST['installation'] ) {
 
 		check_admin_referer( 'nsp_tool', 'nsp_tool_post' );
@@ -134,7 +134,7 @@ function nsp_ip2nation() {
 			die( 'Failed security check' );
 		}
 
-		$install_result = nsp_ip2nation_remove();
+		$install_result = newstatpress_ip2nation_remove();
 	}
 
 	// Display message if present.
@@ -142,13 +142,13 @@ function nsp_ip2nation() {
 		print "<br /><div class='updated'><p>" . esc_html( $install_result ) . '</p></div>';
 	}
 
-	global $nsp_option_vars;
+	global $newstatpress_option_vars;
 	global $wpdb;
 
 	// Create IP2nation variable if not exists: value 'none' by default or date when installed.
-	$installed = get_option( $nsp_option_vars['ip2nation']['name'] );
+	$installed = get_option( $newstatpress_option_vars['ip2nation']['name'] );
 	if ( '' === $installed ) {
-		add_option( $nsp_option_vars['ip2nation']['name'], $nsp_option_vars['ip2nation']['value'], '', 'yes' );
+		add_option( $newstatpress_option_vars['ip2nation']['name'], $newstatpress_option_vars['ip2nation']['value'], '', 'yes' );
 	}
 
 	echo '<br /><br />';
@@ -160,11 +160,11 @@ function nsp_ip2nation() {
 	if ( $val !== $table_name ) {
 		$value_remove = 'none';
 		$class_inst   = 'desactivated';
-		$installed    = $nsp_option_vars['ip2nation']['value'];
+		$installed    = $newstatpress_option_vars['ip2nation']['value'];
 	} else {
 		$value_remove = 'remove';
 		$class_inst   = '';
-		$installed    = get_option( $nsp_option_vars['ip2nation']['name'] );
+		$installed    = get_option( $newstatpress_option_vars['ip2nation']['name'] );
 		if ( 'none' === $installed ) {
 			$installed = esc_html__( 'unknow', 'newstatpress' );
 		}
@@ -239,9 +239,9 @@ function nsp_ip2nation() {
 /**
  * Install ip2nation table
  */
-function nsp_ip2nation_install() {
+function newstatpress_ip2nation_install() {
 	global $wpdb;
-	global $nsp_option_vars;
+	global $newstatpress_option_vars;
 
 	$file_ip2nation = WP_PLUGIN_DIR . '/' . dirname( plugin_basename( __FILE__ ) ) . '/includes/ip2nation.sql';
 
@@ -252,7 +252,7 @@ function nsp_ip2nation_install() {
 
 	}
 	$date = gmdate( 'd/m/Y', filemtime( $file_ip2nation ) );
-	update_option( $nsp_option_vars['ip2nation']['name'], $date );
+	update_option( $newstatpress_option_vars['ip2nation']['name'], $date );
 	$install_status = __( 'Installation of IP2nation database was successful', 'newstatpress' );
 
 	return $install_status;
@@ -262,16 +262,16 @@ function nsp_ip2nation_install() {
 /**
  * Remove ip2nation table
  */
-function nsp_ip2nation_remove() {
+function newstatpress_ip2nation_remove() {
 
 	global $wpdb;
-	global $nsp_option_vars;
+	global $newstatpress_option_vars;
 
 	// no need prepare.
 	$wpdb->query( 'DROP TABLE IF EXISTS ip2nation;' ); // db call ok; no-cache ok.
 	$wpdb->query( 'DROP TABLE IF EXISTS ip2nationCountries;' ); // db call ok; no-cache ok.
 
-	update_option( $nsp_option_vars['ip2nation']['name'], $nsp_option_vars['ip2nation']['value'] );
+	update_option( $newstatpress_option_vars['ip2nation']['name'], $newstatpress_option_vars['ip2nation']['value'] );
 
 	$install_status = __( 'IP2nation database was remove successfully', 'newstatpress' );
 
@@ -282,7 +282,7 @@ function nsp_ip2nation_remove() {
 /**
  * Export form function
  */
-function nsp_export() {
+function newstatpress_export() {
 	$export_description  = esc_html__( 'The export tool allows you to save your statistics in a local file for a date interval defined by yourself.', 'newstatpress' );
 	$export_description .= '<br />';
 	$export_description .= esc_html__( 'You can define the filename and the file extension, and also the fields delimiter used to separate the data.', 'newstatpress' );
@@ -417,7 +417,7 @@ function nsp_export() {
 /**
  * Export the NewStatPress data
  */
-function nsp_export_now() {
+function newstatpress_export_now() {
 	global $wpdb;
 
 	check_admin_referer( 'nsp_tool', 'nsp_tool_post' );
@@ -524,7 +524,7 @@ function nsp_export_now() {
 /**
  * Generate HTML for remove menu in WordPress
  */
-function nsp_remove_plugin_database() {
+function newstatpress_remove_plugin_database() {
 
 	if ( isset( $_POST['removeit'] ) && 'yes' === $_POST['removeit'] ) {
 
@@ -576,7 +576,7 @@ function nsp_remove_plugin_database() {
  *
  * @return the number of days of -1 for all days
  */
-function nsp_duration_to_days() {
+function newstatpress_duration_to_days() {
 
 	// get the number of days for the update.
 	switch ( get_option( 'newstatpress_updateint' ) ) {
@@ -620,7 +620,7 @@ function nsp_duration_to_days() {
  * @param string $url the url to parse.
  * @return the extracted url
  *************************************/
-function nsp_extract_feed_req( $url ) {
+function newstatpress_extract_feed_req( $url ) {
 	list($null,$q) = explode( '?', $url );
 	if ( strpos( $q, '&' ) !== false ) {
 		list($res,$null) = explode( '&', $q );
@@ -633,7 +633,7 @@ function nsp_extract_feed_req( $url ) {
 /**
  * Update form function
  ***********************/
-function nsp_update() {
+function newstatpress_update() {
 	// database update if requested by user.
 	if ( 'yes' == isset( $_POST['update'] ) && sanitize_file_name( wp_unslash( $_POST['update'] ) ) ) {
 		check_admin_referer( 'nsp_tool', 'nsp_tool_post' );
@@ -645,7 +645,7 @@ function nsp_update() {
 			die( 'Failed security check' );
 		}
 
-		nsp_update_now();
+		newstatpress_update_now();
 		die;
 	}
 	?>
@@ -681,7 +681,7 @@ function nsp_update() {
 /**
  * Dispaly dattabase information
  */
-function nsp_display_database_info() {
+function newstatpress_display_database_info() {
 	global $wpdb;
 	global $newstatpress_dir;
 
@@ -690,7 +690,7 @@ function nsp_display_database_info() {
 	$wpdb->flush();     // flush for counting right the queries.
 	$start_time = microtime( true );
 
-	$days = nsp_duration_to_days();  // get the number of days for the update.
+	$days = newstatpress_duration_to_days();  // get the number of days for the update.
 
 	$to_date = gmdate( 'Ymd', current_time( 'timestamp' ) );
 
@@ -700,7 +700,7 @@ function nsp_display_database_info() {
 		$from_date = gmdate( 'Ymd', current_time( 'timestamp' ) - 86400 * $days );
 	}
 
-	$_newstatpress_url = nsp_plugin_url();
+	$_newstatpress_url = newstatpress_plugin_url();
 
 	$wpdb->show_errors();
 
@@ -726,8 +726,8 @@ function nsp_display_database_info() {
 			echo ' ' . esc_html( $table_name );
 			?>
 			</td>
-			<td><?php echo esc_html( nsp_table_size2( $wpdb->prefix . 'statpress' ) ); ?></td>
-			<td><?php echo esc_html( nsp_table_records( $wpdb->prefix . 'statpress' ) ); ?></td>
+			<td><?php echo esc_html( newstatpress_table_size2( $wpdb->prefix . 'statpress' ) ); ?></td>
+			<td><?php echo esc_html( newstatpress_table_records( $wpdb->prefix . 'statpress' ) ); ?></td>
 			</tr>
 			<tr>
 			<td>
@@ -736,7 +736,7 @@ function nsp_display_database_info() {
 			echo ' ' . esc_html( $table_name );
 			?>
 			</td>
-			<td><?php echo esc_html( nsp_index_table_size( $wpdb->prefix . 'statpress' ) ); ?></td>
+			<td><?php echo esc_html( newstatpress_index_table_size( $wpdb->prefix . 'statpress' ) ); ?></td>
 			<td></td>
 			</tr>
 		</tbody>
@@ -748,7 +748,7 @@ function nsp_display_database_info() {
 /**
  * Performes database update with new definitions
  */
-function nsp_update_now() {
+function newstatpress_update_now() {
 	global $wpdb;
 	global $newstatpress_dir;
 
@@ -757,7 +757,7 @@ function nsp_update_now() {
 	$wpdb->flush();     // flush for counting right the queries.
 	$start_time = microtime( true );
 
-	$days = nsp_duration_to_days();  // get the number of days for the update.
+	$days = newstatpress_duration_to_days();  // get the number of days for the update.
 
 	$to_date = gmdate( 'Ymd', current_time( 'timestamp' ) );
 
@@ -767,7 +767,7 @@ function nsp_update_now() {
 		$from_date = gmdate( 'Ymd', current_time( 'timestamp' ) - 86400 * $days );
 	}
 
-	$_newstatpress_url = nsp_plugin_url();
+	$_newstatpress_url = newstatpress_plugin_url();
 
 	$wpdb->show_errors();
 
@@ -781,11 +781,11 @@ function nsp_update_now() {
 	print "<tbody id='the-list'>";
 
 	// update table.
-	nsp_build_plugin_sql_table( 'update' );
+	newstatpress_build_plugin_sql_table( 'update' );
 
 	echo '<tr>
           <td>' . esc_html__( 'Structure', 'newstatpress' ) . ' ' . esc_html( $table_name ) . '</td>
-          <td>' . esc_html( nsp_table_size( $wpdb->prefix . 'statpress' ) ) . "</td>
+          <td>' . esc_html( newstatpress_table_size( $wpdb->prefix . 'statpress' ) ) . "</td>
           <td><img class'update_img' src='" . esc_attr( $img_ok ) . "'></td>
         </tr>";
 
@@ -842,7 +842,7 @@ function nsp_update_now() {
 	); // phpcs:ignore: unprepared SQL OK.
 
 	// standard blog info urls.
-	$s = nsp_extract_feed_req( get_bloginfo( 'comments_atom_url' ) );
+	$s = newstatpress_extract_feed_req( get_bloginfo( 'comments_atom_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
 		// phpcs:ignore -- db call ok; no-cache ok.
@@ -860,7 +860,7 @@ function nsp_update_now() {
 			)
 		); // phpcs:ignore: unprepared SQL OK.
 	}
-	$s = nsp_extract_feed_req( get_bloginfo( 'comments_rss2_url' ) );
+	$s = newstatpress_extract_feed_req( get_bloginfo( 'comments_rss2_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
 		// phpcs:ignore -- db call ok; no-cache ok.
@@ -878,7 +878,7 @@ function nsp_update_now() {
 			)
 		); // phpcs:ignore: unprepared SQL OK.
 	}
-	$s = nsp_extract_feed_req( get_bloginfo( 'atom_url' ) );
+	$s = newstatpress_extract_feed_req( get_bloginfo( 'atom_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
 		// phpcs:ignore -- db call ok; no-cache ok.
@@ -896,7 +896,7 @@ function nsp_update_now() {
 			)
 		); // phpcs:ignore: unprepared SQL OK.
 	}
-	$s = nsp_extract_feed_req( get_bloginfo( 'rdf_url' ) );
+	$s = newstatpress_extract_feed_req( get_bloginfo( 'rdf_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
 		// phpcs:ignore -- db call ok; no-cache ok.
@@ -914,7 +914,7 @@ function nsp_update_now() {
 			)
 		); // phpcs:ignore: unprepared SQL OK.
 	}
-	$s = nsp_extract_feed_req( get_bloginfo( 'rss_url' ) );
+	$s = newstatpress_extract_feed_req( get_bloginfo( 'rss_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
 		// phpcs:ignore -- db call ok; no-cache ok.
@@ -932,7 +932,7 @@ function nsp_update_now() {
 			)
 		); // phpcs:ignore: unprepared SQL OK.
 	}
-	$s = nsp_extract_feed_req( get_bloginfo( 'rss2_url' ) );
+	$s = newstatpress_extract_feed_req( get_bloginfo( 'rss2_url' ) );
 	if ( '' !== $s ) {
 		// use prepare.
 		// phpcs:ignore -- db call ok; no-cache ok.
@@ -1117,7 +1117,7 @@ function nsp_update_now() {
 	); // phpcs:ignore: unprepared SQL OK.
 
 	foreach ( $qry as $rk ) {
-		list($searchengine,$search_phrase) = explode( '|', nsp_get_se( $rk->referrer ) );
+		list($searchengine,$search_phrase) = explode( '|', newstatpress_get_se( $rk->referrer ) );
 		if ( '' !== $searchengine ) {
 			// use prepare.
 			// phpcs:ignore -- db call ok; no-cache ok.
@@ -1146,11 +1146,11 @@ function nsp_update_now() {
 
 	// Final statistics.
 	print '<tr><td>' . esc_html__( 'Final Structure', 'newstatpress' ) . ' ' . esc_html( $table_name ) . '</td>';
-	print '<td>' . esc_html( nsp_table_size( $wpdb->prefix . 'statpress' ) ) . '</td>'; // todo chab : to clean.
+	print '<td>' . esc_html( newstatpress_table_size( $wpdb->prefix . 'statpress' ) ) . '</td>'; // todo chab : to clean.
 	print "<td><img class'update_img' src='" . esc_attr( $img_ok ) . "'></td></tr>";
 
 	print '<tr><td>' . esc_html__( 'Final Index', 'newstatpress' ) . ' ' . esc_html( $table_name ) . '</td>';
-	print '<td>' . esc_html( nsp_index_table_size( $wpdb->prefix . 'statpress' ) ) . '</td>'; // todo chab : to clean.
+	print '<td>' . esc_html( newstatpress_index_table_size( $wpdb->prefix . 'statpress' ) ) . '</td>'; // todo chab : to clean.
 	print "<td><img class'update_img' src='" . esc_attr( $img_ok ) . "'></td></tr>";
 
 	print '<tr><td>' . esc_html__( 'Duration of the update', 'newstatpress' ) . '</td>';
@@ -1168,7 +1168,7 @@ function nsp_update_now() {
 /**
  * Optimize form function
  */
-function nsp_optimize() {
+function newstatpress_optimize() {
 
 	// database update if requested by user.
 	if ( isset( $_POST['optimize'] ) && 'yes' === $_POST['optimize'] ) {
@@ -1181,7 +1181,7 @@ function nsp_optimize() {
 			die( 'Failed security check' );
 		}
 
-		nsp_optimize_now();
+		newstatpress_optimize_now();
 		die;
 	}
 	?>
@@ -1211,7 +1211,7 @@ function nsp_optimize() {
 /**
  * Repair form function
  */
-function nsp_repair() {
+function newstatpress_repair() {
 	// database update if requested by user.
 	if ( isset( $_POST['repair'] ) && 'yes' === $_POST['repair'] ) {
 		check_admin_referer( 'nsp_tool', 'nsp_tool_post' );
@@ -1223,7 +1223,7 @@ function nsp_repair() {
 			die( 'Failed security check' );
 		}
 
-		nsp_repair_now();
+		newstatpress_repair_now();
 		die;
 	}
 	?>
@@ -1252,7 +1252,7 @@ function nsp_repair() {
 /**
  * Optimize the table
  */
-function nsp_optimize_now() {
+function newstatpress_optimize_now() {
 	global $wpdb;
 	$table_name = NSP_TABLENAME;
 
@@ -1263,7 +1263,7 @@ function nsp_optimize_now() {
 /**
  * Repair the table
  */
-function nsp_repair_now() {
+function newstatpress_repair_now() {
 	global $wpdb;
 	$table_name = NSP_TABLENAME;
 

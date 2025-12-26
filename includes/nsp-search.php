@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  *  @param string $what waht to search.
  */
-function nsp_database_search( $what = '' ) {
+function newstatpress_database_search( $what = '' ) {
 	global $wpdb;
 	$table_name = NSP_TABLENAME;
 
@@ -614,7 +614,7 @@ function nsp_database_search( $what = '' ) {
 			for ( $i = 1;$i <= 3;$i++ ) {
 				print '<td>';
 				if ( isset( $_POST[ "where$i" ] ) && 'urlrequested' === $_POST[ "where$i" ] ) {
-					print esc_html( nsp_decode_url( $rk[0] ) );
+					print esc_html( newstatpress_decode_url( $rk[0] ) );
 				} else {
 					switch ( $_POST[ "where$i" ] ) {
 						case 'agent':

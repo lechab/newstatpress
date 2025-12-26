@@ -21,13 +21,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $typ the type of result (Json/Html).
  * @return the result
  */
-function nsp_api_dashboard( $typ ) {
+function newstatpress_api_dashboard( $typ ) {
 	global $wpdb;
-	global $nsp_option_vars;
+	global $newstatpress_option_vars;
 
 	$table_name = NSP_TABLENAME;
 
-	$lastmonth = nsp_lastmonth();
+	$lastmonth = newstatpress_lastmonth();
 
 	$thisyear  = gmdate( 'Y', current_time( 'timestamp' ) );
 	$thismonth = gmdate( 'Ym', current_time( 'timestamp' ) );
@@ -75,7 +75,7 @@ function nsp_api_dashboard( $typ ) {
 				break;
 		}
 
-		if ( get_option( $nsp_option_vars['calculation']['name'] ) === 'sum' ) {
+		if ( get_option( $newstatpress_option_vars['calculation']['name'] ) === 'sum' ) {
 
 			// alternative calculation by mouth: sum of unique visitors of each day.
 			$tot   = 0;
@@ -575,7 +575,7 @@ function nsp_api_dashboard( $typ ) {
                       <tbody class='overview-list'>";
 
 	foreach ( $overview_rows as $row ) {
-		$result = nsp_calculate_variation( $result_j[ $row . '_tmonth' ], $result_j[ $row . '_lmonth' ] );
+		$result = newstatpress_calculate_variation( $result_j[ $row . '_tmonth' ], $result_j[ $row . '_lmonth' ] );
 
 		// build full current row.
 		$overview_table .= "<tr><td class='row_title $row'>" . $result_j[ $row . '_title' ] . '</td>';

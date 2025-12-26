@@ -1,6 +1,6 @@
 <?php
 /**
- * Get the version of Newstatpress with the nsp_api_version
+ * Get the version of Newstatpress with the newstatpress_api_version
  *
  * @package NewStatpress
  */
@@ -22,11 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $typ the type of result (Json/Html).
  * @return the result
  */
-function nsp_api_version( $typ ) {
-	global $_newstatpress;
-
+function newstatpress_api_version( $typ ) {
 	$result_j = array(
-		'version' => $_newstatpress['version'],
+		'version' => NEWSTATPRESS_VERSION,
 	);
 
 	// avoid to calculte HTML if not necessary.
@@ -34,6 +32,6 @@ function nsp_api_version( $typ ) {
 		return $result_j;
 	}
 
-	$result_h = '<div>' . esc_html( $result_j[ $var ] ) . '</div>';
+	$result_h = '<div>' . esc_html( $result_j[ 'version' ] ) . '</div>';
 	return $result_h;
 }

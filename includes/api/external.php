@@ -21,20 +21,20 @@ require 'nsp-api-overview.php';
 /**
  * Body function of external API Nonce
  */
-function nsp_external_api_ajax_n() {
+function newstatpress_external_api_ajax_n() {
 	// check to see if the submitted nonce matches with the
 	// generated nonce we created earlier.
 	if ( ! ( isset( $_POST['postCommentNonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['postCommentNonce'] ) ), 'newstatpress-nsp_external-nonce' ) ) ) {
 		die( 'Busted!' );
 	}
 
-	nsp_external_api_ajax();
+	newstatpress_external_api_ajax();
 }
 
 /**
  * Body function of external API
  */
-function nsp_external_api_ajax() {
+function newstatpress_external_api_ajax() {
 	global $_newstatpress;
 	global $wpdb;
 	header( 'HTTP/1.0 200 Ok' );
@@ -96,16 +96,16 @@ function nsp_external_api_ajax() {
 
 	switch ( $var ) {
 		case 'version':
-			$result = nsp_api_version( $typ );
+			$result = newstatpress_api_version( $typ );
 			break;
 		case 'wpversion':
-			$result = nsp_api_wp_version( $typ );
+			$result = newstatpress_api_wp_version( $typ );
 			break;
 		case 'dashboard':
-			$result = nsp_api_dashboard( $typ );
+			$result = newstatpress_api_dashboard( $typ );
 			break;
 		case 'overview':
-			$result = nsp_api_overview( $typ, $par );
+			$result = newstatpress_api_overview( $typ, $par );
 			break;
 		default:
 			header( 'HTTP/1.0 403 Forbidden' );

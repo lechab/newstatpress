@@ -7,6 +7,8 @@
  * Version: 1.4.3
  * Author: Stefano Tognon and cHab (from Daniele Lippi works)
  * Author URI: http://newstatpress.altervista.org
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  *
  * @package NewStatpress
  ************************************************************/
@@ -18,14 +20,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( esc_html__( 'ERROR: This plugin requires WordPress and will not function if called directly.', 'newstatpress' ) );
 }
 
-$_newstatpress['version']  = '1.4.3';
-$_newstatpress['feedtype'] = '';
+define( 'NEWSTATPRESS_VERSION', '1.4.3' );
 
 global  $newstatpress_dir,
-				$wpdb,
-				$nsp_option_vars,
-				$nsp_overview_screen,
-				$nsp_widget_vars;
+		$wpdb,
+		$newstatpress_option_vars,
+		$newstatpress_overview_screen,
+		$newstatpress_widget_vars;
 
 define( 'NSP_TEXTDOMAIN', 'newstatpress' );
 define( 'NSP_PLUGINNAME', 'NewStatPress' );
@@ -34,7 +35,7 @@ define( 'NSP_NOTICENEWS', true );
 define( 'NSP_TABLENAME', $wpdb->prefix . 'statpress' );
 define( 'NSP_BASENAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'NSP_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
-define( 'NSP_SERVER_NAME', nsp_get_server_name() );
+define( 'NSP_SERVER_NAME', newstatpress_get_server_name() );
 define( 'NSP_RATING_URL', 'https://wordpress.org/support/view/plugin-reviews/' . NSP_TEXTDOMAIN );
 define( 'NSP_PLUGIN_URL', 'http://newstatpress.altervista.org' );
 define( 'NSP_DONATE_URL', 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F5S5PF4QBWU7E' );
@@ -44,7 +45,7 @@ define( 'NSP_SUPPORT_URL', 'https://wordpress.org/support/plugin/' . NSP_TEXTDOM
 $newstatpress_dir = plugin_dir_path( __FILE__ );
 
 
-$nsp_option_vars = array( // list of option variable name, with default value associated.
+$newstatpress_option_vars = array( // list of option variable name, with default value associated.
 	'overview'                  => array(
 		'name'  => 'newstatpress_el_overview',
 		'value' => '10',
@@ -223,7 +224,7 @@ $nsp_option_vars = array( // list of option variable name, with default value as
 	),
 );
 
-$nsp_widget_vars = array( // list of widget variables name, with description associated.
+$newstatpress_widget_vars = array( // list of widget variables name, with description associated.
 	array( 'visits', __( 'Today visits', 'newstatpress' ) ),
 	array( 'yvisits', __( 'Yesterday visits', 'newstatpress' ) ),
 	array( 'mvisits', __( 'Month visits', 'newstatpress' ) ),
@@ -247,20 +248,20 @@ $nsp_widget_vars = array( // list of widget variables name, with description ass
  * Check to update of the plugin
  * Added by cHab
  *******************************/
-function nsp_update_check() {
+function newstatpress_update_check() {
 
 	global $_newstatpress;
 	$active_version = get_option( 'newstatpress_version', '0' );
 	$admin_notices  = get_option( 'newstatpress_admin_notices' );
 
 	if ( ! empty( $admin_notices ) ) {
-		add_action( 'admin_notices', 'nsp_admin_notices' );
+		add_action( 'admin_notices', 'newstatpress_admin_notices' );
 	}
 
 	// check version, update installation date and update notice status.
-	if ( version_compare( $active_version, $_newstatpress['version'], '<' ) ) {
+	if ( version_compare( $active_version, NEWSTATPRESS_VERSION, '<' ) ) {
 		if ( version_compare( $active_version, '1.1.0', '<' ) ) {
-			nsp_activation( 'old' ); // for old installation > 14 days since nsp 1.1.4.
+			newstatpress_activation( 'old' ); // for old installation > 14 days since nsp 1.1.4.
 		}
 		if ( NSP_NOTICENEWS ) {
 			global $current_user;
@@ -271,7 +272,7 @@ function nsp_update_check() {
 			$status['news'] = false;
 			update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status );
 		}
-		update_option( 'newstatpress_version', $_newstatpress['version'] );
+		update_option( 'newstatpress_version', NEWSTATPRESS_VERSION );
 	}
 
 	// check if is compatible with WP Version.
@@ -285,53 +286,53 @@ function nsp_update_check() {
 			'notice' => $notice_text,
 		);
 		update_option( 'newstatpress_admin_notices', $new_admin_notice );
-		add_action( 'admin_notices', 'nsp_admin_notices' );
+		add_action( 'admin_notices', 'newstatpress_admin_notices' );
 		return false;
 	}
 
-	nsp_check_nag_notices();
+	newstatpress_check_nag_notices();
 
 }
-add_action( 'admin_init', 'nsp_update_check' );
+add_action( 'admin_init', 'newstatpress_update_check' );
 
 /**
  * Check and Export if capability of user allow that
  * need here due to header change
  * Updated by cHab
  ***************************************************/
-function nsp_check_export() {
-	global $nsp_option_vars;
+function newstatpress_check_export() {
+	global $newstatpress_option_vars;
 	global $current_user;
 	wp_get_current_user();
 
-	// phpcs:ignore -- nonce is verified inside nsp_export_now, so warning can be suppressed.
+	// phpcs:ignore -- nonce is verified inside newstatpress_export_now, so warning can be suppressed.
 	if ( isset( $_GET['newstatpress_action'] ) && 'exportnow' === $_GET['newstatpress_action'] ) {
 		$tools_capability = get_option( 'newstatpress_menutools_cap' );
 		if ( ! $tools_capability ) { // default value.
-			$tools_capability = $nsp_option_vars['menutools_cap']['value'];
+			$tools_capability = $newstatpress_option_vars['menutools_cap']['value'];
 		}
 		if ( user_can( $current_user, $tools_capability ) ) {
 			require 'includes/nsp-tools.php';
-			nsp_export_now();
+			newstatpress_export_now();
 		}
 	}
 }
-add_action( 'init', 'nsp_check_export' );
+add_action( 'init', 'newstatpress_check_export' );
 
 /**
  * Installation time update of the plugin
  * Added by cHab
  */
-register_activation_hook( __FILE__, 'nsp_activation' );
+register_activation_hook( __FILE__, 'newstatpress_activation' );
 
 /**
  * Activate plugin
  *
  * @param string $arg eventual argument.
  */
-function nsp_activation( $arg = '' ) {
-	global $nsp_option_vars;
-	$nsp_settings = get_option( $nsp_option_vars['settings']['name'] );
+function newstatpress_activation( $arg = '' ) {
+	global $newstatpress_option_vars;
+	$nsp_settings = get_option( $newstatpress_option_vars['settings']['name'] );
 	if ( empty( $nsp_settings['install_time'] ) ) {
 		$nsp_settings['install_time'] = time();
 		if ( 'old' === $arg ) {
@@ -345,13 +346,13 @@ function nsp_activation( $arg = '' ) {
  * Load CSS style, languages files, extra files
  * Added by cHab
  ***********************************************/
-function nsp_register_plugin_styles_and_scripts() {
+function newstatpress_register_plugin_styles_and_scripts() {
 	global $_newstatpress;
 
 	// CSS.
 	$style_path = plugins_url( './css/style.css', __FILE__ );
 
-	wp_register_style( 'NewStatPressStyles', $style_path, array(), $_newstatpress['version'] );
+	wp_register_style( 'NewStatPressStyles', $style_path, array(), NEWSTATPRESS_VERSION );
 	wp_enqueue_style( 'NewStatPressStyles' );
 
 	wp_enqueue_script( 'jquery-ui-core' );// enqueue jQuery UI Core.
@@ -359,7 +360,7 @@ function nsp_register_plugin_styles_and_scripts() {
 
 	$style_path2 = plugins_url( './css/pikaday.css', __FILE__ );
 
-	wp_register_style( 'pikaday', $style_path2, array(), $_newstatpress['version'] );
+	wp_register_style( 'pikaday', $style_path2, array(), NEWSTATPRESS_VERSION );
 	wp_enqueue_style( 'pikaday' );
 
 	wp_enqueue_style( 'NewStatPressStyles', get_stylesheet_uri(), array( 'dashicons' ), '1.0' );
@@ -369,129 +370,122 @@ function nsp_register_plugin_styles_and_scripts() {
 	wp_enqueue_script( 'wp-lists' );
 	wp_enqueue_script( 'postbox' ); // meta box.
 
+	// Load Moment.js from WordPress core.
+	wp_enqueue_script( 'moment' );
+
 	// JS and jQuery.
-	$scripts = array(
-		'moment'         => plugins_url( './js/moment.min.js', __FILE__ ),
-		'pikaday'        => plugins_url( './js/pikaday.js', __FILE__ ),
-		'NewStatPressJs' => plugins_url( './js/nsp_general.js', __FILE__ ),
+	// JS scripts.
+	wp_register_script( 'pikaday', plugins_url( './js/pikaday.js', __FILE__ ), array( 'moment' ),NEWSTATPRESS_VERSION, true );
+	wp_register_script( 'NewStatPressJs', plugins_url( './js/nsp_general.js', __FILE__ ), array( 'moment', 'pikaday' ), NEWSTATPRESS_VERSION, true );
+	wp_localize_script(
+		'NewStatPressJs',
+		'ExtData',
+		array(
+			'Credit' => plugins_url( './includes/json/credit.json', __FILE__ ),
+			'Lang' => plugins_url( './includes/json/lang.json', __FILE__ ),
+			'Resources' => plugins_url( './includes/json/ressources.json', __FILE__ ),
+			'Donation' => plugins_url( './includes/json/donation.json', __FILE__ ),
+			'Domain' => plugins_url( './images/domain', __FILE__ ),
+		)
 	);
-	foreach ( $scripts as $key => $sc ) {
-		wp_register_script( $key, $sc, array(), $_newstatpress['version'], true );
-
-		if ( 'NewStatPressJs' === $key ) {
-			wp_localize_script(
-				'NewStatPressJs',
-				'ExtData',
-				array(
-					'Credit'    => plugins_url( './includes/json/credit.json', __FILE__ ),
-					'Lang'      => plugins_url( './includes/json/lang.json', __FILE__ ),
-					'Resources' => plugins_url( './includes/json/ressources.json', __FILE__ ),
-					'Donation'  => plugins_url( './includes/json/donation.json', __FILE__ ),
-					'Domain'    => plugins_url( './images/domain', __FILE__ ),
-				)
-			);
-		}
-
-		wp_enqueue_script( $key );
-	}
-
+	wp_enqueue_script( 'pikaday' ); wp_enqueue_script( 'NewStatPressJs' );
 }
-add_action( 'admin_enqueue_scripts', 'nsp_register_plugin_styles_and_scripts' );
+add_action( 'admin_enqueue_scripts', 'newstatpress_register_plugin_styles_and_scripts' );
 
 /**
  * Load text domain
  */
-function nsp_load_textdomain() {
+function newstatpress_load_textdomain() {
 	load_plugin_textdomain( 'newstatpress', false, NSP_BASENAME . '/langs' );
 }
-add_action( 'plugins_loaded', 'nsp_load_textdomain' );
+add_action( 'plugins_loaded', 'newstatpress_load_textdomain' );
 
 if ( is_admin() ) { // load dashboard and extra functions.
 	require 'includes/nsp-functions-extra.php';
 	require 'includes/nsp-dashboard.php';
 
-	add_action( 'wp_dashboard_setup', 'nsp_add_dashboard_widget' );
+	add_action( 'wp_dashboard_setup', 'newstatpress_add_dashboard_widget' );
 }
 	require 'includes/api/variables.php';
 	require 'includes/api/external.php';
 	require 'includes/nsp-core.php';
 
 	// register actions for ajax variables API.
-	add_action( 'wp_ajax_nsp_variables', 'nsp_variables_ajax' );
-	add_action( 'wp_ajax_nopriv_nsp_variables', 'nsp_variables_ajax' ); // need this to serve non logged in users.
+	add_action( 'wp_ajax_newstatpress_variables', 'newstatpress_variables_ajax' );
+	add_action( 'wp_ajax_nopriv_newstatpress_variables', 'newstatpress_variables_ajax' );  // need this to serve non logged in users.
 
 	// register actions for ajax external API.
-	add_action( 'wp_ajax_nsp_external', 'nsp_external_api_ajax_n' );
-	add_action( 'wp_ajax_nopriv_nsp_external', 'nsp_external_api_ajax' ); // need this to serve non logged in users.
+	add_action( 'wp_ajax_newstatpress_external', 'newstatpress_external_api_ajax_n' );
+	add_action( 'wp_ajax_nopriv_newstatpress_external', 'newstatpress_external_api_ajax' ); // need this to serve non logged in users.
 
 
 /*************************************
  * Add pages for NewStatPress plugin *
  *************************************/
-function nsp_build_plugin_menu() {
+function newstatpress_build_plugin_menu() {
 
-	global $nsp_option_vars;
+	global $newstatpress_option_vars;
 	global $current_user;
-	global $nsp_overview_screen;
+	global $newstatpress_overview_screen;
 	wp_get_current_user();
 
 	// Fix capability if it's not defined.
-	$capability = $nsp_option_vars['menu_cap']['value'];
+	$capability = $newstatpress_option_vars['menu_cap']['value'];
 
 	$overview_capability = get_option( 'newstatpress_menuoverview_cap' );
 	if ( ! $overview_capability ) { // default value.
-		$overview_capability = $nsp_option_vars['menuoverview_cap']['value'];
+		$overview_capability = $newstatpress_option_vars['menuoverview_cap']['value'];
 	}
 
 	$details_capability = get_option( 'newstatpress_menudetails_cap' );
 	if ( ! $details_capability ) { // default value.
-		$details_capability = $nsp_option_vars['menudetails_cap']['value'];
+		$details_capability = $newstatpress_option_vars['menudetails_cap']['value'];
 	}
 
 	$visits_capability = get_option( 'newstatpress_menuvisits_cap' );
 	if ( ! $visits_capability ) { // default value.
-		$visits_capability = $nsp_option_vars['menuvisits_cap']['value'];
+		$visits_capability = $newstatpress_option_vars['menuvisits_cap']['value'];
 	}
 
 	$search_capability = get_option( 'newstatpress_menusearch_cap' );
 	if ( ! $search_capability ) { // default value.
-		$search_capability = $nsp_option_vars['menusearch_cap']['value'];
+		$search_capability = $newstatpress_option_vars['menusearch_cap']['value'];
 	}
 
 	$tools_capability = get_option( 'newstatpress_menutools_cap' );
 	if ( ! $tools_capability ) { // default value.
-		$tools_capability = $nsp_option_vars['menutools_cap']['value'];
+		$tools_capability = $newstatpress_option_vars['menutools_cap']['value'];
 	}
 
 	$options_capability = get_option( 'newstatpress_menuoptions_cap' );
 	if ( ! $options_capability ) { // default value.
-		$options_capability = $nsp_option_vars['menuoptions_cap']['value'];
+		$options_capability = $newstatpress_option_vars['menuoptions_cap']['value'];
 	}
 
-	$credits_capability = $nsp_option_vars['menucredits_cap']['value'];
+	$credits_capability = $newstatpress_option_vars['menucredits_cap']['value'];
 
 	// Display menu with personalized capabilities if user IS NOT "subscriber".
 	if ( user_can( $current_user, 'edit_posts' ) ) {
-		add_menu_page( 'NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'nsp_newstatpress_main_c', plugins_url( 'newstatpress/images/stat.png', NSP_BASENAME ) );
-		$nsp_overview_screen = add_submenu_page( 'nsp-main', __( 'Overview', 'newstatpress' ), __( 'Overview', 'newstatpress' ), $overview_capability, 'nsp-main', 'nsp_newstatpress_main_c' );
-		add_submenu_page( 'nsp-main', __( 'Details', 'newstatpress' ), __( 'Details', 'newstatpress' ), $details_capability, 'nsp-details', 'nsp_display_details_c' );
-		add_submenu_page( 'nsp-main', __( 'Visits', 'newstatpress' ), __( 'Visits', 'newstatpress' ), $visits_capability, 'nsp-visits', 'nsp_display_visits_page_c' );
-		add_submenu_page( 'nsp-main', __( 'Search', 'newstatpress' ), __( 'Search', 'newstatpress' ), $search_capability, 'nsp-search', 'nsp_database_search_c' );
-		add_submenu_page( 'nsp-main', __( 'Tools', 'newstatpress' ), __( 'Tools', 'newstatpress' ), $tools_capability, 'nsp-tools', 'nsp_display_tools_page_c' );
-		add_submenu_page( 'nsp-main', __( 'Options', 'newstatpress' ), __( 'Options', 'newstatpress' ), $options_capability, 'nsp-options', 'nsp_options_c' );
-		add_submenu_page( 'nsp-main', __( 'Credits', 'newstatpress' ), __( 'Credits', 'newstatpress' ), $credits_capability, 'nsp-credits', 'nsp_display_credits_page_c' );
+		add_menu_page( 'NewStatPres', 'NewStatPress', $capability, 'nsp-main', 'newstatpress_newstatpress_main_c', plugins_url( 'newstatpress/images/stat.png', NSP_BASENAME ) );
+		$newstatpress_overview_screen = add_submenu_page( 'nsp-main', __( 'Overview', 'newstatpress' ), __( 'Overview', 'newstatpress' ), $overview_capability, 'nsp-main', 'newstatpress_newstatpress_main_c' );
+		add_submenu_page( 'nsp-main', __( 'Details', 'newstatpress' ), __( 'Details', 'newstatpress' ), $details_capability, 'nsp-details', 'newstatpress_display_details_c' );
+		add_submenu_page( 'nsp-main', __( 'Visits', 'newstatpress' ), __( 'Visits', 'newstatpress' ), $visits_capability, 'nsp-visits', 'newstatpress_display_visits_page_c' );
+		add_submenu_page( 'nsp-main', __( 'Search', 'newstatpress' ), __( 'Search', 'newstatpress' ), $search_capability, 'nsp-search', 'newstatpress_database_search_c' );
+		add_submenu_page( 'nsp-main', __( 'Tools', 'newstatpress' ), __( 'Tools', 'newstatpress' ), $tools_capability, 'nsp-tools', 'newstatpress_display_tools_page_c' );
+		add_submenu_page( 'nsp-main', __( 'Options', 'newstatpress' ), __( 'Options', 'newstatpress' ), $options_capability, 'nsp-options', 'newstatpress_options_c' );
+		add_submenu_page( 'nsp-main', __( 'Credits', 'newstatpress' ), __( 'Credits', 'newstatpress' ), $credits_capability, 'nsp-credits', 'newstatpress_display_credits_page_c' );
 
 		// Add action to load the meta boxes to the overview page.
-		add_action( 'load-' . $nsp_overview_screen, 'nsp_statistics_load_overview_page' );
-		add_action( 'admin_footer-' . $nsp_overview_screen, 'wptuts_print_script_in_footer' );
+		add_action( 'load-' . $newstatpress_overview_screen, 'newstatpress_statistics_load_overview_page' );
+		add_action( 'admin_footer-' . $newstatpress_overview_screen, 'newstatpress_wptuts_print_script_in_footer' );
 	}
 }
-add_action( 'admin_menu', 'nsp_build_plugin_menu' );
+add_action( 'admin_menu', 'newstatpress_build_plugin_menu' );
 
 /**
  * Prints script in footer to 'initialises' the meta boxes
  */
-function wptuts_print_script_in_footer() {
+function newstatpress_wptuts_print_script_in_footer() {
 	?>
 	<script>jQuery(document).ready(function(){ postboxes.add_postbox_toggles(pagenow);jQuery('.postbox h3').prepend('<a class="togbox">+</a> '); });</script>
 	<?php
@@ -501,70 +495,70 @@ function wptuts_print_script_in_footer() {
 /**
  *  Load overview page
  */
-function nsp_statistics_load_overview_page() {
-	global $nsp_overview_screen;
-	add_meta_box( 'nsp_lasthits_postbox', __( 'Last hits', 'newstatpress' ), 'nsp_generate_overview_lasthits', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lasthits' ) );
-	add_meta_box( 'nsp_lastsearchterms_postbox', __( 'Last search terms', 'newstatpress' ), 'nsp_generate_overview_lastsearchterms', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lastsearchterms' ) );
-	add_meta_box( 'nsp_lastreferrers_postbox', __( 'Last referrers', 'newstatpress' ), 'nsp_generate_overview_lastreferrers', $nsp_overview_screen, 'normal', null, array( 'widget' => 'lastreferrers' ) );
-	add_meta_box( 'nsp_agents_postbox', __( 'Last agents', 'newstatpress' ), 'nsp_generate_overview_agents', $nsp_overview_screen, 'normal', null, array( 'widget' => 'agents' ) );
-	add_meta_box( 'nsp_pages_postbox', __( 'Last pages', 'newstatpress' ), 'nsp_generate_overview_pages', $nsp_overview_screen, 'normal', null, array( 'widget' => 'pages' ) );
-	add_meta_box( 'nsp_spiders_postbox', __( 'Last spiders', 'newstatpress' ), 'nsp_generate_overview_spiders', $nsp_overview_screen, 'normal', null, array( 'widget' => 'spiders' ) );
+function newstatpress_statistics_load_overview_page() {
+	global $newstatpress_overview_screen;
+	add_meta_box( 'nsp_lasthits_postbox', __( 'Last hits', 'newstatpress' ), 'newstatpress_generate_overview_lasthits', $newstatpress_overview_screen, 'normal', null, array( 'widget' => 'lasthits' ) );
+	add_meta_box( 'nsp_lastsearchterms_postbox', __( 'Last search terms', 'newstatpress' ), 'newstatpress_generate_overview_lastsearchterms', $newstatpress_overview_screen, 'normal', null, array( 'widget' => 'lastsearchterms' ) );
+	add_meta_box( 'nsp_lastreferrers_postbox', __( 'Last referrers', 'newstatpress' ), 'newstatpress_generate_overview_lastreferrers', $newstatpress_overview_screen, 'normal', null, array( 'widget' => 'lastreferrers' ) );
+	add_meta_box( 'nsp_agents_postbox', __( 'Last agents', 'newstatpress' ), 'newstatpress_generate_overview_agents', $newstatpress_overview_screen, 'normal', null, array( 'widget' => 'agents' ) );
+	add_meta_box( 'nsp_pages_postbox', __( 'Last pages', 'newstatpress' ), 'newstatpress_generate_overview_pages', $newstatpress_overview_screen, 'normal', null, array( 'widget' => 'pages' ) );
+	add_meta_box( 'nsp_spiders_postbox', __( 'Last spiders', 'newstatpress' ), 'newstatpress_generate_overview_spiders', $newstatpress_overview_screen, 'normal', null, array( 'widget' => 'spiders' ) );
 }
 
 /**
  * Newstatpress main
  */
-function nsp_newstatpress_main_c() {
+function newstatpress_newstatpress_main_c() {
 	require 'includes/nsp-overview.php';
-	nsp_new_stat_press_main();
+	newstatpress_new_stat_press_main();
 }
 
 /**
  * Display details
  */
-function nsp_display_details_c() {
+function newstatpress_display_details_c() {
 	require 'includes/nsp-details.php';
-	nsp_display_details();
+	newstatpress_display_details();
 }
 
 /**
  * Display credits page
  */
-function nsp_display_credits_page_c() {
+function newstatpress_display_credits_page_c() {
 	require 'includes/nsp-credits.php';
-	nsp_display_credits_page();
+	newstatpress_display_credits_page();
 }
 
 /**
  * Options
  */
-function nsp_options_c() {
+function newstatpress_options_c() {
 	require 'includes/nsp-options.php';
-	nsp_options();
+	newstatpress_options();
 }
 
 /**
  * Display tool page
  */
-function nsp_display_tools_page_c() {
+function newstatpress_display_tools_page_c() {
 	require 'includes/nsp-tools.php';
-	nsp_display_tools_page();
+	newstatpress_display_tools_page();
 }
 
 /**
  * Display visits page
  */
-function nsp_display_visits_page_c() {
+function newstatpress_display_visits_page_c() {
 	require 'includes/nsp-visits.php';
-	nsp_display_visits_page();
+	newstatpress_display_visits_page();
 }
 
 /**
  * Database search
  */
-function nsp_database_search_c() {
+function newstatpress_database_search_c() {
 	require 'includes/nsp-search.php';
-	nsp_database_search();
+	newstatpress_database_search();
 }
 
 
@@ -573,7 +567,7 @@ function nsp_database_search_c() {
  *
  * @return the url of the plugin.
  ********************************/
-function nsp_plugin_url() {
+function newstatpress_plugin_url() {
 	// use only modern way to get it.
 	return plugin_dir_url( __FILE__ );
 }
@@ -583,7 +577,7 @@ function nsp_plugin_url() {
  *
  * @return the server name.
  */
-function nsp_get_server_name() {
+function newstatpress_get_server_name() {
 	$server_name = '';
 	if ( ! empty( $_SERVER['HTTP_HOST'] ) ) {
 		$server_name = sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) );
@@ -593,7 +587,7 @@ function nsp_get_server_name() {
 			$server_name = sanitize_text_field( wp_unslash( $_SERVER['SERVER_NAME'] ) );
 	} elseif ( ! empty( $_newstatpress_env['SERVER_NAME'] ) ) {
 			$server_name = $_newstatpress_env['SERVER_NAME']; }
-			return esc_html( nsp_case_trans( 'lower', $server_name ) );
+			return esc_html( newstatpress_case_trans( 'lower', $server_name ) );
 }
 
 /** TODO rsfb_strlen
@@ -603,7 +597,7 @@ function nsp_get_server_name() {
  * @param string $string string to modify.
  * @return modified string.
  ***/
-function nsp_case_trans( $type, $string ) {
+function newstatpress_case_trans( $type, $string ) {
 
 	switch ( $type ) {
 		case 'upper':
@@ -639,7 +633,7 @@ function nsp_case_trans( $type, $string ) {
  * @param int $tu to time.
  * @return int $offset_time.
  ***********************************************************/
-function nsp_calculation_offset_time( $t, $tu ) {
+function newstatpress_calculation_offset_time( $t, $tu ) {
 
 	list($current_hour, $current_minute)        = explode( ':', gmdate( 'H:i', $t ) );
 	list($publishing_hour, $publishing_minutes) = explode( ':', $tu );
@@ -672,7 +666,7 @@ function nsp_calculation_offset_time( $t, $tu ) {
  * @param string $content_type not used.
  * @retrun string the type of content.
  ***************************************************/
-function nsp_set_mail_content_type( $content_type ) {
+function newstatpress_set_mail_content_type( $content_type ) {
 	return 'text/html';
 }
 
@@ -683,15 +677,15 @@ function nsp_set_mail_content_type( $content_type ) {
  * @param string $arg type of mail ('' or 'test').
  * @return string $email_confirmation.
  *************************************/
-function nsp_stat_by_email( $arg = '' ) {
-	global $nsp_option_vars, $support_pluginpage, $author_linkpage;
+function newstatpress_stat_by_email( $arg = '' ) {
+	global $newstatpress_option_vars;
 	$date = gmdate( 'm/d/Y h:i:s a', time() );
 
-	add_filter( 'wp_mail_content_type', 'nsp_set_mail_content_type' );
+	add_filter( 'wp_mail_content_type', 'newstatpress_set_mail_content_type' );
 
-	$name   = $nsp_option_vars['mail_notification']['name'];
+	$name   = $newstatpress_option_vars['mail_notification']['name'];
 	$status = get_option( $name );
-	$name   = $nsp_option_vars['mail_notification_freq']['name'];
+	$name   = $newstatpress_option_vars['mail_notification_freq']['name'];
 	$freq   = get_option( $name );
 
 	$userna = esc_html( get_option( 'newstatpress_mail_notification_info' ) );
@@ -705,16 +699,16 @@ function nsp_stat_by_email( $arg = '' ) {
 	}
 
 	require_once 'includes/api/nsp-api-dashboard.php';
-	$result_h = nsp_api_dashboard( 'HTML' );
+	$result_h = newstatpress_api_dashboard( 'HTML' );
 
-	$name          = $nsp_option_vars['mail_notification_address']['name'];
+	$name          = $newstatpress_option_vars['mail_notification_address']['name'];
 	$email_address = sanitize_email( get_option( $name ) );
 
-	$name   = $nsp_option_vars['mail_notification_sender']['name'];
+	$name   = $newstatpress_option_vars['mail_notification_sender']['name'];
 	$sender = esc_html( get_option( $name ) );
 
 	if ( '' === $sender ) {
-		$sender = esc_html( $nsp_option_vars['mail_notification_sender']['value'] );
+		$sender = esc_html( $newstatpress_option_vars['mail_notification_sender']['value'] );
 	}
 
 	$support_pluginpage = "<a href='" . NSP_SUPPORT_URL . "' target='_blank'>" . __( 'support page', 'newstatpress' ) . '</a>';
@@ -742,7 +736,7 @@ function nsp_stat_by_email( $arg = '' ) {
 	$headers            = 'From: ' . $sender . " <newstatpress@altervista.org> \r\n";
 	$email_confirmation = wp_mail( $email_address, $subject, $message, $headers );
 
-	remove_filter( 'wp_mail_content_type', 'nsp_set_mail_content_type' );
+	remove_filter( 'wp_mail_content_type', 'newstatpress_set_mail_content_type' );
 
 	return $email_confirmation;
 }
@@ -750,12 +744,12 @@ function nsp_stat_by_email( $arg = '' ) {
 /**
  * Mail notificatiom deactivate
  */
-function nsp_mail_notification_deactivate() {
+function newstatpress_mail_notification_deactivate() {
 	wp_clear_scheduled_hook( 'nsp_mail_notification' );
 }
 
 // Hook mail publi.
-add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
+add_action( 'nsp_mail_notification', 'newstatpress_stat_by_email' );
 
 
 
@@ -768,18 +762,18 @@ add_action( 'nsp_mail_notification', 'nsp_stat_by_email' );
  * @param string $file the file.
  * @return the link.
  */
-function nsp_add_settings_link( $links, $file ) {
+function newstatpress_add_settings_link( $links, $file ) {
 	if ( plugin_basename( __FILE__ ) !== $file ) {
 		return $links;
 	}
 
-	$settings_link = '<a href="admin.php?page=nsp_options">' . __( 'Settings', 'newstatpress' ) . '</a>';
+	$settings_link = '<a href="admin.php?page=newstatpress_options">' . __( 'Settings', 'newstatpress' ) . '</a>';
 
 	array_unshift( $links, $settings_link );
 
 	return $links;
 }
-add_filter( 'plugin_action_links', 'nsp_add_settings_link', 10, 2 );
+add_filter( 'plugin_action_links', 'newstatpress_add_settings_link', 10, 2 );
 
 
 
@@ -792,7 +786,7 @@ add_filter( 'plugin_action_links', 'nsp_add_settings_link', 10, 2 );
  * @param int    $y y value.
  * @return the substring.
  */
-function nsp_my_substr( $str, $x, $y = 0 ) {
+function newstatpress_my_substr( $str, $x, $y = 0 ) {
 	if ( 0 == $y ) {
 		$y = strlen( $str ) - $x;
 	}
@@ -811,7 +805,7 @@ function nsp_my_substr( $str, $x, $y = 0 ) {
  * @param string $out_url the given url to decode.
  * @return the decoded url.
  ****************************************/
-function nsp_decode_url( $out_url ) {
+function newstatpress_decode_url( $out_url ) {
 	$out_url = filter_var( $out_url, FILTER_SANITIZE_URL );
 
 	if ( '' === $out_url ) {
@@ -841,7 +835,7 @@ function nsp_decode_url( $out_url ) {
  *
  * @retrun the url.
  */
-function nsp_url() {
+function newstatpress_url() {
 	$url_requested = ( isset( $_SERVER['QUERY_STRING'] ) ? filter_var( wp_unslash( $_SERVER['QUERY_STRING'] ), FILTER_SANITIZE_URL ) : '' );
 	if ( '' === $url_requested ) { // SEO problem!
 		$url_requested = ( isset( $_SERVER['REQUEST_URI'] ) ? filter_var( wp_unslash( $_SERVER['REQUEST_URI'] ), FILTER_SANITIZE_URL ) : '' );
@@ -864,7 +858,7 @@ function nsp_url() {
  * @param string $dt date to convert.
  * @return converted data.
  ****************************************************/
-function nsp_hdate( $dt = '00000000' ) {
+function newstatpress_hdate2( $dt = '00000000' ) {
 	return mysql2date( get_option( 'date_format' ), substr( $dt, 0, 4 ) . '-' . substr( $dt, 4, 2 ) . '-' . substr( $dt, 6, 2 ) );
 }
 
@@ -876,7 +870,7 @@ function nsp_hdate( $dt = '00000000' ) {
  * @return the hdate.
  */
 function newstatpress_hdate( $dt = '00000000' ) {
-	return mysql2date( get_option( 'date_format' ), nsp_my_substr( $dt, 0, 4 ) . '-' . nsp_my_substr( $dt, 4, 2 ) . '-' . nsp_my_substr( $dt, 6, 2 ) );
+	return mysql2date( get_option( 'date_format' ), newstatpress_my_substr( $dt, 0, 4 ) . '-' . newstatpress_my_substr( $dt, 4, 2 ) . '-' . newstatpress_my_substr( $dt, 6, 2 ) );
 }
 
 
@@ -891,7 +885,7 @@ function newstatpress_hdate( $dt = '00000000' ) {
  *
  * @param string $accepted not used.
  */
-function nsp_get_language( $accepted ) {
+function newstatpress_get_language( $accepted ) {
 	if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
 
 		// Capture up to the first delimiter (, found in Safari).
@@ -909,7 +903,7 @@ function nsp_get_language( $accepted ) {
  * @param string $url the url.
  * @return the pairs.
  */
-function nsp_get_query_pairs( $url ) {
+function newstatpress_get_query_pairs( $url ) {
 	$parsed_url = wp_parse_url( $url );
 	$tab        = wp_parse_url( $url );
 	$host       = $tab['host'];
@@ -927,7 +921,7 @@ function nsp_get_query_pairs( $url ) {
  * @param string $arg the argument to parse for OS.
  * @return the OS find in configuration file.
  *******************************************/
-function nsp_get_os( $arg ) {
+function newstatpress_get_os( $arg ) {
 	global $newstatpress_dir;
 
 	$arg   = str_replace( ' ', '', $arg );
@@ -948,7 +942,7 @@ function nsp_get_os( $arg ) {
  * @param string $arg the argument to parse for OS.
  * @return the OS find in configuration file.
  *******************************************/
-function nsp_get_os_img( $arg ) {
+function newstatpress_get_os_img( $arg ) {
 	global $newstatpress_dir;
 	$lines = file( $newstatpress_dir . '/def/os.dat' );
 	foreach ( $lines as $line_num => $os ) {
@@ -966,7 +960,7 @@ function nsp_get_os_img( $arg ) {
  * @param string $arg the argument to parse for Brower.
  * @return the Browser find in configuration file.
  ************************************************/
-function nsp_get_browser( $arg ) {
+function newstatpress_get_browser( $arg ) {
 	global $newstatpress_dir;
 
 	$arg   = str_replace( ' ', '', $arg );
@@ -987,7 +981,7 @@ function nsp_get_browser( $arg ) {
  * @param string $arg the argument to parse for Brower.
  * @return the Browser find in configuration file.
  ************************************************/
-function nsp_get_browser_img( $arg ) {
+function newstatpress_get_browser_img( $arg ) {
 	global $newstatpress_dir;
 	$lines = file( $newstatpress_dir . '/def/browser.dat' );
 	foreach ( $lines as $line_num => $browser ) {
@@ -1005,7 +999,7 @@ function nsp_get_browser_img( $arg ) {
  * @param string $arg the ip to check.
  * @return '' id the address is banned.
  */
-function nsp_check_ban_ip( $arg ) {
+function newstatpress_check_ban_ip( $arg ) {
 	global $newstatpress_dir;
 
 	$lines = file( $newstatpress_dir . '/def/banips.dat' );
@@ -1024,7 +1018,7 @@ function nsp_check_ban_ip( $arg ) {
  * @param string $referrer the url to test.
  * @return the search engine present in the url.
  */
-function nsp_get_se( $referrer = null ) {
+function newstatpress_get_se( $referrer = null ) {
 	global $newstatpress_dir;
 
 	$key   = null;
@@ -1036,7 +1030,7 @@ function nsp_get_se( $referrer = null ) {
 		}
 
 		// find if.
-		$variables               = nsp_get_query_pairs( html_entity_decode( $referrer ) );
+		$variables               = newstatpress_get_query_pairs( html_entity_decode( $referrer ) );
 		null === $variables ? $i = 0 : $i = count( $variables );
 		while ( $i-- ) {
 			$tab = explode( '=', $variables[ $i ] );
@@ -1053,7 +1047,7 @@ function nsp_get_se( $referrer = null ) {
  * @param string $agent the agent string.
  * @return agent the fount agent.
  *************************************/
-function nsp_get_spider( $agent = null ) {
+function newstatpress_get_spider( $agent = null ) {
 	global $newstatpress_dir;
 
 	$agent = str_replace( ' ', '', $agent );
@@ -1075,7 +1069,7 @@ function nsp_get_spider( $agent = null ) {
  *
  * @return the previous month.
  */
-function nsp_lastmonth() {
+function newstatpress_lastmonth() {
 	$ta = getdate( current_time( 'timestamp' ) );
 
 	$year  = $ta['year'];
@@ -1097,7 +1091,7 @@ function nsp_lastmonth() {
  *
  * @param string $action to do: update, create.
  *************************************/
-function nsp_build_plugin_sql_table( $action ) {
+function newstatpress_build_plugin_sql_table( $action ) {
 
 	global $wpdb;
 	global $wp_db_version;
@@ -1209,7 +1203,7 @@ function nsp_build_plugin_sql_table( $action ) {
  * @param string $url the url to test.
  * @return the kind of feed that is found.
  *****************************************/
-function nsp_is_feed( $url ) {
+function newstatpress_is_feed( $url ) {
 	$tmp = get_bloginfo( 'rdf_url' );
 	if ( $tmp ) {
 		if ( stristr( $url, $tmp ) !== false ) {
@@ -1256,7 +1250,7 @@ function nsp_is_feed( $url ) {
 /**
  * Insert statistic into the database
  ************************************/
-function nsp_stat_append() {
+function newstatpress_stat_append() {
 
 	global $wpdb;
 	$table_name = NSP_TABLENAME;
@@ -1277,7 +1271,7 @@ function nsp_stat_append() {
 	}
 
 	// Is this IP blacklisted from file?
-	if ( nsp_check_ban_ip( $ip_address ) === '' ) {
+	if ( newstatpress_check_ban_ip( $ip_address ) === '' ) {
 		return ''; }
 
 	// Is this IP blacklisted from user?
@@ -1300,7 +1294,7 @@ function nsp_stat_append() {
 	}
 
 	// URL (requested).
-	$url_requested = nsp_url();
+	$url_requested = newstatpress_url();
 	if ( preg_match( '/.ico$/i', $url_requested ) ) {
 		return ''; }
 	if ( preg_match( '/favicon.ico/i', $url_requested ) ) {
@@ -1330,7 +1324,7 @@ function nsp_stat_append() {
 	$user_agent = sanitize_text_field( $user_agent );
 	$user_agent = esc_sql( $user_agent );
 
-	$spider = nsp_get_spider( $user_agent );
+	$spider = newstatpress_get_spider( $user_agent );
 
 	if ( ( '' != $spider ) && ( get_option( 'newstatpress_donotcollectspider' ) === 'checked' ) ) {
 		return ''; }
@@ -1345,13 +1339,13 @@ function nsp_stat_append() {
 	} else {
 		// Trap feeds.
 		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
-			$feed = nsp_is_feed( get_bloginfo( 'url' ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+			$feed = newstatpress_is_feed( get_bloginfo( 'url' ) . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 		}
 		// Get OS and browser.
-		$os      = nsp_get_os( $user_agent );
-		$browser = nsp_get_browser( $user_agent );
+		$os      = newstatpress_get_os( $user_agent );
+		$browser = newstatpress_get_browser( $user_agent );
 
-		$exp_referrer = nsp_get_se( $referrer );
+		$exp_referrer = newstatpress_get_se( $referrer );
 		if ( isset( $exp_referrer ) ) {
 			list($searchengine,$search_phrase) = explode( '|', $exp_referrer );
 		}
@@ -1377,7 +1371,7 @@ function nsp_stat_append() {
 
 	if ( '' == $countrylang ) {
 		if ( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) {
-			$countrylang = nsp_get_language( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) );
+			$countrylang = newstatpress_get_language( sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ) );
 		}
 	}
 
@@ -1434,7 +1428,7 @@ function nsp_stat_append() {
 
 		// phpcs:ignore -- db call ok; no-cache ok.
 		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) !== $table_name ) {
-			nsp_build_plugin_sql_table( 'create' );
+			newstatpress_build_plugin_sql_table( 'create' );
 		}
 
 		$login = $userdata ? $userdata->user_login : null;
@@ -1462,7 +1456,7 @@ function nsp_stat_append() {
 		);
 	}
 }
-add_action( 'send_headers', 'nsp_stat_append' );
+add_action( 'send_headers', 'newstatpress_stat_append' );
 
 /**
  * Generate the Ajax code for the given variable
@@ -1472,11 +1466,11 @@ add_action( 'send_headers', 'nsp_stat_append' );
  * @param string $flag optional flag value for checked.
  * @param string $url optional url address.
  ************************************************/
-function nsp_generate_ajax_var( $var, $limit = 0, $flag = '', $url = '' ) {
+function newstatpress_generate_ajax_var( $var, $limit = 0, $flag = '', $url = '' ) {
 	global $newstatpress_dir;
 	global $_newstatpress;
 
-	wp_enqueue_script( 'wp_ajax_nsp_variables_' . $var, plugins_url( './includes/js/nsp_variables_' . $var . '.js', __FILE__ ), array( 'jquery' ), $_newstatpress['version'], true );
+	wp_enqueue_script( 'wp_ajax_nsp_variables_' . $var, plugins_url( './includes/js/nsp_variables_' . $var . '.js', __FILE__ ), array( 'jquery' ), NEWSTATPRESS_VERSION, true );
 	wp_localize_script(
 		'wp_ajax_nsp_variables_' . $var,
 		'nsp_variablesAjax_' . $var,
@@ -1500,7 +1494,7 @@ function nsp_generate_ajax_var( $var, $limit = 0, $flag = '', $url = '' ) {
  * @param string $body the body.
  */
 function newstatpress_print( $body = '' ) {
-	return nsp_expand_vars_inside_code( $body );
+	return newstatpress_expand_vars_inside_code( $body );
 }
 
 /**
@@ -1509,7 +1503,7 @@ function newstatpress_print( $body = '' ) {
  * @param string $body the code where to look for variables to expand.
  * @return the modified code.
  ************************************************************/
-function nsp_expand_vars_inside_code( $body ) {
+function newstatpress_expand_vars_inside_code( $body ) {
 	global $wpdb;
 	$table_name = NSP_TABLENAME;
 
@@ -1528,13 +1522,13 @@ function nsp_expand_vars_inside_code( $body ) {
 	// look for $vars_list.
 	foreach ( $vars_list as $var ) {
 		if ( strpos( strtolower( $body ), "%$var%" ) !== false ) {
-			$body = str_replace( "%$var%", nsp_generate_ajax_var( $var ), $body );
+			$body = str_replace( "%$var%", newstatpress_generate_ajax_var( $var ), $body );
 		}
 	}
 
 	// look for %thistotalvisits%.
 	if ( strpos( strtolower( $body ), '%thistotalvisits%' ) !== false ) {
-		$body = str_replace( '%thistotalvisits%', nsp_generate_ajax_var( 'thistotalvisits', 0, '', nsp_url() ), $body );
+		$body = str_replace( '%thistotalvisits%', newstatpress_generate_ajax_var( 'thistotalvisits', 0, '', newstatpress_url() ), $body );
 	}
 
 	// look for %since%.
@@ -1548,19 +1542,19 @@ function nsp_expand_vars_inside_code( $body ) {
        LIMIT 1
       "
 		); // phpcs:ignore: unprepared SQL OK.
-		$body = str_replace( '%since%', nsp_hdate( $qry ), $body );
+		$body = str_replace( '%since%', newstatpress_hdate2( $qry ), $body );
 	}
 
 	// look for %os%.
 	if ( strpos( strtolower( $body ), '%os%' ) !== false ) {
 		$user_agent = ( isset( $_SERVER['HTTP_USER_AGENT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '' );
-		$os         = nsp_get_os( $user_agent );
+		$os         = newstatpress_get_os( $user_agent );
 		$body       = str_replace( '%os%', $os, $body );
 	}
 
 	// look for %browser%.
 	if ( strpos( strtolower( $body ), '%browser%' ) !== false ) {
-		$browser = nsp_get_browser( $user_agent );
+		$browser = newstatpress_get_browser( $user_agent );
 		$body    = str_replace( '%browser%', $browser, $body );
 	}
 
@@ -1637,7 +1631,7 @@ function nsp_expand_vars_inside_code( $body ) {
        LIMIT 1
       "
 		); // phpcs:ignore: unprepared SQL OK.
-		$body = str_replace( '%toppost%', nsp_decode_url( $qry->urlrequested ), $body );
+		$body = str_replace( '%toppost%', newstatpress_decode_url( $qry->urlrequested ), $body );
 	}
 
 	// look for %topbrowser%.
@@ -1655,7 +1649,7 @@ function nsp_expand_vars_inside_code( $body ) {
         LIMIT 1
        "
 		); // phpcs:ignore: unprepared SQL OK.
-		$body = str_replace( '%topbrowser%', nsp_decode_url( $qry->browser ), $body );
+		$body = str_replace( '%topbrowser%', newstatpress_decode_url( $qry->browser ), $body );
 	}
 
 	// look for %topos%.
@@ -1673,7 +1667,7 @@ function nsp_expand_vars_inside_code( $body ) {
        LIMIT 1
       "
 		); // phpcs:ignore: unprepared SQL OK.
-		$body = str_replace( '%topos%', nsp_decode_url( $qry->os ), $body );
+		$body = str_replace( '%topos%', newstatpress_decode_url( $qry->os ), $body );
 	}
 
 	// look for %topsearch%.
@@ -1691,7 +1685,7 @@ function nsp_expand_vars_inside_code( $body ) {
       "
 		); // phpcs:ignore: unprepared SQL OK.
 		if ( is_object( $qry ) ) {
-			$body = str_replace( '%topsearch%', nsp_decode_url( $qry->search ), $body );
+			$body = str_replace( '%topsearch%', newstatpress_decode_url( $qry->search ), $body );
 		} else {
 			$body = str_replace( '%topsearch%', '', $body );
 		}
@@ -1729,8 +1723,8 @@ function nsp_expand_vars_inside_code( $body ) {
  * @param string $showcounts if checked show totals.
  * @return result of extraction
  *******************************************/
-function nsp_top_posts( $limit = 5, $showcounts = 'checked' ) {
-	return nsp_generate_ajax_var( 'widget_topposts', $limit, $showcounts );
+function newstatpress_top_posts( $limit = 5, $showcounts = 'checked' ) {
+	return newstatpress_generate_ajax_var( 'widget_topposts', $limit, $showcounts );
 }
 
 
@@ -1739,7 +1733,7 @@ function nsp_top_posts( $limit = 5, $showcounts = 'checked' ) {
  *
  * @param string $args arguments.
  ************************************************/
-function nsp_widget_init( $args ) {
+function newstatpress_widget_init( $args ) {
 	if ( ! function_exists( 'wp_register_sidebar_widget' ) || ! function_exists( 'wp_register_widget_control' ) ) {
 		return;
 	}
@@ -1747,8 +1741,8 @@ function nsp_widget_init( $args ) {
 	/**
 	 * Statistics Widget control.
 	 */
-	function nsp_widget_stats_control() {
-		global $nsp_widget_vars;
+	function newstatpress_widget_stats_control() {
+		global $newstatpress_widget_vars;
 		$options = get_option( 'widget_newstatpress' );
 		if ( ! is_array( $options ) ) {
 			$options = array(
@@ -1756,7 +1750,7 @@ function nsp_widget_init( $args ) {
 				'body'  => 'Visits today: %visits%',
 			);
 		}
-		if ( isset( $_POST['newstatpress-submit'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['newstatpress-submit'] ) ), 'nsp_widget_stats_control' ) ) {
+		if ( isset( $_POST['newstatpress-submit'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['newstatpress-submit'] ) ), 'newstatpress_widget_stats_control' ) ) {
 			if ( isset( $_POST['newstatpress-title'] ) ) {
 				$options['title'] = sanitize_text_field( wp_unslash( $_POST['newstatpress-title'] ) );
 			}
@@ -1778,10 +1772,10 @@ function nsp_widget_init( $args ) {
             <textarea class='widget-body' id='newstatpress-body' name='newstatpress-body' type='textarea' placeholder='Example: Month visits: %mvisits%...'>" . esc_html( $body ) . '</textarea>
           </p>
           ' . "
-          <input type='hidden' id='newstatpress-submit' name='newstatpress-submit' value='" . esc_html( wp_create_nonce( 'nsp_widget_stats_control' ) ) . "' />
+          <input type='hidden' id='newstatpress-submit' name='newstatpress-submit' value='" . esc_html( wp_create_nonce( 'newstatpress_widget_stats_control' ) ) . "' />
           <p>" . esc_html__( 'Stats available: ', 'newstatpress' ) . "<br/ >
           <span class='widget_varslist'>";
-		foreach ( $nsp_widget_vars as $var ) {
+		foreach ( $newstatpress_widget_vars as $var ) {
 			echo "<a href='#'>%" . esc_html( $var[0] ) . '%  <span>';
 			esc_html( $var[1] );
 			echo '</span></a> | ';
@@ -1794,22 +1788,22 @@ function nsp_widget_init( $args ) {
 	 *
 	 * @param string $args arguments.
 	 */
-	function nsp_widget_stats( $args ) {
+	function newstatpress_widget_stats( $args ) {
 		$options = get_option( 'widget_newstatpress' );
 		$title   = esc_js( $options['title'] );
 		$body    = esc_js( $options['body'] );
 		echo wp_kses_post( $args['before_widget'] );
 		print( wp_kses_post( $args['before_title'] ) . esc_html( $title ) . wp_kses_post( $args['after_title'] ) );
-		print wp_kses_post( nsp_expand_vars_inside_code( $body ) );
+		print wp_kses_post( newstatpress_expand_vars_inside_code( $body ) );
 		echo wp_kses_post( $args['after_widget'] );
 	}
-	wp_register_sidebar_widget( 'NewStatPress', 'NewStatPress Stats', 'nsp_widget_stats' );
-	wp_register_widget_control( 'NewStatPress', array( 'NewStatPress', 'widgets' ), 'nsp_widget_stats_control', 300, 210 );
+	wp_register_sidebar_widget( 'NewStatPress', 'NewStatPress Stats', 'newstatpress_widget_stats' );
+	wp_register_widget_control( 'NewStatPress', array( 'NewStatPress', 'widgets' ), 'newstatpress_widget_stats_control', 300, 210 );
 
 	/**
 	 * Top posts Widget control.
 	 */
-	function nsp_widget_top_posts_control() {
+	function newstatpress_widget_top_posts_control() {
 		$options = get_option( 'widget_newstatpresstopposts' );
 		if ( ! is_array( $options ) ) {
 			$options = array(
@@ -1818,7 +1812,7 @@ function nsp_widget_init( $args ) {
 				'showcounts' => 'checked',
 			);
 		}
-		if ( isset( $_POST['newstatpresstopposts-submit'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['newstatpresstopposts-submit'] ) ), 'nsp_widget_top_posts_control' ) ) {
+		if ( isset( $_POST['newstatpresstopposts-submit'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['newstatpresstopposts-submit'] ) ), 'newstatpress_widget_top_posts_control' ) ) {
 			if ( isset( $_POST['newstatpresstopposts-title'] ) ) {
 				$options['title'] = sanitize_text_field( wp_unslash( $_POST['newstatpresstopposts-title'] ) );
 			}
@@ -1848,7 +1842,7 @@ function nsp_widget_init( $args ) {
             </label>
           </p>";
 		echo '<p style="text-align:right;"><label for="newstatpresstopposts-showcounts">' . esc_html__( 'Visits', 'newstatpress' ) . ' <input id="newstatpresstopposts-showcounts" name="newstatpresstopposts-showcounts" type=checkbox value="checked" ' . esc_attr( $showcounts ) . ' /></label></p>';
-		echo '<input type="hidden" id="newstatpress-submitTopPosts" name="newstatpresstopposts-submit" value="' . esc_html( wp_create_nonce( 'nsp_widget_top_posts_control' ) ) . '" />';
+		echo '<input type="hidden" id="newstatpress-submitTopPosts" name="newstatpresstopposts-submit" value="' . esc_html( wp_create_nonce( 'newstatpress_widget_top_posts_control' ) ) . '" />';
 	}
 
 	/**
@@ -1856,20 +1850,20 @@ function nsp_widget_init( $args ) {
 	 *
 	 * @param string $args args to use.
 	 */
-	function nsp_widget_top_posts( $args ) {
+	function newstatpress_widget_top_posts( $args ) {
 		$options    = get_option( 'widget_newstatpresstopposts' );
 		$title      = htmlspecialchars( $options['title'], ENT_QUOTES );
 		$howmany    = htmlspecialchars( $options['howmany'], ENT_QUOTES );
 		$showcounts = htmlspecialchars( $options['showcounts'], ENT_QUOTES );
 		echo wp_kses_post( $args['before_widget'] );
 		print( wp_kses_post( $args['before_title'] ) . esc_html( $title ) . wp_kses_post( $args['after_title'] ) );
-		print wp_kses_post( nsp_top_posts( $howmany, $showcounts ) );
+		print wp_kses_post( newstatpress_top_posts( $howmany, $showcounts ) );
 		echo wp_kses_post( $args['after_widget'] );
 	}
-	wp_register_sidebar_widget( 'NewStatPressTopPosts', 'NewStatPress TopPosts', 'nsp_widget_top_posts' );
-	wp_register_widget_control( 'NewStatPressTopPosts', array( 'NewStatPressTopPosts', 'widgets' ), 'nsp_widget_top_posts_control', 300, 110 );
+	wp_register_sidebar_widget( 'NewStatPressTopPosts', 'NewStatPress TopPosts', 'newstatpress_widget_top_posts' );
+	wp_register_widget_control( 'NewStatPressTopPosts', array( 'NewStatPressTopPosts', 'widgets' ), 'newstatpress_widget_top_posts_control', 300, 110 );
 }
-add_action( 'plugins_loaded', 'nsp_widget_init' );
+add_action( 'plugins_loaded', 'newstatpress_widget_init' );
 
 
 /**
@@ -1878,7 +1872,7 @@ add_action( 'plugins_loaded', 'nsp_widget_init' );
  * @param int $month month.
  * @param int $lmonth lmonth.
  */
-function nsp_calculate_variation( $month, $lmonth ) {
+function newstatpress_calculate_variation( $month, $lmonth ) {
 
 	$target = round(
 		$month / (
@@ -1918,5 +1912,5 @@ function nsp_calculate_variation( $month, $lmonth ) {
 	return $calculated_result;
 }
 
-register_activation_hook( __FILE__, 'nsp_build_plugin_sql_table' );
+register_activation_hook( __FILE__, 'newstatpress_build_plugin_sql_table' );
 ?>

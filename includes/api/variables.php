@@ -1,6 +1,6 @@
 <?php
 /**
- * Get variables with the nsp_variables_ajax
+ * Get variables with the newstatpress_variables_ajax
  *
  * @package NewStatpress
  */
@@ -16,9 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Ajax routine for getting variables values
  */
-function nsp_variables_ajax() {
+function newstatpress_variables_ajax() {
 	global $wpdb;
-	global $nsp_option_vars;
+	global $newstatpress_option_vars;
 	$table_name = "{$wpdb->prefix}statpress";
 
 	// response output.
@@ -37,7 +37,7 @@ function nsp_variables_ajax() {
 		die( 'no var' );
 	}
 
-	$offsets = get_option( $nsp_option_vars['stats_offsets']['name'] );
+	$offsets = get_option( $newstatpress_option_vars['stats_offsets']['name'] );
 
 	// test all vars.
 	if ( 'alltotalvisits' === $var ) {
@@ -97,7 +97,7 @@ function nsp_variables_ajax() {
 			echo wp_json_encode( $qry[0]->pageview );
 		}
 	} elseif ( 'mvisits' === $var ) {
-		if ( get_option( $nsp_option_vars['calculation']['name'] ) === 'sum' ) {
+		if ( get_option( $newstatpress_option_vars['calculation']['name'] ) === 'sum' ) {
 			// no need prepare.
 			// phpcs:ignore -- db call ok; no-cache ok
 			$qry = $wpdb->get_results(
@@ -133,7 +133,7 @@ function nsp_variables_ajax() {
 			echo wp_json_encode( $qry[0]->pageview );
 		}
 	} elseif ( 'wvisits' === $var ) {
-		if ( get_option( $nsp_option_vars['calculation']['name'] ) === 'sum' ) {
+		if ( get_option( $newstatpress_option_vars['calculation']['name'] ) === 'sum' ) {
 				// phpcs:ignore -- db call ok; no-cache ok
 				$qry = $wpdb->get_results(
 					"SELECT SUM(pagv) AS pageview FROM (
@@ -162,7 +162,7 @@ function nsp_variables_ajax() {
 			echo wp_json_encode( $qry[0]->pageview );
 		}
 	} elseif ( 'totalvisits' === $var ) {
-		if ( get_option( $nsp_option_vars['calculation']['name'] ) === 'sum' ) {
+		if ( get_option( $newstatpress_option_vars['calculation']['name'] ) === 'sum' ) {
 				// phpcs:ignore -- db call ok; no-cache ok
 				$qry = $wpdb->get_results(
 					"SELECT SUM(pagv) AS pageview FROM (
@@ -293,7 +293,7 @@ function nsp_variables_ajax() {
 			)
 		); // phpcs:ignore: unprepared SQL OK.
 		foreach ( $qry as $rk ) {
-			$res .= "<li><a href='?" . $rk->urlrequested . "' target='_blank'>" . nsp_decode_url( $rk->urlrequested ) . "</a></li>\n";
+			$res .= "<li><a href='?" . $rk->urlrequested . "' target='_blank'>" . newstatpress_decode_url( $rk->urlrequested ) . "</a></li>\n";
 			if ( 'checked' === strtolower( $showcounts ) ) {
 				$res .= ' (' . $rk->totale . ')';
 			}

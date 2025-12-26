@@ -22,16 +22,16 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $par the number of days for the graph (20 default, if 0 use the one in NewStatPress option).
  * @return the result
  */
-function nsp_api_overview( $typ, $par ) {
+function newstatpress_api_overview( $typ, $par ) {
 	global $wpdb;
-	global $nsp_option_vars;
+	global $newstatpress_option_vars;
 
-	$offsets = get_option( $nsp_option_vars['stats_offsets']['name'] );
+	$offsets = get_option( $newstatpress_option_vars['stats_offsets']['name'] );
 
 	$table_name = NSP_TABLENAME;
 
-	$since     = nsp_expand_vars_inside_code( '%since%' );
-	$lastmonth = nsp_lastmonth();
+	$since     = newstatpress_expand_vars_inside_code( '%since%' );
+	$lastmonth = newstatpress_lastmonth();
 	$thisyear  = gmdate( 'Y', current_time( 'timestamp' ) );
 	$thismonth = gmdate( 'Ym', current_time( 'timestamp' ) );
 	$yesterday = gmdate( 'Ymd', current_time( 'timestamp' ) - 86400 );
@@ -53,7 +53,7 @@ function nsp_api_overview( $typ, $par ) {
 		$gdays = 20; }
 
 	// get result of dashboard as some date is shared with this.
-	$result_j = nsp_api_dashboard( 'JSON' );
+	$result_j = newstatpress_api_dashboard( 'JSON' );
 
 	$result_j['days'] = $gdays;  // export.
 
@@ -170,7 +170,7 @@ function nsp_api_overview( $typ, $par ) {
 	$overview_rows = array( 'visitors', 'visitors_feeds', 'pageview', 'feeds', 'spiders' );
 
 	foreach ( $overview_rows as $row ) {
-		$result = nsp_calculate_variation( $result_j[ $row . '_tmonth' ], $result_j[ $row . '_lmonth' ] );
+		$result = newstatpress_calculate_variation( $result_j[ $row . '_tmonth' ], $result_j[ $row . '_lmonth' ] );
 
 		// build full current row.
 		$overview_table .= "<tr><td class='row_title $row'>" . $result_j[ $row . '_title' ] . '</td>';

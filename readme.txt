@@ -1,12 +1,20 @@
-=== Plugin Name ===
+=== NewStatPress ===
 Contributors: ice00, lechab
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F5S5PF4QBWU7E
-Tags: stats,statistics,widget,admin,sidebar,visits,visitors,pageview,user,agent,referrer,post,posts,spy,statistiche,ip2nation,country
+Tags: statistics, analytics, visits, dashboard, tracking
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 6.9
 Stable Tag: 1.4.3
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
+
+== License ==
+GPLv2 or later
+
+== License URI ==
+https://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
@@ -105,21 +113,21 @@ Now you could add these values everywhere! NewStatPress offers a new PHP functio
 
 New experimental functions: place this command [NewStatPress: xxx] every were in your Wordpress blog pages and you will have the graph about the xxx function.
 
-Available functions are (the syntax is changed from version 1.4.4):
- *  [NewStatPress type="Overview"]
- *  [NewStatPress type="Top days"]
- *  [NewStatPress type="O.S."]
- *  [NewStatPress type="Browser"]
- *  [NewStatPress type="Feeds"]
- *  [NewStatPress type="Search Engine"]
- *  [NewStatPress type="Search terms"]
- *  [NewStatPress type="Top referrer"]
- *  [NewStatPress type="Languages"]
- *  [NewStatPress type="Spider"]
- *  [NewStatPress type="Top Pages"]
- *  [NewStatPress type="Top Days - Unique visitors"]
- *  [NewStatPress type="Top Days - Pageviews"]
- *  [NewStatPress type="Top IPs - Pageviews"]
+Available functions are:
+* [NewStatPress: Overview]
+* [NewStatPress: Top days]
+* [NewStatPress: O.S.]
+* [NewStatPress: Browser]
+* [NewStatPress: Feeds]
+* [NewStatPress: Search Engine]
+* [NewStatPress: Search terms]
+* [NewStatPress: Top referrer]
+* [NewStatPress: Languages]
+* [NewStatPress: Spider]
+* [NewStatPress: Top Pages]
+* [NewStatPress: Top Days - Unique visitors]
+* [NewStatPress: Top Days - Pageviews]
+* [NewStatPress: Top IPs - Pageviews]
 
 == Installation ==
 

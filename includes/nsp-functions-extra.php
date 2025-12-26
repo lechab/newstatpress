@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @return $user_ip
  */
-function nsp_get_user_ip() {
+function newstatpress_get_user_ip() {
 	$user_ip      = '';
 	$ip_pattern   = '/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/';
 	$http_headers = array(
@@ -51,7 +51,7 @@ function nsp_get_user_ip() {
  *
  * @return boolean the ssl state
  */
-function nsp_connexion_is_ssl() {
+function newstatpress_connexion_is_ssl() {
 	if ( ! empty( $_SERVER['HTTPS'] ) && 'off' !== $_SERVER['HTTPS'] ) {
 		return true; }
 	if ( ! empty( $_SERVER['SERVER_PORT'] ) && ( '443' === $_SERVER['SERVER_PORT'] ) ) {
@@ -73,7 +73,7 @@ function nsp_connexion_is_ssl() {
  * @param string $schedules the schedules.
  * @return $schedules
  */
-function nsp_cron_intervals( $schedules ) {
+function newstatpress_cron_intervals( $schedules ) {
 	$schedules['fourlybyday'] = array(
 		'interval' => 21600, // seconds.
 		'display'  => __( 'Four time by Day', 'newstatpress' ),
@@ -88,18 +88,18 @@ function nsp_cron_intervals( $schedules ) {
 	);
 	return $schedules;
 }
-add_filter( 'cron_schedules', 'nsp_cron_intervals' );
+add_filter( 'cron_schedules', 'newstatpress_cron_intervals' );
 
 
 /**
- * Calculate nsp_calculate_epoch_offset_time
+ * Calculate newstatpress_calculate_epoch_offset_time
  *
  * @param int    $t1 time 1.
  * @param int    $t2 time 2.
  * @param string $output_unit unit for output.
  * @return int delta
  */
-function nsp_calculate_epoch_offset_time( $t1, $t2, $output_unit ) {
+function newstatpress_calculate_epoch_offset_time( $t1, $t2, $output_unit ) {
 	// to complete with more output_unit.
 	$offset_time_in_seconds = abs( $t1 - $t2 );
 
@@ -120,12 +120,12 @@ function nsp_calculate_epoch_offset_time( $t1, $t2, $output_unit ) {
  *
  * @return int the number
  */
-function nsp_get_days_installed() {
-	global $nsp_option_vars;
-	$name          = $nsp_option_vars['settings']['name'];
+function newstatpress_get_days_installed() {
+	global $newstatpress_option_vars;
+	$name          = $newstatpress_option_vars['settings']['name'];
 	$settings      = get_option( $name );
 	$install_date  = empty( $settings['install_date'] ) ? time() : $settings['install_date'];
-	$num_days_inst = nsp_calculate_epoch_offset_time( $install_date, time(), 'day' );
+	$num_days_inst = newstatpress_calculate_epoch_offset_time( $install_date, time(), 'day' );
 	if ( $num_days_inst < 1 ) {
 		$num_days_inst = 1;
 	}
@@ -143,7 +143,7 @@ function nsp_get_days_installed() {
  * @param string $url the url to parse.
  * @return the extracted url
  *************************************/
-function nsp_extract_feed_from_url( $url ) {
+function newstatpress_extract_feed_from_url( $url ) {
 	list($null,$q) = array_pad( explode( '?', $url, 2 ), 2, null );
 
 	if ( strpos( $q, '&' ) !== false ) {
@@ -158,8 +158,8 @@ function nsp_extract_feed_from_url( $url ) {
 /**
  * Get the url
  */
-function nsp_get_url() {
-	$url = nsp_connexion_is_ssl() ? 'https://' : 'http://';
+function newstatpress_get_url() {
+	$url = newstatpress_connexion_is_ssl() ? 'https://' : 'http://';
 	if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 		$url .= NSP_SERVER_NAME . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
 	}
@@ -175,7 +175,7 @@ function nsp_get_url() {
  * @param string $rev the rev.
  * @return  $url the url
  */
-function nsp_fix_url( $url, $rem_frag = false, $rem_query = false, $rev = false ) {
+function newstatpress_fix_url( $url, $rem_frag = false, $rem_query = false, $rev = false ) {
 	$url = trim( $url );
 	/* Too many forward slashes or colons after http */
 	$url = preg_replace( '~^(https?)\:+/+~i', '$1://', $url );
@@ -202,10 +202,10 @@ function nsp_fix_url( $url, $rem_frag = false, $rem_query = false, $rev = false 
  *
  * @param string $url the url.
  */
-function nsp_get_query_args( $url ) {
+function newstatpress_get_query_args( $url ) {
 	if ( empty( $url ) ) {
 		return array(); }
-	$query_str = nsp_get_query_string( $url );
+	$query_str = newstatpress_get_query_string( $url );
 	parse_str( $query_str, $args );
 	return $args;
 }
@@ -215,7 +215,7 @@ function nsp_get_query_args( $url ) {
  *
  * @param string $url the url.
  */
-function nsp_get_query_string( $url ) {
+function newstatpress_get_query_string( $url ) {
 	/***
 	* Get query string from URL
 	* Filter URLs with nothing after http
@@ -223,7 +223,7 @@ function nsp_get_query_string( $url ) {
 	if ( empty( $url ) || preg_match( '~^https?\:*/*$~i', $url ) ) {
 		return ''; }
 	/* Fix poorly formed URLs so as not to throw errors when parsing */
-	$url = nsp_fix_url( $url );
+	$url = newstatpress_fix_url( $url );
 	/* NOW start parsing */
 	$parsed = @wp_parse_url( $url );
 	/* Filter URLs with no query string */
@@ -236,15 +236,15 @@ function nsp_get_query_string( $url ) {
 /**
  * Admin nag notices
  */
-function nsp_admin_nag_notices() {
+function newstatpress_admin_nag_notices() {
 	global $current_user;
 	$nag_notices = get_user_meta( $current_user->ID, 'newstatpress_nag_notices', true );
 	if ( ! empty( $nag_notices ) ) {
 		$nid           = $nag_notices['nid'];
 		$style         = $nag_notices['style'];
 		$timenow       = time();
-		$url           = nsp_get_url();
-		$query_args    = nsp_get_query_args( $url );
+		$url           = newstatpress_get_url();
+		$query_args    = newstatpress_get_query_args( $url );
 		$query_str     = '?' . http_build_query(
 			array_merge(
 				$query_args,
@@ -322,17 +322,17 @@ function nsp_admin_nag_notices() {
 /**
  * Check nag notices
  */
-function nsp_check_nag_notices() {
+function newstatpress_check_nag_notices() {
 	global $current_user;
 	$status = get_user_meta( $current_user->ID, 'newstatpress_nag_status', true );
 	if ( ! empty( $status['currentnag'] ) ) {
-		add_action( 'admin_notices', 'nsp_admin_nag_notices' );
+		add_action( 'admin_notices', 'newstatpress_admin_nag_notices' );
 		return; }
 	if ( ! is_array( $status ) ) {
 		$status = array();
 		update_user_meta( $current_user->ID, 'newstatpress_nag_status', $status ); }
 	$timenow       = time();
-	$num_days_inst = nsp_get_days_installed();
+	$num_days_inst = newstatpress_get_days_installed();
 	$votedate      = 14;
 	$donatedate    = 90;
 	$query_str_con = 'QUERYSTRING';
@@ -376,7 +376,7 @@ function nsp_check_nag_notices() {
 	}
 
 	if ( ! empty( $status['currentnag'] ) ) {
-		add_action( 'admin_notices', 'nsp_admin_nag_notices' );
+		add_action( 'admin_notices', 'newstatpress_admin_nag_notices' );
 		$new_nag_notice = array(
 			'nid'    => $nid,
 			'style'  => $style,
@@ -390,7 +390,7 @@ function nsp_check_nag_notices() {
 /**
  * Admin notices
  */
-function nsp_admin_notices() {
+function newstatpress_admin_notices() {
 	$admin_notices = get_option( 'newstatpress_admin_notices' );
 	if ( ! empty( $admin_notices ) ) {
 		$style         = $admin_notices['style'];
@@ -401,12 +401,12 @@ function nsp_admin_notices() {
 	delete_option( 'newstatpress_admin_notices' );
 }
 
-add_action( 'admin_init', 'nsp_hide_nag_notices', -10 );
+add_action( 'admin_init', 'newstatpress_hide_nag_notices', -10 );
 
 /**
  * Hide Nag notice
  */
-function nsp_hide_nag_notices() {
+function newstatpress_hide_nag_notices() {
 	$ns_codes = array(
 		'n01' => 'vote',
 		'n02' => 'donate',
@@ -417,13 +417,13 @@ function nsp_hide_nag_notices() {
 	global $current_user;
 	$status     = get_user_meta( $current_user->ID, 'newstatpress_nag_status', true );
 	$timenow    = time();
-	$url        = nsp_get_url();
-	$query_args = nsp_get_query_args( $url );
+	$url        = newstatpress_get_url();
+	$query_args = newstatpress_get_query_args( $url );
 	unset( $query_args['newstatpress_hide_nag'], $query_args['nid'] );
 	$query_str = http_build_query( $query_args );
 	if ( '' !== $query_str ) {
 		$query_str = '?' . $query_str; }
-	$redirect_url         = nsp_fix_url( $url, true, true ) . $query_str;
+	$redirect_url         = newstatpress_fix_url( $url, true, true ) . $query_str;
 	$status['currentnag'] = false;
 	if ( 'n03' !== $_GET['nid'] ) {
 		$status['lastnag'] = $timenow;
@@ -442,7 +442,7 @@ function nsp_hide_nag_notices() {
 /**
  * Show loading time
  */
-function nsp_load_time() {
+function newstatpress_load_time() {
 	echo "<font size='1'>Page generated in " . esc_html( timer_stop( 0, 2 ) ) . 's ' . esc_html( get_num_queries() ) . ' SQL queries</font>';
 }
 
@@ -453,7 +453,7 @@ function nsp_load_time() {
  * @param string $current current tabs.
  * @param string $ref page reference.
  */
-function nsp_display_tabs_navbar_for_menu_page( $menu_tabs, $current, $ref ) {
+function newstatpress_display_tabs_navbar_for_menu_page( $menu_tabs, $current, $ref ) {
 	echo '<div id="icon-themes" class="icon32"><br></div>';
 	echo '<h2 class="nav-tab-wrapper">';
 	foreach ( $menu_tabs as $tab => $name ) {
@@ -472,7 +472,7 @@ function nsp_display_tabs_navbar_for_menu_page( $menu_tabs, $current, $ref ) {
  *
  * @param string $table the table to use.
  */
-function nsp_table_size( $table ) {
+function newstatpress_table_size( $table ) {
 	global $wpdb;
 	// use prepare.
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
@@ -488,7 +488,7 @@ function nsp_table_size( $table ) {
  *
  * @param string $table the table to use.
  */
-function nsp_table_size2( $table ) {
+function newstatpress_table_size2( $table ) {
 	global $wpdb;
 	// use prepare.
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
@@ -504,7 +504,7 @@ function nsp_table_size2( $table ) {
  *
  * @param string $table the table to use.
  */
-function nsp_table_records( $table ) {
+function newstatpress_table_records( $table ) {
 	global $wpdb;
 	// use prepare.
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.

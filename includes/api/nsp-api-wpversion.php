@@ -21,9 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param string $typ the type of result (Json/Html).
  * @return the result
  */
-function nsp_api_wp_version( $typ ) {
-	global $_newstatpress;
-
+function newstatpress_api_wp_version( $typ ) {
 	$result_j = array(
 		'wpversion' => get_bloginfo( 'version' ),
 	);
@@ -32,6 +30,6 @@ function nsp_api_wp_version( $typ ) {
 		return $result_j;         // avoid to calculte HTML if not necessary.
 	}
 
-	$result_h = '<div>' . esc_html( $result_j[ $var ] ) . '</div>';
+	$result_h = '<div>' . esc_html( $result_j[ 'wpversion' ] ) . '</div>';
 	return $result_h;
 }

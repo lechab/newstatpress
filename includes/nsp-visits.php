@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Visits Page to finish
  */
-function nsp_display_visits_page() {
+function newstatpress_display_visits_page() {
 	global $pagenow;
 	$visits_page_tabs = array(
 		'lastvisitors' => __( 'Last visitors', 'newstatpress' ),
@@ -27,9 +27,9 @@ function nsp_display_visits_page() {
 	print "<div class='wrap'><h2>" . esc_html__( 'Visits', 'newstatpress' ) . '</h2>';
 
 	if ( isset( $_GET['tab'] ) ) {
-		nsp_display_tabs_navbar_for_menu_page( $visits_page_tabs, sanitize_text_field( wp_unslash( $_GET['tab'] ) ), $page );
+		newstatpress_display_tabs_navbar_for_menu_page( $visits_page_tabs, sanitize_text_field( wp_unslash( $_GET['tab'] ) ), $page );
 	} else {
-		nsp_display_tabs_navbar_for_menu_page( $visits_page_tabs, 'lastvisitors', $page );
+		newstatpress_display_tabs_navbar_for_menu_page( $visits_page_tabs, 'lastvisitors', $page );
 	}
 
 	if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && $_GET['page'] === $page ) {
@@ -43,15 +43,15 @@ function nsp_display_visits_page() {
 		switch ( $tab ) {
 
 			case 'lastvisitors':
-				nsp_spy();
+				newstatpress_spy();
 				break;
 
 			case 'visitors':
-				nsp_new_spy();
+				newstatpress_new_spy();
 				break;
 
 			case 'spybot':
-				nsp_spy_bot();
+				newstatpress_spy_bot();
 				break;
 		}
 	}
@@ -100,7 +100,7 @@ function newstatpress_page_posts() {
 /**
  * New spy bot function taken in statpress-visitors
  */
-function nsp_spy_bot() {
+function newstatpress_spy_bot() {
 	global $wpdb;
 	global $newstatpress_dir;
 
@@ -233,7 +233,7 @@ document.getElementById(thediv).style.display="none"
 /**
  * Newstatpress spy function
  */
-function nsp_spy() {
+function newstatpress_spy() {
 	global $wpdb;
 	global $newstatpress_dir;
 
@@ -327,8 +327,8 @@ document.getElementById(thediv).style.display="none"
 		); // phpcs:ignore: unprepared SQL OK.
 		foreach ( $qry2 as $details ) {
 			print '<tr>';
-			print "<td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>" . esc_html( nsp_hdate( $details->date ) ) . ' ' . esc_html( $details->time ) . '</strong></font></div></td>';
-			print "<td><div><a href='" . esc_attr( get_bloginfo( 'url' ) ) . '/?' . esc_attr( filter_var( $details->urlrequested, FILTER_SANITIZE_URL ) ) . "' target='_blank'>" . esc_html( nsp_decode_url( $details->urlrequested ) ) . '</a>';
+			print "<td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>" . esc_html( newstatpress_hdate2( $details->date ) ) . ' ' . esc_html( $details->time ) . '</strong></font></div></td>';
+			print "<td><div><a href='" . esc_attr( get_bloginfo( 'url' ) ) . '/?' . esc_attr( filter_var( $details->urlrequested, FILTER_SANITIZE_URL ) ) . "' target='_blank'>" . esc_html( newstatpress_decode_url( $details->urlrequested ) ) . '</a>';
 
 			$details->referrer = filter_var( $details->referrer, FILTER_SANITIZE_URL );
 
@@ -350,7 +350,7 @@ document.getElementById(thediv).style.display="none"
 /**
  * New spy function taken in statpress-visitors
  */
-function nsp_new_spy() {
+function newstatpress_new_spy() {
 	global $wpdb;
 	global $newstatpress_dir;
 	$action     = 'newspy';
@@ -497,22 +497,15 @@ document.getElementById(thediv).style.display="none"
 
 /**
  * Get true if permalink is enabled in WordPress
- * (taken in statpress-visitors)
+ * (use WP function)
  *
- * @return true if permalink is enabled in WordPress
+ * @return true if permalink is enabled in WordPress.
  ***************************************************/
-function nsp_permalinks_enabled() {
-	global $wpdb;
+function newstatpress_permalinks_enabled() {
+	$structure = get_option( 'permalink_structure' );
 
-	// no needs prepare.
-	$result = $wpdb->get_row( 'SELECT `option_value` FROM `' . $wpdb->prefix . 'options` WHERE `option_name` = "permalink_structure"' ); // db call ok; no-cache ok.
-	if ( '' !== $result->option_value ) {
-		return true;
-	} else {
-		return false;
-	}
+	return ! empty( $structure );
 }
-
 
 /**
  * Decode the url in a better manner
@@ -523,44 +516,44 @@ function nsp_permalinks_enabled() {
 function newstatpress_decode( $out_url ) {
 	$out_url = filter_var( $out_url, FILTER_SANITIZE_URL );
 
-	if ( ! nsp_permalinks_enabled() ) {
+	if ( ! newstatpress_permalinks_enabled() ) {
 		if ( '' === $out_url ) {
 			$out_url = __( 'Page', 'newstatpress' ) . ': Home';
 		}
-		if ( nsp_my_substr( $out_url, 0, 4 ) === 'cat=' ) {
-			$out_url = __( 'Category', 'newstatpress' ) . ': ' . get_cat_name( nsp_my_substr( $out_url, 4 ) );
+		if ( newstatpress_my_substr( $out_url, 0, 4 ) === 'cat=' ) {
+			$out_url = __( 'Category', 'newstatpress' ) . ': ' . get_cat_name( newstatpress_my_substr( $out_url, 4 ) );
 		}
-		if ( nsp_my_substr( $out_url, 0, 2 ) === 'm=' ) {
-			$out_url = __( 'Calendar', 'newstatpress' ) . ': ' . nsp_my_substr( $out_url, 6, 2 ) . '/' . nsp_my_substr( $out_url, 2, 4 );
+		if ( newstatpress_my_substr( $out_url, 0, 2 ) === 'm=' ) {
+			$out_url = __( 'Calendar', 'newstatpress' ) . ': ' . newstatpress_my_substr( $out_url, 6, 2 ) . '/' . newstatpress_my_substr( $out_url, 2, 4 );
 		}
-		if ( nsp_my_substr( $out_url, 0, 2 ) === 's=' ) {
-			$out_url = __( 'Search', 'newstatpress' ) . ': ' . nsp_my_substr( $out_url, 2 );
+		if ( newstatpress_my_substr( $out_url, 0, 2 ) === 's=' ) {
+			$out_url = __( 'Search', 'newstatpress' ) . ': ' . newstatpress_my_substr( $out_url, 2 );
 		}
-		if ( nsp_my_substr( $out_url, 0, 2 ) === 'p=' ) {
-			$sub_out   = nsp_my_substr( $out_url, 2 );
+		if ( newstatpress_my_substr( $out_url, 0, 2 ) === 'p=' ) {
+			$sub_out   = newstatpress_my_substr( $out_url, 2 );
 			$post_id_7 = get_post( $sub_out, ARRAY_A );
 			$out_url   = $post_id_7['post_title'];
 		}
-		if ( nsp_my_substr( $out_url, 0, 8 ) === 'page_id=' ) {
-			$sub_out   = nsp_my_substr( $out_url, 8 );
+		if ( newstatpress_my_substr( $out_url, 0, 8 ) === 'page_id=' ) {
+			$sub_out   = newstatpress_my_substr( $out_url, 8 );
 			$post_id_7 = get_page( $sub_out, ARRAY_A );
 			$out_url   = __( 'Page', 'newstatpress' ) . ': ' . $post_id_7['post_title'];
 		}
 	} else {
 		if ( '' === $out_url ) {
 			$out_url = __( 'Page', 'newstatpress' ) . ': Home';
-		} elseif ( nsp_my_substr( $out_url, 0, 9 ) === 'category/' ) {
-			$out_url = __( 'Category', 'newstatpress' ) . ': ' . get_cat_name( nsp_my_substr( $out_url, 9 ) );
-		} elseif ( nsp_my_substr( $out_url, 0, 2 ) === 's=' ) {
-			$out_url = __( 'Search', 'newstatpress' ) . ': ' . nsp_my_substr( $out_url, 2 );
-		} elseif ( nsp_my_substr( $out_url, 0, 2 ) === 'p=' ) {
+		} elseif ( newstatpress_my_substr( $out_url, 0, 9 ) === 'category/' ) {
+			$out_url = __( 'Category', 'newstatpress' ) . ': ' . get_cat_name( newstatpress_my_substr( $out_url, 9 ) );
+		} elseif ( newstatpress_my_substr( $out_url, 0, 2 ) === 's=' ) {
+			$out_url = __( 'Search', 'newstatpress' ) . ': ' . newstatpress_my_substr( $out_url, 2 );
+		} elseif ( newstatpress_my_substr( $out_url, 0, 2 ) === 'p=' ) {
 				// not working yet.
-				$sub_out   = nsp_my_substr( $out_url, 2 );
+				$sub_out   = newstatpress_my_substr( $out_url, 2 );
 				$post_id_7 = get_post( $sub_out, ARRAY_A );
 				$out_url   = $post_id_7['post_title'];
-		} elseif ( nsp_my_substr( $out_url, 0, 8 ) === 'page_id=' ) {
+		} elseif ( newstatpress_my_substr( $out_url, 0, 8 ) === 'page_id=' ) {
 				// not working yet.
-				$sub_out   = nsp_my_substr( $out_url, 8 );
+				$sub_out   = newstatpress_my_substr( $out_url, 8 );
 				$post_id_7 = get_page( $sub_out, ARRAY_A );
 				$out_url   = __( 'Page', 'newstatpress' ) . ': ' . $post_id_7['post_title'];
 		}
