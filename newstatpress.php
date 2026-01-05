@@ -1353,6 +1353,7 @@ function newstatpress_stat_append() {
 
 	// Country (ip2nation table) or language.
 	$countrylang = '';
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	if ( $wpdb->get_var( "SHOW TABLES LIKE 'ip2nation'" ) === 'ip2nation' ) {
 		$qry = $wpdb->get_row(
 			$wpdb->prepare(
@@ -1381,10 +1382,14 @@ function newstatpress_stat_append() {
 		// secure action.
 		if ( $int >= 1 ) {
 			$t = gmdate( 'Ymd', current_time( 'timestamp' ) - 86400 * $int * 30 );
+			$table = esc_sql( NSP_TABLENAME );
+
 			// phpcs:ignore -- db call ok; no-cache ok.
+			// phpcs:ignore ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$results = $wpdb->query(
 				$wpdb->prepare(
-					"DELETE FROM `$table_name`
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					"DELETE FROM `$table`
           WHERE date < %s
           ",
 					$t
@@ -1400,10 +1405,14 @@ function newstatpress_stat_append() {
 		// secure action.
 		if ( $int >= 1 ) {
 			$t = gmdate( 'Ymd', current_time( 'timestamp' ) - 86400 * $int * 30 );
+			$table = esc_sql( NSP_TABLENAME );
+
 			// phpcs:ignore -- db call ok; no-cache ok.
+			// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$results = $wpdb->query(
 				$wpdb->prepare(
-					"DELETE FROM `$table_name`
+					// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					"DELETE FROM `$table`
           WHERE date < %s and
                 feed='' and
                 spider<>''
@@ -1426,13 +1435,15 @@ function newstatpress_stat_append() {
 			}
 		}
 
-		// phpcs:ignore -- db call ok; no-cache ok.
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) !== $table_name ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 			newstatpress_build_plugin_sql_table( 'create' );
 		}
 
 		$login = $userdata ? $userdata->user_login : null;
 
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
 		$results = $wpdb->insert(
 			$table_name,
 			array(
@@ -1533,17 +1544,20 @@ function newstatpress_expand_vars_inside_code( $body ) {
 
 	// look for %since%.
 	if ( strpos( strtolower( $body ), '%since%' ) !== false ) {
-		// not needs prepare.
-		// phpcs:ignore -- db call ok; no-cache ok.
-		$qry  = $wpdb->get_var(
-			"SELECT date
-       FROM `$table_name`
-       ORDER BY date
-       LIMIT 1
-      "
-		); // phpcs:ignore: unprepared SQL OK.
+		$table = esc_sql( NSP_TABLENAME );
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$sql = "SELECT date
+				FROM `" . $table . "`
+				ORDER BY date
+				LIMIT 1";
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared
+		$qry = $wpdb->get_var( $sql );
+
 		$body = str_replace( '%since%', newstatpress_hdate2( $qry ), $body );
 	}
+
 
 	// look for %os%.
 	if ( strpos( strtolower( $body ), '%os%' ) !== false ) {
@@ -1569,127 +1583,166 @@ function newstatpress_expand_vars_inside_code( $body ) {
 		$act_time  = current_time( 'timestamp' );
 		$from_time = gmdate( 'Y-m-d H:i:s', strtotime( '-4 minutes', $act_time ) );
 		$to_time   = gmdate( 'Y-m-d H:i:s', $act_time );
-		// use prepare.
-		// phpcs:ignore -- db call ok; no-cache ok.
-		$qry  = $wpdb->get_var(
+
+		$table_name = esc_sql( NSP_TABLENAME );
+		$query = "
+			SELECT count(DISTINCT(ip)) AS visitors
+			FROM `" . $table_name . "`
+			WHERE spider=''
+				AND feed=''
+				AND date = %s
+				AND timestamp BETWEEN %s AND %s
+		";
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$qry = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT count(DISTINCT(ip)) AS visitors
-       FROM `$table_name`
-       WHERE
-         spider='' AND
-         feed='' AND
-         date = %s AND
-         timestamp BETWEEN %s AND %s
-      ",
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
+				$query,
 				gmdate( 'Ymd', $act_time ),
 				$from_time,
 				$to_time
 			)
-		); // phpcs:ignore: unprepared SQL OK.
+		);
 		$body = str_replace( '%visitorsonline%', $qry, $body );
 	}
+
 
 	// look for %usersonline%.
 	if ( strpos( strtolower( $body ), '%usersonline%' ) !== false ) {
 		$act_time  = current_time( 'timestamp' );
 		$from_time = gmdate( 'Y-m-d H:i:s', strtotime( '-4 minutes', $act_time ) );
 		$to_time   = gmdate( 'Y-m-d H:i:s', $act_time );
-		// use prepare.
-		// phpcs:ignore -- db call ok; no-cache ok.
-		$qry  = $wpdb->get_var(
+
+		$table_name = esc_sql( NSP_TABLENAME );
+		$query = "
+			SELECT count(DISTINCT(ip)) AS visitors
+			FROM `" . $table_name . "`
+			WHERE
+				spider='' AND
+				feed='' AND
+				date = %s AND
+				user<>'' AND
+				timestamp BETWEEN %s AND %s
+		";
+
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$qry = $wpdb->get_var(
 			$wpdb->prepare(
-				"SELECT count(DISTINCT(ip)) AS users
-       FROM `$table_name`
-       WHERE
-         spider='' AND
-         feed='' AND
-         date = %s AND
-         user<>'' AND
-         timestamp BETWEEN %s AND %s
-      ",
+				// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
+				$query,
 				gmdate( 'Ymd', $act_time ),
-				$from_time,
-				$to_time
+						   $from_time,
+				  $to_time
 			)
-		); // phpcs:ignore: unprepared SQL OK.
+		);
 		$body = str_replace( '%usersonline%', $qry, $body );
 	}
 
 	// look for %toppost%.
 	if ( strpos( strtolower( $body ), '%toppost%' ) !== false ) {
-		// not needs prepare.
-		// phpcs:ignore -- db call ok; no-cache ok.
-		$qry  = $wpdb->get_row(
-			"SELECT urlrequested,count(*) AS totale
-       FROM `$table_name`
-       WHERE
-         spider='' AND
-         feed='' AND
-         urlrequested LIKE '%p=%'
-       GROUP BY urlrequested
-       ORDER BY totale DESC
-       LIMIT 1
-      "
-		); // phpcs:ignore: unprepared SQL OK.
-		$body = str_replace( '%toppost%', newstatpress_decode_url( $qry->urlrequested ), $body );
+		$table_name    = esc_sql( NSP_TABLENAME );
+		$table_literal = '`' . $table_name . '`';
+
+		$sql = sprintf(	"
+			SELECT urlrequested, COUNT(*) AS totale
+			FROM %s
+			WHERE
+				spider = '' AND
+				feed = '' AND
+				urlrequested LIKE '%%p=%%'
+			GROUP BY urlrequested
+			ORDER BY totale DESC
+			LIMIT 1	",
+			$table_literal
+		);
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+		$qry = $wpdb->get_row( $sql );
+
+		$body = str_replace(
+			'%toppost%',
+			newstatpress_decode_url( $qry->urlrequested ),
+			$body
+		);
 	}
 
 	// look for %topbrowser%.
 	if ( strpos( strtolower( $body ), '%topbrowser%' ) !== false ) {
-		// not needs prepare.
-		// phpcs:ignore -- db call ok; no-cache ok.
-		$qry  = $wpdb->get_row(
-			"SELECT browser,count(*) AS totale
-        FROM `$table_name`
-        WHERE
-          spider='' AND
-          feed=''
-        GROUP BY browser
-        ORDER BY totale DESC
-        LIMIT 1
-       "
-		); // phpcs:ignore: unprepared SQL OK.
-		$body = str_replace( '%topbrowser%', newstatpress_decode_url( $qry->browser ), $body );
+		$table_name    = esc_sql( NSP_TABLENAME );
+		$table_literal = '`' . $table_name . '`';
+
+		$sql = sprintf(	"
+			SELECT browser, COUNT(*) AS totale
+			FROM %s
+			WHERE
+				spider = '' AND
+				feed = ''
+			GROUP BY browser
+			ORDER BY totale DESC
+			LIMIT 1	",
+			$table_literal
+		);
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+		$qry = $wpdb->get_row( $sql );
+
+		$body = str_replace(
+			'%topbrowser%',
+			newstatpress_decode_url( $qry->browser ),
+			$body
+		);
 	}
 
 	// look for %topos%.
 	if ( strpos( strtolower( $body ), '%topos%' ) !== false ) {
-		// not needs prepare.
-		// phpcs:ignore -- db call ok; no-cache ok.
-		$qry  = $wpdb->get_row(
-			"SELECT os,count(*) AS totale
-       FROM `$table_name`
-       WHERE
-         spider='' AND
-         feed=''
-       GROUP BY os
-       ORDER BY totale DESC
-       LIMIT 1
-      "
-		); // phpcs:ignore: unprepared SQL OK.
+		$table_name    = esc_sql( NSP_TABLENAME );
+		$table_literal = '`' . $table_name . '`';
+
+		$sql = sprintf(	"
+			SELECT os, COUNT(*) AS totale
+			FROM %s
+			WHERE
+				spider = '' AND
+				feed = ''
+			GROUP BY os
+			ORDER BY totale DESC
+			LIMIT 1",
+			$table_literal
+		);
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+		$qry = $wpdb->get_row( $sql );
+
 		$body = str_replace( '%topos%', newstatpress_decode_url( $qry->os ), $body );
 	}
 
+
 	// look for %topsearch%.
 	if ( strpos( strtolower( $body ), '%topsearch%' ) !== false ) {
-		// not needs prepare.
-		// phpcs:ignore -- db call ok; no-cache ok.
-		$qry = $wpdb->get_row(
-			"SELECT search, count(*) AS csearch
-       FROM `$table_name`
-       WHERE
-         search<>''
-       GROUP BY search
-       ORDER BY csearch DESC
-       LIMIT 1
-      "
-		); // phpcs:ignore: unprepared SQL OK.
+		$table_name    = esc_sql( NSP_TABLENAME );
+		$table_literal = '`' . $table_name . '`';
+
+		$sql = sprintf(	"
+			SELECT search, COUNT(*) AS csearch
+			FROM %s
+			WHERE search <> ''
+			GROUP BY search
+			ORDER BY csearch DESC
+			LIMIT 1	",
+			$table_literal
+		);
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+		$qry = $wpdb->get_row( $sql );
+
 		if ( is_object( $qry ) ) {
 			$body = str_replace( '%topsearch%', newstatpress_decode_url( $qry->search ), $body );
 		} else {
 			$body = str_replace( '%topsearch%', '', $body );
 		}
 	}
+
 
 	// look for %br%.
 	if ( strpos( strtolower( $body ), '%br%' ) !== false ) {

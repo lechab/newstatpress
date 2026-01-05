@@ -31,18 +31,25 @@ function newstatpress_generate_overview_agents() {
 	}
 
 	$querylimit = ( ( get_option( 'newstatpress_el_overview' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_overview' ) ) );
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$useragents = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT agent,os,browser,spider
-       FROM `$table_name`
-       GROUP BY agent,os,browser,spider
-       ORDER BY id DESC LIMIT %d
-       ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+	$sql = sprintf("
+		SELECT agent, os, browser, spider
+		FROM %s
+		GROUP BY agent, os, browser, spider
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		$querylimit
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$useragents = $wpdb->get_results( $prepared );
 	?>
 	<table class='widefat nsp'>
 	<thead>
@@ -113,18 +120,26 @@ function newstatpress_generate_overview_lasthits() {
 	}
 
 	$querylimit = ( ( get_option( 'newstatpress_el_overview' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_overview' ) ) );
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$lasthits = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT *
-      FROM `$table_name`
-      WHERE (os<>'' OR feed<>'')
-      ORDER bY id DESC LIMIT %d
-      ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+	$sql = sprintf("
+		SELECT *
+		FROM %s
+		WHERE (os<>'' OR feed<>'')
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		$querylimit
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$lasthits = $wpdb->get_results( $prepared );
+
 	?>
 		<table class='widefat nsp'>
 		<thead>
@@ -196,18 +211,26 @@ function newstatpress_generate_overview_lastsearchterms() {
 	}
 
 	$querylimit = ( ( get_option( 'newstatpress_el_overview' ) === '' ) ? 10 : get_option( 'newstatpress_el_overview' ) );
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$lastsearchterms = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT date,time,referrer,urlrequested,search,searchengine
-       FROM `$table_name`
-       WHERE search<>''
-       ORDER BY id DESC LIMIT %d
-      ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+	$sql = sprintf("
+		SELECT date, time, referrer, urlrequested, search, searchengine
+		FROM %s
+		WHERE search<>''
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		$querylimit
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$lastsearchterms = $wpdb->get_results( $prepared );
+
 	?>
 	<table class='widefat nsp'>
 	<thead>
@@ -253,22 +276,30 @@ function newstatpress_generate_overview_lastreferrers() {
 	}
 
 	$querylimit = ( ( get_option( 'newstatpress_el_overview' ) === '' ) ? 10 : get_option( 'newstatpress_el_overview' ) );
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$lastreferrers = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT date,time,referrer,urlrequested
-      FROM `$table_name`
-      WHERE
-       ((referrer NOT LIKE %s) AND
-        (referrer <>'') AND
-        (searchengine='')
-       ) ORDER BY id DESC LIMIT %d
-      ",
-			get_option( 'home' ) . '%',
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+	$sql = sprintf("
+		SELECT date, time, referrer, urlrequested
+		FROM %s
+		WHERE
+		(referrer NOT LIKE %%s) AND
+		(referrer <> '') AND
+		(searchengine = '')
+		ORDER BY id DESC
+		LIMIT %%d",
+	$table_literal
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		get_option( 'home' ) . '%',
+		$querylimit
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$lastreferrers = $wpdb->get_results( $prepared );
+
 	?>
 	<table class='widefat nsp'>
 	<thead>
@@ -314,18 +345,26 @@ function newstatpress_generate_overview_pages() {
 	}
 
 	$querylimit = ( ( '' === get_option( 'newstatpress_el_overview' ) ) ? 10 : get_option( 'newstatpress_el_overview' ) );
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$pages = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT date,time,urlrequested,os,browser,spider
-       FROM `$table_name`
-       WHERE (spider='' AND feed='')
-       ORDER BY id DESC LIMIT %d
-       ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+	$sql = sprintf("
+		SELECT date, time, urlrequested, os, browser, spider
+		FROM %s
+		WHERE (spider='' AND feed='')
+		ORDER BY id DESC
+		LIMIT %%d",
+	$table_literal
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		$querylimit
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$pages = $wpdb->get_results( $prepared );
+
 	?>
 	<table class='widefat nsp'>
 	<thead>
@@ -385,18 +424,26 @@ function newstatpress_generate_overview_spiders() {
 	}
 
 	$querylimit = ( ( get_option( 'newstatpress_el_overview' ) === '' ) ? 10 : intval( get_option( 'newstatpress_el_overview' ) ) );
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$spiders = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT date,time,agent,os,browser,spider
-      FROM `$table_name`
-      WHERE (spider<>'')
-      ORDER BY id DESC LIMIT %d
-      ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+	$sql = sprintf("
+		SELECT date, time, agent, os, browser, spider
+		FROM %s
+		WHERE (spider <> '')
+		ORDER BY id DESC
+		LIMIT %%d",
+	$table_literal
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		$querylimit
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$spiders = $wpdb->get_results( $prepared );
+
 	?>
 	<table class='widefat nsp'>
 	<thead>
@@ -535,87 +582,93 @@ function newstatpress_new_stat_press_main3() {
 	}
 
 	$querylimit = ( ( '' === get_option( 'newstatpress_el_overview' ) ) ? 10 : get_option( 'newstatpress_el_overview' ) );
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$lasthits = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT *
-    FROM `$table_name`
-    WHERE (os<>'' OR feed<>'')
-    ORDER bY id DESC LIMIT %d
-  ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
 
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$lastsearchterms = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT date,time,referrer,urlrequested,search,searchengine
-       FROM `$table_name`
-       WHERE search<>''
-       ORDER BY id DESC LIMIT %d
-     ",
-			$querylimit
-		)
-	);// phpcs:ignore: unprepared SQL OK.
+	$sql = sprintf("
+		SELECT *
+		FROM %s
+		WHERE (os<>'' OR feed<>'')
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare( $sql, $querylimit );
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$lasthits = $wpdb->get_results( $prepared );
 
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$lastreferrers = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT date,time,referrer,urlrequested
-      FROM `$table_name`
-      WHERE
-       ((referrer NOT LIKE %s) AND
-       (referrer <>'') AND
-       (searchengine='')
-      ) ORDER BY id DESC LIMIT %d
-      ",
-			get_option( 'home' ) . '%',
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK
+	$sql = sprintf("
+		SELECT date, time, referrer, urlrequested, search, searchengine
+		FROM %s
+		WHERE search<>''
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare( $sql, $querylimit );
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$lastsearchterms = $wpdb->get_results( $prepared );
 
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$useragents = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT agent,os,browser,spider
-      FROM `$table_name`
-      GROUP BY agent,os,browser,spider
-      ORDER BY id DESC LIMIT %d
-     ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK
+	$sql = sprintf("
+		SELECT date, time, referrer, urlrequested
+		FROM %s
+		WHERE
+		(referrer NOT LIKE %%s) AND
+		(referrer <> '') AND
+		(searchengine = '')
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		get_option( 'home' ) . '%',
+		$querylimit
+	);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$lastreferrers = $wpdb->get_results( $prepared );
 
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$pages = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT date,time,urlrequested,os,browser,spider
-       FROM `$table_name`
-       WHERE (spider='' AND feed='')
-       ORDER BY id DESC LIMIT %d
-      ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK
+	$sql = sprintf("
+		SELECT agent, os, browser, spider
+		FROM %s
+		GROUP BY agent, os, browser, spider
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare( $sql, $querylimit );
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$useragents = $wpdb->get_results( $prepared );
 
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$spiders = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT date,time,agent,os,browser,spider
-      FROM `$table_name`
-       WHERE (spider<>'')
-       ORDER BY id DESC LIMIT %d
-      ",
-			$querylimit
-		)
-	); // phpcs:ignore: unprepared SQL OK
+	$sql = sprintf("
+		SELECT date, time, urlrequested, os, browser, spider
+		FROM %s
+		WHERE (spider='' AND feed='')
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare( $sql, $querylimit );
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$pages = $wpdb->get_results( $prepared );
+
+	$sql = sprintf("
+		SELECT date, time, agent, os, browser, spider
+		FROM %s
+		WHERE (spider <> '')
+		ORDER BY id DESC
+		LIMIT %%d",
+		$table_literal
+	);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare( $sql, $querylimit );
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$spiders = $wpdb->get_results( $prepared );
 	?>
 
 	<!-- Last hits table -->

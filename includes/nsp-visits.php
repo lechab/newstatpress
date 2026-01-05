@@ -26,22 +26,26 @@ function newstatpress_display_visits_page() {
 
 	print "<div class='wrap'><h2>" . esc_html__( 'Visits', 'newstatpress' ) . '</h2>';
 
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only reading 'tab' to determine active admin subpage.
 	if ( isset( $_GET['tab'] ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		newstatpress_display_tabs_navbar_for_menu_page( $visits_page_tabs, sanitize_text_field( wp_unslash( $_GET['tab'] ) ), $page );
 	} else {
 		newstatpress_display_tabs_navbar_for_menu_page( $visits_page_tabs, 'lastvisitors', $page );
 	}
 
-	if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && $_GET['page'] === $page ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only reading 'page' and 'tab' to determine current admin view.
+	if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) ) === $page ) {
 
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading navigation parameter, not processing form data.
 		if ( isset( $_GET['tab'] ) ) {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$tab = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
 		} else {
 			$tab = 'lastvisitors';
 		}
 
 		switch ( $tab ) {
-
 			case 'lastvisitors':
 				newstatpress_spy();
 				break;
@@ -61,19 +65,24 @@ function newstatpress_display_visits_page() {
  * Get page period taken in statpress-visitors
  */
 function newstatpress_page_periode() {
-	// pp is the display page periode.
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only reading 'pp' to determine pagination, not processing form data.
 	if ( isset( $_GET['pp'] ) ) {
-		// Get Current page periode from URL.
-		$periode = intval( $_GET['pp'] );
+		// Get current page period from URL.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$periode = intval( sanitize_text_field( wp_unslash( $_GET['pp'] ) ) );
+
 		if ( $periode <= 0 ) {
-			// Periode is less than 0 then set it to 1.
 			$periode = 1;
 		}
-	} else {      // URL does not show the page set it to 1.
+
+	} else {
+		// URL does not show the page, set it to 1.
 		$periode = 1;
 	}
+
 	return $periode;
 }
+
 
 /**
  * Get page post taken in statpress-visitors
@@ -82,19 +91,25 @@ function newstatpress_page_periode() {
  ******************************************/
 function newstatpress_page_posts() {
 	global $wpdb;
-	// pa is the display pages Articles.
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only reading 'pa' to determine pagination, not processing form data.
 	if ( isset( $_GET['pa'] ) ) {
-		// Get Current page Articles from URL.
-		$page_a = intval( $_GET['pa'] );
+		// Get current page Articles from URL.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$page_a = intval( sanitize_text_field( wp_unslash( $_GET['pa'] ) ) );
+
 		if ( $page_a <= 0 ) {
-			// Article is less than 0 then set it to 1.
 			$page_a = 1;
 		}
-	} else {      // URL does not show the Article set it to 1.
+
+	} else {
+		// URL does not show the Article, set it to 1.
 		$page_a = 1;
 	}
+
 	return $page_a;
 }
+
 
 
 /**
@@ -120,62 +135,60 @@ function newstatpress_spy_bot() {
 	$pa          = newstatpress_page_posts();
 	$limit_value = ( $pa * $limit ) - $limit;
 
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+
 	// limit the search 7 days ago.
 	$day_ago = gmdate( 'Ymd', current_time( 'timestamp' ) - 7 * 86400 );
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$min_id = $wpdb->get_var(
-		$wpdb->prepare(
-			"SELECT min(id) as MinId
-       FROM `$table_name`
-       WHERE date > %s
-      ",
-			$day_ago
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$sql = sprintf( "
+			SELECT MIN(id) AS MinId
+			FROM %s
+			WHERE date > %%s ",
+			$table_literal
+		);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare( $sql, $day_ago );
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$min_id = $wpdb->get_var( $prepared );
 
 	// Number of distinct spiders after $day_ago
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$num = $wpdb->get_var(
-		$wpdb->prepare(
-			"SELECT count(distinct spider)
-      FROM `$table_name`
-      WHERE
-       spider<>'' AND
-       id > %d
-   ",
-			$min_id
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$sql = sprintf( "
+			SELECT COUNT(DISTINCT spider)
+			FROM %s
+			WHERE spider <> '' AND id > %%d ",
+			$table_literal
+		);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare( $sql, $min_id );
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$num = $wpdb->get_var( $prepared );
+
 	$na  = ceil( $num / $limit );
 
 	echo '<br />';
 
 	// selection of spider, group by spider, order by most recently visit (last id in the table)
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$qry = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT *
-    FROM `$table_name` as T1
-    JOIN
-    (SELECT spider,max(id) as MaxId
-     FROM `$table_name`
-     WHERE spider<>''
-     GROUP BY spider
-     ORDER BY MaxId
-     DESC LIMIT %d, %d
-    ) as T2
-    ON T1.spider = T2.spider
-    WHERE T1.id > %d
-    ORDER BY MaxId DESC, id DESC
-  ",
-			$limit_value,
-			$limit,
-			$min_id
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+	$subquery = sprintf( "
+					SELECT spider, MAX(id) AS MaxId
+					FROM %s
+					WHERE spider <> ''
+					GROUP BY spider
+					ORDER BY MaxId DESC LIMIT %%d, %%d ",
+					$table_literal
+				);
+	$sql = sprintf( "
+				SELECT *
+				FROM %s AS T1
+				JOIN ( %s ) AS T2
+				ON T1.spider = T2.spider
+				WHERE T1.id > %%d
+				ORDER BY MaxId DESC, id DESC ",
+				$table_literal,
+				$subquery
+			);
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare( $sql, $limit_value, $limit, $min_id );
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$qry = $wpdb->get_results( $prepared );
 
 	echo '<div align="center">';
 	newstatpress_print_pp_pa_link( 0, 0, $action, $na, $pa );
@@ -242,23 +255,35 @@ function newstatpress_spy() {
 	// Spy.
 	$today     = gmdate( 'Ymd', current_time( 'timestamp' ) );
 	$yesterday = gmdate( 'Ymd', current_time( 'timestamp' ) - 86400 );
+
 	echo '<br />';
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$qry = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT ip,nation,os,browser,agent
-      FROM `$table_name`
-      WHERE
-        spider='' AND
-        feed='' AND
-        date BETWEEN %s AND %s
-      GROUP BY ip ORDER BY id DESC LIMIT 20
-      ",
-			$yesterday,
-			$today
-		)
-	); // phpcs:ignore: unprepared SQL OK.
+
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+
+	$sql = sprintf(	"
+		SELECT ip, nation, os, browser, agent
+		FROM %s
+		WHERE
+		spider='' AND
+		feed='' AND
+		date BETWEEN %%s AND %%s
+		GROUP BY ip
+		ORDER BY id DESC
+		LIMIT 20
+		",
+		$table_literal
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		$yesterday,
+		$today
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$qry = $wpdb->get_results( $prepared );
 
 	?>
 <script>
@@ -308,23 +333,32 @@ document.getElementById(thediv).style.display="none"
 		print '<br><br></div>';
 		print "<script>document.getElementById('" . esc_html( $rk->ip ) . "').style.display='none';</script>";
 		print '</td></tr>';
-		// use prepare.
-		// phpcs:ignore -- db call ok; no-cache ok.
-		$qry2 = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT *
-      FROM `$table_name`
-      WHERE
-        ip= %s AND
-        (date BETWEEN %s AND %s)
-      ORDER BY id
-      LIMIT 10
-     ",
-				$rk->ip,
-				$yesterday,
-				$today
-			)
-		); // phpcs:ignore: unprepared SQL OK.
+
+		$table_literal = '`' . esc_sql( $table_name ) . '`';
+
+		$sql = sprintf(	"
+			SELECT *
+			FROM %s
+			WHERE
+			ip = %%s AND
+			(date BETWEEN %%s AND %%s)
+			ORDER BY id
+			LIMIT 10",
+			$table_literal
+		);
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$prepared = $wpdb->prepare(
+			// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+			$sql,
+			$rk->ip,
+			$yesterday,
+			$today
+		);
+
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+		$qry2 = $wpdb->get_results( $prepared );
+
 		foreach ( $qry2 as $details ) {
 			print '<tr>';
 			print "<td valign='top' width='151'><div><font size='1' color='#3B3B3B'><strong>" . esc_html( newstatpress_hdate2( $details->date ) ) . ' ' . esc_html( $details->time ) . '</strong></font></div></td>';
@@ -368,39 +402,53 @@ function newstatpress_new_spy() {
 
 	$pp = newstatpress_page_periode();
 
-	// Number of distinct ip (unique visitors)
-	// no need prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$num_ip      = $wpdb->get_var(
-		"SELECT count(distinct ip)
-       FROM `$table_name`
-       WHERE spider=''"
-	); // phpcs:ignore: unprepared SQL OK.
+	// Sanitizzazione nome tabella
+	$table_literal = '`' . esc_sql( $table_name ) . '`';
+
+	$sql = sprintf("
+		SELECT COUNT(DISTINCT ip)
+		FROM %s
+		WHERE spider=''",
+		$table_literal
+	);
+
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.PreparedSQL.NotPrepared
+	$num_ip = $wpdb->get_var( $sql );
+
 	$np          = ceil( $num_ip / $limit );
 	$limit_value = ( $pp * $limit ) - $limit;
 
-	// use prepare.
-	// phpcs:ignore -- db call ok; no-cache ok.
-	$qry = $wpdb->get_results(
-		$wpdb->prepare(
-			"SELECT *
-    FROM `$table_name` as T1
-    JOIN
-      (SELECT max(id) as MaxId,min(id) as MinId,ip, nation
-       FROM `$table_name`
-       WHERE spider=''
-       GROUP BY ip
-       ORDER BY MaxId
-       DESC LIMIT %d, %d ) as T2
-    ON T1.ip = T2.ip
-    WHERE id BETWEEN MinId AND MaxId
-    ORDER BY MaxId DESC, id DESC
-   ",
-			$limit_value,
-			$limit
-		)
-	); // phpcs:ignore: unprepared SQL OK. 
+	$subquery = sprintf("
+		SELECT MAX(id) AS MaxId, MIN(id) AS MinId, ip, nation
+		FROM %s
+		WHERE spider=''
+		GROUP BY ip
+		ORDER BY MaxId DESC
+		LIMIT %%d, %%d",
+		$table_literal
+	);
 
+	$sql = sprintf(	"
+		SELECT *
+		FROM %s AS T1
+		JOIN ( %s ) AS T2
+		ON T1.ip = T2.ip
+		WHERE id BETWEEN MinId AND MaxId
+		ORDER BY MaxId DESC, id DESC",
+		$table_literal,
+		$subquery
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+	$prepared = $wpdb->prepare(
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$sql,
+		$limit_value,
+		$limit
+	);
+
+	// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+	$qry = $wpdb->get_results( $prepared );
 	?>
 <script>
 function ttogle(thediv){

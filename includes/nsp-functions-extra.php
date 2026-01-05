@@ -239,85 +239,81 @@ function newstatpress_get_query_string( $url ) {
 function newstatpress_admin_nag_notices() {
 	global $current_user;
 	$nag_notices = get_user_meta( $current_user->ID, 'newstatpress_nag_notices', true );
-	if ( ! empty( $nag_notices ) ) {
-		$nid           = $nag_notices['nid'];
-		$style         = $nag_notices['style'];
-		$timenow       = time();
-		$url           = newstatpress_get_url();
-		$query_args    = newstatpress_get_query_args( $url );
-		$query_str     = '?' . http_build_query(
-			array_merge(
-				$query_args,
-				array(
-					'newstatpress_hide_nag' => '1',
-					'nid'                   => $nid,
-				)
-			)
-		);
-		$query_str_con = 'QUERYSTRING';
-		$notice        = str_replace( array( $query_str_con ), array( $query_str ), $nag_notices['notice'] );
 
-		global $pagenow;
-		$page_nsp = 0;
+	if ( empty( $nag_notices ) ) {
+		return;
+	}
 
-		if ( isset( $_GET['page'] ) ) {
-			switch ( $_GET['page'] ) {
-				case 'nsp-main':
-							$page_nsp = 1;
-					break;
-				case 'nsp-details':
-							$page_nsp = 1;
-					break;
-				case 'nsp-visits':
-							$page_nsp = 1;
-					break;
-				case 'nsp-search':
-							$page_nsp = 1;
-					break;
-				case 'nsp-tools':
-							$page_nsp = 1;
-					break;
-				case 'nsp-options':
-							$page_nsp = 1;
-					break;
-				case 'nsp-credits':
-							$page_nsp = 1;
-					break;
+	$nid        = $nag_notices['nid'];
+	$style      = $nag_notices['style'];
+	$url        = newstatpress_get_url();
+	$query_args = newstatpress_get_query_args( $url );
 
-				default:
-							$page_nsp = 0;
-					break;
-			}
-		}
+	// Add nonce to the hide-nag URL.
+	$query_args = array_merge(
+		$query_args,
+		array(
+			'newstatpress_hide_nag' => '1',
+		'nid'                   => $nid,
+		'_wpnonce'              => wp_create_nonce( 'newstatpress_hide_nag' ),
+		)
+	);
 
-		// Display NSP box if user are in plugins page or nsp plugins.
-		if ( ( 'n03' !== $nid && 1 === $page_nsp ) || ( 'n03' === $nid && 'plugins.php' === $pagenow ) ) {
-			?>
-				<div id="nspnotice" class="<?php echo esc_html( $style ); ?>" style="padding:10px">
-			<?php
-			if ( 'n03' === $nid ) {
-				echo '<a id="close" class="close" href="' . esc_attr( $query_str ) . '" target="_self" rel="external"><span class="dashicons dashicons-no"></span>close</a>';
-				echo '<h4>' . esc_html__( 'NewStatPress News', 'newstatpress' ) . '</h4>';
-			}
-			echo wp_kses(
-				$notice,
-				array(
-					'a'  => array(
-						'href'   => array(),
-						'target' => array(),
-						'class'  => array(),
-					),
-					'br' => array(),
-					'p'  => array(),
-					'i'  => array(),
-				)
-			);
-			?>
-		</div>
-			<?php
+	$query_str     = '?' . http_build_query( $query_args );
+	$query_str_con = 'QUERYSTRING';
+	$notice        = str_replace( array( $query_str_con ), array( $query_str ), $nag_notices['notice'] );
+
+	global $pagenow;
+	$page_nsp = 0;
+
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( isset( $_GET['page'] ) ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		switch ( sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) {
+			case 'nsp-main':
+			case 'nsp-details':
+			case 'nsp-visits':
+			case 'nsp-search':
+			case 'nsp-tools':
+			case 'nsp-options':
+			case 'nsp-credits':
+				$page_nsp = 1;
+				break;
+			default:
+				$page_nsp = 0;
+				break;
 		}
 	}
+
+	// Display NSP box if user is in plugins page or NSP pages.
+	if ( ( 'n03' !== $nid && 1 === $page_nsp ) || ( 'n03' === $nid && 'plugins.php' === $pagenow ) ) {
+		?>
+		<div id="nspnotice" class="<?php echo esc_attr( $style ); ?>" style="padding:10px">
+		<?php
+		if ( 'n03' === $nid ) {
+			echo '<a id="close" class="close" href="' . esc_url( $query_str ) . '" target="_self" rel="external"><span class="dashicons dashicons-no"></span>close</a>';
+			echo '<h4>' . esc_html__( 'NewStatPress News', 'newstatpress' ) . '</h4>';
+		}
+
+		echo wp_kses(
+			$notice,
+			array(
+				'a'  => array(
+					'href'   => array(),
+							  'target' => array(),
+							  'class'  => array(),
+				),
+		 'br' => array(),
+				  'p'  => array(),
+				  'i'  => array(),
+			)
+		);
+		?>
+		</div>
+		<?php
+	}
 }
+
 
 /**
  * Check nag notices
@@ -407,6 +403,11 @@ add_action( 'admin_init', 'newstatpress_hide_nag_notices', -10 );
  * Hide Nag notice
  */
 function newstatpress_hide_nag_notices() {
+	// Nonce verification.
+	if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'newstatpress_hide_nag' )) {
+		return;
+	}
+
 	$ns_codes = array(
 		'n01' => 'vote',
 		'n02' => 'donate',
@@ -475,6 +476,7 @@ function newstatpress_display_tabs_navbar_for_menu_page( $menu_tabs, $current, $
 function newstatpress_table_size( $table ) {
 	global $wpdb;
 	// use prepare.
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
 	foreach ( $res as $fstatus ) {
 		$data_lenght = $fstatus->Data_length; // phpcs:ignore -- not in valid snake_case format: it is a DB field!
@@ -491,6 +493,7 @@ function newstatpress_table_size( $table ) {
 function newstatpress_table_size2( $table ) {
 	global $wpdb;
 	// use prepare.
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
 	foreach ( $res as $fstatus ) {
 		$data_lenght = $fstatus->Data_length; // phpcs:ignore -- not in valid snake_case format: it is a DB field!
@@ -507,6 +510,7 @@ function newstatpress_table_size2( $table ) {
 function newstatpress_table_records( $table ) {
 	global $wpdb;
 	// use prepare.
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 	$res = $wpdb->get_results( $wpdb->prepare( 'SHOW TABLE STATUS LIKE %s', $table ) ); // db call ok; no-cache ok.
 	foreach ( $res as $fstatus ) {
 		$data_lenght = $fstatus->Data_length; // phpcs:ignore -- not in valid snake_case format: it is a DB field!

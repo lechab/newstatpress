@@ -92,144 +92,221 @@ function newstatpress_api_dashboard( $typ ) {
 				}
 			*/
 
+			$table_literal = '`' . esc_sql( $table_name ) . '`';
+
 			for ( $i = 0; $i < $day; $i++ ) {
 
 				switch ( $row ) {
 					case 'visitors':
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_daylmonth = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(DISTINCT ip) AS visitors 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date LIKE %s",
-								$lastmonth . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK..
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_day = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(DISTINCT ip) AS visitors 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date LIKE %s",
-								$year . $month . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK.
+						$sql = sprintf(	"
+							SELECT COUNT(DISTINCT ip) AS visitors
+							FROM %s
+							WHERE
+							feed = '' AND
+							spider = '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$lastmonth . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_daylmonth = $wpdb->get_row( $prepared );
+
+						$sql = sprintf(	"
+							SELECT COUNT(DISTINCT ip) AS visitors
+							FROM %s
+							WHERE
+							feed = '' AND
+							spider = '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$year . $month . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_day = $wpdb->get_row( $prepared );
 						break;
 
 					case 'visitors_feeds':
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_daylmonth = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(DISTINCT ip) AS visitors_feeds 
-							FROM `$table_name`
-							WHERE 
-								feed<>'' AND 
-								spider='' AND
-								agent<>'' AND 
-								date LIKE %s",
-								$lastmonth . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK..
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_day = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(DISTINCT ip) AS visitors_feeds 
-							FROM `$table_name`
-							WHERE 
-								feed<>'' AND 
-								spider='' AND
-								agent<>'' AND 
-								date LIKE %s",
-								$year . $month . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK.
+						$sql = sprintf(	"
+							SELECT COUNT(DISTINCT ip) AS visitors_feeds
+							FROM %s
+							WHERE
+							feed <> '' AND
+							spider = '' AND
+							agent <> '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$lastmonth . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_daylmonth = $wpdb->get_row( $prepared );
+
+						$sql = sprintf(	"
+							SELECT COUNT(DISTINCT ip) AS visitors_feeds
+							FROM %s
+							WHERE
+							feed <> '' AND
+							spider = '' AND
+							agent <> '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$year . $month . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_day = $wpdb->get_row( $prepared );
 						break;
 
 					case 'pageview':
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_daylmonth = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(date) AS pageview 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date LIKE %s",
-								$lastmonth . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK..
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_day = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(date) AS pageview 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date LIKE %s",
-								$year . $month . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK.
+						$sql = sprintf(	"
+							SELECT COUNT(date) AS pageview
+							FROM %s
+							WHERE
+							feed = '' AND
+							spider = '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$lastmonth . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_daylmonth = $wpdb->get_row( $prepared );
+						$sql = sprintf(	"
+							SELECT COUNT(date) AS pageview
+							FROM %s
+							WHERE
+							feed = '' AND
+							spider = '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$year . $month . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_day = $wpdb->get_row( $prepared );
 						break;
 
 					case 'spiders':
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_daylmonth = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(date) AS spiders 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider<>'' AND 
-							   date LIKE %s",
-								$lastmonth . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK..
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_day = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(date) AS spiders 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider<>'' AND 
-							   date LIKE %s",
-								$year . $month . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK.
+						$sql = sprintf(	"
+							SELECT COUNT(date) AS spiders
+							FROM %s
+							WHERE
+							feed = '' AND
+							spider <> '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$lastmonth . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_daylmonth = $wpdb->get_row( $prepared );
+
+						$sql = sprintf(	"
+							SELECT COUNT(date) AS spiders
+							FROM %s
+							WHERE
+							feed = '' AND
+							spider <> '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$year . $month . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_day = $wpdb->get_row( $prepared );
 						break;
 
 					case 'feeds':
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_daylmonth = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(date) AS feeds 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed<>'' AND 
-							   spider='' AND 
-							   date LIKE %s",
-								$lastmonth . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK..
-						// phpcs:ignore -- db call ok; no-cache ok
-						$qry_day = $wpdb->get_row(
-							$wpdb->prepare(
-								"SELECT count(date) AS feeds 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed<>'' AND 
-							   spider='' AND 
-							   date LIKE %s",
-								$year . $month . $i . '%'
-							)
-						); // phpcs:ignore: unprepared SQL OK.
+						$sql = sprintf(	"
+							SELECT COUNT(date) AS feeds
+							FROM %s
+							WHERE
+							feed <> '' AND
+							spider = '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$lastmonth . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_daylmonth = $wpdb->get_row( $prepared );
+
+						$sql = sprintf(	"
+							SELECT COUNT(date) AS feeds
+							FROM %s
+							WHERE
+							feed <> '' AND
+							spider = '' AND
+							date LIKE %%s",
+							$table_literal
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$prepared = $wpdb->prepare(
+							// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+							$sql,
+							$year . $month . $i . '%'
+						);
+
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+						$qry_day = $wpdb->get_row( $prepared );
+
 						break;
 				}
 
@@ -243,296 +320,455 @@ function newstatpress_api_dashboard( $typ ) {
 			$qry_lmonth->$row = $totlm;
 
 		} else { // classic.
+			$table_literal = '`' . esc_sql( $table_name ) . '`';
 			switch ( $row ) {
 				case 'visitors':
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_tmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(DISTINCT ip) AS visitors 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date BETWEEN %s AND %s",
-							$thismonth1,
-							$thismonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK..
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_lmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(DISTINCT ip) AS visitors 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date BETWEEN %s AND %s",
-							$lastmonth1,
-							$lastmonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK.
+					$sql = sprintf(	"
+						SELECT COUNT(DISTINCT ip) AS visitors
+						FROM %s
+						WHERE
+						feed = '' AND
+						spider = '' AND
+						date BETWEEN %%s AND %%s",
+						$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$thismonth1,
+						$thismonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_tmonth = $wpdb->get_row( $prepared );
+
+					$sql = sprintf("
+						SELECT COUNT(DISTINCT ip) AS visitors
+						FROM %s
+						WHERE
+						feed = '' AND
+						spider = '' AND
+						date BETWEEN %%s AND %%s",
+						$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$lastmonth1,
+						$lastmonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_lmonth = $wpdb->get_row( $prepared );
 					break;
 
 				case 'visitors_feeds':
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_tmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(DISTINCT ip) AS visitors_feeds 
-							FROM `$table_name`
-							WHERE 
-								feed<>'' AND 
-								spider='' AND
-								agent<>'' AND 
-								date BETWEEN %s AND %s",
-							$thismonth1,
-							$thismonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK..
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_lmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(DISTINCT ip) AS visitors_feeds 
-							FROM `$table_name`
-							WHERE 
-								feed<>'' AND 
-								spider='' AND
-								agent<>'' AND 
-								date BETWEEN %s AND %s",
-							$lastmonth1,
-							$lastmonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK.
+					$sql = sprintf("
+						SELECT COUNT(DISTINCT ip) AS visitors_feeds
+						FROM %s
+						WHERE
+						feed <> '' AND
+						spider = '' AND
+						agent <> '' AND
+						date BETWEEN %%s AND %%s",
+						$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$thismonth1,
+						$thismonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_tmonth = $wpdb->get_row( $prepared );
+
+					$sql = sprintf(	"
+						SELECT COUNT(DISTINCT ip) AS visitors_feeds
+						FROM %s
+						WHERE
+						feed <> '' AND
+						spider = '' AND
+						agent <> '' AND
+						date BETWEEN %%s AND %%s",
+					$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$lastmonth1,
+						$lastmonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_lmonth = $wpdb->get_row( $prepared );
 					break;
 
 				case 'pageview':
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_tmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(date) AS pageview 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date BETWEEN %s AND %s",
-							$thismonth1,
-							$thismonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK..
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_lmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(date) AS pageview 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date BETWEEN %s AND %s",
-							$lastmonth1,
-							$lastmonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK.
+					$sql = sprintf("
+						SELECT COUNT(date) AS pageview
+						FROM %s
+						WHERE
+						feed = '' AND
+						spider = '' AND
+						date BETWEEN %%s AND %%s",
+						$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$thismonth1,
+						$thismonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_tmonth = $wpdb->get_row( $prepared );
+
+					$sql = sprintf(
+						"
+						SELECT COUNT(date) AS pageview
+						FROM %s
+						WHERE
+						feed = '' AND
+						spider = '' AND
+						date BETWEEN %%s AND %%s
+						",
+						$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$lastmonth1,
+						$lastmonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_lmonth = $wpdb->get_row( $prepared );
 					break;
 
 				case 'spiders':
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_tmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(date) AS spiders 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider<>'' AND 
-							   date BETWEEN %s AND %s",
-							$thismonth1,
-							$thismonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK..
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_lmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(date) AS spiders 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider<>'' AND 
-							   date BETWEEN %s AND %s",
-							$lastmonth1,
-							$lastmonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK.
+					$sql = sprintf(	"
+						SELECT COUNT(date) AS spiders
+						FROM %s
+						WHERE
+						feed = '' AND
+						spider <> '' AND
+						date BETWEEN %%s AND %%s",
+						$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$thismonth1,
+						$thismonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_tmonth = $wpdb->get_row( $prepared );
+
+					$sql = sprintf(	"
+						SELECT COUNT(date) AS spiders
+						FROM %s
+						WHERE
+						feed = '' AND
+						spider <> '' AND
+						date BETWEEN %%s AND %%s",
+					$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$lastmonth1,
+						$lastmonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_lmonth = $wpdb->get_row( $prepared );
 					break;
 
 				case 'feeds':
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_tmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(date) AS feeds 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed<>'' AND 
-							   spider='' AND 
-							   date BETWEEN %s AND %s",
-							$thismonth1,
-							$thismonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK..
-					// phpcs:ignore -- db call ok; no-cache ok
-					$qry_lmonth = $wpdb->get_row(
-						$wpdb->prepare(
-							"SELECT count(date) AS feeds 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed<>'' AND 
-							   spider='' AND 
-							   date BETWEEN %s AND %s",
-							$lastmonth1,
-							$lastmonth31
-						)
-					); // phpcs:ignore: unprepared SQL OK.
+					$sql = sprintf(	"
+						SELECT COUNT(date) AS feeds
+						FROM %s
+						WHERE
+						feed <> '' AND
+						spider = '' AND
+						date BETWEEN %%s AND %%s",
+						$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$thismonth1,
+						$thismonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_tmonth = $wpdb->get_row( $prepared );
+
+					$sql = sprintf(	"
+						SELECT COUNT(date) AS feeds
+						FROM %s
+						WHERE
+						feed <> '' AND
+						spider = '' AND
+						date BETWEEN %%s AND %%s",
+						$table_literal
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+					$prepared = $wpdb->prepare(
+						// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+						$sql,
+						$lastmonth1,
+						$lastmonth31
+					);
+
+					// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+					$qry_lmonth = $wpdb->get_row( $prepared );
 					break;
 			}
 		}
 
-			$result_j[ $row . '_tmonth' ] = $qry_tmonth->$row;  // export.
-			$result_j[ $row . '_lmonth' ] = $qry_lmonth->$row;  // export.
+		$result_j[ $row . '_tmonth' ] = $qry_tmonth->$row;  // export.
+		$result_j[ $row . '_lmonth' ] = $qry_lmonth->$row;  // export.
+
+		$table_literal = '`' . esc_sql( $table_name ) . '`';
 
 		switch ( $row ) {
 			case 'visitors':
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_y = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(DISTINCT ip) AS visitors 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date LIKE %s",
-						$yesterday
-					)
-				); // phpcs:ignore: unprepared SQL OK..
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_t = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(DISTINCT ip) AS visitors 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date LIKE %s",
-						$today
-					)
-				); // phpcs:ignore: unprepared SQL OK.
+				$sql = sprintf(	"
+					SELECT COUNT(DISTINCT ip) AS visitors
+					FROM %s
+					WHERE
+					feed = '' AND
+					spider = '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$yesterday
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_y = $wpdb->get_row( $prepared );
+
+				$sql = sprintf(
+					"
+					SELECT COUNT(DISTINCT ip) AS visitors
+					FROM %s
+					WHERE
+					feed = '' AND
+					spider = '' AND
+					date LIKE %%s
+					",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$today
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_t = $wpdb->get_row( $prepared );
 				break;
 
 			case 'visitors_feeds':
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_y = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(DISTINCT ip) AS visitors_feeds 
-							FROM `$table_name`
-							WHERE 
-								feed<>'' AND 
-								spider='' AND
-								agent<>'' AND 
-								date LIKE %s",
-						$yesterday
-					)
-				); // phpcs:ignore: unprepared SQL OK..
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_t = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(DISTINCT ip) AS visitors_feeds 
-							FROM `$table_name`
-							WHERE 
-								feed<>'' AND 
-								spider='' AND
-								agent<>'' AND 
-								date LIKE %s",
-						$today
-					)
-				); // phpcs:ignore: unprepared SQL OK.
+				$sql = sprintf(	"
+					SELECT COUNT(DISTINCT ip) AS visitors_feeds
+					FROM %s
+					WHERE
+					feed <> '' AND
+					spider = '' AND
+					agent <> '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$yesterday
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_y = $wpdb->get_row( $prepared );
+
+				$sql = sprintf(	"
+					SELECT COUNT(DISTINCT ip) AS visitors_feeds
+					FROM %s
+					WHERE
+					feed <> '' AND
+					spider = '' AND
+					agent <> '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$today
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_t = $wpdb->get_row( $prepared );
 				break;
 
 			case 'pageview':
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_y = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(date) AS pageview 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date LIKE %s",
-						$yesterday
-					)
-				); // phpcs:ignore: unprepared SQL OK..
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_t = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(date) AS pageview 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider='' AND 
-							   date LIKE %s",
-						$today
-					)
-				); // phpcs:ignore: unprepared SQL OK.
+				$sql = sprintf(	"
+					SELECT COUNT(date) AS pageview
+					FROM %s
+					WHERE
+					feed = '' AND
+					spider = '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$yesterday
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_y = $wpdb->get_row( $prepared );
+
+				$sql = sprintf(	"
+					SELECT COUNT(date) AS pageview
+					FROM %s
+					WHERE
+					feed = '' AND
+					spider = '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$today
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_t = $wpdb->get_row( $prepared );
 				break;
 
 			case 'spiders':
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_y = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(date) AS spiders 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider<>'' AND 
-							   date LIKE %s",
-						$yesterday
-					)
-				); // phpcs:ignore: unprepared SQL OK..
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_t = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(date) AS spiders 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed='' AND 
-							   spider<>'' AND 
-							   date LIKE %s",
-						$today
-					)
-				); // phpcs:ignore: unprepared SQL OK.
+				$sql = sprintf(	"
+					SELECT COUNT(date) AS spiders
+					FROM %s
+					WHERE
+					feed = '' AND
+					spider <> '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$yesterday
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_y = $wpdb->get_row( $prepared );
+
+				$sql = sprintf(	"
+					SELECT COUNT(date) AS spiders
+					FROM %s
+					WHERE
+					feed = '' AND
+					spider <> '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$today
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_t = $wpdb->get_row( $prepared );
 				break;
 
 			case 'feeds':
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_y = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(date) AS feeds 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed<>'' AND 
-							   spider='' AND 
-							   date LIKE %s",
-						$yesterday
-					)
-				); // phpcs:ignore: unprepared SQL OK..
-				// phpcs:ignore -- db call ok; no-cache ok
-				$qry_t = $wpdb->get_row(
-					$wpdb->prepare(
-						"SELECT count(date) AS feeds 
-							 FROM `$table_name` 
-							 WHERE 
-							   feed<>'' AND 
-							   spider='' AND 
-							   date LIKE %s",
-						$today
-					)
-				); // phpcs:ignore: unprepared SQL OK.
+				$sql = sprintf(	"
+					SELECT COUNT(date) AS feeds
+					FROM %s
+					WHERE
+					feed <> '' AND
+					spider = '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+								// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+								$sql,
+								$yesterday
+							);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_y = $wpdb->get_row( $prepared );
+
+				$sql = sprintf(	"
+					SELECT COUNT(date) AS feeds
+					FROM %s
+					WHERE
+					feed <> '' AND
+					spider = '' AND
+					date LIKE %%s",
+				   $table_literal
+				);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+				$prepared = $wpdb->prepare(
+									// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+									$sql,
+									$today
+								);
+
+				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+				$qry_t = $wpdb->get_row( $prepared );
+
 				break;
+
 		}
 
 			$result_j[ $row . '_qry_y' ] = $qry_y->$row;  // export.

@@ -68,6 +68,7 @@ function newstatpress_display_credits_page() {
 	</table>
 
 	<?php
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	if ( 'admin.php' === $pagenow && isset( $_GET['page'] ) && $page === $_GET['page'] ) {
 		?>
 
