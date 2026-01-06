@@ -9,7 +9,7 @@
 	$.post(
 		nsp_externalAjax_overview.ajaxurl,
 		{
-			action : 'nsp_external',
+			action : 'newstatpress_external',
 			VAR: "overview",
 			KEY: nsp_externalAjax_overview.Key,
 			PAR: "0",
