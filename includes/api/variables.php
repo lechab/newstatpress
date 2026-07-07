@@ -366,8 +366,8 @@ function newstatpress_variables_ajax() {
 					);
 
 		foreach ( $qry as $rk ) {
-			$res .= "<li><a href='?" . $rk->urlrequested . "' target='_blank'>" .
-			newstatpress_decode_url( $rk->urlrequested ) .
+			$res .= "<li><a href='" . esc_attr( '?' . $rk->urlrequested ) . "' target='_blank'>" .
+			esc_html( newstatpress_decode_url( $rk->urlrequested ) ) .
 			"</a></li>\n";
 
 			if ( 'checked' === strtolower( $showcounts ) ) {

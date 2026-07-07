@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 3.5
 Tested up to: 6.9
-Stable Tag: 1.4.4
+Stable Tag: 1.4.5
 
 NewStatPress (Statpress plugin fork) is a real-time plugin to manage the visits' statistics about your blog  (without external web analytics).
 
@@ -165,6 +165,11 @@ Check at http://newstatpress.altervista.org for more details
 6.
 
 == Changelog ==
+
+= 1.4.5 =
+*Released date: 2026-07-07*
+
+* Fix vulnerability Unauthenticated Stored Cross-Site Scripting in TopPosts widget (thanks to ApogeeBytes for the report)
 
 = 1.4.4 =
 *Released date: 2026-01-06*

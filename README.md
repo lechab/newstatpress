@@ -29,6 +29,11 @@
 - [ ] Add https://github.com/piwik/referrer-spam-blacklist
 - [ ] Add jQuery Vector Maps v1.5.0
 
+## 1.4.5
+*Released date: 2026-07-07*
+
+- [x] Fix vulnerability Unauthenticated Stored Cross-Site Scripting in TopPosts widget (thanks to ApogeeBytes for the report)
+
 ## 1.4.4 
 *Released date: 2026-01-06*
 
